@@ -1,13 +1,13 @@
 package com.nzt.box.test;
 
-import com.nzt.box.test.screens.shapes.STCirleShape;
+import com.nzt.box.test.screens.collisions.STSimpleCollision;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
 /**
  * Use it for Test one class with screenTestClass
  */
 public class NztBoxTestStarter {
-    private static final Class screenTestClass = STCirleShape.class;
+    private static final Class screenTestClass = STSimpleCollision.class;
 
     private static final int witdh = 800;
     private static final int height = 500;

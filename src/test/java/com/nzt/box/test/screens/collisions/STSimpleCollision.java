@@ -1,38 +1,40 @@
-package com.nzt.box.test.screens.shapes;
+package com.nzt.box.test.screens.collisions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
-import com.nzt.box.shape.BodyShape;
+import com.nzt.box.shape.CircleShape;
 import com.nzt.box.test.base.Box2dTestScreen;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
-import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
-@TestScreenList(group = "2D.shapes")
-public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTestScreen {
-    protected Body body;
-    protected B bodyShape;
+public class STSimpleCollision extends Box2dTestScreen {
+    Body body1, body2;
 
-    public BaseBodyShapeScreen(FastTesterMain main) {
+    boolean collision = false;
+
+    public STSimpleCollision(FastTesterMain main) {
         super(main);
-        body = new Body(BodyType.Dynamic);
-        bodyShape = createBodyShape();
-        Fixture fixture = new Fixture(bodyShape);
-        body.addFixture(fixture);
-        world.bodies.add(body);
         addListener();
-        infoMsg("Click for change position");
-        infoMsg("Z/Q/S/D for move");
+                body1 = new Body(BodyType.Dynamic);
+        CircleShape circleShape1 = new CircleShape(new Circle(0, 0, 50));
+        Fixture fixture1 = new Fixture(circleShape1);
+        body1.addFixture(fixture1);
+        world.bodies.add(body1);
+
+        body2 = new Body(BodyType.Dynamic);
+        CircleShape circleShape2 = new CircleShape(new Circle(100, 100, 50));
+        Fixture fixture2 = new Fixture(circleShape2);
+        body2.addFixture(fixture2);
+        world.bodies.add(body2);
     }
 
-    protected abstract B createBodyShape();
-
     private void addListener() {
-        InputAdapter  inputAdapter = new InputAdapter() {
+        InputAdapter inputAdapter = new InputAdapter() {
 
             public int x = 0, y = 0;
             final int velocity = 25;
@@ -40,7 +42,7 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector3 unproject = camera.unproject(new Vector3(screenX, screenY, 0));
-                body.changePosition(unproject);
+                body1.changePosition(unproject);
                 return false;
             }
 
@@ -55,7 +57,7 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
                 } else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
                     x += velocity;
                 }
-                body.setVelocity(x, y);
+                body1.setVelocity(x, y);
                 debugMsg("Velocity", x + "/" + y);
                 return false;
             }
@@ -71,7 +73,7 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
                 } else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
                     x -= velocity;
                 }
-                body.setVelocity(x, y);
+                body1.setVelocity(x, y);
                 debugMsg("Velocity", x + "/" + y);
                 return false;
             }
@@ -79,39 +81,13 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
         Gdx.input.setInputProcessor(inputAdapter);
     }
 
-    boolean doScale = false;
-    final float scaleAmount = 0.05f;
-    float max = 2;
-    float min = 0.1f;
-    float scale = 1;
-    boolean grow = true;
-
-    float rotateAmount = 0.5f;
-    boolean doRotate = true;
-
-    public abstract void renderShapeScreen(float dt);
-
     @Override
     public void doRender(float dt) {
-        if (doScale) {
-            if (grow) {
-                scale += scaleAmount;
-                bodyShape.scale(1.1f);
-                if (scale > max)
-                    grow = false;
-            } else {
-                scale -= scaleAmount;
-                bodyShape.scale(0.9f);
-                if (scale < min)
-                    grow = true;
-            }
-        }
-        if (doRotate)
-            bodyShape.rotate(rotateAmount);
-        debugMsg("Scale", scaleAmount);
-        debugMsg("Rotation", rotateAmount);
-        renderShapeScreen(dt);
-
+        debugMsg("Collision", collision);
     }
 
+    @Override
+    public String getExplication() {
+        return "Simple collision between two Circle";
+    }
 }
