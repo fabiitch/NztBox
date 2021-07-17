@@ -1,10 +1,10 @@
-package com.nzt.box.shape.contact.impl;
+package com.nzt.box.shape.contact.detector.impl;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
-import com.nzt.box.shape.contact.ShapeContactVisitor;
+import com.nzt.box.shape.contact.detector.ShapeContact;
 
-public class PolygonContact implements ShapeContactVisitor {
+public class PolygonContact implements ShapeContact {
 
     public Polygon myPolygon;
 

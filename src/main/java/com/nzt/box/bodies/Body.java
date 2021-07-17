@@ -2,7 +2,9 @@ package com.nzt.box.bodies;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.nzt.box.shape.contact.ContactBody;
 
 public class Body {
 
@@ -20,10 +22,11 @@ public class Body {
         fixtures = new SnapshotArray<>();
     }
 
+
     public void move(float dt) {
         if (!velocity.isZero()) {
             position.add(tmp.set(velocity).scl(dt));
-            changePosition(position);
+            setPosition(position);
         }
     }
 
@@ -32,10 +35,13 @@ public class Body {
         fixture.body = this;
     }
 
-    public void changePosition(Vector2 position) {
+    public void setPosition(Vector2 position) {
+        this.position.x = position.x;
+        this.position.y = position.y;
+        setPosition(this.position);
     }
 
-    public void changePosition(Vector3 position) {
+    public void setPosition(Vector3 position) {
         this.position.set(position);
         for (int i = 0, n = fixtures.size; i < n; i++) {
             Fixture fixture = fixtures.get(i);
@@ -58,16 +64,5 @@ public class Body {
     public void setVelocity(float x, float y) {
         velocity.x = x;
         velocity.y = y;
-    }
-
-
-    public void testContact(Body bodyTest) {
-        for (int i = 0, n = fixtures.size; i < n; i++) {
-            for (int j = 0, m = bodyTest.fixtures.size; j < m; j++) {
-                Fixture fixtureA = fixtures.get(i);
-                Fixture fixtureB = bodyTest.fixtures.get(i);
-                fixtureA.testContact(fixtureB.bodyShape);
-            }
-        }
     }
 }

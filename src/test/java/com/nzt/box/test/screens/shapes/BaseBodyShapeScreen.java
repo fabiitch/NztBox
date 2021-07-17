@@ -40,7 +40,7 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector3 unproject = camera.unproject(new Vector3(screenX, screenY, 0));
-                body.changePosition(unproject);
+                body.setPosition(unproject);
                 return false;
             }
 
