@@ -1,21 +1,21 @@
-package com.nzt.box.shape.contact;
+package com.nzt.box.shape.contact.detector;
 
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.PolygonShape;
-import com.nzt.box.shape.contact.impl.CircleContact;
-import com.nzt.box.shape.contact.impl.PolygonContact;
+import com.nzt.box.shape.contact.detector.impl.CircleContact;
+import com.nzt.box.shape.contact.detector.impl.PolygonContact;
 
 public class ContactResolver {
     public static CircleContact circleContact = new CircleContact();
     public static PolygonContact polygonContact = new PolygonContact();
 
 
-    public static ShapeContactVisitor get(CircleShape circleShape) {
+    public static ShapeContact get(CircleShape circleShape) {
         circleContact.myCircle = circleShape.shape;
         return circleContact;
     }
 
-    public static ShapeContactVisitor get(PolygonShape polygonShape) {
+    public static ShapeContact get(PolygonShape polygonShape) {
         polygonContact.myPolygon = polygonShape.shape;
         return polygonContact;
 //        circleContact.

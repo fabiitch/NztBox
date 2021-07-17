@@ -2,8 +2,8 @@ package com.nzt.box.shape;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.nzt.box.shape.contact.ContactResolver;
-import com.nzt.box.shape.contact.ShapeContactVisitor;
+import com.nzt.box.shape.contact.detector.ContactResolver;
+import com.nzt.box.shape.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 
 public class CircleShape extends BodyShape<Circle> {
@@ -40,12 +40,12 @@ public class CircleShape extends BodyShape<Circle> {
     }
 
     @Override
-    public ShapeContactVisitor getContactVisitor() {
+    public ShapeContact getContactVisitor() {
         return ContactResolver.get(this);
     }
 
     @Override
-    public void testContact(ShapeContactVisitor visitor) {
-        visitor.testContact(shape);
+    public boolean testContact(ShapeContact visitor) {
+       return visitor.testContact(shape);
     }
 }

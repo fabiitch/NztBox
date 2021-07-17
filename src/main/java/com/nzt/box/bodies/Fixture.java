@@ -1,13 +1,15 @@
 package com.nzt.box.bodies;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.shape.contact.ContactResolver;
-import com.nzt.box.shape.contact.ShapeContactVisitor;
+import com.nzt.box.shape.contact.ContactBody;
+import com.nzt.box.shape.contact.detector.ShapeContact;
 
 public class Fixture<S extends BodyShape> {
     public S bodyShape;
     public Body body;
+    public Array<ContactBody> contacts = new Array();
 
     public Fixture(S bodyShape) {
         this.bodyShape = bodyShape;
@@ -21,9 +23,20 @@ public class Fixture<S extends BodyShape> {
         bodyShape.changeBodyPosition(position);
     }
 
-    public void testContact(S otherShape) {
-        ShapeContactVisitor contactVisitor = bodyShape.getContactVisitor();
-        bodyShape.testContact(contactVisitor);
-//        bodyShape.testContact(otherShape);
+
+    public ContactBody hasContact(Fixture fixtureB) {
+        for (int i = 0, n = contacts.size; i < n; i++) {
+            ContactBody contactBody = contacts.get(i);
+            if (contactBody.isThis(this, fixtureB)) {
+                return contactBody;
+            }
+        }
+        return null;
+    }
+
+    public boolean testContact(Fixture fixtureB) {
+        ShapeContact contactVisitor = bodyShape.getContactVisitor();
+        boolean b = fixtureB.bodyShape.testContact(contactVisitor);
+        return b;
     }
 }
