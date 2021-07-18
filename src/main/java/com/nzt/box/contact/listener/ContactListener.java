@@ -1,6 +1,6 @@
-package com.nzt.box.shape.contact.listener;
+package com.nzt.box.contact.listener;
 
-import com.nzt.box.shape.contact.ContactBody;
+import com.nzt.box.contact.ContactBody;
 
 public abstract class ContactListener {
 

@@ -1,20 +1,22 @@
 package com.nzt.box.shape;
 
-import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.nzt.box.contact.ContactBody;
-import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 
-public class CircleShape extends BodyShape<Circle> {
+/**
+ * no rotation
+ */
+public class RectangleShape extends BodyShape<Rectangle> {
 
-    public CircleShape(Circle shape) {
+    public RectangleShape(Rectangle shape) {
         super(shape);
     }
 
     @Override
     public void draw(NzShapeRenderer shapeRenderer) {
-        shapeRenderer.circle(shape);
+        shapeRenderer.rect(shape);
     }
 
     @Override
@@ -24,28 +26,30 @@ public class CircleShape extends BodyShape<Circle> {
 
     @Override
     public void scale(float scale) {
-        if (scale < 0)
-            shape.radius /= scale;
-        shape.radius *= scale;
+        if (scale < 0) {
+            shape.width /= scale;
+            shape.height /= scale;
+        }
+        shape.width *= scale;
+        shape.height *= scale;
     }
 
     @Override
     public void changeBodyPosition(float x, float y) {
-        shape.setPosition(x, y);
+
     }
 
     @Override
     public ShapeContact getContactVisitor() {
-        return ContactResolver.get(this);
+        return null;
     }
 
     @Override
     public boolean testContact(ShapeContact visitor) {
-       return visitor.testContact(shape);
+        return false;
     }
 
     @Override
     public void replace(ShapeContact visitor, ContactBody contactBody) {
-         visitor.replace(shape, contactBody);
     }
 }

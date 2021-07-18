@@ -1,7 +1,8 @@
-package com.nzt.box.shape.contact;
+package com.nzt.box.contact;
 
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
+import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 
 public class ContactBody implements Pool.Poolable {
@@ -17,12 +18,20 @@ public class ContactBody implements Pool.Poolable {
         return fixtureA.testContact(fixtureB);
     }
 
-    public boolean isThis(Fixture fixtureA, Fixture fixtureB) {
-        if (this.fixtureA == fixtureA || this.fixtureA == fixtureB) {
-            if (this.fixtureB == fixtureA || this.fixtureB == fixtureB)
-                return true;
-        }
-        return false;
+    public boolean hasBody(Body body) {
+        return this.fixtureA.body == body || this.fixtureB.body == body;
+    }
+
+    public boolean hasBodies(Body bodyA, Body bodyB) {
+        return hasBody(bodyA) && hasBody(bodyB);
+    }
+
+    public boolean hasFixture(Fixture fixture) {
+        return this.fixtureA == fixture || this.fixtureB == fixture;
+    }
+
+    public boolean hasFixtures(Fixture fixtureA, Fixture fixtureB) {
+        return hasFixture(fixtureA) && hasFixture(fixtureB);
     }
 
     public static ContactBody get(Fixture fixtureA, Fixture fixtureB) {
@@ -38,5 +47,9 @@ public class ContactBody implements Pool.Poolable {
         fixtureA = null;
         fixtureB = null;
         tickEveryStep = false;
+    }
+
+    public void replace() {
+
     }
 }

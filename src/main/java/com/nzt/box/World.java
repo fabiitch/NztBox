@@ -6,8 +6,8 @@ import com.badlogic.gdx.utils.SnapshotArray;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
-import com.nzt.box.shape.contact.ContactBody;
-import com.nzt.box.shape.contact.listener.ContactListener;
+import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.listener.ContactListener;
 
 public class World {
 
@@ -46,6 +46,7 @@ public class World {
     }
 
     public void testContact(Body bodyA, Body bodyB) {
+        first:
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
             for (int j = 0, m = bodyB.fixtures.size; j < m; j++) {
                 Fixture fixtureA = bodyA.fixtures.get(i);
@@ -57,6 +58,10 @@ public class World {
                         if (contactBody.tickEveryStep) {
                             contactListener.continusContact(contactBody);
                         }
+                        if (BoxUtils.isStaticDynamic(bodyA, bodyB)) {
+                            contactBody.replace();
+                        }
+                        break first;
                     } else {
                         contactListener.endContact(contactBody);
                         fixtureA.contacts.removeValue(contactBody, true);
@@ -69,12 +74,15 @@ public class World {
                     if (hasContact) {
                         fixtureA.contacts.add(contactBody);
                         fixtureB.contacts.add(contactBody);
+                        fixtureA.replace(fixtureB, contactBody);
+                        if (BoxUtils.isStaticDynamic(bodyA, bodyB)) {
+                            contactBody.replace();
+                        }
                         if (contactListener != null)
                             contactListener.beginContact(contactBody);
+                        break first;
                     }
                 }
-
-
             }
         }
     }

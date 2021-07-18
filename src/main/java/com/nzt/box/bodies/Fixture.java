@@ -3,8 +3,8 @@ package com.nzt.box.bodies;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.shape.contact.ContactBody;
-import com.nzt.box.shape.contact.detector.ShapeContact;
+import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.detector.ShapeContact;
 
 public class Fixture<S extends BodyShape> {
     public S bodyShape;
@@ -27,7 +27,7 @@ public class Fixture<S extends BodyShape> {
     public ContactBody hasContact(Fixture fixtureB) {
         for (int i = 0, n = contacts.size; i < n; i++) {
             ContactBody contactBody = contacts.get(i);
-            if (contactBody.isThis(this, fixtureB)) {
+            if (contactBody.hasFixtures(this, fixtureB)) {
                 return contactBody;
             }
         }
@@ -38,5 +38,10 @@ public class Fixture<S extends BodyShape> {
         ShapeContact contactVisitor = bodyShape.getContactVisitor();
         boolean b = fixtureB.bodyShape.testContact(contactVisitor);
         return b;
+    }
+
+    public void replace(Fixture fixtureB, ContactBody contactBody) {
+        ShapeContact contactVisitor = bodyShape.getContactVisitor();
+        fixtureB.bodyShape.replace(contactVisitor, contactBody);
     }
 }

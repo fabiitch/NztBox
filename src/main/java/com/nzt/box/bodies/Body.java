@@ -2,13 +2,14 @@ package com.nzt.box.bodies;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.SnapshotArray;
-import com.nzt.box.shape.contact.ContactBody;
 
 public class Body {
 
     public BodyType bodyType;
+    public boolean bullet = false; //check continus deplacement for collision
+
+
     public SnapshotArray<Fixture> fixtures;
 
     public Vector3 position = new Vector3();
