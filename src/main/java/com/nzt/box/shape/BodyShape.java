@@ -13,6 +13,8 @@ public abstract class BodyShape<S extends Shape2D> {
         this.shape = shape;
     }
 
+    public abstract Vector2 getPosition(Vector2 pos);
+
     public abstract void draw(NzShapeRenderer shapeRenderer);
 
     public abstract void rotate(float amount);

@@ -18,7 +18,7 @@ public class STCirleShape extends BaseBodyShapeScreen<CircleShape> {
 
     @Override
     public void renderShapeScreen(float dt) {
-        debugMsg("Position", bodyShape.shape.x + " " + bodyShape.shape.y);
+
     }
 
     @Override

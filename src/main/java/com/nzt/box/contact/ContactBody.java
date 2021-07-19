@@ -48,8 +48,4 @@ public class ContactBody implements Pool.Poolable {
         fixtureB = null;
         tickEveryStep = false;
     }
-
-    public void replace() {
-
-    }
 }
