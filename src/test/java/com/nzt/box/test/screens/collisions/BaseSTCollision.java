@@ -12,14 +12,19 @@ import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.test.base.Box2dTestScreen;
+import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
+@TestScreenList(group = "2D.collision")
 public abstract class BaseSTCollision extends Box2dTestScreen {
     Body body1, body2, bodyMove;
     String shape1, shape2;
 
     public BaseSTCollision(FastTesterMain main) {
         super(main);
+        infoMsg("Press space for change body control");
+        infoMsg("Press R for reset position");
         addInputListener();
 
         body1 = new Body(BodyType.Dynamic);
@@ -34,7 +39,7 @@ public abstract class BaseSTCollision extends Box2dTestScreen {
         world.bodies.add(body2);
         body2.setPosition(new Vector2(150, 0));
         debugMsg("Collision", false);
-        infoMsg("Press space for change body control");
+
         ContactListener contactListener = new ContactListener() {
             @Override
             public void beginContact(ContactBody contactBody) {
@@ -57,9 +62,9 @@ public abstract class BaseSTCollision extends Box2dTestScreen {
         shape1 = body1.fixtures.get(0).bodyShape.shape.getClass().getSimpleName();
         shape2 = body2.fixtures.get(0).bodyShape.shape.getClass().getSimpleName();
 
-        if(shape1.equals(shape2)){
-            shape1+="A";
-            shape2+="B";
+        if (shape1.equals(shape2)) {
+            shape1 += "A";
+            shape2 += "B";
         }
     }
 
@@ -108,6 +113,10 @@ public abstract class BaseSTCollision extends Box2dTestScreen {
                     else
                         bodyMove = body1;
                 }
+                if (keycode == Input.Keys.R) {
+                    body1.setPosition(new Vector2(0, 0));
+                    body2.setPosition(new Vector2(150, 0));
+                }
                 bodyMove.setVelocity(x, y);
                 debugMsg("Velocity", x + "/" + y);
                 return false;
@@ -132,10 +141,16 @@ public abstract class BaseSTCollision extends Box2dTestScreen {
         Gdx.input.setInputProcessor(inputAdapter);
     }
 
+    Vector2 tmp = new Vector2();
+
     @Override
     public void doRender(float dt) {
-        debugMsg(shape1, body1.position);
-        debugMsg(shape2, body2.position);
+        debugMsg("Body " + shape2, body2.position);
+        debugMsg("Body " + shape1, body1.position);
+
+        debugMsg("Shape" + shape2, body2.fixtures.get(0).bodyShape.getPosition(tmp), HudDebugPosition.BOT_RIGHT);
+        debugMsg("Shape" + shape1, body1.fixtures.get(0).bodyShape.getPosition(tmp), HudDebugPosition.BOT_RIGHT);
+
     }
 
 

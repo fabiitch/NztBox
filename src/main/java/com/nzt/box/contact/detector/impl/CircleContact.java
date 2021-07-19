@@ -31,25 +31,16 @@ public class CircleContact implements ShapeContact {
     @Override
     public void replace(Circle circle, ContactBody contactBody) {
         Body bodyA = contactBody.fixtureA.body;
-//
-//        tmp.set(myCircle.x, myCircle.y);
-//        float dst = myCircle.radius + circle.radius - tmp.dst(circle.x, circle.y);
-//
-//        Vector3 velocity = bodyA.velocity;
-//        tmp2.set(-velocity.x, -velocity.y);
-//
-//        myCircle.setPosition(tmp.add(tmp2.scl(dst/2)));
-//        tmp.set(myCircle.x, myCircle.y);
-//        bodyA.setPosition(tmp);d
-        bodyA.setPosition(new Vector2(circle.x - 100, circle.y));
-//  y;
-//        tmp.set(-velocity.x, -velocity.y);
-//        Vector2 newPos = CircleUtils.positionOnACircleWithAngle(circle, tmp.angleRad(), tmp2);
-//
-//        float dst = newPos.dst(circle.x, circle.y);
-//
-//        tmp2.set(bodyA.position.x, bodyA.position.y).add(tmp.scl(dst));
-//        bodyA.setPosition(bodyA.position.add(tmp2.x, tmp2.y,0));
+        Vector3 velocity = bodyA.velocity;
+
+        tmp.set(myCircle.x, myCircle.y);
+        float dst = myCircle.radius + circle.radius - tmp.dst(circle.x, circle.y);
+
+        tmp2.set(-velocity.x, -velocity.y);
+        tmp2.setLength(dst);
+
+        Vector2 add = tmp.add(tmp2);
+        bodyA.setPosition(add);
     }
 
     @Override
@@ -58,6 +49,16 @@ public class CircleContact implements ShapeContact {
 
     @Override
     public void replace(Polygon polygon, ContactBody contactBody) {
+        Body bodyA = contactBody.fixtureA.body;
+        Vector3 velocity = bodyA.velocity;
+        tmp2.set(-velocity.x, -velocity.y);
+
+        Intersector.MinimumTranslationVector translationVector = IntersectorCirclePolygon.translationVector;
+        IntersectorCirclePolygon.circlePolygon(myCircle, polygon, translationVector);
+
+        tmp.set(myCircle.x, myCircle.y);
+        tmp2.setLength(translationVector.depth);
+        bodyA.setPosition(tmp.add(tmp2));
     }
 
 }

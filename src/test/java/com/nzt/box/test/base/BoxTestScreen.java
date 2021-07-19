@@ -1,8 +1,10 @@
 package com.nzt.box.test.base;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.nzt.box.World;
+import com.badlogic.gdx.graphics.Color;
+import com.nzt.box.world.World;
 import com.nzt.box.debug.WorldDebugRender;
+import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.archi.screens.TestScreen;
@@ -25,10 +27,20 @@ abstract class BoxTestScreen extends TestScreen {
     }
 
     public void debugMsg(String tag, Object value) {
+        debugMsg(tag, value, HudDebugPosition.BOT_LEFT, Color.WHITE);
+    }
+
+    public void debugMsg(String tag, Object value, int positionOnStage) {
+        debugMsg(tag, value, positionOnStage, Color.WHITE);
+    }
+
+    public void debugMsg(String tag, Object value, int positionOnStage, Color color) {
         if (HudDebug.exist(tag)) {
+            if (HudDebug.getColor(tag) != color)
+                HudDebug.changeColor(tag, color);
             HudDebug.update(tag, value);
         } else {
-            HudDebug.addBotLeft(tag, value);
+            HudDebug.add(tag, value, positionOnStage, color);
         }
     }
 

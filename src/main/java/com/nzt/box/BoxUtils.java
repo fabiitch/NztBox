@@ -5,9 +5,9 @@ import com.nzt.box.bodies.BodyType;
 
 public class BoxUtils {
 
-//    public static boolean isContactBlock(Body bodyA, Body bodyB) {
-////        isOneType(bodyA, bodyB, BodyType.Dynamic) && isOneType(bodyA, bodyB, BodyType.S)
-//    }
+    public static boolean isContactBlock(Body bodyA, Body bodyB) {
+        return isStaticDynamic(bodyA, bodyB) || isTwoType(bodyA, bodyB, BodyType.Dynamic);
+    }
 
     public static boolean isStaticDynamic(Body bodyA, Body bodyB) {
         return isOneType(bodyA, bodyB, BodyType.Dynamic) && isOneType(bodyA, bodyB, BodyType.Static);

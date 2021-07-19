@@ -1,8 +1,10 @@
-package com.nzt.box;
+package com.nzt.box.world;
 
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
@@ -11,12 +13,12 @@ import com.nzt.box.contact.listener.ContactListener;
 
 public class World {
 
+    protected WorldHelper helper;
     public SnapshotArray<Body> bodies;
     public ContactListener contactListener;
-    private Array<Fixture> arrayFixturesTmp = new Array<>();
-    public Array<Body> tmpArrayBody = new Array<>();
 
     public World() {
+        helper = new WorldHelper();
         this.bodies = new SnapshotArray<>();
     }
 
@@ -24,16 +26,16 @@ public class World {
         bodies.begin();
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body body = bodies.get(i);
-            if (body.bodyType != BodyType.Static) {
-                body.move(dt);
+            boolean move = body.move(dt);
+            if (move)
                 checkCollision(body);
-            }
         }
         bodies.end();
     }
 
     public void addBody(Body body) {
-
+        this.helper.addBody(body);
+        this.bodies.add(body);
     }
 
     public void checkCollision(Body body) {
@@ -50,7 +52,7 @@ public class World {
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
             for (int j = 0, m = bodyB.fixtures.size; j < m; j++) {
                 Fixture fixtureA = bodyA.fixtures.get(i);
-                Fixture fixtureB = bodyB.fixtures.get(i);
+                Fixture fixtureB = bodyB.fixtures.get(j);
                 ContactBody contactBody = fixtureA.hasContact(fixtureB);
                 if (contactBody != null) { //already contact
                     boolean retry = contactBody.retry();
@@ -58,8 +60,8 @@ public class World {
                         if (contactBody.tickEveryStep) {
                             contactListener.continusContact(contactBody);
                         }
-                        if (BoxUtils.isStaticDynamic(bodyA, bodyB)) {
-                            contactBody.replace();
+                        if (BoxUtils.isContactBlock(bodyA, bodyB)) {
+                            fixtureA.replace(fixtureB, contactBody);
                         }
                         break first;
                     } else {
@@ -69,14 +71,14 @@ public class World {
                         Pools.free(contactBody);
                     }
                 } else {
-                    boolean hasContact = fixtureA.testContact(fixtureB);
-                    contactBody = ContactBody.get(fixtureA, fixtureB);
-                    if (hasContact) {
+                    boolean newContact = fixtureA.testContact(fixtureB);
+                    if (newContact) {
+                        contactBody = ContactBody.get(fixtureA, fixtureB);
                         fixtureA.contacts.add(contactBody);
                         fixtureB.contacts.add(contactBody);
-                        fixtureA.replace(fixtureB, contactBody);
-                        if (BoxUtils.isStaticDynamic(bodyA, bodyB)) {
-                            contactBody.replace();
+
+                        if (BoxUtils.isContactBlock(bodyA, bodyB)) {
+                            fixtureA.replace(fixtureB, contactBody);
                         }
                         if (contactListener != null)
                             contactListener.beginContact(contactBody);

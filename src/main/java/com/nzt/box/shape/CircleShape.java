@@ -1,6 +1,7 @@
 package com.nzt.box.shape;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
@@ -10,6 +11,11 @@ public class CircleShape extends BodyShape<Circle> {
 
     public CircleShape(Circle shape) {
         super(shape);
+    }
+
+    @Override
+    public Vector2 getPosition(Vector2 pos) {
+        return pos.set(shape.x, shape.y);
     }
 
     @Override
@@ -41,11 +47,11 @@ public class CircleShape extends BodyShape<Circle> {
 
     @Override
     public boolean testContact(ShapeContact visitor) {
-       return visitor.testContact(shape);
+        return visitor.testContact(shape);
     }
 
     @Override
     public void replace(ShapeContact visitor, ContactBody contactBody) {
-         visitor.replace(shape, contactBody);
+        visitor.replace(shape, contactBody);
     }
 }

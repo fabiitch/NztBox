@@ -3,6 +3,7 @@ package com.nzt.box.test.screens.shapes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
@@ -16,6 +17,7 @@ import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTestScreen {
     protected Body body;
     protected B bodyShape;
+    protected Vector2 tmp = new Vector2();
 
     public BaseBodyShapeScreen(FastTesterMain main) {
         super(main);
@@ -32,7 +34,7 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
     protected abstract B createBodyShape();
 
     private void addListener() {
-        InputAdapter  inputAdapter = new InputAdapter() {
+        InputAdapter inputAdapter = new InputAdapter() {
 
             public int x = 0, y = 0;
             final int velocity = 25;
@@ -110,6 +112,7 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
             bodyShape.rotate(rotateAmount);
         debugMsg("Scale", scaleAmount);
         debugMsg("Rotation", rotateAmount);
+        debugMsg("Position", bodyShape.getPosition(tmp));
         renderShapeScreen(dt);
 
     }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.SnapshotArray;
 
 public class Body {
 
+    public int id;
     public BodyType bodyType;
     public boolean bullet = false; //check continus deplacement for collision
 
@@ -24,11 +25,13 @@ public class Body {
     }
 
 
-    public void move(float dt) {
-        if (!velocity.isZero()) {
-            position.add(tmp.set(velocity).scl(dt));
-            setPosition(position);
-        }
+    public boolean move(float dt) {
+        if (velocity.isZero())
+            return false;
+
+        position.add(tmp.set(velocity).scl(dt));
+        setPosition(position);
+        return true;
     }
 
     public void addFixture(Fixture fixture) {
