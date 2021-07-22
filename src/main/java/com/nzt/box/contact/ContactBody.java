@@ -43,7 +43,6 @@ public class ContactBody implements Pool.Poolable {
 
     @Override
     public void reset() {
-        System.out.println("Called");
         fixtureA = null;
         fixtureB = null;
         tickEveryStep = false;

@@ -1,6 +1,6 @@
 package com.nzt.box.test;
 
-import com.nzt.box.test.screens.collisions.STCollisionCirclePolygon;
+import com.nzt.box.test.screens.collisions.*;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
 /**

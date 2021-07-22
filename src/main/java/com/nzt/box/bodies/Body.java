@@ -10,7 +10,6 @@ public class Body {
     public BodyType bodyType;
     public boolean bullet = false; //check continus deplacement for collision
 
-
     public SnapshotArray<Fixture> fixtures;
 
     public Vector3 position = new Vector3();
@@ -18,6 +17,9 @@ public class Body {
     public Vector3 velocity = new Vector3();
 
     private Vector3 tmp = new Vector3();
+
+
+    public boolean dirty;
 
     public Body(BodyType bodyType) {
         this.bodyType = bodyType;
@@ -46,6 +48,7 @@ public class Body {
     }
 
     public void setPosition(Vector3 position) {
+        dirty = true;
         this.position.set(position);
         for (int i = 0, n = fixtures.size; i < n; i++) {
             Fixture fixture = fixtures.get(i);

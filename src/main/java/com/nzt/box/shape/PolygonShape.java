@@ -50,7 +50,6 @@ public class PolygonShape extends BodyShape<Polygon> {
 
     @Override
     public void replace(ShapeContact visitor, ContactBody contactBody) {
-
         visitor.replace(shape, contactBody);
     }
 }

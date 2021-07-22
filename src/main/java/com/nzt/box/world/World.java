@@ -1,12 +1,9 @@
 package com.nzt.box.world;
 
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
-import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.listener.ContactListener;
@@ -27,8 +24,10 @@ public class World {
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body body = bodies.get(i);
             boolean move = body.move(dt);
-            if (move)
+            if (move || body.dirty) {
                 checkCollision(body);
+            }
+            body.dirty = false;
         }
         bodies.end();
     }

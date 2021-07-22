@@ -4,13 +4,18 @@ import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ShapeContact;
-import com.nzt.gdx.math.intersectors.IntersectorCirclePolygon;
+import com.nzt.gdx.math.intersectors.IntersectorCircle;
+import com.nzt.gdx.math.shapes.utils.CircleUtils;
+import com.nzt.gdx.math.shapes.utils.RectangleUtils;
+import com.nzt.gdx.math.vectors.V2;
 
 public class CircleContact implements ShapeContact {
+
     public Circle myCircle;
 
     private Vector2 tmp = new Vector2();
     private Vector2 tmp2 = new Vector2();
+    private Vector2 tmp3 = new Vector2();
 
     @Override
     public boolean testContact(Circle circle) {
@@ -19,46 +24,61 @@ public class CircleContact implements ShapeContact {
     }
 
     @Override
-    public boolean testContact(Rectangle rectangle) {
-        return false;
-    }
-
-    @Override
-    public boolean testContact(Polygon polygon) {
-        return IntersectorCirclePolygon.circlePolygon(myCircle, polygon);
-    }
-
-    @Override
     public void replace(Circle circle, ContactBody contactBody) {
         Body bodyA = contactBody.fixtureA.body;
-        Vector3 velocity = bodyA.velocity;
-
         tmp.set(myCircle.x, myCircle.y);
+
         float dst = myCircle.radius + circle.radius - tmp.dst(circle.x, circle.y);
 
-        tmp2.set(-velocity.x, -velocity.y);
-        tmp2.setLength(dst);
+        tmp2.set(circle.x, circle.y);
+        tmp3 = V2.directionTo(tmp2, tmp, tmp3);
+        tmp3.setLength(dst);
 
-        Vector2 add = tmp.add(tmp2);
+        Vector2 add = tmp.add(tmp3);
         bodyA.setPosition(add);
     }
 
     @Override
-    public void replace(Rectangle rectangle, ContactBody contactBody) {
+    public boolean testContact(Rectangle rectangle) {
+        return Intersector.overlaps(myCircle, rectangle);
     }
+
+
+    @Override
+    public void replace(Rectangle rectangle, ContactBody contactBody) {
+        Body bodyA = contactBody.fixtureA.body;
+        //top or bot
+        Vector2 circleCenter = tmp.set(myCircle.x, myCircle.y);
+        Vector2 nearestPoint = tmp2;
+
+        RectangleUtils.getNearestPoint(rectangle, circleCenter, nearestPoint);
+
+        float dst = nearestPoint.dst(circleCenter);
+        if (dst < myCircle.radius) {
+            float dstToGo = myCircle.radius - dst;
+            Vector2 direction = V2.directionTo(nearestPoint, circleCenter, tmp3);
+            direction.scl(dstToGo);
+            circleCenter.add(direction);
+            bodyA.setPosition(circleCenter);
+        }
+    }
+
+    @Override
+    public boolean testContact(Polygon polygon) {
+        return IntersectorCircle.circlePolygon(myCircle, polygon);
+    }
+
 
     @Override
     public void replace(Polygon polygon, ContactBody contactBody) {
         Body bodyA = contactBody.fixtureA.body;
-        Vector3 velocity = bodyA.velocity;
-        tmp2.set(-velocity.x, -velocity.y);
 
-        Intersector.MinimumTranslationVector translationVector = IntersectorCirclePolygon.translationVector;
-        IntersectorCirclePolygon.circlePolygon(myCircle, polygon, translationVector);
+        IntersectorCircle.replaceCirclePolygon(myCircle, polygon, tmp);
 
-        tmp.set(myCircle.x, myCircle.y);
-        tmp2.setLength(translationVector.depth);
-        bodyA.setPosition(tmp.add(tmp2));
+        CircleUtils.getCenter(myCircle, tmp2);
+        tmp2.add(tmp);
+        bodyA.setPosition(tmp2);
+
     }
 
 }
