@@ -4,7 +4,9 @@ import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ShapeContact;
-import com.nzt.gdx.math.intersectors.IntersectorCirclePolygon;
+import com.nzt.gdx.math.intersectors.IntersectorCircle;
+import com.nzt.gdx.math.intersectors.IntersectorPolygon;
+import com.nzt.gdx.math.vectors.V2;
 
 public class PolygonContact implements ShapeContact {
 
@@ -14,12 +16,38 @@ public class PolygonContact implements ShapeContact {
 
     @Override
     public boolean testContact(Circle circle) {
-        return IntersectorCirclePolygon.circlePolygon(circle, myPolygon);
+        return IntersectorPolygon.circle(circle, myPolygon);
+    }
+
+    @Override
+    public void replace(Circle circle, ContactBody contactBody) {
+        Body bodyA = contactBody.fixtureA.body;
+
+        IntersectorCircle.replaceCirclePolygon(circle, myPolygon, tmp);
+
+        tmp2.set(myPolygon.getX(), myPolygon.getY());
+
+        V2.inv(tmp);
+
+        bodyA.setPosition(tmp2.add(tmp));
     }
 
     @Override
     public boolean testContact(Rectangle rectangle) {
-        return false;
+        return IntersectorPolygon.rectangle(myPolygon, rectangle);
+    }
+
+    @Override
+    public void replace(Rectangle rectangle, ContactBody contactBody) {
+        Body bodyA = contactBody.fixtureA.body;
+
+        boolean overlaps = IntersectorPolygon.rectangle(myPolygon, rectangle, IntersectorPolygon.tmpTranslationVector);
+        if (overlaps) {
+            tmp.set(myPolygon.getX(), myPolygon.getY());
+            tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
+            bodyA.setPosition(tmp.add(tmp2));
+        }
+
     }
 
     @Override
@@ -28,24 +56,14 @@ public class PolygonContact implements ShapeContact {
     }
 
     @Override
-    public void replace(Circle circle, ContactBody contactBody) {
-//        Body bodyA = contactBody.fixtureA.body;
-//        Vector3 velocity = bodyA.velocity;
-//        tmp2.set(-velocity.x, -velocity.y);
-//
-//        Intersector.MinimumTranslationVector translationVector = IntersectorCirclePolygon.translationVector;
-//        IntersectorCirclePolygon.circlePolygon(myCircle, polygon, translationVector);
-//
-//        tmp.set(myCircle.x, myCircle.y);
-//        tmp2.setLength(translationVector.depth);
-//        bodyA.setPosition(tmp.add(tmp2));
-    }
-
-    @Override
-    public void replace(Rectangle rectangle, ContactBody contactBody) {
-    }
-
-    @Override
     public void replace(Polygon polygon, ContactBody contactBody) {
+        Body bodyA = contactBody.fixtureA.body;
+
+        boolean overlaps = IntersectorPolygon.polygons(myPolygon, polygon, IntersectorPolygon.tmpTranslationVector);
+        if (overlaps) {
+            tmp.set(myPolygon.getX(), myPolygon.getY());
+            tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
+            bodyA.setPosition(tmp.add(tmp2));
+        }
     }
 }

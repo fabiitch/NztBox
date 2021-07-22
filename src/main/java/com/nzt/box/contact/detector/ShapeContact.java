@@ -9,13 +9,15 @@ public interface ShapeContact {
 
     boolean testContact(Circle circle);
 
-    boolean testContact(Rectangle rectangle);
-
-    boolean testContact(Polygon polygon);
-
     void replace(Circle circle, ContactBody contactBody);
+
+    boolean testContact(Rectangle rectangle);
 
     void replace(Rectangle rectangle, ContactBody contactBody);
 
+    boolean testContact(Polygon polygon);
+
     void replace(Polygon polygon, ContactBody contactBody);
+
+
 }
