@@ -9,11 +9,11 @@ import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.test.base.Box2dTestScreen;
+import com.nzt.box.test.screens.base.Box2dTestScreen;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
-@TestScreenList(group = "2D.shapes")
+@TestScreenList(group = "2D.BodyShape")
 public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTestScreen {
     protected Body body;
     protected B bodyShape;
@@ -25,10 +25,13 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
         bodyShape = createBodyShape();
         Fixture fixture = new Fixture(bodyShape);
         body.addFixture(fixture);
-        world.bodies.add(body);
+        world.addBody(body);
         addListener();
         infoMsg("Click for change position");
         infoMsg("Z/Q/S/D for move");
+        infoMsg("Space for reset");
+        infoMsg("R for rotation");
+        infoMsg("T for Scale");
     }
 
     protected abstract B createBodyShape();
@@ -48,6 +51,18 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
 
             @Override
             public boolean keyDown(int keycode) {
+
+                if (keycode == Input.Keys.SPACE) {
+                    bodyShape = createBodyShape();
+                    body.setPosition(new Vector2(0, 0));
+                    return false;
+                }
+                if (keycode == Input.Keys.R) {
+                    doRotate = !doRotate;
+                }
+                if (keycode == Input.Keys.T) {
+                    doScale = !doScale;
+                }
                 if (keycode == Input.Keys.Z || keycode == Input.Keys.W || keycode == Input.Keys.UP) {
                     y += velocity;
                 } else if (keycode == Input.Keys.A || keycode == Input.Keys.Q || keycode == Input.Keys.LEFT) {

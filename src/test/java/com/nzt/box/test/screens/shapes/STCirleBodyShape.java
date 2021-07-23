@@ -4,9 +4,9 @@ import com.badlogic.gdx.math.Circle;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCirleShape extends BaseBodyShapeScreen<CircleShape> {
+public class STCirleBodyShape extends BaseBodyShapeScreen<CircleShape> {
 
-    public STCirleShape(FastTesterMain main) {
+    public STCirleBodyShape(FastTesterMain main) {
         super(main);
     }
 

@@ -6,6 +6,7 @@ import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.ContactUtils;
 import com.nzt.box.contact.listener.ContactListener;
 
 public class World {
@@ -35,6 +36,7 @@ public class World {
     public void addBody(Body body) {
         this.helper.addBody(body);
         this.bodies.add(body);
+        body.updatePosition();
     }
 
     public void checkCollision(Body body) {
@@ -47,24 +49,35 @@ public class World {
     }
 
     public void testContact(Body bodyA, Body bodyB) {
+//        if (!ContactUtils.canContact(bodyA, bodyB)) {
+//            return;
+//        }
         first:
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
+            Fixture fixtureA = bodyA.fixtures.get(i);
+//            if (!ContactUtils.canContact(bodyB, fixtureA)) {
+//                continue;
+//            }
             for (int j = 0, m = bodyB.fixtures.size; j < m; j++) {
-                Fixture fixtureA = bodyA.fixtures.get(i);
                 Fixture fixtureB = bodyB.fixtures.get(j);
+//                if (!ContactUtils.canContact(fixtureA, fixtureB)) {
+//                    continue;
+//                }
                 ContactBody contactBody = fixtureA.hasContact(fixtureB);
                 if (contactBody != null) { //already contact
                     boolean retry = contactBody.retry();
                     if (retry) {
                         if (contactBody.tickEveryStep) {
-                            contactListener.continusContact(contactBody);
+                            if (contactListener != null)
+                                contactListener.continusContact(contactBody);
                         }
                         if (BoxUtils.isContactBlock(bodyA, bodyB)) {
                             fixtureA.replace(fixtureB, contactBody);
                         }
                         break first;
                     } else {
-                        contactListener.endContact(contactBody);
+                        if (contactListener != null)
+                            contactListener.endContact(contactBody);
                         fixtureA.contacts.removeValue(contactBody, true);
                         fixtureB.contacts.removeValue(contactBody, true);
                         Pools.free(contactBody);

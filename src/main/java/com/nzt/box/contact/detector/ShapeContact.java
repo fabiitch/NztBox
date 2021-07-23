@@ -7,6 +7,8 @@ import com.nzt.box.contact.ContactBody;
 
 public interface ShapeContact {
 
+
+
     boolean testContact(Circle circle);
 
     void replace(Circle circle, ContactBody contactBody);

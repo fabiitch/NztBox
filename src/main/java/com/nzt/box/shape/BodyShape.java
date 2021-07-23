@@ -9,9 +9,14 @@ import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 public abstract class BodyShape<S extends Shape2D> {
     public S shape;
 
+    public float maxDst;
+
     public BodyShape(S shape) {
         this.shape = shape;
+        maxDst = calculMaxDst();
     }
+
+    public abstract float calculMaxDst();
 
     public abstract Vector2 getPosition(Vector2 pos);
 

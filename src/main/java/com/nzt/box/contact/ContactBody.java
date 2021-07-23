@@ -15,6 +15,10 @@ public class ContactBody implements Pool.Poolable {
     }
 
     public boolean retry() {
+        boolean fastCheck = ContactUtils.canContact(fixtureA, fixtureB);
+        if(!fastCheck)
+            return false;
+
         return fixtureA.testContact(fixtureB);
     }
 
