@@ -1,7 +1,12 @@
-package com.nzt.box.test.base;
+package com.nzt.box.test.screens.base;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
+import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.BodyType;
+import com.nzt.box.bodies.Fixture;
+import com.nzt.box.shape.RectangleShape;
 import com.nzt.box.world.World;
 import com.nzt.box.debug.WorldDebugRender;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
@@ -59,45 +64,45 @@ abstract class BoxTestScreen extends TestScreen {
 
     }
 
-//    public void createWallAroundScreen() {
-//        /**
-//         * D-----C
-//         * -------
-//         * A-----B
-//         */
-//        float aX = -SCREEN_WITDH / 2 + 3, aY = -SCREEN_HEIGHT / 2 + 1;
-//        float bX = SCREEN_WITDH / 2 - 1, bY = -SCREEN_HEIGHT / 2 + 1;
-//        float cX = SCREEN_WITDH / 2 - 1, cY = SCREEN_HEIGHT / 2 - 1;
-//        float dX = -SCREEN_WITDH / 2 + 1, dY = SCREEN_HEIGHT / 2 - 1;
-//
-//
-//        Body botBody = new Body<>();
-//        botBody.bodyType = BodyType.Static;
+    public void createWallAroundScreen() {
+        /**
+         * D-----C
+         * -------
+         * A-----B
+         */
+        float aX = -SCREEN_WITDH / 2 + 3, aY = -SCREEN_HEIGHT / 2 + 1;
+        float bX = SCREEN_WITDH / 2 - 1, bY = -SCREEN_HEIGHT / 2 + 1;
+        float cX = SCREEN_WITDH / 2 - 1, cY = SCREEN_HEIGHT / 2 - 1;
+        float dX = -SCREEN_WITDH / 2 + 1, dY = SCREEN_HEIGHT / 2 - 1;
+
+
+        Body botBody = new Body(BodyType.Static);
 //        botBody.userData = "WallHorizontalBot";
-//        NzLine botHorizontal = new NzLine(aX, aY, bX, bY);
-//        botBody.addFixture(new Fixture(botHorizontal));
-//        world.addBody(botBody);
-//
-//        Body topBody = new Body<>();
-//        topBody.bodyType = BodyType.Static;
+        RectangleShape shapeBot = new RectangleShape(SCREEN_WITDH, 10);
+        botBody.addFixture(new Fixture(shapeBot));
+        world.addBody(botBody);
+        botBody.setPosition(0, aY);
+
+        Body topBody = new Body(BodyType.Static);
 //        topBody.userData = "WallHorizontalTop";
-//        NzLine topHorizontal = new NzLine(dX, dY, cX, cY);
-//        topBody.addFixture(new Fixture(topHorizontal));
-//        world.addBody(topBody);
+        RectangleShape shapeTop = new RectangleShape(SCREEN_WITDH, 10);
+        topBody.addFixture(new Fixture(shapeTop));
+        world.addBody(topBody);
+        topBody.setPosition(0, cY);
 //
-//        Body rightBody = new Body<>();
-//        rightBody.bodyType = BodyType.Static;
+        Body rightBody = new Body(BodyType.Static);
 //        rightBody.userData = "WallVerticalRight";
-//        NzLine rightVertical = new NzLine(bX, bY, cX, cY);
-//        rightBody.addFixture(new Fixture(rightVertical));
-//        world.addBody(rightBody);
-//
-//
-//        Body leftBody = new Body<>();
-//        leftBody.bodyType = BodyType.Static;
+        RectangleShape shapeRight = new RectangleShape(10, SCREEN_HEIGHT);
+        rightBody.addFixture(new Fixture(shapeRight));
+        world.addBody(rightBody);
+        rightBody.setPosition(-SCREEN_WITDH / 2, 0);
+
+
+        Body leftBody = new Body(BodyType.Static);
 //        leftBody.userData = "WallbotHorizontal";
-//        NzLine leftVertical = new NzLine(aX, aY, dX, dY);
-//        leftBody.addFixture(new Fixture(leftVertical));
-//        world.addBody(leftBody);
-//    }
+        RectangleShape shapeLeft = new RectangleShape(10, SCREEN_HEIGHT);
+        leftBody.addFixture(new Fixture(shapeLeft));
+        world.addBody(leftBody);
+        leftBody.setPosition(SCREEN_WITDH / 2, 0);
+    }
 }

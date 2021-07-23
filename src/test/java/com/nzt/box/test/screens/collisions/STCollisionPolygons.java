@@ -1,6 +1,5 @@
 package com.nzt.box.test.screens.collisions;
 
-import com.badlogic.gdx.math.Polygon;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 

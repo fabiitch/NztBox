@@ -13,7 +13,7 @@ import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.box.shape.RectangleShape;
-import com.nzt.box.test.base.Box2dTestScreen;
+import com.nzt.box.test.screens.base.Box2dTestScreen;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;

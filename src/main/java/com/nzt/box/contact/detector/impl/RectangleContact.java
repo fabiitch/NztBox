@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ShapeContact;
+import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.intersectors.IntersectorPolygon;
 import com.nzt.gdx.math.intersectors.IntersectorRectangle;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
@@ -17,6 +18,7 @@ public class RectangleContact implements ShapeContact {
     private Vector2 tmp2 = new Vector2();
     private Vector2 tmp3 = new Vector2();
 
+
     @Override
     public boolean testContact(Circle circle) {
         return Intersector.overlaps(circle, myRectangle);
@@ -24,30 +26,12 @@ public class RectangleContact implements ShapeContact {
 
     @Override
     public void replace(Circle circle, ContactBody contactBody) {
-        System.out.println("passe");
         Body bodyA = contactBody.fixtureA.body;
-        Vector2 circleCenter = tmp.set(circle.x, circle.y);
-        Vector2 rectCenter = RectangleUtils.getCenter(myRectangle, tmp2);
-        Vector2 nearestPoint = RectangleUtils.getNearestPoint(myRectangle, circleCenter, tmp3);
-
-        float dst = nearestPoint.dst(circleCenter);
-        if (dst < circle.radius) {
-            float dstToGo = circle.radius - dst;
-            Vector2 direction = V2.directionTo(circleCenter, nearestPoint, tmp3);
-            System.out.println(direction);
-
-            if (circle.contains(rectCenter)) {
-                if (direction.epsilonEquals(Vector2.X))
-                    dstToGo += myRectangle.width;
-                if (direction.epsilonEquals(Vector2.Y))
-                    dstToGo += myRectangle.height;
-
-            }
-            direction.scl(dstToGo);
-            rectCenter.add(direction);
-            bodyA.setPosition(rectCenter);
-
-        }
+        IntersectorCircle.replaceCircleRectangle(circle, myRectangle, tmp);
+        V2.inv(tmp);
+        RectangleUtils.getCenter(myRectangle, tmp2);
+        tmp2.add(tmp);
+        bodyA.setPosition(tmp2);
     }
 
     @Override
@@ -63,7 +47,7 @@ public class RectangleContact implements ShapeContact {
         Intersector.MinimumTranslationVector translationVector = IntersectorPolygon.tmpTranslationVector;
         boolean overlaps = IntersectorRectangle.rectangles(myRectangle, rectangle, translationVector);
         if (overlaps) {
-            tmp.set(RectangleUtils.getCenter(myRectangle, tmp));
+            RectangleUtils.getCenter(myRectangle, tmp);
             tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
             bodyA.setPosition(tmp.add(tmp2));
         }

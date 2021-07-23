@@ -6,7 +6,6 @@ import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
-import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import com.nzt.gdx.math.vectors.V2;
 
 public class CircleContact implements ShapeContact {
@@ -47,20 +46,11 @@ public class CircleContact implements ShapeContact {
     @Override
     public void replace(Rectangle rectangle, ContactBody contactBody) {
         Body bodyA = contactBody.fixtureA.body;
-        //top or bot
-        Vector2 circleCenter = tmp.set(myCircle.x, myCircle.y);
-        Vector2 nearestPoint = tmp2;
+        IntersectorCircle.replaceCircleRectangle(myCircle, rectangle, tmp);
 
-        RectangleUtils.getNearestPoint(rectangle, circleCenter, nearestPoint);
-
-        float dst = nearestPoint.dst(circleCenter);
-        if (dst < myCircle.radius) {
-            float dstToGo = myCircle.radius - dst;
-            Vector2 direction = V2.directionTo(nearestPoint, circleCenter, tmp3);
-            direction.scl(dstToGo);
-            circleCenter.add(direction);
-            bodyA.setPosition(circleCenter);
-        }
+        CircleUtils.getCenter(myCircle, tmp2);
+        tmp2.add(tmp);
+        bodyA.setPosition(tmp2);
     }
 
     @Override
@@ -74,7 +64,6 @@ public class CircleContact implements ShapeContact {
         Body bodyA = contactBody.fixtureA.body;
 
         IntersectorCircle.replaceCirclePolygon(myCircle, polygon, tmp);
-
         CircleUtils.getCenter(myCircle, tmp2);
         tmp2.add(tmp);
         bodyA.setPosition(tmp2);

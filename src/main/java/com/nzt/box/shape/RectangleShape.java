@@ -17,6 +17,16 @@ public class RectangleShape extends BodyShape<Rectangle> {
     }
 
     @Override
+    public float calculMaxDst() {
+        return Math.max(shape.width, shape.height) / 2;
+    }
+
+    public RectangleShape(float witdh, float height) {
+        super(new Rectangle(0, 0, witdh, height));
+    }
+
+
+    @Override
     public Vector2 getPosition(Vector2 pos) {
         return pos.set(shape.x, shape.y);
     }

@@ -6,11 +6,20 @@ import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
+import com.nzt.gdx.math.shapes.utils.PolygonUtils;
 
+/**
+ * Only convex polygons
+ */
 public class PolygonShape extends BodyShape<Polygon> {
 
     public PolygonShape(Polygon shape) {
         super(shape);
+    }
+
+    @Override
+    public float calculMaxDst() {
+        return PolygonUtils.getMaxDstVertexFromZero(shape);
     }
 
     @Override
@@ -25,12 +34,12 @@ public class PolygonShape extends BodyShape<Polygon> {
 
     @Override
     public void rotate(float amount) {
-
+        shape.rotate(amount);
     }
 
     @Override
     public void scale(float amount) {
-
+        shape.scale(amount);
     }
 
     @Override

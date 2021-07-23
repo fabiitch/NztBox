@@ -14,6 +14,11 @@ public class CircleShape extends BodyShape<Circle> {
     }
 
     @Override
+    public float calculMaxDst() {
+        return shape.radius;
+    }
+
+    @Override
     public Vector2 getPosition(Vector2 pos) {
         return pos.set(shape.x, shape.y);
     }
