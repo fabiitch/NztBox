@@ -1,11 +1,11 @@
-package com.nzt.box.test.screens.collisions;
+package com.nzt.box.test.screens.collisions.rebond;
 
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionCircleRectangle extends BaseSTCollision<CircleShape, RectangleShape> {
-    public STCollisionCircleRectangle(FastTesterMain main) {
+public class STCollisionReboundCircleRectangle extends BaseSTCollisionRebound<CircleShape, RectangleShape> {
+    public STCollisionReboundCircleRectangle(FastTesterMain main) {
         super(main);
     }
 

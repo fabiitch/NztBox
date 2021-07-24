@@ -30,7 +30,7 @@ public class STBoucingBalll extends Box2dTestScreen {
     }
 
     @Override
-    public String getExplication() {
+    public String getTestExplication() {
         return "Ball rebound test";
     }
 }

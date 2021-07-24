@@ -21,7 +21,7 @@ public class STRectangleBodyShape extends BaseBodyShapeScreen<RectangleShape> {
     }
 
     @Override
-    public String getExplication() {
+    public String getTestExplication() {
         return "Simple rectangle shape on body";
     }
 }
