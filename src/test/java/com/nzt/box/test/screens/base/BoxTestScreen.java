@@ -2,13 +2,12 @@ package com.nzt.box.test.screens.base;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Rectangle;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
+import com.nzt.box.debug.WorldDebugRender;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.box.world.World;
-import com.nzt.box.debug.WorldDebugRender;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;

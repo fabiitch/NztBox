@@ -1,13 +1,12 @@
-package com.nzt.box.test.screens.collisions;
+package com.nzt.box.test.screens.collisions.rebond;
 
-import com.badlogic.gdx.math.Circle;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionCircles extends BaseSTCollision<CircleShape, CircleShape> {
+public class STCollisionReboundCircles extends BaseSTCollisionRebound<CircleShape, CircleShape> {
 
 
-    public STCollisionCircles(FastTesterMain main) {
+    public STCollisionReboundCircles(FastTesterMain main) {
         super(main);
     }
 

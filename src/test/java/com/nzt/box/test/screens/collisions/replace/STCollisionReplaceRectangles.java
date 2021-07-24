@@ -1,10 +1,10 @@
-package com.nzt.box.test.screens.collisions;
+package com.nzt.box.test.screens.collisions.replace;
 
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionRectangles extends BaseSTCollision<RectangleShape, RectangleShape> {
-    public STCollisionRectangles(FastTesterMain main) {
+public class STCollisionReplaceRectangles extends BaseSTCollisionReplace<RectangleShape, RectangleShape> {
+    public STCollisionReplaceRectangles(FastTesterMain main) {
         super(main);
     }
 

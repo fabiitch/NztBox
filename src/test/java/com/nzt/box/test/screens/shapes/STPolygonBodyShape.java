@@ -1,7 +1,6 @@
 package com.nzt.box.test.screens.shapes;
 
 import com.badlogic.gdx.math.Polygon;
-import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
@@ -22,7 +21,7 @@ public class STPolygonBodyShape extends BaseBodyShapeScreen<PolygonShape>{
     }
 
     @Override
-    public String getExplication() {
+    public String getTestExplication() {
         return "Test PolygonBodyShape";
     }
 }

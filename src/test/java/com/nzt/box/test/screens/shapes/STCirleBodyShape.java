@@ -22,7 +22,7 @@ public class STCirleBodyShape extends BaseBodyShapeScreen<CircleShape> {
     }
 
     @Override
-    public String getExplication() {
+    public String getTestExplication() {
         return "Simple Circle BodyShape test";
     }
 }

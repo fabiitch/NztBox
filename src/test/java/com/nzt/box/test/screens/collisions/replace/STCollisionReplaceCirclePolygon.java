@@ -1,11 +1,11 @@
-package com.nzt.box.test.screens.collisions;
+package com.nzt.box.test.screens.collisions.replace;
 
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionCirclePolygon extends BaseSTCollision<PolygonShape, CircleShape> {
-    public STCollisionCirclePolygon(FastTesterMain main) {
+public class STCollisionReplaceCirclePolygon extends BaseSTCollisionReplace<PolygonShape, CircleShape> {
+    public STCollisionReplaceCirclePolygon(FastTesterMain main) {
         super(main);
     }
 

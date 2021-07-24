@@ -49,6 +49,12 @@ public class Body {
         return position2D;
     }
 
+    public Vector2 getVelocity(Vector2 velocity) {
+        velocity.x = velocity.x;
+        velocity.y = velocity.y;
+        return velocity;
+    }
+
     public void setPosition(float x, float y) {
         this.position.x = x;
         this.position.y = y;

@@ -15,7 +15,7 @@ public class CircleContact implements ShapeContact {
     private Vector2 tmp = new Vector2();
     private Vector2 tmp2 = new Vector2();
     private Vector2 tmp3 = new Vector2();
-
+    private Vector2 tmp4 = new Vector2();
     @Override
     public boolean testContact(Circle circle) {
         float dst = tmp.set(circle.x, circle.y).dst(myCircle.x, myCircle.y);
@@ -25,16 +25,22 @@ public class CircleContact implements ShapeContact {
     @Override
     public void replace(Circle circle, ContactBody contactBody) {
         Body bodyA = contactBody.fixtureA.body;
-        tmp.set(myCircle.x, myCircle.y);
+        CircleUtils.getCenter(myCircle, tmp);
 
         float dst = myCircle.radius + circle.radius - tmp.dst(circle.x, circle.y);
 
-        tmp2.set(circle.x, circle.y);
+        CircleUtils.getCenter(circle, tmp2);
         tmp3 = V2.directionTo(tmp2, tmp, tmp3);
         tmp3.setLength(dst);
 
         Vector2 add = tmp.add(tmp3);
         bodyA.setPosition(add);
+
+        Vector2 tangentRad = CircleUtils.getTangentRad(circle, tmp3.angleRad(), tmp4);
+
+        bodyA.getVelocity(tmp);
+        V2.changeDirection(tmp, tangentRad);
+        bodyA.setVelocity(tmp);
     }
 
     @Override
