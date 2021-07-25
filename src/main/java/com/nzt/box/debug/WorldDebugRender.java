@@ -5,5 +5,7 @@ import com.nzt.box.world.World;
 
 public interface WorldDebugRender {
 
-  void render(World world, Matrix4 combined);
+    void render(World world, Matrix4 combined);
+
+    void dispose();
 }

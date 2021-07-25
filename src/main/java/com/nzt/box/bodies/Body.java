@@ -3,6 +3,7 @@ package com.nzt.box.bodies;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.nzt.gdx.math.vectors.V3;
 
 public class Body {
 
@@ -87,7 +88,7 @@ public class Body {
     }
 
     public void setVelocity(Vector2 velocity) {
-        velocity.set(velocity);
+        V3.set(this.velocity, velocity);
     }
 
     public void setVelocity(float x, float y) {

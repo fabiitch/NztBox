@@ -2,6 +2,7 @@ package com.nzt.box.test.screens.collisions.replace;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.shape.BodyShape;
@@ -27,7 +28,7 @@ public abstract class BaseSTCollisionReplace<S1 extends BodyShape, S2 extends Bo
                 body2.fixtures.get(0).bodyShape.shape.getClass().getSimpleName();
     }
 
-    public InputAdapter addInputListener() {
+    public InputProcessor addInputListener() {
         return new InputAdapter() {
 
             public int x = 0, y = 0;

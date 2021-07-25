@@ -52,7 +52,6 @@ public class World {
 //        if (!ContactUtils.canContact(bodyA, bodyB)) {
 //            return;
 //        }
-        first:
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
             Fixture fixtureA = bodyA.fixtures.get(i);
 //            if (!ContactUtils.canContact(bodyB, fixtureA)) {
@@ -74,7 +73,6 @@ public class World {
                         if (BoxUtils.isContactBlock(bodyA, bodyB)) {
                             fixtureA.replace(fixtureB, contactBody);
                         }
-                        break first;
                     } else {
                         if (contactListener != null)
                             contactListener.endContact(contactBody);
@@ -94,7 +92,6 @@ public class World {
                         }
                         if (contactListener != null)
                             contactListener.beginContact(contactBody);
-                        break first;
                     }
                 }
             }

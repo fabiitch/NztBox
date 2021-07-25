@@ -1,7 +1,9 @@
 package com.nzt.box.shape;
 
+import com.badlogic.gdx.math.GeometryUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
@@ -15,6 +17,9 @@ public class PolygonShape extends BodyShape<Polygon> {
 
     public PolygonShape(Polygon shape) {
         super(shape);
+        boolean convex = PolygonUtils.isConvex(shape);
+        if(!convex)
+            throw new GdxRuntimeException("NztBox, PolygonShape allow only convex polygons");
     }
 
     @Override
