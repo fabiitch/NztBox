@@ -60,7 +60,7 @@ abstract class BoxTestScreen extends TestScreen {
 
     @Override
     public void disposeTestScreen() {
-
+        debugRenderer.dispose();
     }
 
     public void createWallAroundScreen() {

@@ -8,6 +8,6 @@ public abstract class Box3dTestScreen extends BoxTestScreen {
     public Box3dTestScreen(FastTesterMain main) {
         super(main);
         camera = new OrthographicCamera(SCREEN_WITDH, SCREEN_HEIGHT);
-        debugRenderer = new World2dDebugRenderer(main.nzShapeRenderer);
+        debugRenderer = new World2dDebugRenderer();
     }
 }

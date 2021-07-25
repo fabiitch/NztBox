@@ -1,5 +1,6 @@
 package com.nzt.box.debug;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.SnapshotArray;
@@ -12,16 +13,16 @@ public class World2dDebugRenderer implements WorldDebugRender {
 
     public NzShapeRenderer shapeRenderer;
 
-    public World2dDebugRenderer(NzShapeRenderer shapeRenderer) {
-        this.shapeRenderer = shapeRenderer;
-    }
-
     public World2dDebugRenderer() {
         this.shapeRenderer = new NzShapeRenderer();
+        shapeRenderer.setAutoShapeType(true);
+
     }
+
 
     public void render(World world, Matrix4 projMatrix) {
         shapeRenderer.setProjectionMatrix(projMatrix);
+        shapeRenderer.setColor(Color.CYAN);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         SnapshotArray<Body> bodies = world.bodies;
         bodies.begin();
@@ -43,5 +44,10 @@ public class World2dDebugRenderer implements WorldDebugRender {
             }
         }
         shapeRenderer.end();
+    }
+
+    @Override
+    public void dispose() {
+        shapeRenderer.dispose();
     }
 }

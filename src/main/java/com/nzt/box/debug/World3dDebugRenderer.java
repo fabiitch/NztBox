@@ -8,4 +8,9 @@ public class World3dDebugRenderer implements WorldDebugRender {
     public void render(World world, Matrix4 combined) {
 
     }
+
+    @Override
+    public void dispose() {
+
+    }
 }
