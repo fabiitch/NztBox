@@ -6,6 +6,7 @@ import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
+import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 
 /**
  * no rotation
@@ -18,7 +19,7 @@ public class RectangleShape extends BodyShape<Rectangle> {
 
     @Override
     public float calculMaxDst() {
-        return Math.max(shape.width, shape.height) / 2;
+        return RectangleUtils.dstVertexCenter(shape);
     }
 
     public RectangleShape(float witdh, float height) {

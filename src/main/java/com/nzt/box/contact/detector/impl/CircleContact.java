@@ -38,8 +38,11 @@ public class CircleContact implements ShapeContact {
 
         Vector2 tangentRad = CircleUtils.getTangentRad(circle, tmp3.angleRad(), tmp4);
 
+
+//        float angleReflexionRad = CircleUtils.getAngleReflexionRad(circle, tmp3.angleRad());
+
         bodyA.getVelocity(tmp);
-        V2.changeDirection(tmp, tangentRad);
+//        tmp.setAngleRad(angleReflexionRad);
         bodyA.setVelocity(tmp);
     }
 
@@ -52,7 +55,7 @@ public class CircleContact implements ShapeContact {
     @Override
     public void replace(Rectangle rectangle, ContactBody contactBody) {
         Body bodyA = contactBody.fixtureA.body;
-        IntersectorCircle.replaceCircleRectangle(myCircle, rectangle, tmp);
+        IntersectorCircle.replaceFromRectangle(myCircle, rectangle, tmp);
 
         CircleUtils.getCenter(myCircle, tmp2);
         tmp2.add(tmp);
@@ -61,7 +64,7 @@ public class CircleContact implements ShapeContact {
 
     @Override
     public boolean testContact(Polygon polygon) {
-        return IntersectorCircle.circlePolygon(myCircle, polygon);
+        return IntersectorCircle.polygon(myCircle, polygon);
     }
 
 
@@ -69,7 +72,7 @@ public class CircleContact implements ShapeContact {
     public void replace(Polygon polygon, ContactBody contactBody) {
         Body bodyA = contactBody.fixtureA.body;
 
-        IntersectorCircle.replaceCirclePolygon(myCircle, polygon, tmp);
+        IntersectorCircle.replaceFromPolygon(myCircle, polygon, tmp);
         CircleUtils.getCenter(myCircle, tmp2);
         tmp2.add(tmp);
         bodyA.setPosition(tmp2);
