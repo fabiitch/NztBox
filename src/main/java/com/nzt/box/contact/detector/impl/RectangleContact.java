@@ -27,7 +27,7 @@ public class RectangleContact implements ShapeContact {
     @Override
     public void replace(Circle circle, ContactBody contactBody) {
         Body bodyA = contactBody.fixtureA.body;
-        IntersectorCircle.replaceCircleRectangle(circle, myRectangle, tmp);
+        IntersectorCircle.replaceFromRectangle(circle, myRectangle, tmp);
         V2.inv(tmp);
         RectangleUtils.getCenter(myRectangle, tmp2);
         tmp2.add(tmp);

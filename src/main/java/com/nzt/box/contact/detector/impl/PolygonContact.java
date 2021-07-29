@@ -23,7 +23,7 @@ public class PolygonContact implements ShapeContact {
     public void replace(Circle circle, ContactBody contactBody) {
         Body bodyA = contactBody.fixtureA.body;
 
-        IntersectorCircle.replaceCirclePolygon(circle, myPolygon, tmp);
+        IntersectorCircle.replaceFromPolygon(circle, myPolygon, tmp);
 
         tmp2.set(myPolygon.getX(), myPolygon.getY());
 

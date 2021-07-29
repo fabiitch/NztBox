@@ -54,12 +54,12 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
     @Override
     public void doRender(float dt) {
         super.doRender(dt);
-        nzShapeRenderer.setProjectionMatrix(camera.combined);
-        nzShapeRenderer.begin();
-        nzShapeRenderer.setColor(Color.RED);
-        nzShapeRenderer.line(target.x - 10, target.y, target.x + 10, target.y);
-        nzShapeRenderer.line(target.x, target.y - 10, target.x, target.y + 10);
-        nzShapeRenderer.end();
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin();
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.line(target.x - 10, target.y, target.x + 10, target.y);
+        shapeRenderer.line(target.x, target.y - 10, target.x, target.y + 10);
+        shapeRenderer.end();
     }
 
     @Override
