@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ShapeContact;
+import com.nzt.gdx.math.AngleUtils;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
 import com.nzt.gdx.math.vectors.V2;
@@ -36,14 +37,11 @@ public class CircleContact implements ShapeContact {
         Vector2 add = tmp.add(tmp3);
         bodyA.setPosition(add);
 
-        Vector2 tangentRad = CircleUtils.getTangentRad(circle, tmp3.angleRad(), tmp4);
+        Vector2 half = V2.middle(circle.x,circle.y, myCircle.x, myCircle.y, new Vector2());
+        Vector2 tangent = CircleUtils.getTangent(circle, half, new Vector2());
+        float angleReflexion = AngleUtils.angleIncidence(tangent, bodyA.getVelocity(tmp));
+        bodyA.setVelocity(tmp.setAngleDeg(angleReflexion));
 
-
-//        float angleReflexionRad = CircleUtils.getAngleReflexionRad(circle, tmp3.angleRad());
-
-        bodyA.getVelocity(tmp);
-//        tmp.setAngleRad(angleReflexionRad);
-        bodyA.setVelocity(tmp);
     }
 
     @Override
