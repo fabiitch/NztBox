@@ -9,6 +9,16 @@ public class STCollisionReboundRectangles extends BaseSTCollisionRebound<Rectang
     }
 
     @Override
+    protected void doBeginContact() {
+
+    }
+
+    @Override
+    public void renderContactInfo(float dt) {
+
+    }
+
+    @Override
     protected RectangleShape createBodyShape1() {
         return createRectangle(100, 50);
     }

@@ -37,4 +37,6 @@ public abstract class BodyShape<S extends Shape2D> {
     public abstract boolean testContact(ShapeContact visitor);
 
     public abstract void replace(ShapeContact visitor, ContactBody contactBody);
+
+    public abstract void rebound(ShapeContact visitor, ContactBody contactBody);
 }

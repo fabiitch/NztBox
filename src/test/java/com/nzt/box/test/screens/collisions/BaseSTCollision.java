@@ -21,7 +21,7 @@ import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
 public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape> extends Box2dTestScreen {
 
-    protected Body body1, body2, bodyMove;
+    protected Body body1, body2, bodyMove, bodyStatic;
     protected String shape1, shape2;
 
     protected Vector2 posBodyA = new Vector2(-200, 0);
@@ -59,10 +59,21 @@ public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape
             public void continusContact(ContactBody contactBody) {
 
             }
+
+            @Override
+            public void preSolve(ContactBody contactBody) {
+
+            }
+
+            @Override
+            public void postSolve(ContactBody contactBody) {
+
+            }
         };
         world.contactListener = contactListener;
 
         bodyMove = body1;
+        bodyStatic = body2;
         shape1 = body1.fixtures.get(0).bodyShape.shape.getClass().getSimpleName();
         shape2 = body2.fixtures.get(0).bodyShape.shape.getClass().getSimpleName();
 
@@ -80,8 +91,7 @@ public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape
 
     protected abstract S2 createBodyShape2();
 
-
-    Vector2 tmp = new Vector2();
+    private Vector2 tmp = new Vector2();
 
     @Override
     public void doRender(float dt) {

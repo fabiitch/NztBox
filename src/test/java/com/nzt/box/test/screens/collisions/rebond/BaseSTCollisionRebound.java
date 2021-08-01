@@ -8,8 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
+import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.test.screens.collisions.BaseSTCollision;
+import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.math.vectors.V2;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
@@ -18,16 +21,60 @@ import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends BodyShape> extends BaseSTCollision<S1, S2> {
 
     private Vector2 target = new Vector2();
+    boolean drawContactInfo = false;
 
     public BaseSTCollisionRebound(FastTesterMain main) {
         super(main, BodyType.Dynamic, BodyType.Static);
         infoMsg("Press Space for change shape moving");
         infoMsg("Right Click for change pos position");
         infoMsg("Left click for change target");
+        infoMsg("Press A for run simulation after collision");
         body2.setPosition(0, 0);
         changePosition(new Vector2(300, 500));
         body2.getPosition(target);
+        changeWorldContactListener();
     }
+
+    private void changeWorldContactListener() {
+        ContactListener contactListener = new ContactListener() {
+
+            @Override
+            public void beginContact(ContactBody contactBody) {
+                drawContactInfo = true;
+                body1.active = false;
+                body2.active = false;
+                debugMsg("Collision", true, HudDebugPosition.BOT_RIGHT);
+                System.out.println("beginContact");
+                doBeginContact();
+            }
+
+            @Override
+            public void endContact(ContactBody contactBody) {
+                debugMsg("Collision", false, HudDebugPosition.BOT_RIGHT);
+                System.out.println("endContact");
+            }
+
+            @Override
+            public void continusContact(ContactBody contactBody) {
+
+            }
+
+            @Override
+            public void preSolve(ContactBody contactBody) {
+
+            }
+
+            @Override
+            public void postSolve(ContactBody contactBody) {
+
+            }
+        };
+        world.contactListener = contactListener;
+    }
+
+    protected abstract void doBeginContact();
+
+    public abstract void renderContactInfo(float dt);
 
     private void changeType() {
         bodyMove.bodyType = BodyType.Static;
@@ -35,6 +82,7 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
         Body targetBody = bodyMove == body1 ? body2 : body1;
         targetBody.bodyType = BodyType.Dynamic;
         bodyMove = targetBody;
+        bodyStatic = bodyMove == body1 ? body2 : body1;
         changePosition(bodyMove.getPosition(new Vector2()));
     }
 
@@ -59,6 +107,7 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.line(target.x - 10, target.y, target.x + 10, target.y);
         shapeRenderer.line(target.x, target.y - 10, target.x, target.y + 10);
+        renderContactInfo(dt);
         shapeRenderer.end();
     }
 
@@ -85,8 +134,7 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
                     V2.set(target, unproject);
                     changeTarget();
                 }
-
-
+                drawContactInfo = false;
                 return false;
             }
 
@@ -94,7 +142,13 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.SPACE) {
                     changeType();
+                    drawContactInfo = false;
                 }
+                if (keycode == Input.Keys.A) {
+                    body1.active = true;
+                    body2.active = true;
+                }
+
                 return false;
             }
         };

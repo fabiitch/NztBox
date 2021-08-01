@@ -11,7 +11,7 @@ import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import com.nzt.gdx.math.vectors.V2;
 
 
-public class RectangleContact implements ShapeContact {
+public class ContactRectangle implements ShapeContact {
     public Rectangle myRectangle;
 
     private Vector2 tmp = new Vector2();
@@ -35,6 +35,11 @@ public class RectangleContact implements ShapeContact {
     }
 
     @Override
+    public void rebound(Circle circle, ContactBody contactBody) {
+
+    }
+
+    @Override
     public boolean testContact(Rectangle rectangle) {
         return rectangle.overlaps(myRectangle);
     }
@@ -54,6 +59,11 @@ public class RectangleContact implements ShapeContact {
     }
 
     @Override
+    public void rebound(Rectangle rectangle, ContactBody contactBody) {
+
+    }
+
+    @Override
     public boolean testContact(Polygon polygon) {
         return IntersectorPolygon.rectangle(polygon, myRectangle);
     }
@@ -69,5 +79,10 @@ public class RectangleContact implements ShapeContact {
             tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
             bodyA.setPosition(tmp.add(tmp2));
         }
+    }
+
+    @Override
+    public void rebound(Polygon polygon, ContactBody contactBody) {
+
     }
 }

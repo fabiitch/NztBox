@@ -72,4 +72,9 @@ public class RectangleShape extends BodyShape<Rectangle> {
     public void replace(ShapeContact visitor, ContactBody contactBody) {
         visitor.replace(shape, contactBody);
     }
+
+    @Override
+    public void rebound(ShapeContact visitor, ContactBody contactBody) {
+        visitor.rebound(shape, contactBody);
+    }
 }
