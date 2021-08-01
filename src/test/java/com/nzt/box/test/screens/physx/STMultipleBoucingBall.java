@@ -28,7 +28,7 @@ public class STMultipleBoucingBall extends Box2dTestScreen {
         debugRenderer.debugSettings.drawVelocity = false;
         createWallAroundScreen();
         rectScreen = GdxUtils.screenAsRectangle(rectScreen,true);
-        for (int i = 0; i < 300; i++)
+        for (int i = 0; i < 100; i++)
             createBall(i);
     }
 
