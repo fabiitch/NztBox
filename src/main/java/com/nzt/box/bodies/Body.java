@@ -9,6 +9,7 @@ public class Body {
 
     public int id;
     public BodyType bodyType;
+    public Object userData;
     public boolean bullet = false; //check continus deplacement for collision
 
     public SnapshotArray<Fixture> fixtures;
@@ -23,6 +24,7 @@ public class Body {
     public float bouncing = 0;
     public float maxDstFixture;
     public boolean dirty;
+    public boolean active = true;
 
     public Body(BodyType bodyType) {
         this.bodyType = bodyType;
@@ -51,8 +53,8 @@ public class Body {
     }
 
     public Vector2 getVelocity(Vector2 velocity) {
-        velocity.x = velocity.x;
-        velocity.y = velocity.y;
+        velocity.x = this.velocity.x;
+        velocity.y = this.velocity.y;
         return velocity;
     }
 

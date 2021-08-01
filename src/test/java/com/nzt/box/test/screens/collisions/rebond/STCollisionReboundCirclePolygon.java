@@ -10,6 +10,16 @@ public class STCollisionReboundCirclePolygon extends BaseSTCollisionRebound<Poly
     }
 
     @Override
+    protected void doBeginContact() {
+
+    }
+
+    @Override
+    public void renderContactInfo(float dt) {
+
+    }
+
+    @Override
     protected CircleShape createBodyShape2() {
         return createCircle(50);
     }

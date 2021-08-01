@@ -10,6 +10,16 @@ public class STCollisionReboundCircleRectangle extends BaseSTCollisionRebound<Ci
     }
 
     @Override
+    protected void doBeginContact() {
+
+    }
+
+    @Override
+    public void renderContactInfo(float dt) {
+
+    }
+
+    @Override
     protected CircleShape createBodyShape1() {
         return createCircle(50);
     }

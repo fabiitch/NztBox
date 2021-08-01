@@ -9,6 +9,16 @@ public class STCollisionReboundPolygons extends BaseSTCollisionRebound<PolygonSh
     }
 
     @Override
+    protected void doBeginContact() {
+
+    }
+
+    @Override
+    public void renderContactInfo(float dt) {
+
+    }
+
+    @Override
     protected PolygonShape createBodyShape1() {
         return createPolygon1();
     }

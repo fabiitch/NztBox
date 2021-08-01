@@ -1,14 +1,13 @@
 package com.nzt.box.test;
 
-import com.nzt.box.test.screens.collisions.detection.STCollisionDetectionCirclePolygon;
-import com.nzt.box.test.screens.collisions.rebond.STCollisionReboundCirclePolygon;
+import com.nzt.box.test.screens.physx.STMultipleBoucingBall;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
 /**
  * Use it for Test one class with screenTestClass
  */
 public class NztBoxTestStarter {
-    private static final Class screenTestClass = STCollisionReboundCirclePolygon.class;
+    private static final Class screenTestClass = STMultipleBoucingBall.class;
 
     private static final int witdh = 800;
     private static final int height = 500;

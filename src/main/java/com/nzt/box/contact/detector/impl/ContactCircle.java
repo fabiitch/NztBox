@@ -6,10 +6,14 @@ import com.nzt.box.contact.ContactBody;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.math.AngleUtils;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
+import com.nzt.gdx.math.intersectors.IntersectorSegmentRectangle;
+import com.nzt.gdx.math.shapes.Segment;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
+import com.nzt.gdx.math.shapes.utils.PolygonUtils;
+import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import com.nzt.gdx.math.vectors.V2;
 
-public class CircleContact implements ShapeContact {
+public class ContactCircle implements ShapeContact {
 
     public Circle myCircle;
 
@@ -17,6 +21,7 @@ public class CircleContact implements ShapeContact {
     private Vector2 tmp2 = new Vector2();
     private Vector2 tmp3 = new Vector2();
     private Vector2 tmp4 = new Vector2();
+
     @Override
     public boolean testContact(Circle circle) {
         float dst = tmp.set(circle.x, circle.y).dst(myCircle.x, myCircle.y);
@@ -36,12 +41,15 @@ public class CircleContact implements ShapeContact {
 
         Vector2 add = tmp.add(tmp3);
         bodyA.setPosition(add);
+    }
 
-        Vector2 half = V2.middle(circle.x,circle.y, myCircle.x, myCircle.y, new Vector2());
+    @Override
+    public void rebound(Circle circle, ContactBody contactBody) {
+        Body bodyA = contactBody.fixtureA.body;
+        Vector2 half = V2.middle(circle.x, circle.y, myCircle.x, myCircle.y, new Vector2());
         Vector2 tangent = CircleUtils.getTangent(circle, half, new Vector2());
-        float angleReflexion = AngleUtils.angleIncidence(tangent, bodyA.getVelocity(tmp));
-        bodyA.setVelocity(tmp.setAngleDeg(angleReflexion));
-
+        float angleIncidence = AngleUtils.angleIncidence(tangent, bodyA.getVelocity(tmp));
+        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
     }
 
     @Override
@@ -61,6 +69,16 @@ public class CircleContact implements ShapeContact {
     }
 
     @Override
+    public void rebound(Rectangle rectangle, ContactBody contactBody) {
+        Vector2 circleCenter = CircleUtils.getCenter(myCircle, new Vector2());
+        Body bodyA = contactBody.fixtureA.body;
+        Segment segment = new Segment();
+        RectangleUtils.getNearestSegment(rectangle, circleCenter, segment);
+        float angleIncidence = AngleUtils.angleIncidence(segment, bodyA.getVelocity(tmp));
+        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+    }
+
+    @Override
     public boolean testContact(Polygon polygon) {
         return IntersectorCircle.polygon(myCircle, polygon);
     }
@@ -75,6 +93,17 @@ public class CircleContact implements ShapeContact {
         tmp2.add(tmp);
         bodyA.setPosition(tmp2);
 
+    }
+
+    @Override
+    public void rebound(Polygon polygon, ContactBody contactBody) {
+        Vector2 circleCenter = CircleUtils.getCenter(myCircle, new Vector2());
+
+        Body bodyA = contactBody.fixtureA.body;
+        Segment segment = new Segment();
+        PolygonUtils.getNearestSegment(polygon, circleCenter, segment);
+        float angleIncidence = AngleUtils.angleIncidence(segment, bodyA.getVelocity(tmp));
+        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
     }
 
 }

@@ -6,11 +6,12 @@ import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactBody;
-import com.nzt.box.contact.ContactUtils;
 import com.nzt.box.contact.listener.ContactListener;
 
 public class World {
 
+    int iterations = 10;
+    int maxStepTime = 1 / 80;
     protected WorldHelper helper;
     public SnapshotArray<Body> bodies;
     public ContactListener contactListener;
@@ -21,16 +22,21 @@ public class World {
     }
 
     public void step(float dt) {
-        bodies.begin();
-        for (int i = 0, n = bodies.size; i < n; i++) {
-            Body body = bodies.get(i);
-            boolean move = body.move(dt);
-            if (move || body.dirty) {
-                checkCollision(body);
+        float stepTime = dt / iterations;
+        for (int nbIteraton = 0; nbIteraton < iterations; nbIteraton++) {
+            bodies.begin();
+            for (int i = 0, n = bodies.size; i < n; i++) {
+                Body body = bodies.get(i);
+                if (!body.active)
+                    continue;
+                boolean move = body.move(stepTime);
+                if (move || body.dirty) {
+                    checkCollision(body);
+                }
+                body.dirty = false;
             }
-            body.dirty = false;
+            bodies.end();
         }
-        bodies.end();
     }
 
     public void addBody(Body body) {
@@ -42,7 +48,7 @@ public class World {
     public void checkCollision(Body body) {
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body bodyTest = bodies.get(i);
-            if (body != bodyTest) {
+            if (body != bodyTest && body.active) {
                 testContact(body, bodyTest);
             }
         }
@@ -53,12 +59,12 @@ public class World {
 //            return;
 //        }
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
-            Fixture fixtureA = bodyA.fixtures.get(i);
+            Fixture fixtureA = (Fixture) bodyA.fixtures.get(i);
 //            if (!ContactUtils.canContact(bodyB, fixtureA)) {
 //                continue;
 //            }
             for (int j = 0, m = bodyB.fixtures.size; j < m; j++) {
-                Fixture fixtureB = bodyB.fixtures.get(j);
+                Fixture fixtureB = (Fixture) bodyB.fixtures.get(j);
 //                if (!ContactUtils.canContact(fixtureA, fixtureB)) {
 //                    continue;
 //                }
@@ -86,12 +92,12 @@ public class World {
                         contactBody = ContactBody.get(fixtureA, fixtureB);
                         fixtureA.contacts.add(contactBody);
                         fixtureB.contacts.add(contactBody);
-
-                        if (BoxUtils.isContactBlock(bodyA, bodyB)) {
-                            fixtureA.replace(fixtureB, contactBody);
-                        }
                         if (contactListener != null)
                             contactListener.beginContact(contactBody);
+                        if (BoxUtils.isContactBlock(bodyA, bodyB)) {
+                            fixtureA.replace(fixtureB, contactBody);
+                            fixtureA.rebound(fixtureB, contactBody);
+                        }
                     }
                 }
             }
