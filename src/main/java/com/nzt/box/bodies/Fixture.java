@@ -3,7 +3,7 @@ package com.nzt.box.bodies;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.detector.ShapeContact;
 
 public class Fixture<S extends BodyShape> {

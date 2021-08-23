@@ -3,7 +3,7 @@ package com.nzt.box.contact.detector;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.data.ContactBody;
 
 public interface ShapeContact {
 

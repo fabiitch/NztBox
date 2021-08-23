@@ -1,14 +1,15 @@
-package com.nzt.box.contact;
+package com.nzt.box.contact.data;
 
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
+import com.nzt.box.contact.ContactUtils;
 
 public class ContactBody implements Pool.Poolable {
 
-    public Fixture fixtureA;
-    public Fixture fixtureB;
+    public Fixture<?> fixtureA;
+    public Fixture<?> fixtureB;
     public boolean tickEveryStep = false;
 
     public ContactBody() {

@@ -2,7 +2,7 @@ package com.nzt.box.contact.detector.impl;
 
 import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
-import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.intersectors.IntersectorPolygon;

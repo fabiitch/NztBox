@@ -1,6 +1,6 @@
 package com.nzt.box.contact.listener;
 
-import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.data.ContactBody;
 
 public abstract class ContactListener {
     public abstract void beginContact(ContactBody contactBody);

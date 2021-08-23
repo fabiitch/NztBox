@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.GeometryUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
