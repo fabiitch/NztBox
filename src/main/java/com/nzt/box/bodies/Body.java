@@ -3,6 +3,7 @@ package com.nzt.box.bodies;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.nzt.box.contact.data.ContactBody;
 import com.nzt.gdx.math.vectors.V3;
 
 public class Body {
@@ -13,6 +14,7 @@ public class Body {
     public boolean bullet = false; //check continus deplacement for collision
 
     public SnapshotArray<Fixture> fixtures;
+    public SnapshotArray<ContactBody> contacts;
 
     public Vector3 position = new Vector3();
     public Vector3 forces = new Vector3();
@@ -29,6 +31,7 @@ public class Body {
     public Body(BodyType bodyType) {
         this.bodyType = bodyType;
         fixtures = new SnapshotArray<>();
+        contacts = new SnapshotArray<>();
     }
 
     public boolean move(float dt) {
