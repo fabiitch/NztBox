@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
-import com.nzt.box.contact.ContactBody;
+import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.CircleShape;

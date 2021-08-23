@@ -1,6 +1,5 @@
 package com.nzt.box.test.screens.physx;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Circle;
@@ -32,16 +31,17 @@ public class STMultipleBoucingBall extends Box2dTestScreen {
             createBall(i);
     }
 
-    private void createBall(int i) {
+    private Body createBall(int userData) {
         Body body = new Body(BodyType.Dynamic);
         Circle circle = new Circle(0, 0, 10);
         CircleShape shape = new CircleShape(circle);
-        Fixture fixture = new Fixture(shape);
+        Fixture<CircleShape> fixture = new Fixture<CircleShape>(shape);
         body.addFixture(fixture);
         world.addBody(body);
-        body.userData = i;
+        body.userData = userData;
         Vector2 velocity = new Vector2(1, 0).setToRandomDirection().setLength(250);
         body.setVelocity(velocity);
+        return body ;
     }
 
     Vector2 tmpPos = new Vector2();
@@ -49,7 +49,6 @@ public class STMultipleBoucingBall extends Box2dTestScreen {
 
     @Override
     public void doRender(float dt) {
-
         shapeRenderer.begin();
         shapeRenderer.setColor(Color.PURPLE);
         shapeRenderer.rect(rectScreen);
