@@ -41,7 +41,7 @@ abstract class BoxTestScreen extends TestScreen {
     public void debugMsg(String tag, Object value, int positionOnStage, Color color) {
         if (HudDebug.exist(tag)) {
             if (HudDebug.getColor(tag) != color)
-                HudDebug.changeColor(tag, color);
+                HudDebug.updateColor(tag, color);
             HudDebug.update(tag, value);
         } else {
             HudDebug.add(tag, value, positionOnStage, color);

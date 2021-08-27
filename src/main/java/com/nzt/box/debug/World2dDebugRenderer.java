@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.SnapshotArray;
-import com.nzt.box.world.World;
+import com.badlogic.gdx.utils.Array;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
+import com.nzt.box.world.World;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 
 public class World2dDebugRenderer extends WorldDebugRender {
@@ -32,19 +32,16 @@ public class World2dDebugRenderer extends WorldDebugRender {
     public void render(World world, Matrix4 projMatrix) {
         shapeRenderer.setProjectionMatrix(projMatrix);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        SnapshotArray<Body> bodies = world.bodies;
-        bodies.begin();
+        Array<Body>bodies = world.data.bodies;
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body body = bodies.get(i);
             if (!body.active && debugSettings.drawInactive)
                 continue;
-            SnapshotArray<Fixture> fixtures = body.fixtures;
-            fixtures.begin();
+            Array<Fixture<?>> fixtures = body.fixtures;
             shapeRenderer.setColor(Color.CYAN);
             for (int j = 0, m = fixtures.size; j < m; j++) {
                 fixtures.get(j).bodyShape.draw(shapeRenderer);
             }
-            fixtures.end();
 
             if (debugSettings.drawVelocity) {
                 body.getPosition(tmp1);
@@ -53,10 +50,8 @@ public class World2dDebugRenderer extends WorldDebugRender {
                 shapeRenderer.line(tmp1, tmp1.cpy().add(tmp2));
             }
         }
-        bodies.end();
         shapeRenderer.end();
 
-        bodies.begin();
         spriteBatch.begin();
         spriteBatch.setProjectionMatrix(projMatrix);
         for (int i = 0, n = bodies.size; i < n; i++) {
@@ -66,7 +61,6 @@ public class World2dDebugRenderer extends WorldDebugRender {
                 bitmapFont.draw(spriteBatch, body.userData.toString(), tmp1.x, tmp1.y);
         }
         spriteBatch.end();
-        bodies.end();
     }
 
     @Override

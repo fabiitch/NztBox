@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
@@ -53,10 +54,8 @@ public class STMultipleBoucingBall extends Box2dTestScreen {
         shapeRenderer.setColor(Color.PURPLE);
         shapeRenderer.rect(rectScreen);
         shapeRenderer.end();
-        SnapshotArray<Body> bodies = world.bodies;
-        SnapshotArray<Body> bodiesNew = new SnapshotArray<>();
-
-        bodies.begin();
+        Array<Body> bodiesNew = new Array<>();
+        Array<Body> bodies = world.data.bodies;
         for (int i = 0; i < bodies.size; i++) {
             Body body = bodies.get(i);
             body.getPosition(tmpPos);
@@ -64,15 +63,12 @@ public class STMultipleBoucingBall extends Box2dTestScreen {
                 bodiesNew.add(body);
             }
         }
-        bodies.end();
-//        bodies.clear();
-//        world.bodies = bodiesNew;
-
-
+        bodiesNew.shrink();
         spriteBatch.begin();
         bitmapFont.draw(spriteBatch, "Bodies :" + bodiesNew.size, 50, 50);
         bitmapFont.draw(spriteBatch, "BodiesW :" + bodies.size, 50, 200);
         spriteBatch.end();
+        bodiesNew.clear();
     }
 
     @Override

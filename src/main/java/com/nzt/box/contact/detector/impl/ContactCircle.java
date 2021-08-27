@@ -2,11 +2,10 @@ package com.nzt.box.contact.detector.impl;
 
 import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
-import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.math.AngleUtils;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
-import com.nzt.gdx.math.intersectors.IntersectorSegmentRectangle;
 import com.nzt.gdx.math.shapes.Segment;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
 import com.nzt.gdx.math.shapes.utils.PolygonUtils;
@@ -29,8 +28,8 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void replace(Circle circle, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void replace(Circle circle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
         CircleUtils.getCenter(myCircle, tmp);
 
         float dst = myCircle.radius + circle.radius - tmp.dst(circle.x, circle.y);
@@ -44,8 +43,8 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Circle circle, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void rebound(Circle circle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
         Vector2 half = V2.middle(circle.x, circle.y, myCircle.x, myCircle.y, new Vector2());
         Vector2 tangent = CircleUtils.getTangent(circle, half, new Vector2());
         float angleIncidence = AngleUtils.angleIncidence(tangent, bodyA.getVelocity(tmp));
@@ -59,8 +58,8 @@ public class ContactCircle implements ShapeContact {
 
 
     @Override
-    public void replace(Rectangle rectangle, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void replace(Rectangle rectangle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
         IntersectorCircle.replaceFromRectangle(myCircle, rectangle, tmp);
 
         CircleUtils.getCenter(myCircle, tmp2);
@@ -69,12 +68,12 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Rectangle rectangle, ContactBody contactBody) {
-        Vector2 circleCenter = CircleUtils.getCenter(myCircle, new Vector2());
-        Body bodyA = contactBody.fixtureA.body;
+    public void rebound(Rectangle rectangle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
+        Vector2 circleCenter = CircleUtils.getCenter(myCircle, tmp);
         Segment segment = new Segment();
         RectangleUtils.getNearestSegment(rectangle, circleCenter, segment);
-        float angleIncidence = AngleUtils.angleIncidence(segment, bodyA.getVelocity(tmp));
+        float angleIncidence = AngleUtils.angleIncidence(segment, bodyA.getVelocity(tmp2));
         bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
     }
 
@@ -85,8 +84,8 @@ public class ContactCircle implements ShapeContact {
 
 
     @Override
-    public void replace(Polygon polygon, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void replace(Polygon polygon, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
 
         IntersectorCircle.replaceFromPolygon(myCircle, polygon, tmp);
         CircleUtils.getCenter(myCircle, tmp2);
@@ -96,10 +95,10 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Polygon polygon, ContactBody contactBody) {
+    public void rebound(Polygon polygon, ContactFixture contactFixture) {
         Vector2 circleCenter = CircleUtils.getCenter(myCircle, new Vector2());
 
-        Body bodyA = contactBody.fixtureA.body;
+        Body bodyA = contactFixture.fixtureA.body;
         Segment segment = new Segment();
         PolygonUtils.getNearestSegment(polygon, circleCenter, segment);
         float angleIncidence = AngleUtils.angleIncidence(segment, bodyA.getVelocity(tmp));

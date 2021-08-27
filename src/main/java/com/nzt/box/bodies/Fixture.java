@@ -3,13 +3,13 @@ package com.nzt.box.bodies;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
 
 public class Fixture<S extends BodyShape> {
     public S bodyShape;
     public Body body;
-    public Array<ContactBody> contacts = new Array();
+    public Array<ContactFixture> contacts = new Array();
 
     public Fixture(S bodyShape) {
         this.bodyShape = bodyShape;
@@ -23,12 +23,11 @@ public class Fixture<S extends BodyShape> {
         bodyShape.changeBodyPosition(position);
     }
 
-
-    public ContactBody hasContact(Fixture fixtureB) {
+    public ContactFixture hasContact(Fixture fixtureB) {
         for (int i = 0, n = contacts.size; i < n; i++) {
-            ContactBody contactBody = contacts.get(i);
-            if (contactBody.hasFixtures(this, fixtureB)) {
-                return contactBody;
+            ContactFixture contactFixture = contacts.get(i);
+            if (contactFixture.hasFixtures(this, fixtureB)) {
+                return contactFixture;
             }
         }
         return null;
@@ -40,13 +39,13 @@ public class Fixture<S extends BodyShape> {
         return b;
     }
 
-    public void replace(Fixture fixtureB, ContactBody contactBody) {
+    public void replace(Fixture fixtureB, ContactFixture contactFixture) {
         ShapeContact contactVisitor = bodyShape.getContactVisitor();
-        fixtureB.bodyShape.replace(contactVisitor, contactBody);
+        fixtureB.bodyShape.replace(contactVisitor, contactFixture);
     }
 
-    public void rebound(Fixture fixtureB, ContactBody contactBody) {
+    public void rebound(Fixture fixtureB, ContactFixture contactFixture) {
         ShapeContact contactVisitor = bodyShape.getContactVisitor();
-        fixtureB.bodyShape.rebound(contactVisitor, contactBody);
+        fixtureB.bodyShape.rebound(contactVisitor, contactFixture);
     }
 }

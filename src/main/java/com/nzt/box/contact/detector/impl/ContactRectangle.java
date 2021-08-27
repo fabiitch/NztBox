@@ -2,7 +2,7 @@ package com.nzt.box.contact.detector.impl;
 
 import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
-import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.intersectors.IntersectorPolygon;
@@ -25,8 +25,8 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void replace(Circle circle, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void replace(Circle circle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
         IntersectorCircle.replaceFromRectangle(circle, myRectangle, tmp);
         V2.inv(tmp);
         RectangleUtils.getCenter(myRectangle, tmp2);
@@ -35,7 +35,7 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Circle circle, ContactBody contactBody) {
+    public void rebound(Circle circle, ContactFixture contactFixture) {
 
     }
 
@@ -46,8 +46,8 @@ public class ContactRectangle implements ShapeContact {
 
 
     @Override
-    public void replace(Rectangle rectangle, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void replace(Rectangle rectangle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
 
         Intersector.MinimumTranslationVector translationVector = IntersectorPolygon.tmpTranslationVector;
         boolean overlaps = IntersectorRectangle.rectangles(myRectangle, rectangle, translationVector);
@@ -59,7 +59,7 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Rectangle rectangle, ContactBody contactBody) {
+    public void rebound(Rectangle rectangle, ContactFixture contactFixture) {
 
     }
 
@@ -69,8 +69,8 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void replace(Polygon polygon, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void replace(Polygon polygon, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
 
         Intersector.MinimumTranslationVector translationVector = IntersectorPolygon.tmpTranslationVector;
         boolean overlaps = IntersectorRectangle.polygon(myRectangle, polygon, translationVector);
@@ -82,7 +82,7 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Polygon polygon, ContactBody contactBody) {
+    public void rebound(Polygon polygon, ContactFixture contactFixture) {
 
     }
 }
