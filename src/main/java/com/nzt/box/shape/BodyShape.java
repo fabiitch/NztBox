@@ -2,7 +2,7 @@ package com.nzt.box.shape;
 
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
-import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 
@@ -36,7 +36,7 @@ public abstract class BodyShape<S extends Shape2D> {
 
     public abstract boolean testContact(ShapeContact visitor);
 
-    public abstract void replace(ShapeContact visitor, ContactBody contactBody);
+    public abstract void replace(ShapeContact visitor, ContactFixture contactFixture);
 
-    public abstract void rebound(ShapeContact visitor, ContactBody contactBody);
+    public abstract void rebound(ShapeContact visitor, ContactFixture contactFixture);
 }

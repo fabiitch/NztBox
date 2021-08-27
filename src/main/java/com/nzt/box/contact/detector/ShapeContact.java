@@ -3,25 +3,25 @@ package com.nzt.box.contact.detector;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
 
 public interface ShapeContact {
 
     boolean testContact(Circle circle);
 
-    void replace(Circle circle, ContactBody contactBody);
+    void replace(Circle circle, ContactFixture contactFixture);
 
-    void rebound(Circle circle, ContactBody contactBody);
+    void rebound(Circle circle, ContactFixture contactFixture);
 
     boolean testContact(Rectangle rectangle);
 
-    void replace(Rectangle rectangle, ContactBody contactBody);
+    void replace(Rectangle rectangle, ContactFixture contactFixture);
 
-    void rebound(Rectangle rectangle, ContactBody contactBody);
+    void rebound(Rectangle rectangle, ContactFixture contactFixture);
 
     boolean testContact(Polygon polygon);
 
-    void replace(Polygon polygon, ContactBody contactBody);
+    void replace(Polygon polygon, ContactFixture contactFixture);
 
-    void rebound(Polygon polygon, ContactBody contactBody);
+    void rebound(Polygon polygon, ContactFixture contactFixture);
 }

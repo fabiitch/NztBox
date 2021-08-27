@@ -2,7 +2,7 @@ package com.nzt.box.contact.detector.impl;
 
 import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
-import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.math.AngleUtils;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
@@ -24,8 +24,8 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void replace(Circle circle, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void replace(Circle circle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
         IntersectorCircle.replaceFromPolygon(circle, myPolygon, tmp);
         Vector2 polygonPos = PolygonUtils.getPos(myPolygon, tmp2);
         V2.inv(tmp);
@@ -33,8 +33,8 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void rebound(Circle circle, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void rebound(Circle circle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
         Vector2 circleCenter = CircleUtils.getCenter(circle, tmp);
         Segment nearestSegment = PolygonUtils.getNearestSegment(myPolygon, circleCenter, new Segment());
 
@@ -50,8 +50,8 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void replace(Rectangle rectangle, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void replace(Rectangle rectangle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
 
         boolean overlaps = IntersectorPolygon.rectangle(myPolygon, rectangle, IntersectorPolygon.tmpTranslationVector);
         if (overlaps) {
@@ -62,8 +62,8 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void rebound(Rectangle rectangle, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void rebound(Rectangle rectangle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
         Vector2 normal = V2.getNormal(IntersectorPolygon.tmpTranslationVector.normal, new Vector2());
         float angleIncidence = AngleUtils.angleIncidence(normal, bodyA.getVelocity(tmp));
         bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
@@ -75,8 +75,8 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void replace(Polygon polygon, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void replace(Polygon polygon, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
 
         boolean overlaps = IntersectorPolygon.polygons(myPolygon, polygon, IntersectorPolygon.tmpTranslationVector);
         if (overlaps) {
@@ -87,8 +87,8 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void rebound(Polygon polygon, ContactBody contactBody) {
-        Body bodyA = contactBody.fixtureA.body;
+    public void rebound(Polygon polygon, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
         Vector2 normal = V2.getNormal(IntersectorPolygon.tmpTranslationVector.normal, new Vector2());
         float angleIncidence = AngleUtils.angleIncidence(normal, bodyA.getVelocity(tmp));
         bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));

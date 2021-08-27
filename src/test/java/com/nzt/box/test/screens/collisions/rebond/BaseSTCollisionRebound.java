@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
-import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.test.screens.collisions.BaseSTCollision;
@@ -39,7 +39,7 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
         ContactListener contactListener = new ContactListener() {
 
             @Override
-            public void beginContact(ContactBody contactBody) {
+            public void beginContact(ContactFixture contactBody) {
                 drawContactInfo = true;
                 body1.active = false;
                 body2.active = false;
@@ -49,23 +49,23 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
             }
 
             @Override
-            public void endContact(ContactBody contactBody) {
+            public void endContact(ContactFixture contactBody) {
                 debugMsg("Collision", false, HudDebugPosition.BOT_RIGHT);
                 System.out.println("endContact");
             }
 
             @Override
-            public void continusContact(ContactBody contactBody) {
+            public void continueContact(ContactFixture contactBody) {
 
             }
 
             @Override
-            public void preSolve(ContactBody contactBody) {
+            public void preSolve(ContactFixture contactBody) {
 
             }
 
             @Override
-            public void postSolve(ContactBody contactBody) {
+            public void postSolve(ContactFixture contactBody) {
 
             }
         };

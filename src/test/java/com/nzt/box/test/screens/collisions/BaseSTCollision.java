@@ -2,6 +2,7 @@ package com.nzt.box.test.screens.collisions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
-import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.CircleShape;
@@ -17,6 +18,7 @@ import com.nzt.box.shape.PolygonShape;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
+import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
 public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape> extends Box2dTestScreen {
@@ -32,41 +34,39 @@ public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape
         body1 = new Body(bodyTypeA);
         Fixture fixture1 = new Fixture(createBodyShape1());
         body1.addFixture(fixture1);
-        world.bodies.add(body1);
+        world.addBody(body1);
         body1.setPosition(posBodyA);
 
         body2 = new Body(bodyTypeB);
         Fixture fixture2 = new Fixture(createBodyShape2());
         body2.addFixture(fixture2);
-        world.bodies.add(body2);
+        world.addBody(body2);
         body2.setPosition(posBodyB);
         debugMsg("Collision", false, HudDebugPosition.BOT_RIGHT);
 
         ContactListener contactListener = new ContactListener() {
             @Override
-            public void beginContact(ContactBody contactBody) {
-                debugMsg("Collision", true, HudDebugPosition.BOT_RIGHT);
-                System.out.println("beginContact");
+            public void beginContact(ContactFixture contactBody) {
+                HudDebug.update("Collision", true, Color.RED);
             }
 
             @Override
-            public void endContact(ContactBody contactBody) {
-                debugMsg("Collision", false, HudDebugPosition.BOT_RIGHT);
-                System.out.println("endContact");
+            public void endContact(ContactFixture contactBody) {
+                HudDebug.update("Collision", true, Color.BLUE);
             }
 
             @Override
-            public void continusContact(ContactBody contactBody) {
-
-            }
-
-            @Override
-            public void preSolve(ContactBody contactBody) {
+            public void continueContact(ContactFixture contactBody) {
 
             }
 
             @Override
-            public void postSolve(ContactBody contactBody) {
+            public void preSolve(ContactFixture contactBody) {
+
+            }
+
+            @Override
+            public void postSolve(ContactFixture contactBody) {
 
             }
         };

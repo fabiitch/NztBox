@@ -2,36 +2,44 @@ package com.nzt.box.bodies;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.SnapshotArray;
-import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
+import com.nzt.box.shape.BodyShape;
+import com.nzt.box.world.World;
 import com.nzt.gdx.math.vectors.V3;
 
-public class Body {
+//TODO POOLABLE
+public class Body implements Pool.Poolable {
+
 
     public int id;
     public BodyType bodyType;
     public Object userData;
+    public boolean active = true;
     public boolean bullet = false; //check continus deplacement for collision
 
-    public SnapshotArray<Fixture> fixtures;
-    public SnapshotArray<ContactBody> contacts;
 
     public Vector3 position = new Vector3();
     public Vector3 forces = new Vector3();
     public Vector3 velocity = new Vector3();
 
-    private Vector3 tmp = new Vector3();
-
+    public Array<Fixture<?>> fixtures;
+    public Array<ContactFixture> contacts;
 
     public float bouncing = 0;
+    public float restitution = 0;
+    public boolean canRotate;
     public float maxDstFixture;
     public boolean dirty;
-    public boolean active = true;
+
+    private Vector3 tmp = new Vector3();
 
     public Body(BodyType bodyType) {
         this.bodyType = bodyType;
-        fixtures = new SnapshotArray<>();
-        contacts = new SnapshotArray<>();
+        fixtures = new Array<>();
+        contacts = new Array<>();
     }
 
     public boolean move(float dt) {
@@ -99,5 +107,10 @@ public class Body {
     public void setVelocity(float x, float y) {
         velocity.x = x;
         velocity.y = y;
+    }
+
+    @Override
+    public void reset() {
+
     }
 }
