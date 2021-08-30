@@ -7,22 +7,30 @@ import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactUtils;
 
-//TODO hashcode = fixtureA.id, fixtureB.id
 public class ContactFixture implements Pool.Poolable {
-
     public Fixture<?> fixtureA;
     public Fixture<?> fixtureB;
+
+    public boolean ignoreContact = false; //contact is removed
+    public boolean enableContact = true;
     public boolean tickEveryStep = false;
 
+    public CollisionData collisionData;
+
     public ContactFixture() {
+        collisionData = new CollisionData();
     }
 
     public boolean retry() {
         boolean fastCheck = ContactUtils.canContact(fixtureA, fixtureB);
-        if(!fastCheck)
+        if (!fastCheck)
             return false;
 
         return fixtureA.testContact(fixtureB);
+    }
+
+    public boolean imFixtureA(Fixture<?> fixture) {
+        return fixture == fixtureA;
     }
 
     public boolean hasBody(Body body) {
@@ -45,11 +53,13 @@ public class ContactFixture implements Pool.Poolable {
         return BoxUtils.isContactBlock(fixtureA.body, fixtureB.body);
     }
 
-
     public static ContactFixture get(Fixture fixtureA, Fixture fixtureB) {
         ContactFixture contactFixture = Pools.obtain(ContactFixture.class);
         contactFixture.fixtureA = fixtureA;
         contactFixture.fixtureB = fixtureB;
+        contactFixture.ignoreContact = false;
+        contactFixture.enableContact = true;
+        contactFixture.tickEveryStep = false;
         return contactFixture;
     }
 

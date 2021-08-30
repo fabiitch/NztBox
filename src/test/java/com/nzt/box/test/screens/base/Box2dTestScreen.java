@@ -6,6 +6,7 @@ import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
 public abstract class Box2dTestScreen extends BoxTestScreen {
+
     public Box2dTestScreen(FastTesterMain main) {
         super(main);
         camera = new OrthographicCamera(SCREEN_WITDH, SCREEN_HEIGHT);

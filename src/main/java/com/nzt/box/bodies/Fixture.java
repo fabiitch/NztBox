@@ -9,6 +9,7 @@ import com.nzt.box.contact.detector.ShapeContact;
 public class Fixture<S extends BodyShape> {
     public S bodyShape;
     public Body body;
+
     public Array<ContactFixture> contacts = new Array();
 
     public Fixture(S bodyShape) {

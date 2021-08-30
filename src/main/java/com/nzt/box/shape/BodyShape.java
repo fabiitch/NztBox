@@ -8,7 +8,6 @@ import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 
 public abstract class BodyShape<S extends Shape2D> {
     public S shape;
-
     public float maxDst;
 
     public BodyShape(S shape) {
