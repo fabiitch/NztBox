@@ -13,6 +13,10 @@ public class CircleShape extends BodyShape<Circle> {
         super(shape);
     }
 
+    public CircleShape(float radius) {
+        this(new Circle(0, 0, radius));
+    }
+
     @Override
     public float calculMaxDst() {
         return shape.radius;
@@ -62,6 +66,6 @@ public class CircleShape extends BodyShape<Circle> {
 
     @Override
     public void rebound(ShapeContact visitor, ContactFixture contactFixture) {
-        visitor.rebound(shape , contactFixture);
+        visitor.rebound(shape, contactFixture);
     }
 }

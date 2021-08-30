@@ -52,7 +52,7 @@ public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape
 
             @Override
             public void endContact(ContactFixture contactBody) {
-                HudDebug.update("Collision", true, Color.BLUE);
+                HudDebug.update("Collision", false, Color.BLUE);
             }
 
             @Override

@@ -15,22 +15,44 @@ public class WorldData {
     private World world;
     public Array<Body> bodies;
     private ObjectMap<Fixture<?>, ObjectMap<Fixture<?>, ContactFixture>> mapContacts;
-
+    public Array<Body> activeBodies;
 
     public WorldData(World world) {
         super();
         this.world = world;
         this.bodies = new Array<>();
+        this.activeBodies = new Array<>();
         this.mapContacts = new ObjectMap<>();
     }
 
     public void addBody(Body body) {
+        body.dirty = true;
         bodies.add(body);
         body.updatePosition();
     }
 
-    public ContactFixture addContact(Fixture<?> fixtureA, Fixture<?> fixtureB) {
-        ContactFixture contactFixture = ContactFixture.get(fixtureA, fixtureB);
+    public void removeBody(Body body) {
+        for (int i = 0, n = body.fixtures.size; i < n; i++) {
+            Fixture<?> fixture = body.fixtures.get(i);
+            Array<ContactFixture> contacts = fixture.contacts;
+            for (int j = 0, m = contacts.size; j < m; j++) {
+                ContactFixture contactFixture = contacts.get(j);
+                if (contactFixture.imFixtureA(fixture)) {
+                    mapContacts.get(contactFixture.fixtureB).remove(fixture);
+                    contactFixture.fixtureB.contacts.removeValue(contactFixture, true);
+                } else {
+                    mapContacts.get(contactFixture.fixtureA).remove(fixture);
+                    contactFixture.fixtureB.contacts.removeValue(contactFixture, true);
+                }
+            }
+            mapContacts.remove(fixture);
+        }
+        bodies.removeValue(body, true); //remove body
+    }
+
+    public void addContact(ContactFixture contactFixture) {
+        Fixture<?> fixtureA = contactFixture.fixtureA;
+        Fixture<?> fixtureB = contactFixture.fixtureB;
         ObjectMap<Fixture<?>, ContactFixture> mapA = mapContacts.get(fixtureA);
         ObjectMap<Fixture<?>, ContactFixture> mapB = mapContacts.get(fixtureB);
         if (mapA == null) {
@@ -43,7 +65,9 @@ public class WorldData {
         }
         mapA.put(fixtureB, contactFixture);
         mapB.put(fixtureA, contactFixture);
-        return contactFixture;
+
+        contactFixture.fixtureA.contacts.add(contactFixture);
+        contactFixture.fixtureB.contacts.add(contactFixture);
     }
 
     public ContactFixture getContact(Fixture<?> fixtureA, Fixture<?> fixtureB) {
@@ -62,8 +86,6 @@ public class WorldData {
         mapContacts.get(fixtureA).remove(fixtureB);
         mapContacts.get(fixtureB).remove(fixtureA);
     }
-
-
 
 
 }

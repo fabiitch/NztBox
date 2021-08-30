@@ -26,7 +26,7 @@ public class Body implements Pool.Poolable {
     public Vector3 velocity = new Vector3();
 
     public Array<Fixture<?>> fixtures;
-    public Array<ContactFixture> contacts;
+//    public Array<ContactFixture> contacts;
 
     public float bouncing = 0;
     public float restitution = 0;
@@ -39,7 +39,7 @@ public class Body implements Pool.Poolable {
     public Body(BodyType bodyType) {
         this.bodyType = bodyType;
         fixtures = new Array<>();
-        contacts = new Array<>();
+//        contacts = new Array<>();
     }
 
     public boolean move(float dt) {

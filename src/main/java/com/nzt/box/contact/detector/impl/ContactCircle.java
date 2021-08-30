@@ -19,7 +19,6 @@ public class ContactCircle implements ShapeContact {
     private Vector2 tmp = new Vector2();
     private Vector2 tmp2 = new Vector2();
     private Vector2 tmp3 = new Vector2();
-    private Vector2 tmp4 = new Vector2();
 
     @Override
     public boolean testContact(Circle circle) {
