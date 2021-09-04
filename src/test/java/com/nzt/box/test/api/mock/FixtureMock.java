@@ -8,4 +8,9 @@ public class FixtureMock extends Fixture<CircleShape> {
     public FixtureMock() {
         super(new CircleShape(1));
     }
+
+    public FixtureMock(String userData) {
+        super(new CircleShape(1));
+        this.userData = userData;
+    }
 }

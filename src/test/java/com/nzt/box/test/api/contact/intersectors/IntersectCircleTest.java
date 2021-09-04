@@ -1,15 +1,14 @@
-package com.nzt.box.test.api.contact;
+package com.nzt.box.test.api.contact.intersectors;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.nzt.box.contact.detector.impl.ContactCircle;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ContactCircleTest implements ContactTest {
+public class IntersectCircleTest implements IntersectTest {
 
     private static ContactCircle contactCircle = new ContactCircle();
 

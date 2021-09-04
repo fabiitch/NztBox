@@ -3,8 +3,10 @@ package com.nzt.box.bodies;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.world.World;
@@ -13,7 +15,6 @@ import com.nzt.gdx.math.vectors.V3;
 //TODO POOLABLE
 public class Body implements Pool.Poolable {
 
-
     public int id;
     public BodyType bodyType;
     public Object userData;
@@ -21,30 +22,33 @@ public class Body implements Pool.Poolable {
     public boolean bullet = false; //check continus deplacement for collision
 
 
-    public Vector3 position = new Vector3();
-    public Vector3 forces = new Vector3();
-    public Vector3 velocity = new Vector3();
+    public final Vector3 position = new Vector3();
+    public final Vector3 forces = new Vector3();
+    public final Vector3 velocity = new Vector3();
 
-    public Array<Fixture<?>> fixtures;
-//    public Array<ContactFixture> contacts;
+    public final Array<Fixture<?>> fixtures;
+    public final Array<ContactBody> contacts;
 
-    public float bouncing = 0;
-    public float restitution = 0;
-    public boolean canRotate;
+    public float mass = 1;
+    public float bouncing = 1;
+    public float restitution = 1;
+    public boolean canRotate = true;
+
     public float maxDstFixture;
     public boolean dirty;
 
-    private Vector3 tmp = new Vector3();
+    private final Vector3 tmp = new Vector3();
 
     public Body(BodyType bodyType) {
         this.bodyType = bodyType;
         fixtures = new Array<>();
-//        contacts = new Array<>();
+        contacts = new Array<>();
     }
 
     public boolean move(float dt) {
-        if (velocity.isZero())
+        if (velocity.isZero() && forces.isZero())
             return false;
+        position.add(forces);
         position.add(tmp.set(velocity).scl(dt));
         updatePosition();
         return true;
@@ -80,7 +84,6 @@ public class Body implements Pool.Poolable {
     }
 
     public void setPosition(Vector3 position) {
-        dirty = true;
         this.position.set(position);
         updatePosition();
     }
@@ -90,6 +93,7 @@ public class Body implements Pool.Poolable {
             Fixture fixture = fixtures.get(i);
             fixture.changeBodyPosition(position.x, position.y);
         }
+        dirty = true;
     }
 
     public void setVelocity(Vector3 velocity) {

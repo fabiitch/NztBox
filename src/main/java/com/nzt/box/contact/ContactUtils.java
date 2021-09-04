@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 
-//TODO TEST a faire
 public class ContactUtils {
 
     private static final Vector2 tmp1 = new Vector2(); //TODO

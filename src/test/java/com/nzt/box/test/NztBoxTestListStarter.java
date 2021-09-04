@@ -4,6 +4,7 @@ import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
+import com.nzt.box.test.screens.arch.NztBoxSelectorTestMain;
 import com.nzt.gdx.main.AbstractMain;
 import com.nzt.gdx.test.trials.NztTestListStarter;
 import com.nzt.gdx.test.trials.tester.selector.screen.ScreenSelectorTestMain;
@@ -35,7 +36,7 @@ public class NztBoxTestListStarter {
     }
 
     public static void main(String[] args) {
-        startLwjgl3(new ScreenSelectorTestMain(NztTestListStarter.class,
+        startLwjgl3(new NztBoxSelectorTestMain(NztTestListStarter.class,
                         "com.nzt.box.test"),
                 witdh, height);
     }

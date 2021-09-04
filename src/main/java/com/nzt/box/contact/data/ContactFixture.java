@@ -53,13 +53,15 @@ public class ContactFixture implements Pool.Poolable {
         return BoxUtils.isContactBlock(fixtureA.body, fixtureB.body);
     }
 
+    public String debug() {
+        return "ContactFixture = [BodyA=" + fixtureA.body.userData + ", FixtureA=" + fixtureA.userData + "\n" +
+                "&& BodyB=" + fixtureB.body.userData + " FixtureB=" + fixtureB.userData + "]";
+    }
+
     public static ContactFixture get(Fixture fixtureA, Fixture fixtureB) {
         ContactFixture contactFixture = Pools.obtain(ContactFixture.class);
         contactFixture.fixtureA = fixtureA;
         contactFixture.fixtureB = fixtureB;
-        contactFixture.ignoreContact = false;
-        contactFixture.enableContact = true;
-        contactFixture.tickEveryStep = false;
         return contactFixture;
     }
 
@@ -67,6 +69,8 @@ public class ContactFixture implements Pool.Poolable {
     public void reset() {
         fixtureA = null;
         fixtureB = null;
+        ignoreContact = false;
+        enableContact = true;
         tickEveryStep = false;
     }
 }
