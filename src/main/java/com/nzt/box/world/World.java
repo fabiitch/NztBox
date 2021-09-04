@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
+import com.nzt.box.contact.ContactUtils;
+import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
 
@@ -43,8 +45,8 @@ public class World {
         data.addBody(body);
     }
 
-    public void removeBody(Body body) {
-        data.removeBody(body);
+    public void destroyBody(Body body) {
+        data.destroyBody(body);
     }
 
     public void checkCollision(Body body) {
@@ -58,12 +60,21 @@ public class World {
     }
 
     public void testContact(Body bodyA, Body bodyB) {
-        //TODO find if alreadyContact
+
+        ContactBody contactBody = data.getContact(bodyA, bodyB);
+        if (contactBody == null) {
+            if (!ContactUtils.canContact(bodyA, bodyB)) {
+                return;
+            }
+        }
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
+            Fixture<?> fixtureA = bodyA.fixtures.get(i);
+            boolean fixtureCanContact = ContactUtils.canContact(bodyB, fixtureA);
+            if (!fixtureCanContact)
+                continue;
             for (int j = 0, m = bodyB.fixtures.size; j < m; j++) {
-                Fixture<?> fixtureA = bodyA.fixtures.get(i);
                 Fixture<?> fixtureB = bodyB.fixtures.get(j);
-                ContactFixture hasContact = data.getContact(fixtureA, fixtureB); //pas bon doit renvoyé une liste
+                ContactFixture hasContact = data.getContact(fixtureA, fixtureB);
                 if (hasContact != null) {
                     boolean retry = hasContact.retry();
                     if (retry) {
@@ -78,6 +89,9 @@ public class World {
                         data.endContact(hasContact);
                     }
                 } else {
+                    boolean fastCheck = ContactUtils.canContact(fixtureA, fixtureB);
+                    if (!fastCheck)
+                        continue;
                     boolean newC = fixtureA.testContact(fixtureB);
                     if (newC) {
                         ContactFixture newContact = ContactFixture.get(fixtureA, fixtureB);

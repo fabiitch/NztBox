@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
+import com.nzt.box.contact.forces.ContactForces;
 import com.nzt.gdx.math.AngleUtils;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.shapes.Segment;
@@ -46,8 +47,18 @@ public class ContactCircle implements ShapeContact {
         Body bodyA = contactFixture.fixtureA.body;
         Vector2 half = V2.middle(circle.x, circle.y, myCircle.x, myCircle.y, new Vector2());
         Vector2 tangent = CircleUtils.getTangent(circle, half, new Vector2());
-        float angleIncidence = AngleUtils.angleIncidence(tangent, bodyA.getVelocity(tmp));
-        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+//
+//        float angleIncidence = AngleUtils.angleIncidence(tangent, bodyA.getVelocity(tmp));
+//        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+
+//        Body bodyB = contactFixture.fixtureB.body;
+//        Vector2 velocity = bodyA.getVelocity(tmp);
+//        bodyB.setVelocity(V2.inv(velocity));
+//        System.out.println("toto");
+
+
+        Vector2 normal = V2.getNormal(tangent, contactFixture.collisionData.normal);
+        ContactForces.applyForces(contactFixture);
     }
 
     @Override

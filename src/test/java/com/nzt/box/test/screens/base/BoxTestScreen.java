@@ -76,21 +76,21 @@ abstract class BoxTestScreen extends TestScreen {
 
 
         Body botBody = new Body(BodyType.Static);
-//        botBody.userData = "WallHorizontalBot";
+        botBody.userData = "WallHorizontalBot";
         RectangleShape shapeBot = new RectangleShape(SCREEN_WITDH, 10);
         botBody.addFixture(new Fixture(shapeBot));
         world.addBody(botBody);
         botBody.setPosition(0, aY);
 
         Body topBody = new Body(BodyType.Static);
-//        topBody.userData = "WallHorizontalTop";
+        topBody.userData = "WallHorizontalTop";
         RectangleShape shapeTop = new RectangleShape(SCREEN_WITDH, 10);
         topBody.addFixture(new Fixture(shapeTop));
         world.addBody(topBody);
         topBody.setPosition(0, cY);
 //
         Body rightBody = new Body(BodyType.Static);
-//        rightBody.userData = "WallVerticalRight";
+        rightBody.userData = "WallVerticalRight";
         RectangleShape shapeRight = new RectangleShape(10, SCREEN_HEIGHT);
         rightBody.addFixture(new Fixture(shapeRight));
         world.addBody(rightBody);
@@ -98,7 +98,7 @@ abstract class BoxTestScreen extends TestScreen {
 
 
         Body leftBody = new Body(BodyType.Static);
-//        leftBody.userData = "WallbotHorizontal";
+        leftBody.userData = "WallbotHorizontal";
         RectangleShape shapeLeft = new RectangleShape(10, SCREEN_HEIGHT);
         leftBody.addFixture(new Fixture(shapeLeft));
         world.addBody(leftBody);

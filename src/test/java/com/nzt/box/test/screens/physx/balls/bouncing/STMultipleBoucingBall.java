@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.physx;
+package com.nzt.box.test.screens.physx.balls.bouncing;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -17,7 +17,7 @@ import com.nzt.gdx.input.impl.simple.SimpleClickInputHandler;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
-@TestScreenList(group = "2D.physx")
+@TestScreenList(group = "2D.physx.balls.bouncing")
 public class STMultipleBoucingBall extends Box2dTestScreen {
     private Array<Body> allBalls = new Array<>();
     private Vector2 tmpPos = new Vector2();

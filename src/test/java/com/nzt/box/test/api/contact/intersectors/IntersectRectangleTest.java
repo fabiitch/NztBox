@@ -1,4 +1,4 @@
-package com.nzt.box.test.api.contact;
+package com.nzt.box.test.api.contact.intersectors;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ContactRectangleTest implements ContactTest {
+public class IntersectRectangleTest implements IntersectTest {
 
     private static ContactRectangle contactRectangle;
 
