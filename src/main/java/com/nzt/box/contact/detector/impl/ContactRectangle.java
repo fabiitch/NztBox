@@ -35,7 +35,7 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Circle circle, ContactFixture contactFixture) {
+    public void rebound(Circle circle, ContactFixture contactFixture, float stepTime) {
 
     }
 

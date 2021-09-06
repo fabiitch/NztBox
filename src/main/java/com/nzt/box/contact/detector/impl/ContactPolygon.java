@@ -33,7 +33,7 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void rebound(Circle circle, ContactFixture contactFixture) {
+    public void rebound(Circle circle, ContactFixture contactFixture, float stepTime) {
         Body bodyA = contactFixture.fixtureA.body;
         Vector2 circleCenter = CircleUtils.getCenter(circle, tmp);
         Segment nearestSegment = PolygonUtils.getNearestSegment(myPolygon, circleCenter, new Segment());

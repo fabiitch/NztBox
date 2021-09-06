@@ -11,7 +11,7 @@ public interface ShapeContact {
 
     void replace(Circle circle, ContactFixture contactFixture);
 
-    void rebound(Circle circle, ContactFixture contactFixture);
+    void rebound(Circle circle, ContactFixture contactFixture, float stepTime);
 
     boolean testContact(Rectangle rectangle);
 

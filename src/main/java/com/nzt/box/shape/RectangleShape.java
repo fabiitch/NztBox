@@ -74,7 +74,7 @@ public class RectangleShape extends BodyShape<Rectangle> {
     }
 
     @Override
-    public void rebound(ShapeContact visitor, ContactFixture contactFixture) {
+    public void rebound(ShapeContact visitor, ContactFixture contactFixture, float stepTime) {
         visitor.rebound(shape, contactFixture);
     }
 }

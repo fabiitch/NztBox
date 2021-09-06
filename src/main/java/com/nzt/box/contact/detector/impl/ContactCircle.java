@@ -43,7 +43,7 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Circle circle, ContactFixture contactFixture) {
+    public void rebound(Circle circle, ContactFixture contactFixture, float stepTime) {
         Body bodyA = contactFixture.fixtureA.body;
         Vector2 half = V2.middle(circle.x, circle.y, myCircle.x, myCircle.y, new Vector2());
         Vector2 tangent = CircleUtils.getTangent(circle, half, new Vector2());
@@ -58,7 +58,7 @@ public class ContactCircle implements ShapeContact {
 
 
         Vector2 normal = V2.getNormal(tangent, contactFixture.collisionData.normal);
-        ContactForces.applyForces(contactFixture);
+        ContactForces.applyForces(contactFixture,stepTime);
     }
 
     @Override
