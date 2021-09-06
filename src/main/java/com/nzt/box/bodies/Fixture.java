@@ -46,8 +46,8 @@ public class Fixture<S extends BodyShape> {
         fixtureB.bodyShape.replace(contactVisitor, contactFixture);
     }
 
-    public void rebound(Fixture fixtureB, ContactFixture contactFixture) {
+    public void rebound(Fixture fixtureB, ContactFixture contactFixture, float stepTime) {
         ShapeContact contactVisitor = bodyShape.getContactVisitor();
-        fixtureB.bodyShape.rebound(contactVisitor, contactFixture);
+        fixtureB.bodyShape.rebound(contactVisitor, contactFixture, stepTime);
     }
 }

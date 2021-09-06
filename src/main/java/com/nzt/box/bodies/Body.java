@@ -45,11 +45,11 @@ public class Body implements Pool.Poolable {
         contacts = new Array<>();
     }
 
-    public boolean move(float dt) {
+    public boolean move(float stepTime) {
         if (velocity.isZero() && forces.isZero())
             return false;
         position.add(forces);
-        position.add(tmp.set(velocity).scl(dt));
+        position.add(tmp.set(velocity).scl(stepTime));
         updatePosition();
         return true;
     }

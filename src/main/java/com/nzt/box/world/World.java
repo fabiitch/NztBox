@@ -34,7 +34,7 @@ public class World {
                     continue;
                 boolean move = body.move(stepTime);
                 if (move || body.dirty) {
-                    checkCollision(body);
+                    checkCollision(body, stepTime);
                 }
                 body.dirty = false;
             }
@@ -49,17 +49,17 @@ public class World {
         data.destroyBody(body);
     }
 
-    public void checkCollision(Body body) {
+    public void checkCollision(Body body, float stepTime) {
         Array<Body> bodies = data.bodies;
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body bodyTest = bodies.get(i);
             if (body != bodyTest && body.active) {
-                testContact(body, bodyTest);
+                testContact(body, bodyTest,stepTime);
             }
         }
     }
 
-    public void testContact(Body bodyA, Body bodyB) {
+    public void testContact(Body bodyA, Body bodyB, float stepTime) {
 
         ContactBody contactBody = data.getContact(bodyA, bodyB);
         if (contactBody == null) {
@@ -101,7 +101,7 @@ public class World {
                             data.addContact(newContact);
                             if (newContact.enableContact && BoxUtils.isContactBlock(bodyA, bodyB)) {
                                 fixtureA.replace(fixtureB, newContact);
-                                fixtureA.rebound(fixtureB, newContact);
+                                fixtureA.rebound(fixtureB, newContact, stepTime);
                             }
                         }
                     }
