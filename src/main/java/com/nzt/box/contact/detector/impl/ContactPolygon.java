@@ -33,15 +33,14 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void rebound(Circle circle, ContactFixture contactFixture, float stepTime) {
+    public void calculNormal(Circle circle, ContactFixture contactFixture) {
         Body bodyA = contactFixture.fixtureA.body;
         Vector2 circleCenter = CircleUtils.getCenter(circle, tmp);
         Segment nearestSegment = PolygonUtils.getNearestSegment(myPolygon, circleCenter, new Segment());
 
         Vector2 contactPoint = nearestSegment.nearestPoint(circleCenter, tmp2);
         Vector2 tangent = CircleUtils.getTangent(circle, contactPoint, new Vector2());
-        float angleIncidence = AngleUtils.angleIncidence(tangent, bodyA.getVelocity(tmp));
-        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+        V2.getNormal(tangent, contactFixture.collisionData.normal);
     }
 
     @Override
@@ -62,11 +61,15 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void rebound(Rectangle rectangle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
-        Vector2 normal = V2.getNormal(IntersectorPolygon.tmpTranslationVector.normal, new Vector2());
-        float angleIncidence = AngleUtils.angleIncidence(normal, bodyA.getVelocity(tmp));
-        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+    public void calculNormal(Rectangle rectangle, ContactFixture contactFixture) {
+//        Body bodyA = contactFixture.fixtureA.body;
+//        Vector2 normal = V2.getNormal(IntersectorPolygon.tmpTranslationVector.normal, new Vector2());
+//        float angleIncidence = AngleUtils.angleIncidence(normal, bodyA.getVelocity(tmp));
+//        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+
+        boolean overlaps = IntersectorPolygon.rectangle(myPolygon, rectangle, IntersectorPolygon.tmpTranslationVector);//TODO group avec replace
+        if (overlaps)
+            contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
     }
 
     @Override
@@ -87,10 +90,14 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void rebound(Polygon polygon, ContactFixture contactFixture) {
+    public void calculNormal(Polygon polygon, ContactFixture contactFixture) {
         Body bodyA = contactFixture.fixtureA.body;
-        Vector2 normal = V2.getNormal(IntersectorPolygon.tmpTranslationVector.normal, new Vector2());
-        float angleIncidence = AngleUtils.angleIncidence(normal, bodyA.getVelocity(tmp));
-        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+//        Vector2 normal = V2.getNormal(IntersectorPolygon.tmpTranslationVector.normal, new Vector2());
+//        float angleIncidence = AngleUtils.angleIncidence(normal, bodyA.getVelocity(tmp));
+//        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+
+        boolean overlaps = IntersectorPolygon.polygons(myPolygon, polygon, IntersectorPolygon.tmpTranslationVector);
+        if (overlaps)
+            contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
     }
 }

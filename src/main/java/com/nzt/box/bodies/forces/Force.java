@@ -1,14 +1,14 @@
 package com.nzt.box.bodies.forces;
 
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Pool;
+import com.nzt.box.bodies.Body;
 
 public interface Force extends Pool.Poolable {
 
     /**
      * @param dt
-     * @param forceOnBody
-     * @return true while force is valid and active
+     * @param body
+     * @return true when force is done
      */
-    boolean applyToBody(float dt, Vector3 forceOnBody);
+    boolean applyToBody(float dt, Body body);
 }

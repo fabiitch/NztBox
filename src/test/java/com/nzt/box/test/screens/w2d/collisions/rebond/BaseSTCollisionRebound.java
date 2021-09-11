@@ -11,6 +11,7 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.shape.BodyShape;
+import com.nzt.box.test.screens.w2d.collisions.BaseSTCollision;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.math.vectors.V2;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
@@ -24,7 +25,7 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
 
     public BaseSTCollisionRebound(FastTesterMain main) {
         super(main, BodyType.Dynamic, BodyType.Static);
-        infoMsg("Press Space for change shape moving");
+        infoMsg("Press F for change shape moving");
         infoMsg("Right Click for change pos position");
         infoMsg("Left click for change target");
         infoMsg("Press A for run simulation after collision");
@@ -60,11 +61,6 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
 
             @Override
             public void preSolve(ContactFixture contactBody) {
-
-            }
-
-            @Override
-            public void postSolve(ContactFixture contactBody) {
 
             }
         };
@@ -139,7 +135,7 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
 
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.SPACE) {
+                if (keycode == Input.Keys.F) {
                     changeType();
                     drawContactInfo = false;
                 }

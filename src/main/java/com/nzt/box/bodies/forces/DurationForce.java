@@ -2,7 +2,9 @@ package com.nzt.box.bodies.forces;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Pool;
+import com.nzt.box.bodies.Body;
 
+//TODO
 public class DurationForce implements Force, Pool.Poolable {
     public Vector3 force;
     public float time;
@@ -16,11 +18,11 @@ public class DurationForce implements Force, Pool.Poolable {
         return time > timeElapsed;
     }
 
-    public boolean applyToBody(float dt, Vector3 forceOnBody) {
+    public boolean applyToBody(float dt, Body forceOnBody) {
         timeElapsed += dt;
-        if (!valid())
+        if (valid())
             return false;
-        forceOnBody.add(force);
+//        forceOnBody.add(force);
         return true;
     }
 

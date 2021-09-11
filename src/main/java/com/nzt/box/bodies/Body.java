@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.nzt.box.bodies.forces.Force;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.shape.BodyShape;
@@ -20,18 +21,22 @@ public class Body implements Pool.Poolable {
     public Object userData;
     public boolean active = true;
     public boolean bullet = false; //check continus deplacement for collision
+    public boolean sensor = false;
+    public int categorie = 0;
 
 
     public final Vector3 position = new Vector3();
-    public final Vector3 forces = new Vector3();
     public final Vector3 velocity = new Vector3();
 
     public final Array<Fixture<?>> fixtures;
     public final Array<ContactBody> contacts;
+    public final Array<Force> forces;
+    public final Array<Force> forcesToRemove;
 
-    public float mass = 1;
-    public float bouncing = 1;
-    public float restitution = 1;
+    public float mass = 1f;
+    public float transfert = 1f; //contact give cinetique force
+    public float receive = 1f; //contact absorbtion cinetique force
+    public float bouncing = 1; //rebound when contact
     public boolean canRotate = true;
 
     public float maxDstFixture;
@@ -43,15 +48,27 @@ public class Body implements Pool.Poolable {
         this.bodyType = bodyType;
         fixtures = new Array<>();
         contacts = new Array<>();
+        forces = new Array<>();
+        forcesToRemove = new Array<>();
     }
 
     public boolean move(float stepTime) {
-        if (velocity.isZero() && forces.isZero())
+        for (Force force : forces) {
+            boolean toRemove = force.applyToBody(stepTime, this);
+            if (toRemove)
+                forcesToRemove.add(force);
+        }
+        forces.removeAll(forcesToRemove, true);
+
+        if (velocity.isZero())
             return false;
-        position.add(forces);
         position.add(tmp.set(velocity).scl(stepTime));
         updatePosition();
         return true;
+    }
+
+    public void addForce(Force force) {
+        forces.add(force);
     }
 
     public void addFixture(Fixture fixture) {

@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.w2d.balls.collisions;
+package com.nzt.box.test.screens.w2d.physx.balls.collisions;
 
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
@@ -14,8 +14,6 @@ public class STBallAsyncCollision extends BaseBallCollision {
     public STBallAsyncCollision(FastTesterMain main) {
         super(main);
         world.destroyBody(ball2);
-
-
         bodyRect = new Body(BodyType.Dynamic);
         RectangleShape rectangleShape = new RectangleShape(50, 600);
         Fixture fixtureRect = new Fixture(rectangleShape);
@@ -39,6 +37,7 @@ public class STBallAsyncCollision extends BaseBallCollision {
         ball1.setVelocity(200, 0);
         bodyRect.setPosition(0, 200);
         bodyRect.setVelocity(0, -50);
+
     }
 
     @Override

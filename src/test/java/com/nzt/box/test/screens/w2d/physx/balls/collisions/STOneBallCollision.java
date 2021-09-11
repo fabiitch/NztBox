@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.w2d.balls.collisions;
+package com.nzt.box.test.screens.w2d.physx.balls.collisions;
 
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;

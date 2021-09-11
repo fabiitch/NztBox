@@ -1,4 +1,4 @@
-package com.nzt.box.test.api;
+package com.nzt.box.test.api.utils;
 
 import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;

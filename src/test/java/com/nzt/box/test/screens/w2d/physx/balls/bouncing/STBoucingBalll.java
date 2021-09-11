@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.w2d.balls.bouncing;
+package com.nzt.box.test.screens.w2d.physx.balls.bouncing;
 
 import com.badlogic.gdx.math.Circle;
 import com.nzt.box.bodies.Body;
