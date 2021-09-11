@@ -14,7 +14,7 @@ import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 public abstract class BaseSTCollisionReplace<S1 extends BodyShape, S2 extends BodyShape> extends BaseSTCollision<S1, S2> {
     public BaseSTCollisionReplace(FastTesterMain main) {
         super(main, BodyType.Dynamic, BodyType.Dynamic);
-        infoMsg("Press space for change body control");
+        infoMsg("Press F for change body control");
         infoMsg("Press R for reset position");
     }
 
@@ -52,7 +52,7 @@ public abstract class BaseSTCollisionReplace<S1 extends BodyShape, S2 extends Bo
                 } else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
                     x += velocity;
                 }
-                if (keycode == Input.Keys.SPACE) {
+                if (keycode == Input.Keys.F) {
                     if (bodyMove == body1)
                         bodyMove = body2;
                     else

@@ -24,8 +24,4 @@ public class ContactListenerMock extends ContactListener {
 
     }
 
-    @Override
-    public void postSolve(ContactFixture contactFixture) {
-
-    }
 }

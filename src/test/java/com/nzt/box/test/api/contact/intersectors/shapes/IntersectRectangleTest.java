@@ -1,4 +1,4 @@
-package com.nzt.box.test.api.contact.intersectors;
+package com.nzt.box.test.api.contact.intersectors.shapes;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;

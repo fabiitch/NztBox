@@ -64,11 +64,6 @@ public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape
             public void preSolve(ContactFixture contactBody) {
 
             }
-
-            @Override
-            public void postSolve(ContactFixture contactBody) {
-
-            }
         };
         world.contactListener = contactListener;
 

@@ -35,7 +35,7 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Circle circle, ContactFixture contactFixture, float stepTime) {
+    public void calculNormal(Circle circle, ContactFixture contactFixture) {
 
     }
 
@@ -59,7 +59,7 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Rectangle rectangle, ContactFixture contactFixture) {
+    public void calculNormal(Rectangle rectangle, ContactFixture contactFixture) {
 
     }
 
@@ -82,7 +82,7 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Polygon polygon, ContactFixture contactFixture) {
+    public void calculNormal(Polygon polygon, ContactFixture contactFixture) {
 
     }
 }

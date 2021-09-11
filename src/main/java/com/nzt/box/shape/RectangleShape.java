@@ -11,7 +11,7 @@ import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 /**
  * no rotation
  */
-public class RectangleShape extends BodyShape<Rectangle> {
+public class  RectangleShape extends BodyShape<Rectangle> {
 
     public RectangleShape(Rectangle shape) {
         super(shape);
@@ -74,7 +74,7 @@ public class RectangleShape extends BodyShape<Rectangle> {
     }
 
     @Override
-    public void rebound(ShapeContact visitor, ContactFixture contactFixture, float stepTime) {
-        visitor.rebound(shape, contactFixture);
+    public void calculNormal(ShapeContact visitor, ContactFixture contactFixture) {
+        visitor.calculNormal(shape, contactFixture);
     }
 }

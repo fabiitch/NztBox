@@ -11,6 +11,7 @@ import com.nzt.gdx.math.shapes.Segment;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
 import com.nzt.gdx.math.shapes.utils.PolygonUtils;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
+import com.nzt.gdx.math.shapes.utils.SegmentUtils;
 import com.nzt.gdx.math.vectors.V2;
 
 public class ContactCircle implements ShapeContact {
@@ -43,22 +44,10 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Circle circle, ContactFixture contactFixture, float stepTime) {
-        Body bodyA = contactFixture.fixtureA.body;
+    public void calculNormal(Circle circle, ContactFixture contactFixture) {
         Vector2 half = V2.middle(circle.x, circle.y, myCircle.x, myCircle.y, new Vector2());
         Vector2 tangent = CircleUtils.getTangent(circle, half, new Vector2());
-//
-//        float angleIncidence = AngleUtils.angleIncidence(tangent, bodyA.getVelocity(tmp));
-//        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
-
-//        Body bodyB = contactFixture.fixtureB.body;
-//        Vector2 velocity = bodyA.getVelocity(tmp);
-//        bodyB.setVelocity(V2.inv(velocity));
-//        System.out.println("toto");
-
-
-        Vector2 normal = V2.getNormal(tangent, contactFixture.collisionData.normal);
-        ContactForces.applyForces(contactFixture,stepTime);
+        V2.getNormal(tangent, contactFixture.collisionData.normal);
     }
 
     @Override
@@ -78,13 +67,11 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Rectangle rectangle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
+    public void calculNormal(Rectangle rectangle, ContactFixture contactFixture) {
         Vector2 circleCenter = CircleUtils.getCenter(myCircle, tmp);
         Segment segment = new Segment();
         RectangleUtils.getNearestSegment(rectangle, circleCenter, segment);
-        float angleIncidence = AngleUtils.angleIncidence(segment, bodyA.getVelocity(tmp2));
-        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+        segment.getNormal(circleCenter, contactFixture.collisionData.normal);
     }
 
     @Override
@@ -105,14 +92,12 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void rebound(Polygon polygon, ContactFixture contactFixture) {
+    public void calculNormal(Polygon polygon, ContactFixture contactFixture) {
         Vector2 circleCenter = CircleUtils.getCenter(myCircle, new Vector2());
 
-        Body bodyA = contactFixture.fixtureA.body;
         Segment segment = new Segment();
         PolygonUtils.getNearestSegment(polygon, circleCenter, segment);
-        float angleIncidence = AngleUtils.angleIncidence(segment, bodyA.getVelocity(tmp));
-        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
+        segment.getNormal(circleCenter, contactFixture.collisionData.normal);
     }
 
 }

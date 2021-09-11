@@ -1,5 +1,7 @@
 package com.nzt.box.test.screens.base;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.nzt.box.bodies.Body;
@@ -21,9 +23,12 @@ abstract class BoxTestScreen extends TestScreen {
     public World world;
     public WorldDebugRender debugRenderer;
 
+    public boolean runSimulation = true;
+
     public BoxTestScreen(FastTesterMain main) {
         super(main);
         world = new World();
+        infoMsg("Press Space to pause/run simulation", Color.RED);
     }
 
     public void infoMsg(String msg) {
@@ -53,7 +58,10 @@ abstract class BoxTestScreen extends TestScreen {
     @Override
     public final void renderTestScreen(float dt) {
         camera.update();
-        world.step(dt);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+            runSimulation = !runSimulation;
+        if (runSimulation)
+            world.step(dt);
         debugRenderer.render(world, camera.combined);
         doRender(dt);
     }

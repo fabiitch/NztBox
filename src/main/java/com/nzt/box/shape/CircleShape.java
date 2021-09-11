@@ -65,7 +65,7 @@ public class CircleShape extends BodyShape<Circle> {
     }
 
     @Override
-    public void rebound(ShapeContact visitor, ContactFixture contactFixture, float stepTime) {
-        visitor.rebound(shape, contactFixture, stepTime);
+    public void calculNormal(ShapeContact visitor, ContactFixture contactFixture) {
+        visitor.calculNormal(shape, contactFixture);
     }
 }

@@ -1,42 +1,50 @@
 package com.nzt.box.world;
 
 import com.badlogic.gdx.utils.Array;
-import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactUtils;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
+import com.nzt.box.contact.forces.ContactForces;
 import com.nzt.box.contact.listener.ContactListener;
 
 public class World {
 
-    int iterations = 10;
-    int maxStepTime = 1 / 80;
-
     public ContactListener contactListener;
-
     public WorldHelper helper;
     public WorldData data;
 
-    public World() {
+    public float stepTime;
+    private float accumulator = 0f;
+
+    public World(float stepTime) {
+        this.stepTime = stepTime;
         this.helper = new WorldHelper(this);
         this.data = new WorldData(this);
     }
 
+    public World() {
+        this(1 / 60f);
+    }
+
     public void step(float dt) {
-        float stepTime = dt / iterations;
-        for (int nbIteraton = 0; nbIteraton < iterations; nbIteraton++) {
-            Array<Body> bodies = data.bodies;
-            for (int i = 0, n = bodies.size; i < n; i++) {
-                Body body = bodies.get(i);
-                if (!body.active)
-                    continue;
-                boolean move = body.move(stepTime);
-                if (move || body.dirty) {
-                    checkCollision(body, stepTime);
+        float frameTime = Math.min(dt, 0.25f);
+        accumulator += frameTime;
+        if (accumulator >= stepTime) {
+            while (accumulator >= stepTime) {
+                Array<Body> bodies = data.bodies;
+                for (int i = 0, n = bodies.size; i < n; i++) {
+                    Body body = bodies.get(i);
+                    if (!body.active)
+                        continue;
+                    boolean move = body.move(stepTime);
+                    if (move || body.dirty) {
+                        checkCollision(body, stepTime);
+                    }
+                    body.dirty = false;
                 }
-                body.dirty = false;
+                accumulator -= stepTime;
             }
         }
     }
@@ -54,13 +62,12 @@ public class World {
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body bodyTest = bodies.get(i);
             if (body != bodyTest && body.active) {
-                testContact(body, bodyTest,stepTime);
+                testContact(body, bodyTest, stepTime);
             }
         }
     }
 
     public void testContact(Body bodyA, Body bodyB, float stepTime) {
-
         ContactBody contactBody = data.getContact(bodyA, bodyB);
         if (contactBody == null) {
             if (!ContactUtils.canContact(bodyA, bodyB)) {
@@ -78,13 +85,13 @@ public class World {
                 if (hasContact != null) {
                     boolean retry = hasContact.retry();
                     if (retry) {
-                        if (hasContact.tickEveryStep && contactListener != null)
+                        if (hasContact.continueContact && contactListener != null)
                             contactListener.continueContact(hasContact);
                         if (hasContact.isBlockingContact())
                             hasContact.fixtureA.replace(hasContact.fixtureB, hasContact);
 
                     } else {
-                        if (contactListener != null)
+                        if (contactListener != null && hasContact.callNextMethods)
                             contactListener.endContact(hasContact);
                         data.endContact(hasContact);
                     }
@@ -96,14 +103,20 @@ public class World {
                     if (newC) {
                         ContactFixture newContact = ContactFixture.get(fixtureA, fixtureB);
                         if (contactListener != null)
+                            contactListener.preSolve(newContact);
+                        data.addContact(newContact);
+                        if (newContact.isBlockingContact())
+                            fixtureA.replace(fixtureB, newContact);
+                        fixtureA.calculNormal(fixtureB, newContact);
+                        if (newContact.doForces)
+                            ContactForces.calculForces(newContact, stepTime);
+                        if (contactListener != null && newContact.callNextMethods)
                             contactListener.beginContact(newContact);
-                        if (!newContact.ignoreContact) {
-                            data.addContact(newContact);
-                            if (newContact.enableContact && BoxUtils.isContactBlock(bodyA, bodyB)) {
-                                fixtureA.replace(fixtureB, newContact);
-                                fixtureA.rebound(fixtureB, newContact, stepTime);
-                            }
+                        if (newContact.doCollision) {
+                            ContactForces.applyRebound(newContact);
                         }
+                        if (newContact.doForces)
+                            ContactForces.applyForces(newContact);
                     }
                 }
             }

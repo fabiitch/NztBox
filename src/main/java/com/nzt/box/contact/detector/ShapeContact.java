@@ -11,17 +11,17 @@ public interface ShapeContact {
 
     void replace(Circle circle, ContactFixture contactFixture);
 
-    void rebound(Circle circle, ContactFixture contactFixture, float stepTime);
+    void calculNormal(Circle circle, ContactFixture contactFixture);
 
     boolean testContact(Rectangle rectangle);
 
     void replace(Rectangle rectangle, ContactFixture contactFixture);
 
-    void rebound(Rectangle rectangle, ContactFixture contactFixture);
+    void calculNormal(Rectangle rectangle, ContactFixture contactFixture);
 
     boolean testContact(Polygon polygon);
 
     void replace(Polygon polygon, ContactFixture contactFixture);
 
-    void rebound(Polygon polygon, ContactFixture contactFixture);
+    void calculNormal(Polygon polygon, ContactFixture contactFixture);
 }

@@ -15,7 +15,7 @@ public abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends 
 
     public BaseSTCollisionDetection(FastTesterMain main) {
         super(main, BodyType.Kinematic, BodyType.Kinematic);
-        infoMsg("Press space for change body control");
+        infoMsg("Press F for change body control");
         infoMsg("Press R for reset position");
     }
 
@@ -53,7 +53,7 @@ public abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends 
                 } else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
                     x += velocity;
                 }
-                if (keycode == Input.Keys.SPACE) {
+                if (keycode == Input.Keys.F) {
                     if (bodyMove == body1)
                         bodyMove = body2;
                     else

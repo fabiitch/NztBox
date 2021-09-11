@@ -67,7 +67,7 @@ public class PolygonShape extends BodyShape<Polygon> {
     }
 
     @Override
-    public void rebound(ShapeContact visitor, ContactFixture contactFixture, float stepTime) {
-        visitor.rebound(shape, contactFixture);
+    public void calculNormal(ShapeContact visitor, ContactFixture contactFixture) {
+        visitor.calculNormal(shape, contactFixture);
     }
 }

@@ -29,7 +29,7 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
         addListener();
         infoMsg("Click for change position");
         infoMsg("Z/Q/S/D for move");
-        infoMsg("Space for reset");
+        infoMsg("F for reset");
         infoMsg("R for rotation");
         infoMsg("T for Scale");
     }
@@ -52,7 +52,7 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
             @Override
             public boolean keyDown(int keycode) {
 
-                if (keycode == Input.Keys.SPACE) {
+                if (keycode == Input.Keys.F) {
                     bodyShape = createBodyShape();
                     body.setPosition(new Vector2(0, 0));
                     return false;
