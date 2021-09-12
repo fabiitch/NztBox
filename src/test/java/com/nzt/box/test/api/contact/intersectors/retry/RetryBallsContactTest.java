@@ -7,6 +7,7 @@ import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.test.api.BaseNztBoxTest;
 import com.nzt.box.test.api.BoxTestMethods;
 import com.nzt.box.test.api.mock.ContactListenerMock;
+import com.nzt.gdx.test.api.fake.PredicateSuccess;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -52,10 +53,19 @@ public class RetryBallsContactTest extends BaseNztBoxTest {
 
             ball1.setVelocity(200, 0);
             ball2.setVelocity(0, 200);
+            successesConditions.add(new PredicateSuccess() {
+                @Override
+                public String name() {
+                    return "Collision !";
+                }
 
-            while (!collision) {
-                renderRdmDT();
-            }
+                @Override
+                public boolean testOk() {
+                    return collision == true;
+                }
+            });
+
+            renderLoopRdm();
         }
         Assertions.assertEquals(NB_TEST, nbCollision);
     }

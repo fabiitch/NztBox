@@ -41,8 +41,6 @@ public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends Bo
             @Override
             public void beginContact(ContactFixture contactBody) {
                 drawContactInfo = true;
-                body1.active = false;
-                body2.active = false;
                 debugMsg("Collision", true, HudDebugPosition.BOT_RIGHT);
                 System.out.println("beginContact");
                 doBeginContact();

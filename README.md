@@ -1,6 +1,7 @@
-### Simple 3D collision systems
+#NztBox <img src="https://github.com/fabiitch/NztBox/blob/master/src/test/resources/box.png?raw=true" alt="Logo" width="150"/>
 
-Put [NztGdx](https://github.com/fabiitch/NztGdx) in same folder or change path in settings.gradle
+
+### Simple 3D collision systems using  in LibGdx
 
 ## What is this ?
 NztBox is a simple 3D collision world.
@@ -15,22 +16,36 @@ Its not realistic.
 ## BodyType :
 
 ### 1) Static 
-    Cant move or rotate
-    Gravity has no effect
-    Collides with Dynamic
+    - Cant move or rotate
+    - Gravity has no effect
+    - Collision event with Dynamic
+    - Rebound with Dynamic
+    - Forces with Dynamic
 
 ### 2) Dynamic
-    Can move or rotate.
-    Gravity has effects
-    Collides with Static, Dynamic, Kinematic
+    - Can move or rotate
+    - Gravity has effect
+    - Collision event with Static, Dynamic, Kinematic, Forces
+    - Rebound with Static, Dynamic, Kinematic
+    - Forces with Static, Dynamic, Kinematic, Forces
 ### 3) Kinematic
-    Can move or rotate
-    Gravity has no effect
-    Collides with Static, Dynamic, Kinematic
+    - Can move or rotate
+    - Gravity has effect
+    - Collision event with Dynamic, Kinematic, Forces
+    - Rebound with Dynamic, Kinematic
+    - Forces with Dynamic, Kinematic, Forces
 ### 4) Ghost
-    Can move or rotate
-    Gravity has no effect
-    Collides with all but dont generate response and forces
+    - Can move or rotate
+    - Gravity has no effect
+    - Collision event with Static, Dynamic, Kinematic, Ghost, Forces
+    - No rebound
+    - No forces
+### 5) Force
+    - Can move or rotate
+    - Gravity has no effect
+    - Collision event with Dynamic, Kinematic, Ghost, Forces
+    - Rebound with Dynamic //TODO
+    - Forces with Dynamic
 ---
 ## Fixtures
     You can attache one or many fixtures to a body.
@@ -38,17 +53,16 @@ Its not realistic.
     The shapes intersection creates contacts
 ---
 ## Shapes
-
-### 1) Circle
-### 2) Rectangle
-    cant rotate (based on LibGdx Rectangle
-### 3) Polygons
-    only convex
-### 4) Ray? //TODO
-
-## Collisions Event :
-you have to set world.contactListener
-### 1) preSolve(ContactFixture contactFixture);
+    - Circle
+    - Rectangle (cant rotate based on LibGdx Rectangle)
+    - Polygons only convex
+    - Ray? //TODO
+---
+## Contacts Event :
+    - You have to set world.contactListener to get notified by contacts between body's fixtures
+    - Contact can be blocking (shape cant cross other) and generate rebound
+    - Contact can generate impact's forces
+### 1) preSolve
     Called when intersectors find contact between two fixtures
     you can modify contact params
     public boolean ignoreContact = false; //contact is remove, endContact not called
@@ -56,20 +70,16 @@ you have to set world.contactListener
     public boolean enableContact = true;    
     public boolean tickEveryStep = false;
 
-### 2) beginContact(ContactFixture contactFixture);
+### 2) beginContact
     Forces and rebound are computed here, but not applied
     You can modify it in contactFixture.collisionData
-### 3) continueContact(ContactFixture contactFixture);
-### 4) endContact(ContactFixture contactFixture);
+### 3) continueContact
+### 4) endContact
+
 ---
 ## Filters contact :
 
-	For eclipse : 
-	Java Build Path
-	1) Project add NztGdx	
-	2) Order en export -> put NztGdx after src/test/resources
-	3) Projects -> NztGdx Visible onlu for test sources : No
-	Without test codde : No
+
 ---
 ## Data :
 
@@ -81,4 +91,12 @@ you have to set world.contactListener
 ---
 ## Query World
 
-
+## Install
+    Put [NztGdx](https://github.com/fabiitch/NztGdx) in same folder or change path in settings.gradle
+	
+    For eclipse : 
+	Java Build Path
+	1) Project add NztGdx	
+	2) Order en export -> put NztGdx after src/test/resources
+	3) Projects -> NztGdx Visible onlu for test sources : No
+	Without test codde : No

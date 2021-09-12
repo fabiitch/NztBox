@@ -14,7 +14,7 @@ public class ContactFixture implements Pool.Poolable {
     public boolean continueContact = false; //call contactListener.continueContact every step
     public boolean callNextMethods = true; //contact dont call next methods but apply forces/rebound
 
-    public boolean doCollision = true; //no rebound and forces
+    public boolean doRebound = true; //no rebound
     public boolean doForces = true; //no forces are computed only rebound
 
 
@@ -53,7 +53,7 @@ public class ContactFixture implements Pool.Poolable {
     }
 
     public boolean isBlockingContact() {
-        return doCollision && BoxUtils.isContactBlock(fixtureA.body, fixtureB.body);
+        return doRebound && BoxUtils.isContactBlock(fixtureA.body, fixtureB.body);
     }
 
     public String debug() {
@@ -76,7 +76,7 @@ public class ContactFixture implements Pool.Poolable {
         callNextMethods = true;
         continueContact = false;
 
-        doCollision = true;
+        doRebound = true;
         doForces = true;
 
         collisionData.reset();

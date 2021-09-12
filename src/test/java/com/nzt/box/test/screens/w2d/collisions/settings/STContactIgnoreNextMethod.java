@@ -1,18 +1,16 @@
-package com.nzt.box.test.screens.w2d.physx.balls.collisions;
+package com.nzt.box.test.screens.w2d.collisions.settings;
 
-import com.badlogic.gdx.graphics.Color;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
-import com.nzt.box.test.screens.base.utils.BoxDebugUtils;
-import com.nzt.gdx.debug.hud.HudDebugPosition;
+import com.nzt.box.test.screens.w2d.physx.balls.collisions.STFrontalBallCollision;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STIgnoreContact extends STFrontalBallCollision {
+public class STContactIgnoreNextMethod extends STFrontalBallCollision {
 
     private boolean done = false;
 
-    public STIgnoreContact(FastTesterMain main) {
+    public STContactIgnoreNextMethod(FastTesterMain main) {
         super(main);
         world.contactListener = addContactListener();
     }
@@ -21,7 +19,7 @@ public class STIgnoreContact extends STFrontalBallCollision {
         return new ContactListener() {
             @Override
             public void preSolve(ContactFixture contactFixture) {
-                contactFixture.callNextMethods = true;
+                contactFixture.callNextMethods = false;
                 HudDebug.addBotLeft("preSolve", true);
             }
 
