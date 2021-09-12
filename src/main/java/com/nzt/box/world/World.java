@@ -25,7 +25,7 @@ public class World {
     }
 
     public World() {
-        this(1 / 60f);
+        this(1 / 200f);
     }
 
     public void step(float dt) {
@@ -112,7 +112,7 @@ public class World {
                             ContactForces.calculForces(newContact, stepTime);
                         if (contactListener != null && newContact.callNextMethods)
                             contactListener.beginContact(newContact);
-                        if (newContact.doCollision) {
+                        if (newContact.doRebound) {
                             ContactForces.applyRebound(newContact);
                         }
                         if (newContact.doForces)

@@ -22,14 +22,18 @@ public class BaseNztBoxTest extends BaseGdxTest {
         world.step(dt);
     }
 
-    protected Body createBall(int userData) {
-        Body body = new Body(BodyType.Dynamic);
+    protected Body createBall(BodyType bodyType, int userData) {
+        Body body = new Body(bodyType);
         Circle circle = new Circle(0, 0, 10);
         CircleShape shape = new CircleShape(circle);
         Fixture fixture = new Fixture(shape);
         body.addFixture(fixture);
-        body.userData = ""+userData;
+        body.userData = "" + userData;
         return body;
+    }
+
+    protected Body createBall(int userData) {
+        return createBall(BodyType.Dynamic, userData);
     }
 
 }
