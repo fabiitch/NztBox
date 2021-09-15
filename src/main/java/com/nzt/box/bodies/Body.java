@@ -34,7 +34,7 @@ public class Body implements Pool.Poolable {
     public final Array<Force> forcesToRemove;
 
     public float mass = 1f;
-    public float restitution = 1f;
+    public float restitution = 0f;
     public boolean canRotate = true;
 
     public float maxDstFixture;

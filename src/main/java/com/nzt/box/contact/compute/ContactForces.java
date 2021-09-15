@@ -53,7 +53,7 @@ public class ContactForces {
         if (bodyBShouldApplyForces) {
             float angleIncidenceB = V2.angleDeg(normal) - (V2.angleDeg(velocityB) - V2.angleDeg(normal));
             float angleReflexionB = AngleUtils.incidenceToReflexion(angleIncidenceB);//TODO reutilisé A
-            data.reboundA.set(1, 0).setAngleDeg(-angleReflexionB);
+            data.reboundB.set(1, 0).setAngleDeg(-angleReflexionB);
         }
 //        //dirForces
         Vector2 forceA = calculPowerImpact(velocityACpy, bodyA, bodyB);
@@ -61,8 +61,8 @@ public class ContactForces {
         if (bodyBShouldApplyForces) {
             Vector2 forceB = calculPowerImpact(velocityBCpy, bodyB, bodyA);
             data.forceOnA.set(forceB);
-            data.forceOnA.add(V2.inv(forceA));
-            data.forceOnB.add(V2.inv(forceB));
+//            data.forceOnA.add(V2.inv(forceA));
+//            data.forceOnB.add(V2.inv(forceB));
         }
     }
 
