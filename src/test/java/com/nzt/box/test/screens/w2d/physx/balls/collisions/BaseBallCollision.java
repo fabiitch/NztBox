@@ -25,6 +25,8 @@ public abstract class BaseBallCollision extends Box2dTestScreen {
     protected Body ball1, ball2;
     private Vector2 clickPos = new Vector2(200, 0);
 
+    final float RESTITUTION = 0;
+
     public BaseBallCollision(FastTesterMain main) {
         super(main);
         infoMsg("Click for reset");
@@ -32,10 +34,10 @@ public abstract class BaseBallCollision extends Box2dTestScreen {
         Gdx.input.setInputProcessor(addInputListener());
         world.contactListener = addContactListener();
 
-        HudDebug.addRightMiddle("beginContact", false);
-        HudDebug.addRightMiddle("continueContact", false);
-        HudDebug.addRightMiddle("endContact", false);
-
+        HudDebug.addTopRight("beginContact", false);
+        HudDebug.addTopRight("continueContact", false);
+        HudDebug.addTopRight("endContact", false);
+        HudDebug.addRightMiddle("RESTITUTION", RESTITUTION);
     }
 
     private ContactListener addContactListener() {
@@ -67,14 +69,16 @@ public abstract class BaseBallCollision extends Box2dTestScreen {
     protected void createBodies() {
         ball1 = createBall(0);
         ball2 = createBall(1);
+        ball1.restitution = RESTITUTION;
+        ball2.restitution = RESTITUTION;
         world.addBody(ball1);
         world.addBody(ball2);
     }
 
     @Override
     public void doRender(float dt) {
-        debugMsg("BodyA velocity ", ball1.velocity, HudDebugPosition.LEFT_MIDDLE, Color.WHITE);
-        debugMsg("BodyB velocity ", ball2.velocity, HudDebugPosition.RIGHT_MIDDLE, Color.WHITE);
+        debugMsg("velocity A ", ball1.velocity, HudDebugPosition.LEFT_MIDDLE, Color.WHITE);
+        debugMsg("velocity B ", ball2.velocity, HudDebugPosition.LEFT_MIDDLE, Color.WHITE);
     }
 
     private InputProcessor addInputListener() {
