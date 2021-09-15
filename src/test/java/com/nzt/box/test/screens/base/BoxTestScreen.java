@@ -23,12 +23,13 @@ abstract class BoxTestScreen extends TestScreen {
     public World world;
     public WorldDebugRender debugRenderer;
 
-    public boolean runSimulation = true;
+    public boolean simulationRunning = true;
 
     public BoxTestScreen(FastTesterMain main) {
         super(main);
         world = new World();
-        infoMsg("Press Space to pause/run simulation", Color.RED);
+        HudDebug.addTopLeft("SimulationRun", "" +
+                "Press Space to pause/run simulation", simulationRunning, Color.RED);
     }
 
     public void infoMsg(String msg) {
@@ -58,9 +59,11 @@ abstract class BoxTestScreen extends TestScreen {
     @Override
     public final void renderTestScreen(float dt) {
         camera.update();
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
-            runSimulation = !runSimulation;
-        if (runSimulation)
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            simulationRunning = !simulationRunning;
+            HudDebug.update("SimulationRun", simulationRunning);
+        }
+        if (simulationRunning)
             world.step(dt);
         debugRenderer.render(world, camera.combined);
         doRender(dt);

@@ -34,7 +34,6 @@ public class ContactPolygon implements ShapeContact {
 
     @Override
     public void calculNormal(Circle circle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
         Vector2 circleCenter = CircleUtils.getCenter(circle, tmp);
         Segment nearestSegment = PolygonUtils.getNearestSegment(myPolygon, circleCenter, new Segment());
 
@@ -51,7 +50,6 @@ public class ContactPolygon implements ShapeContact {
     @Override
     public void replace(Rectangle rectangle, ContactFixture contactFixture) {
         Body bodyA = contactFixture.fixtureA.body;
-
         boolean overlaps = IntersectorPolygon.rectangle(myPolygon, rectangle, IntersectorPolygon.tmpTranslationVector);
         if (overlaps) {
             tmp.set(myPolygon.getX(), myPolygon.getY());
@@ -62,11 +60,6 @@ public class ContactPolygon implements ShapeContact {
 
     @Override
     public void calculNormal(Rectangle rectangle, ContactFixture contactFixture) {
-//        Body bodyA = contactFixture.fixtureA.body;
-//        Vector2 normal = V2.getNormal(IntersectorPolygon.tmpTranslationVector.normal, new Vector2());
-//        float angleIncidence = AngleUtils.angleIncidence(normal, bodyA.getVelocity(tmp));
-//        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
-
         boolean overlaps = IntersectorPolygon.rectangle(myPolygon, rectangle, IntersectorPolygon.tmpTranslationVector);//TODO group avec replace
         if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);

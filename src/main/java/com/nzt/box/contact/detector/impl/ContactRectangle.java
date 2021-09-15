@@ -7,6 +7,8 @@ import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.intersectors.IntersectorPolygon;
 import com.nzt.gdx.math.intersectors.IntersectorRectangle;
+import com.nzt.gdx.math.shapes.Segment;
+import com.nzt.gdx.math.shapes.utils.CircleUtils;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import com.nzt.gdx.math.vectors.V2;
 
@@ -16,8 +18,6 @@ public class ContactRectangle implements ShapeContact {
 
     private Vector2 tmp = new Vector2();
     private Vector2 tmp2 = new Vector2();
-    private Vector2 tmp3 = new Vector2();
-
 
     @Override
     public boolean testContact(Circle circle) {
@@ -36,7 +36,12 @@ public class ContactRectangle implements ShapeContact {
 
     @Override
     public void calculNormal(Circle circle, ContactFixture contactFixture) {
+        Vector2 circleCenter = CircleUtils.getCenter(circle, tmp);
+        Segment nearestSegment = RectangleUtils.getNearestSegment(myRectangle, circleCenter, new Segment());
 
+        Vector2 contactPoint = nearestSegment.nearestPoint(circleCenter, tmp2);
+        Vector2 tangent = CircleUtils.getTangent(circle, contactPoint, new Vector2());
+        V2.getNormal(tangent, contactFixture.collisionData.normal);
     }
 
     @Override
@@ -60,7 +65,14 @@ public class ContactRectangle implements ShapeContact {
 
     @Override
     public void calculNormal(Rectangle rectangle, ContactFixture contactFixture) {
+        Body bodyA = contactFixture.fixtureA.body;
 
+        boolean overlaps = IntersectorRectangle.rectangles(myRectangle, rectangle, IntersectorPolygon.tmpTranslationVector);
+        if (overlaps) {
+            tmp.set(myRectangle.getX(), myRectangle.getY());
+            tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
+            bodyA.setPosition(tmp.add(tmp2));
+        }
     }
 
     @Override
@@ -83,6 +95,12 @@ public class ContactRectangle implements ShapeContact {
 
     @Override
     public void calculNormal(Polygon polygon, ContactFixture contactFixture) {
-
+        Body bodyA = contactFixture.fixtureA.body;
+        boolean overlaps = IntersectorRectangle.polygon(myRectangle, polygon, IntersectorPolygon.tmpTranslationVector);
+        if (overlaps) {
+            tmp.set(myRectangle.getX(), myRectangle.getY());
+            tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
+            bodyA.setPosition(tmp.add(tmp2));
+        }
     }
 }

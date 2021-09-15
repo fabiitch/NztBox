@@ -1,10 +1,11 @@
-package com.nzt.box.test.screens.w2d.collisions.settings;
+package com.nzt.box.test.screens.w2d.collisions.events;
 
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.test.screens.w2d.physx.balls.collisions.STFrontalBallCollision;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 public class STContactIgnoreNextMethod extends STFrontalBallCollision {
 

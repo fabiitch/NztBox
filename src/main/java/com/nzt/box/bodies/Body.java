@@ -34,13 +34,11 @@ public class Body implements Pool.Poolable {
     public final Array<Force> forcesToRemove;
 
     public float mass = 1f;
-    public float transfert = 1f; //contact give cinetique force
-    public float receive = 1f; //contact absorbtion cinetique force
-    public float bouncing = 1; //rebound when contact
+    public float restitution = 1f;
     public boolean canRotate = true;
 
     public float maxDstFixture;
-    public boolean dirty;
+    public boolean dirty = true;
 
     private final Vector3 tmp = new Vector3();
 
@@ -126,8 +124,10 @@ public class Body implements Pool.Poolable {
     }
 
     public void setVelocity(float x, float y) {
-        velocity.x = x;
-        velocity.y = y;
+        if (bodyType != BodyType.Static) {
+            velocity.x = x;
+            velocity.y = y;
+        }
     }
 
     @Override

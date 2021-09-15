@@ -57,7 +57,7 @@ public class STMultipleBoucingBall extends Box2dTestScreen {
         body.addFixture(fixture);
         world.addBody(body);
         body.userData = userData;
-        Vector2 velocity = new Vector2(1, 0).setToRandomDirection().setLength(250);
+        Vector2 velocity = new Vector2(1, 0).setToRandomDirection().setLength(150);
         body.setVelocity(velocity);
         return body;
     }
