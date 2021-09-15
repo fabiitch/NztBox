@@ -5,4 +5,6 @@
 
 * time restant apres collision entre dt (pour le rebound)
 
-*check des collisions existantes au debut du step
+* check des collisions existantes au debut du step
+
+* replace sur une shape deja prise

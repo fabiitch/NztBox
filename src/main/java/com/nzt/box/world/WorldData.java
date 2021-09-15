@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IdentityMap;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
@@ -12,9 +13,9 @@ public class WorldData {
 
     private World world;
     public Array<Body> bodies;
+    public Array<Body> activeBodies;
     private IdentityMap<Fixture<?>, IdentityMap<Fixture<?>, ContactFixture>> mapFixtureContacts;
     private IdentityMap<Body, IdentityMap<Body, ContactBody>> mapBodyContacts;
-    public Array<Body> activeBodies;
 
     public WorldData(World world) {
         super();
@@ -29,6 +30,11 @@ public class WorldData {
         body.dirty = true;
         bodies.add(body);
         body.updatePosition();
+    }
+
+    public boolean isActiveBody(Body body) {
+        return body.active &&
+                (body.bodyType == BodyType.Dynamic || body.bodyType == BodyType.Kinematic);
     }
 
     public void destroyBody(Body body) {

@@ -4,14 +4,11 @@ import com.badlogic.gdx.math.*;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
-import com.nzt.box.contact.forces.ContactForces;
-import com.nzt.gdx.math.AngleUtils;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.shapes.Segment;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
 import com.nzt.gdx.math.shapes.utils.PolygonUtils;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
-import com.nzt.gdx.math.shapes.utils.SegmentUtils;
 import com.nzt.gdx.math.vectors.V2;
 
 public class ContactCircle implements ShapeContact {
@@ -37,6 +34,8 @@ public class ContactCircle implements ShapeContact {
 
         CircleUtils.getCenter(circle, tmp2);
         tmp3 = V2.directionTo(tmp2, tmp, tmp3);
+        if(tmp3.isZero())
+            tmp3.setToRandomDirection();
         tmp3.setLength(dst);
 
         Vector2 add = tmp.add(tmp3);

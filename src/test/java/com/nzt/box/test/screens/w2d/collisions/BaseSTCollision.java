@@ -34,12 +34,14 @@ public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape
         body1 = new Body(bodyTypeA);
         Fixture fixture1 = new Fixture(createBodyShape1());
         body1.addFixture(fixture1);
+        body1.userData = "1";
         world.addBody(body1);
         body1.setPosition(posBodyA);
 
         body2 = new Body(bodyTypeB);
         Fixture fixture2 = new Fixture(createBodyShape2());
         body2.addFixture(fixture2);
+        body2.userData = "2";
         world.addBody(body2);
         body2.setPosition(posBodyB);
         debugMsg("Collision", false, HudDebugPosition.BOT_RIGHT);

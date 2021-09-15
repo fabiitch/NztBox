@@ -2,11 +2,12 @@ package com.nzt.box.world;
 
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactUtils;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
-import com.nzt.box.contact.forces.ContactForces;
+import com.nzt.box.contact.compute.ContactForces;
 import com.nzt.box.contact.listener.ContactListener;
 
 public class World {
@@ -36,7 +37,7 @@ public class World {
                 Array<Body> bodies = data.bodies;
                 for (int i = 0, n = bodies.size; i < n; i++) {
                     Body body = bodies.get(i);
-                    if (!body.active)
+                    if (!body.active || body.bodyType== BodyType.Static)
                         continue;
                     boolean move = body.move(stepTime);
                     if (move || body.dirty) {
@@ -101,7 +102,7 @@ public class World {
                         continue;
                     boolean newC = fixtureA.testContact(fixtureB);
                     if (newC) {
-                        ContactFixture newContact = ContactFixture.get(fixtureA, fixtureB);
+                        ContactFixture newContact = ContactUtils.getNewContact(fixtureA, fixtureB);
                         if (contactListener != null)
                             contactListener.preSolve(newContact);
                         data.addContact(newContact);
@@ -109,7 +110,7 @@ public class World {
                             fixtureA.replace(fixtureB, newContact);
                         fixtureA.calculNormal(fixtureB, newContact);
                         if (newContact.doForces)
-                            ContactForces.calculForces(newContact, stepTime);
+                            ContactForces.calculReboundForces(newContact, stepTime);
                         if (contactListener != null && newContact.callNextMethods)
                             contactListener.beginContact(newContact);
                         if (newContact.doRebound) {

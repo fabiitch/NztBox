@@ -1,7 +1,7 @@
-#NztBox <img src="https://github.com/fabiitch/NztBox/blob/master/src/test/resources/box.png?raw=true" alt="Logo" width="150"/>
-
-
-### Simple 3D collision systems using  in LibGdx
+# NztBox <img src="https://github.com/fabiitch/NztBox/blob/master/src/test/resources/box.png?raw=true" alt="Logo" width="150"/>
+    - Simple 3D collision systems using in LibGdx
+    - Can be used as 2D
+    - Only Java
 
 ## What is this ?
 NztBox is a simple 3D collision world.
@@ -18,7 +18,7 @@ Its not realistic.
 ### 1) Static 
     - Cant move or rotate
     - Gravity has no effect
-    - Collision event with Dynamic
+    - Collision event with Dynamic, Ghost
     - Rebound with Dynamic
     - Forces with Dynamic
 
@@ -31,7 +31,7 @@ Its not realistic.
 ### 3) Kinematic
     - Can move or rotate
     - Gravity has effect
-    - Collision event with Dynamic, Kinematic, Forces
+    - Collision event with Dynamic, Kinematic, Ghost, Forces
     - Rebound with Dynamic, Kinematic
     - Forces with Dynamic, Kinematic, Forces
 ### 4) Ghost
@@ -44,8 +44,14 @@ Its not realistic.
     - Can move or rotate
     - Gravity has no effect
     - Collision event with Dynamic, Kinematic, Ghost, Forces
-    - Rebound with Dynamic //TODO
+    - No rebound
     - Forces with Dynamic
+### 6) Laser
+    - Can move or rotate
+    - Gravity has no effect
+    - Collision event with Dynamic, Kinematic, Ghost, Forces
+    - Rebound
+    - No Forces
 ---
 ## Fixtures
     You can attache one or many fixtures to a body.
@@ -58,6 +64,12 @@ Its not realistic.
     - Polygons only convex
     - Ray? //TODO
 ---
+## Contacts :
+    Generate a contact Fixture.
+    A contact can be blocking or not, he can apply forces on bodies or not.
+    You can modify contact response with attributs of ContactFixture
+    ContactFixture.collisionData contains 
+---
 ## Contacts Event :
     - You have to set world.contactListener to get notified by contacts between body's fixtures
     - Contact can be blocking (shape cant cross other) and generate rebound
@@ -69,11 +81,11 @@ Its not realistic.
     public boolean noImpact = false;      //no forces are apply
     public boolean enableContact = true;    
     public boolean tickEveryStep = false;
-
 ### 2) beginContact
     Forces and rebound are computed here, but not applied
     You can modify it in contactFixture.collisionData
 ### 3) continueContact
+    Called every step if ContactFixture.continueContact
 ### 4) endContact
 
 ---
