@@ -3,14 +3,9 @@ package com.nzt.box.bodies;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.SnapshotArray;
 import com.nzt.box.bodies.forces.Force;
 import com.nzt.box.contact.data.ContactBody;
-import com.nzt.box.contact.data.ContactFixture;
-import com.nzt.box.shape.BodyShape;
-import com.nzt.box.world.World;
 import com.nzt.gdx.math.vectors.V3;
 
 //TODO POOLABLE
@@ -34,10 +29,12 @@ public class Body implements Pool.Poolable {
     public final Array<Force> forcesToRemove;
 
     public float mass = 1f;
-    public float restitution = 0f;
+    public float restitution = 0f; //energy return
+    public float transfert = 1f; //energy give
     public boolean canRotate = true;
 
-    public float maxDstFixture;
+    public float maxDstFixture; //dst la plus eloigné du body
+    public float minDstFixture;//dst mini ou on est forcément en contact
     public boolean dirty = true;
 
     private final Vector3 tmp = new Vector3();
@@ -74,6 +71,7 @@ public class Body implements Pool.Poolable {
         fixture.body = this;
         updatePosition();
         this.maxDstFixture = Math.max(this.maxDstFixture, fixture.bodyShape.maxDst);
+        this.minDstFixture = Math.max(this.minDstFixture, fixture.bodyShape.minDst);
     }
 
     public Vector2 getPosition(Vector2 position2D) {

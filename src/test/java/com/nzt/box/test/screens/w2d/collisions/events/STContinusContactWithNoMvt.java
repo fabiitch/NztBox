@@ -1,14 +1,9 @@
 package com.nzt.box.test.screens.w2d.collisions.events;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
-import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
-import com.nzt.box.shape.BodyShape;
-import com.nzt.box.shape.CircleShape;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
-import com.nzt.box.test.screens.w2d.collisions.BaseSTCollision;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;

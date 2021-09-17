@@ -26,14 +26,16 @@ public class World {
     }
 
     public World() {
-        this(1 / 200f);
+        this(1 / 300f);
     }
 
     public void step(float dt) {
-        float frameTime = Math.min(dt, 0.25f);
-        accumulator += frameTime;
-        if (accumulator >= stepTime) {
-            while (accumulator >= stepTime) {
+        int aaa =1;
+        float frameTime = Math.min(dt, stepTime);
+        accumulator += dt;
+        if (accumulator >= dt) {
+            while (accumulator >= dt) {
+//                System.out.println(aaa++);
                 Array<Body> bodies = data.bodies;
                 for (int i = 0, n = bodies.size; i < n; i++) {
                     Body body = bodies.get(i);
@@ -78,8 +80,9 @@ public class World {
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
             Fixture<?> fixtureA = bodyA.fixtures.get(i);
             boolean fixtureCanContact = ContactUtils.canContact(bodyB, fixtureA);
-            if (!fixtureCanContact)
+            if (!fixtureCanContact){
                 continue;
+            }
             for (int j = 0, m = bodyB.fixtures.size; j < m; j++) {
                 Fixture<?> fixtureB = bodyB.fixtures.get(j);
                 ContactFixture hasContact = data.getContact(fixtureA, fixtureB);

@@ -1,17 +1,13 @@
 package com.nzt.box.test;
 
-import com.nzt.box.test.screens.w2d.physx.balls.bouncing.STMultipleBoucingBall;
-import com.nzt.box.test.screens.w2d.physx.balls.collisions.STBallsTwoDirCollision;
-import com.nzt.box.test.screens.w2d.physx.balls.collisions.STFrontalBallCollision;
-import com.nzt.box.test.screens.w2d.physx.balls.collisions.STOneBallCollision;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.box.test.screens.w2d.physx.balls.bouncing.STBoucingBalll;
 import com.nzt.gdx.test.trials.tester.single.SingleScreenTestMain;
 
 /**
  * Use it for Test one class with screenTestClass
  */
 public class NztBoxTestStarter {
-    private static final Class screenTestClass = STBallsTwoDirCollision.class;
+    private static final Class screenTestClass = STBoucingBalll.class;
 
     private static final int witdh = 800;
     private static final int height = 500;

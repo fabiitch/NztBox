@@ -8,6 +8,7 @@ import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 import com.nzt.gdx.math.shapes.utils.PolygonUtils;
+import com.nzt.gdx.math.vectors.V2;
 
 /**
  * Only convex polygons
@@ -22,8 +23,13 @@ public class PolygonShape extends BodyShape<Polygon> {
     }
 
     @Override
+    public float calculMinDst() {
+        return PolygonUtils.getMinDstVertex(shape, V2.tmp);
+    }
+
+    @Override
     public float calculMaxDst() {
-        return PolygonUtils.getMaxDstVertexFromZero(shape);
+        return PolygonUtils.getMaxDstVertex(shape);
     }
 
     @Override

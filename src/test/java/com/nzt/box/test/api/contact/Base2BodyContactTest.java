@@ -9,11 +9,10 @@ import com.nzt.box.test.api.mock.FixtureMock;
 import com.nzt.box.world.World;
 import org.junit.jupiter.api.BeforeEach;
 
-public abstract class BasicContactTest {
-
+public abstract class Base2BodyContactTest {
     protected World world;
-    protected Body bodyA, bodyB, bodyC;
-    protected Fixture<?> fixtureA, fixtureB, fixtureC;
+    protected Body bodyA, bodyB;
+    protected Fixture<?> fixtureA, fixtureB;
     protected ContactListener contactListener;
 
     @BeforeEach
@@ -28,13 +27,8 @@ public abstract class BasicContactTest {
         fixtureB = new FixtureMock("B");
         bodyB.addFixture(fixtureB);
 
-        bodyC = new BodyMock("C");
-        fixtureC = new FixtureMock("C");
-        bodyC.addFixture(fixtureC);
-
         world.addBody(bodyA);
         world.addBody(bodyB);
-        world.addBody(bodyC);
 
         contactListener = new ContactListenerMock();
         world.contactListener = contactListener;
