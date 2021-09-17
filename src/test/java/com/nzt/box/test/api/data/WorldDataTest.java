@@ -1,10 +1,10 @@
 package com.nzt.box.test.api.data;
 
-import com.nzt.box.test.api.contact.BasicContactTest;
+import com.nzt.box.test.api.contact.Base3BodyContactTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class WorldDataTest extends BasicContactTest {
+public class WorldDataTest extends Base3BodyContactTest {
 
     @Test
     public void removeBodyTest() {

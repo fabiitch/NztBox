@@ -11,7 +11,7 @@ public class ContactFixture implements Pool.Poolable {
     public Fixture<?> fixtureA;
     public Fixture<?> fixtureB;
 
-    public boolean ignore = false; //no intersect, no rebound/forces
+    public boolean ignore = false; //dont calls next method, no rebound/forces
     public boolean continueContact = false; //call contactListener.continueContact every step
     public boolean callNextMethods = true; //contact dont call next methods but apply forces/rebound
 
@@ -26,10 +26,9 @@ public class ContactFixture implements Pool.Poolable {
     }
 
     public boolean retry() {
-        boolean fastCheck = ContactUtils.canContact(fixtureA, fixtureB);
-        if (!fastCheck)
+        boolean fastCan = ContactUtils.canContact(fixtureA, fixtureB);
+        if (!fastCan)
             return false;
-
         return fixtureA.testContact(fixtureB);
     }
 

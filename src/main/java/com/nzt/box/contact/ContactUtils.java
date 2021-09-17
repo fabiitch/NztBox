@@ -2,7 +2,6 @@ package com.nzt.box.contact;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pools;
-import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.ContactFixture;
@@ -19,27 +18,56 @@ public class ContactUtils {
         return contactFixture;
     }
 
-    public static boolean canContact(Fixture fixtureA, Fixture fixtureB) {
+    /**
+     * -1 cant, 0 can, 1 sure
+     *
+     * @return
+     */
+    public static int fastCheck(Fixture fixtureA, Fixture fixtureB) {
         Body bodyA = fixtureA.body;
         Body bodyB = fixtureB.body;
         bodyA.getPosition(tmp1);
         bodyB.getPosition(tmp2);
         float dstBodies = tmp1.dst(tmp2);
-        return dstBodies < fixtureA.bodyShape.maxDst + fixtureB.bodyShape.maxDst;
+        if (dstBodies <= fixtureA.bodyShape.minDst + fixtureB.bodyShape.minDst)
+            return 1;
+        if (dstBodies <= fixtureA.bodyShape.maxDst + fixtureB.bodyShape.maxDst)
+            return 0;
+        return -1;
     }
 
-    public static boolean canContact(Body bodyA, Fixture fixtureB) {
+    public static int fastCheck(Body bodyA, Body bodyB) {
+        bodyA.getPosition(tmp1);
+        bodyB.getPosition(tmp2);
+        float dstBodies = tmp1.dst(tmp2);
+        if (dstBodies <= bodyA.minDstFixture + bodyB.minDstFixture)
+            return 1;
+        if (dstBodies <= bodyA.maxDstFixture + bodyB.maxDstFixture)
+            return 0;
+        return -1;
+    }
+
+    public static boolean canContact(Fixture fixtureA, Fixture fixtureB) {
+        return fastCheck(fixtureA, fixtureB) >= 0;
+    }
+
+    public static int fastCheck(Body bodyA, Fixture fixtureB) {
         bodyA.getPosition(tmp1);
         Body bodyB = fixtureB.body;
         bodyB.getPosition(tmp2);
         float dstBodies = tmp1.dst(tmp2);
-        return dstBodies < bodyA.maxDstFixture + fixtureB.bodyShape.maxDst;
+        if (dstBodies <= bodyA.minDstFixture + fixtureB.bodyShape.minDst)
+            return 1;
+        if (dstBodies <= bodyA.maxDstFixture + fixtureB.bodyShape.maxDst)
+            return 0;
+        return -1;
+    }
+
+    public static boolean canContact(Body bodyA, Fixture fixtureB) {
+        return fastCheck(bodyA, fixtureB) >= 0;
     }
 
     public static boolean canContact(Body bodyA, Body bodyB) {
-        bodyA.getPosition(tmp1);
-        bodyB.getPosition(tmp2);
-        float dstBodies = tmp1.dst(tmp2);
-        return dstBodies < bodyA.maxDstFixture + bodyB.maxDstFixture;
+        return fastCheck(bodyA, bodyB) >= 0;
     }
 }

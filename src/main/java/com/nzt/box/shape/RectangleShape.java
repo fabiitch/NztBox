@@ -11,10 +11,15 @@ import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 /**
  * no rotation
  */
-public class  RectangleShape extends BodyShape<Rectangle> {
+public class RectangleShape extends BodyShape<Rectangle> {
 
     public RectangleShape(Rectangle shape) {
         super(shape);
+    }
+
+    @Override
+    public float calculMinDst() {
+        return calculMaxDst();
     }
 
     @Override

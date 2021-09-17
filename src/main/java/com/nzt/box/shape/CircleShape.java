@@ -13,8 +13,14 @@ public class CircleShape extends BodyShape<Circle> {
         super(shape);
     }
 
+
     public CircleShape(float radius) {
         this(new Circle(0, 0, radius));
+    }
+
+    @Override
+    public float calculMinDst() {
+        return shape.radius;
     }
 
     @Override

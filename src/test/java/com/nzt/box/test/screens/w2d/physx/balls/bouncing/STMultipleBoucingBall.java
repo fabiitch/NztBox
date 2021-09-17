@@ -53,10 +53,11 @@ public class STMultipleBoucingBall extends Box2dTestScreen {
         Body body = new Body(BodyType.Dynamic);
         Circle circle = new Circle(0, 0, 10);
         CircleShape shape = new CircleShape(circle);
-        Fixture<CircleShape> fixture = new Fixture<CircleShape>(shape);
+        Fixture<CircleShape> fixture = new Fixture<>(shape);
         body.addFixture(fixture);
         world.addBody(body);
         body.userData = userData;
+        body.restitution=1;
         Vector2 velocity = new Vector2(1, 0).setToRandomDirection().setLength(150);
         body.setVelocity(velocity);
         return body;

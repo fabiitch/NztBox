@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.w2d.physx.balls.collisions;
+package com.nzt.box.test.screens.w2d.collisions.forces;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -7,12 +7,41 @@ import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
 public class STFrontalBallCollision extends BaseBallCollision {
 
-
     public STFrontalBallCollision(FastTesterMain main) {
         super(main);
 //		createWallAroundScreen();
-        afterClick(new Vector2(200, 0));
+        afterClick(new Vector2(-200, 0));
         infoMsg("Click on screen to change balls positions", Color.RED);
+    }
+
+    @Override
+    protected float getMass1() {
+        return 1;
+    }
+
+    @Override
+    protected float getMass2() {
+        return 1;
+    }
+
+    @Override
+    protected float getRestitution1() {
+        return 1;
+    }
+
+    @Override
+    protected float getRestitution2() {
+        return 1;
+    }
+
+    @Override
+    protected float getTransfert1() {
+        return 1;
+    }
+
+    @Override
+    protected float getTransfert2() {
+        return 1;
     }
 
     @Override

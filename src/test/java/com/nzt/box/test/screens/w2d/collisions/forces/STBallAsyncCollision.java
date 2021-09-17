@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.w2d.physx.balls.collisions;
+package com.nzt.box.test.screens.w2d.collisions.forces;
 
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
@@ -15,6 +15,10 @@ public class STBallAsyncCollision extends BaseBallCollision {
         super(main);
         world.destroyBody(ball2);
         bodyRect = new Body(BodyType.Dynamic);
+        bodyRect.mass = getMass2();
+        bodyRect.userData = "2";
+        bodyRect.transfert = getTransfert2();
+        bodyRect.restitution = getRestitution2();
         RectangleShape rectangleShape = new RectangleShape(50, 600);
         Fixture fixtureRect = new Fixture(rectangleShape);
         bodyRect.addFixture(fixtureRect);
@@ -22,13 +26,43 @@ public class STBallAsyncCollision extends BaseBallCollision {
         afterClick(null);
     }
 
+    @Override
+    protected float getMass1() {
+        return 1;
+    }
+
+    @Override
+    protected float getMass2() {
+        return 10;
+    }
+
+    @Override
+    protected float getRestitution1() {
+        return 0;
+    }
+
+    @Override
+    protected float getRestitution2() {
+        return 0;
+    }
+
+    @Override
+    protected float getTransfert1() {
+        return 1;
+    }
+
+    @Override
+    protected float getTransfert2() {
+        return 1;
+    }
+
     Vector2 velBall = new Vector2();
     Vector2 velRect = new Vector2();
 
     @Override
     public void doRender(float dt) {
-        debugMsg("Ball velocity" , ball1.getVelocity(velBall));
-        debugMsg("Rect velocity" , bodyRect.getVelocity(velRect));
+        debugMsg("Ball velocity", ball1.getVelocity(velBall));
+        debugMsg("Rect velocity", bodyRect.getVelocity(velRect));
     }
 
     @Override
