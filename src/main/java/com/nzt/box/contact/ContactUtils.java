@@ -3,6 +3,7 @@ package com.nzt.box.contact;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pools;
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.ContactFixture;
 
@@ -10,6 +11,18 @@ public class ContactUtils {
 
     private static final Vector2 tmp1 = new Vector2(); //TODO
     private static final Vector2 tmp2 = new Vector2(); //TODO
+
+    public static boolean shouldTestContact(Body bodyA, Body bodyB) {
+        BodyType typeA = bodyA.bodyType;
+        BodyType typeB = bodyB.bodyType;
+
+        if (typeA == BodyType.Dynamic || typeB == BodyType.Dynamic)
+            return true;
+
+        if (typeA == BodyType.Kinematic || typeB == BodyType.Kinematic)
+            return true;
+        return false;
+    }
 
     public static ContactFixture getNewContact(Fixture fixtureA, Fixture fixtureB) {
         ContactFixture contactFixture = Pools.obtain(ContactFixture.class);

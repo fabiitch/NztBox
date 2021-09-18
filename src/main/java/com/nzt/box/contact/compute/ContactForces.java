@@ -48,44 +48,40 @@ public class ContactForces {
         float angleIncidenceA = V2.angleDeg(normal) - (V2.angleDeg(velocityA) - V2.angleDeg(normal));
         float angleReflexionA = AngleUtils.incidenceToReflexion(angleIncidenceA);
 
-        data.reboundA.set(1, 0).setAngleDeg(angleReflexionA);
+        data.reboundA.set(velocityA).setAngleDeg(angleReflexionA);
 
         if (bodyBShouldApplyForces) {
             float angleIncidenceB = V2.angleDeg(normal) - (V2.angleDeg(velocityB) - V2.angleDeg(normal));
             float angleReflexionB = AngleUtils.incidenceToReflexion(angleIncidenceB);//TODO reutilisé A
-            data.reboundB.set(1, 0).setAngleDeg(-angleReflexionB);
+            data.reboundB.set(velocityB).setAngleDeg(-angleReflexionB);
         }
 //        //dirForces
         Vector2 forceA = calculPowerImpact(velocityACpy, bodyA, bodyB);
         data.forceOnB.add(forceA);
-        data.forceOnA.sub(forceA);
         Vector2 restitutionB = V2.inv(V2.tmp(forceA).scl(bodyB.restitution));
         data.forceOnA.add(restitutionB);
         if (bodyBShouldApplyForces) {
             Vector2 forceB = calculPowerImpact(velocityBCpy, bodyB, bodyA);
             data.forceOnA.add(forceB);
-            data.forceOnB.sub(forceB);
             Vector2 restitutionA = V2.inv(V2.tmp(forceB).scl(bodyA.restitution));
             data.forceOnB.add(restitutionA);
         }
     }
 
     public static void applyRebound(ContactFixture contactFixture) {
-//        CollisionData data = contactFixture.collisionData;
-//
-//        Body bodyA = contactFixture.fixtureA.body;
-//        if (bodyA.bodyType != Static) {
+        CollisionData data = contactFixture.collisionData;
+
+        Body bodyA = contactFixture.fixtureA.body;
+        if (bodyA.bodyType != Static) {
 //            Vector2 newVelA = bodyA.getVelocity(tmp1);
 //            V2.setAngle(newVelA, data.reboundA);
-//            bodyA.setVelocity(newVelA);
-//        }
-//
-//        Body bodyB = contactFixture.fixtureB.body;
-//        if (bodyB.bodyType != Static) {
-//            Vector2 newVelB = bodyB.getVelocity(tmp2);
-//            V2.setAngle(newVelB, data.reboundB);
-//            bodyB.setVelocity(newVelB);
-//        }
+            bodyA.setVelocity(data.reboundA);
+        }
+
+        Body bodyB = contactFixture.fixtureB.body;
+        if (bodyB.bodyType != Static) {
+            bodyB.setVelocity(data.reboundB);
+        }
     }
 
     public static void applyForces(ContactFixture contactFixture) {
@@ -103,6 +99,7 @@ public class ContactForces {
             newVelB.add(data.forceOnB);
             bodyB.setVelocity(newVelB);
         }
+        applyRebound(contactFixture);
     }
 
     public static Vector2 calculPowerImpact(Vector2 velocityBodyACpy, Body bodyA, Body bodyB) {

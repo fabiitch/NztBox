@@ -1,7 +1,6 @@
 package com.nzt.box.contact.data;
 
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pools;
 import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
@@ -15,7 +14,6 @@ public class ContactFixture implements Pool.Poolable {
     public boolean continueContact = false; //call contactListener.continueContact every step
     public boolean callNextMethods = true; //contact dont call next methods but apply forces/rebound
 
-    public boolean doRebound = true; //no rebound
     public boolean doForces = true; //no forces applied
 
 
@@ -26,8 +24,10 @@ public class ContactFixture implements Pool.Poolable {
     }
 
     public boolean retry() {
-        boolean fastCan = ContactUtils.canContact(fixtureA, fixtureB);
-        if (!fastCan)
+        int fastCheck = ContactUtils.fastCheck(fixtureA, fixtureB);
+        if (fastCheck == 1)
+            return true;
+        if (fastCheck == -1)
             return false;
         return fixtureA.testContact(fixtureB);
     }
@@ -57,7 +57,7 @@ public class ContactFixture implements Pool.Poolable {
     }
 
     public boolean isBlockingContact() {
-        return doRebound && BoxUtils.isContactBlock(fixtureA.body, fixtureB.body);
+        return BoxUtils.isContactBlock(fixtureA.body, fixtureB.body);
     }
 
     public String debug() {
@@ -81,7 +81,6 @@ public class ContactFixture implements Pool.Poolable {
         callNextMethods = true;
         continueContact = false;
 
-        doRebound = true;
         doForces = true;
 
         collisionData.reset();

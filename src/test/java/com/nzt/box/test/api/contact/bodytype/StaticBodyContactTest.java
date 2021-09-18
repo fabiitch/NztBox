@@ -24,5 +24,4 @@ public class StaticBodyContactTest extends BaseBodyTypeContactTest {
         return null;
     }
 
-
 }

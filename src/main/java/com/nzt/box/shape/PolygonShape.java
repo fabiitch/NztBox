@@ -24,7 +24,7 @@ public class PolygonShape extends BodyShape<Polygon> {
 
     @Override
     public float calculMinDst() {
-        return PolygonUtils.getMinDstVertex(shape, V2.tmp);
+        return 0;
     }
 
     @Override
