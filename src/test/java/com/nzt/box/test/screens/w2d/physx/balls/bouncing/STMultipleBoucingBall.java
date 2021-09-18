@@ -2,6 +2,7 @@ package com.nzt.box.test.screens.w2d.physx.balls.bouncing;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -57,7 +58,11 @@ public class STMultipleBoucingBall extends Box2dTestScreen {
         body.addFixture(fixture);
         world.addBody(body);
         body.userData = userData;
-        body.restitution=1;
+        body.restitution = 1;
+        Vector2 pos = new Vector2();
+        pos.x = MathUtils.random(-SCREEN_WITDH / 2 + 3, SCREEN_WITDH / 2 - 1);
+        pos.y = MathUtils.random(-SCREEN_HEIGHT / 2 + 3, SCREEN_HEIGHT / 2 - 1);
+        body.setPosition(pos);
         Vector2 velocity = new Vector2(1, 0).setToRandomDirection().setLength(150);
         body.setVelocity(velocity);
         return body;

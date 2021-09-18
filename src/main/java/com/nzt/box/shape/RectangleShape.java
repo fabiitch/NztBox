@@ -19,7 +19,7 @@ public class RectangleShape extends BodyShape<Rectangle> {
 
     @Override
     public float calculMinDst() {
-        return calculMaxDst();
+        return RectangleUtils.radiusCircleInside(shape);
     }
 
     @Override

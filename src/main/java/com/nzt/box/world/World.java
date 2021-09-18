@@ -5,9 +5,9 @@ import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactUtils;
+import com.nzt.box.contact.compute.ContactForces;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
-import com.nzt.box.contact.compute.ContactForces;
 import com.nzt.box.contact.listener.ContactListener;
 
 public class World {
@@ -30,7 +30,7 @@ public class World {
     }
 
     public void step(float dt) {
-        int aaa =1;
+        int aaa = 1;
         float frameTime = Math.min(dt, stepTime);
         accumulator += dt;
         if (accumulator >= dt) {
@@ -39,7 +39,7 @@ public class World {
                 Array<Body> bodies = data.bodies;
                 for (int i = 0, n = bodies.size; i < n; i++) {
                     Body body = bodies.get(i);
-                    if (!body.active || body.bodyType== BodyType.Static)
+                    if (!body.active || body.bodyType == BodyType.Static)
                         continue;
                     boolean move = body.move(stepTime);
                     if (move || body.dirty) {
@@ -79,9 +79,11 @@ public class World {
         }
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
             Fixture<?> fixtureA = bodyA.fixtures.get(i);
-            boolean fixtureCanContact = ContactUtils.canContact(bodyB, fixtureA);
-            if (!fixtureCanContact){
-                continue;
+            if (contactBody == null) {
+                boolean fixtureCanContact = ContactUtils.canContact(bodyB, fixtureA);
+                if (!fixtureCanContact) {
+                    continue;
+                }
             }
             for (int j = 0, m = bodyB.fixtures.size; j < m; j++) {
                 Fixture<?> fixtureB = bodyB.fixtures.get(j);
@@ -116,9 +118,7 @@ public class World {
                             ContactForces.calculReboundForces(newContact, stepTime);
                         if (contactListener != null && newContact.callNextMethods)
                             contactListener.beginContact(newContact);
-                        if (newContact.doRebound) {
-                            ContactForces.applyRebound(newContact);
-                        }
+                        ContactForces.applyRebound(newContact);
                         if (newContact.doForces)
                             ContactForces.applyForces(newContact);
                     }

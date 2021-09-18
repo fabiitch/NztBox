@@ -40,8 +40,8 @@ public abstract class BaseBallCollision extends Box2dTestScreen {
         HudDebug.addLeftMiddle("MASS_1", getMass1());
         HudDebug.addLeftMiddle("RESTITUTION_1", getRestitution1());
         HudDebug.addLeftMiddle("TRANSFERT_1", getTransfert1());
+        HudDebug.addLeftMiddle("-----------", "-----",Color.RED);
         HudDebug.addLeftMiddle("MASS_2", getMass2());
-        HudDebug.addLeftMiddle("-----------", "-----");
         HudDebug.addLeftMiddle("RESTITUTION_2", getRestitution2());
         HudDebug.addLeftMiddle("TRANSFERT_2", getTransfert2());
     }
