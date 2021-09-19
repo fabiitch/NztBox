@@ -19,7 +19,6 @@ public class Body implements Pool.Poolable {
     public boolean sensor = false;
     public int categorie = 0;
 
-
     public final Vector3 position = new Vector3();
     public final Vector3 velocity = new Vector3();
 
@@ -38,6 +37,16 @@ public class Body implements Pool.Poolable {
     public boolean dirty = true;
 
     private final Vector3 tmp = new Vector3();
+
+    public Body(BodyDef bodyDef) {
+        this(bodyDef.bodyType);
+        this.bullet = bodyDef.bullet;
+        this.sensor = bodyDef.sensor;
+        this.mass = bodyDef.mass;
+        this.restitution = bodyDef.restitution;
+        this.transfert = bodyDef.transfert;
+        this.canRotate = bodyDef.canRotate;
+    }
 
     public Body(BodyType bodyType) {
         this.bodyType = bodyType;
