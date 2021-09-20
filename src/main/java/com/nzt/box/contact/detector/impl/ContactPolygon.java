@@ -84,11 +84,6 @@ public class ContactPolygon implements ShapeContact {
 
     @Override
     public void calculNormal(Polygon polygon, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
-//        Vector2 normal = V2.getNormal(IntersectorPolygon.tmpTranslationVector.normal, new Vector2());
-//        float angleIncidence = AngleUtils.angleIncidence(normal, bodyA.getVelocity(tmp));
-//        bodyA.setVelocity(tmp.setAngleDeg(AngleUtils.incidenceToReflexion(angleIncidence)));
-
         boolean overlaps = IntersectorPolygon.polygons(myPolygon, polygon, IntersectorPolygon.tmpTranslationVector);
         if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);

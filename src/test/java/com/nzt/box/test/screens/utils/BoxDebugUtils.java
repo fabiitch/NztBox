@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.base.utils;
+package com.nzt.box.test.screens.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.nzt.box.contact.data.CollisionData;

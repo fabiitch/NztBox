@@ -19,15 +19,17 @@ public abstract class BaseSTBouncingMassBodies extends Box2dTestScreen {
     private Array<Body> allBody = new Array<>();
     private Vector2 tmpPos = new Vector2();
     private Rectangle rectScreen;
-    private int userDataBall = 1;
+    private int userData = 1;
+    BodyDef bodyDef;
 
     public BaseSTBouncingMassBodies(FastTesterMain main) {
         super(main);
+        this.bodyDef = bodyDef();
         debugRenderer.debugSettings.drawVelocity = false;
         createWallAroundScreen();
         rectScreen = new Rectangle(-SCREEN_WITDH / 2, -SCREEN_HEIGHT / 2, SCREEN_WITDH, SCREEN_HEIGHT);
         for (int i = 0; i < 10; i++) {
-            Body ball = createBody();
+            createBody();
         }
         debugMsg("Balls created", allBody.size);
 
@@ -50,12 +52,12 @@ public abstract class BaseSTBouncingMassBodies extends Box2dTestScreen {
     protected abstract BodyShape bodyShape();
 
     private Body createBody() {
-        Body body = new Body(bodyDef());
+        Body body = new Body(bodyDef);
         BodyShape shape = bodyShape();
         Fixture<?> fixture = new Fixture<>(shape);
         body.addFixture(fixture);
         world.addBody(body);
-        body.userData = userDataBall++;
+        body.userData = userData++;
         Vector2 pos = new Vector2();
         pos.x = MathUtils.random(-SCREEN_WITDH / 2 + 3, SCREEN_WITDH / 2 - 1);
         pos.y = MathUtils.random(-SCREEN_HEIGHT / 2 + 3, SCREEN_HEIGHT / 2 - 1);

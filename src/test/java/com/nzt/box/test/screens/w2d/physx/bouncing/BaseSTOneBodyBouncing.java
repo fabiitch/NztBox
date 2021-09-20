@@ -19,8 +19,6 @@ public abstract class BaseSTOneBodyBouncing extends Box2dTestScreen {
     public BaseSTOneBodyBouncing(FastTesterMain main) {
         super(main);
         body = new Body(bodyDef());
-        Circle circle = new Circle(0, 0, 50);
-        CircleShape shape = new CircleShape(circle);
         Fixture fixture = new Fixture(bodyShape());
         body.addFixture(fixture);
         world.addBody(body);
