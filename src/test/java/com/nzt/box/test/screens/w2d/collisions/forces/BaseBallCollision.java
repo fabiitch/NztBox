@@ -12,7 +12,7 @@ import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
-import com.nzt.box.test.screens.base.utils.BoxDebugUtils;
+import com.nzt.box.test.screens.utils.BoxDebugUtils;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.input.impl.simple.SimpleClickInputHandler;

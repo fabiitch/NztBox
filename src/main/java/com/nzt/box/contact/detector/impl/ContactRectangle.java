@@ -65,14 +65,9 @@ public class ContactRectangle implements ShapeContact {
 
     @Override
     public void calculNormal(Rectangle rectangle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
-
         boolean overlaps = IntersectorRectangle.rectangles(myRectangle, rectangle, IntersectorPolygon.tmpTranslationVector);
-        if (overlaps) {
-            tmp.set(myRectangle.getX(), myRectangle.getY());
-            tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
-            bodyA.setPosition(tmp.add(tmp2));
-        }
+        if (overlaps)
+            contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
     }
 
     @Override
@@ -95,12 +90,8 @@ public class ContactRectangle implements ShapeContact {
 
     @Override
     public void calculNormal(Polygon polygon, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
         boolean overlaps = IntersectorRectangle.polygon(myRectangle, polygon, IntersectorPolygon.tmpTranslationVector);
-        if (overlaps) {
-            tmp.set(myRectangle.getX(), myRectangle.getY());
-            tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
-            bodyA.setPosition(tmp.add(tmp2));
-        }
+        if (overlaps)
+            contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
     }
 }

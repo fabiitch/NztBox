@@ -7,4 +7,6 @@
 
 * check des collisions existantes au debut du step
 
-* replace sur une shape deja prise
+* replace sur une shape deja prise, STReplaceMass triangle/poly.rect ko
+
+*
