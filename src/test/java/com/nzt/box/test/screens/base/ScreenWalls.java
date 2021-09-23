@@ -41,12 +41,14 @@ public class ScreenWalls {
         float dX = -SCREEN_WITDH / 2 + 1, dY = SCREEN_HEIGHT / 2 - 1;
 
         botWall = new Body(type);
-        botWall.userData = "WallHorizontalBot";
+        botWall.userData = "WallBot";
         botWall.restitution = restitution;
         botWall.transfert = transfert;
         botWall.mass = mass;
         RectangleShape shapeBot = new RectangleShape(SCREEN_WITDH, 10);
-        botWall.addFixture(new Fixture(shapeBot));
+        Fixture fixtureBot = new Fixture(shapeBot);
+        fixtureBot.userData = "F WallBot";
+        botWall.addFixture(fixtureBot);
         world.addBody(botWall);
         botWall.setPosition(0, aY);
 
@@ -54,9 +56,11 @@ public class ScreenWalls {
         topWall.restitution = restitution;
         topWall.transfert = transfert;
         topWall.mass = mass;
-        topWall.userData = "WallHorizontalTop";
+        topWall.userData = "WallTop";
         RectangleShape shapeTop = new RectangleShape(SCREEN_WITDH, 10);
-        topWall.addFixture(new Fixture(shapeTop));
+        Fixture fixtureTop = new Fixture(shapeTop);
+        fixtureTop.userData = "F WallTop";
+        topWall.addFixture(fixtureTop);
         world.addBody(topWall);
         topWall.setPosition(0, cY);
 
@@ -64,9 +68,11 @@ public class ScreenWalls {
         rightWall.restitution = restitution;
         rightWall.transfert = transfert;
         rightWall.mass = mass;
-        rightWall.userData = "WallVerticalRight";
+        rightWall.userData = "WallRight";
         RectangleShape shapeRight = new RectangleShape(10, SCREEN_HEIGHT);
-        rightWall.addFixture(new Fixture(shapeRight));
+        Fixture fixtureRight = new Fixture(shapeRight);
+        fixtureRight.userData = "F WallRight";
+        rightWall.addFixture(fixtureRight);
         world.addBody(rightWall);
         rightWall.setPosition(-SCREEN_WITDH / 2, 0);
 
@@ -74,9 +80,11 @@ public class ScreenWalls {
         leftWall.restitution = restitution;
         leftWall.transfert = transfert;
         leftWall.mass = mass;
-        leftWall.userData = "WallbotHorizontal";
+        leftWall.userData = "WallLeft";
         RectangleShape shapeLeft = new RectangleShape(10, SCREEN_HEIGHT);
-        leftWall.addFixture(new Fixture(shapeLeft));
+        Fixture fixtureLeft = new Fixture(shapeLeft);
+        fixtureLeft.userData="F WallLeft";
+        leftWall.addFixture(fixtureLeft);
         world.addBody(leftWall);
         leftWall.setPosition(SCREEN_WITDH / 2, 0);
 

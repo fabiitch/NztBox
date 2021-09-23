@@ -28,8 +28,10 @@ public class Body implements Pool.Poolable {
     public final Array<Force> forcesToRemove;
 
     public float mass = 1f;
-    public float restitution = 0f; //energy return
-    public float transfert = 1f; //energy give
+    public float transfert = 1f; //energy transfert
+    public float receive = 1f; //energy get of transfert
+    public float restitution = 0f; //energy return of transfert
+
     public boolean canRotate = true;
 
     public float maxDstFixture; //dst la plus eloigné du body
