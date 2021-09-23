@@ -42,12 +42,11 @@ public class World2dDebugRenderer extends WorldDebugRender {
             for (int j = 0, m = fixtures.size; j < m; j++) {
                 fixtures.get(j).bodyShape.draw(shapeRenderer);
             }
-
             if (debugSettings.drawVelocity) {
                 body.getPosition(tmp1);
                 body.getVelocity(tmp2);
                 shapeRenderer.setColor(Color.GREEN);
-                shapeRenderer.line(tmp1, tmp1.cpy().add(tmp2));
+                shapeRenderer.line(tmp1, tmp1.cpy().add(tmp2.scl(0.2f)));
             }
         }
         shapeRenderer.end();

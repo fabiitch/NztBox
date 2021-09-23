@@ -42,26 +42,33 @@ public class ContactForces {
         Vector2 velocityA = bodyA.getVelocity(tmp1);
         Vector2 velocityB = bodyB.getVelocity(tmp2);
 
-        Vector2 velocityACpy = velocityA.cpy();
-        Vector2 velocityBCpy = velocityB.cpy();
+
         //rebound
         float angleIncidenceA = V2.angleDeg(normal) - (V2.angleDeg(velocityA) - V2.angleDeg(normal));
         float angleReflexionA = AngleUtils.incidenceToReflexion(angleIncidenceA);
 
-        data.reboundA.set(velocityA).setAngleDeg(angleReflexionA);
-        data.reboundA.scl(bodyA.transfert).scl(bodyB.restitution);
+        data.reboundA.set(1, 0).setAngleDeg(angleReflexionA);
+
         if (bodyBShouldApplyForces) {
             float angleIncidenceB = V2.angleDeg(normal) - (V2.angleDeg(velocityB) - V2.angleDeg(normal));
             float angleReflexionB = AngleUtils.incidenceToReflexion(angleIncidenceB);//TODO reutilisé A
-            data.reboundB.set(velocityB).setAngleDeg(-angleReflexionB);
-            data.reboundB.scl(bodyB.transfert).scl(bodyA.restitution);
+            data.reboundB.set(1, 0).setAngleDeg(-angleReflexionB);
         }
 //        //dirForces
-        Vector2 forceA = calculPowerImpact(velocityACpy, bodyA, bodyB);
-        data.forceOnB.add(forceA);
+        Vector2 forceA = calculPowerImpact(velocityA.cpy(), bodyA, bodyB);
+        Vector2 receiveB = forceA.cpy().scl(bodyB.receive);
+        data.forceOnB.add(receiveB);
+        float powerARebound = forceA.cpy().scl(1 - bodyB.receive).len();
+        float powerARestitution = forceA.cpy().scl(bodyB.restitution).len();
+        data.reboundA.setLength(powerARebound + powerARestitution);
+
         if (bodyBShouldApplyForces) {
-            Vector2 forceB = calculPowerImpact(velocityBCpy, bodyB, bodyA);
-            data.forceOnA.add(forceB);
+            Vector2 forceB = calculPowerImpact(velocityB.cpy(), bodyB, bodyA);
+            Vector2 receiveA = forceB.cpy().scl(bodyA.receive);
+            data.forceOnA.add(receiveA);
+            float powerBRebound = forceB.cpy().scl(1 - bodyA.receive).len();
+            float powerBRestitution = forceB.cpy().scl(bodyA.restitution).len();
+            data.reboundB.setLength(powerBRebound + powerBRestitution);
         }
     }
 
@@ -70,14 +77,16 @@ public class ContactForces {
 
         Body bodyA = contactFixture.fixtureA.body;
         if (bodyA.bodyType != Static) {
-//            Vector2 newVelA = bodyA.getVelocity(tmp1);
-//            V2.setAngle(newVelA, data.reboundA);
-            bodyA.setVelocity(data.reboundA);
+            Vector2 newVelA = bodyA.getVelocity(tmp1);
+            newVelA.add(data.reboundA);
+            bodyA.setVelocity(newVelA);
         }
 
         Body bodyB = contactFixture.fixtureB.body;
         if (bodyB.bodyType != Static) {
-            bodyB.setVelocity(data.reboundB);
+            Vector2 newVelB = bodyB.getVelocity(tmp2);
+            newVelB.add(data.reboundB);
+            bodyB.setVelocity(newVelB);
         }
     }
 
