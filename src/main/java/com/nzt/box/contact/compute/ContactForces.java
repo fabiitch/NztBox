@@ -19,7 +19,7 @@ public class ContactForces {
 
     private static Vector3 tmp1V3 = new Vector3();
 
-    public static void calculReboundForces(ContactFixture contactFixture, float stepTime) {
+    public void calculReboundForces(ContactFixture contactFixture, float stepTime) {
         CollisionData data = contactFixture.collisionData;
         //check if bodyB apply forces to bodyA
         Fixture<?> fixtureA = contactFixture.fixtureA;
@@ -72,7 +72,7 @@ public class ContactForces {
         }
     }
 
-    public static void applyRebound(ContactFixture contactFixture) {
+    public void applyRebound(ContactFixture contactFixture) {
         CollisionData data = contactFixture.collisionData;
 
         Body bodyA = contactFixture.fixtureA.body;
@@ -90,7 +90,7 @@ public class ContactForces {
         }
     }
 
-    public static void applyForces(ContactFixture contactFixture) {
+    public void applyForces(ContactFixture contactFixture) {
         CollisionData data = contactFixture.collisionData;
         Body bodyA = contactFixture.fixtureA.body;
         if (bodyA.bodyType != Static) {
@@ -105,10 +105,10 @@ public class ContactForces {
             newVelB.add(data.forceOnB);
             bodyB.setVelocity(newVelB);
         }
-        applyRebound(contactFixture);
+//        applyRebound(contactFixture);
     }
 
-    public static Vector2 calculPowerImpact(Vector2 velocityBodyACpy, Body bodyA, Body bodyB) {
+    public Vector2 calculPowerImpact(Vector2 velocityBodyACpy, Body bodyA, Body bodyB) {
         float scalarPower = bodyA.mass / bodyB.mass;
         return velocityBodyACpy.scl(scalarPower * (bodyA.transfert));
     }
@@ -119,7 +119,7 @@ public class ContactForces {
     public static final short FORCES_ON_A = 1 << 4;
     public static final short FORCES_ON_B = 1 << 5;
 
-    public static short computeContact(ContactFixture contactFixture) {
+    public short computeContact(ContactFixture contactFixture) {
         BodyType typeA = contactFixture.fixtureA.body.bodyType;
         BodyType typeB = contactFixture.fixtureB.body.bodyType;
         if (typeA == Static) {

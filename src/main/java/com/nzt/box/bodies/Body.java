@@ -46,6 +46,7 @@ public class Body implements Pool.Poolable {
         this.sensor = bodyDef.sensor;
         this.mass = bodyDef.mass;
         this.restitution = bodyDef.restitution;
+        this.receive = bodyDef.receive;
         this.transfert = bodyDef.transfert;
         this.canRotate = bodyDef.canRotate;
     }
@@ -56,6 +57,16 @@ public class Body implements Pool.Poolable {
         contacts = new Array<>();
         forces = new Array<>();
         forcesToRemove = new Array<>();
+    }
+
+    public void setDef(BodyDef bodyDef) {
+        this.bodyType = bodyDef.bodyType;
+        this.bullet = bodyDef.bullet;
+        this.sensor = bodyDef.sensor;
+        this.mass = bodyDef.mass;
+        this.restitution = bodyDef.restitution;
+        this.transfert = bodyDef.transfert;
+        this.canRotate = bodyDef.canRotate;
     }
 
     public boolean move(float stepTime) {

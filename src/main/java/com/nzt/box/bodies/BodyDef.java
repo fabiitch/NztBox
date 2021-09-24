@@ -6,6 +6,7 @@ public class BodyDef {
     public boolean sensor = false;
     public float mass = 1f;
     public float restitution = 0f; //energy return
+    public float receive = 1f;
     public float transfert = 1f; //energy give
     public boolean canRotate = true;
 
@@ -46,6 +47,11 @@ public class BodyDef {
         this.transfert = transfert;
         return this;
     }
+    public BodyDef receive(float receive) {
+        this.receive = receive;
+        return this;
+    }
+
 
     public BodyDef canRotate(boolean canRotate) {
         this.canRotate = canRotate;

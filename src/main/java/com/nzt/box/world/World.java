@@ -13,6 +13,7 @@ import com.nzt.box.contact.listener.ContactListener;
 public class World {
 
     public ContactListener contactListener;
+    public ContactForces contactForces;
     public WorldHelper helper;
     public WorldData data;
 
@@ -23,6 +24,7 @@ public class World {
         this.stepTime = stepTime;
         this.helper = new WorldHelper(this);
         this.data = new WorldData(this);
+        this.contactForces = new ContactForces();
     }
 
     public World() {
@@ -115,12 +117,12 @@ public class World {
                             fixtureA.replace(fixtureB, newContact);
                         fixtureA.calculNormal(fixtureB, newContact);
                         if (newContact.doForces)
-                            ContactForces.calculReboundForces(newContact, stepTime);
+                            contactForces.calculReboundForces(newContact, stepTime);
                         if (contactListener != null && newContact.callNextMethods)
                             contactListener.beginContact(newContact);
-                        ContactForces.applyRebound(newContact);
+                        contactForces.applyRebound(newContact);
                         if (newContact.doForces)
-                            ContactForces.applyForces(newContact);
+                            contactForces.applyForces(newContact);
                     }
                 }
             }
