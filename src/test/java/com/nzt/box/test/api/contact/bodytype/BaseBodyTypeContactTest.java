@@ -6,7 +6,7 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.test.api.BaseNztBoxTest;
 import com.nzt.box.test.api.mock.ContactListenerMock;
-import com.nzt.gdx.test.api.fake.TestConditions;
+import com.nzt.gdx.test.api.fake.TestCondition;
 import com.nzt.gdx.test.api.math.vectors.VTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -23,8 +23,8 @@ public abstract class BaseBodyTypeContactTest extends BaseNztBoxTest {
     public abstract BodyType bodyTypeToTest();
 
     public void createBodies() {
-        myBody = createBall(bodyTypeToTest(), 1);
-        bodyTarget = createBall(BodyType.Static, 2);
+        myBody = createBall(bodyTypeToTest());
+        bodyTarget = createBall(BodyType.Static);
         bodyTarget.setPosition(200, 0);
     }
 
@@ -93,7 +93,7 @@ public abstract class BaseBodyTypeContactTest extends BaseNztBoxTest {
 //                Assertions.assertEquals(bodyTypeTestResult.shouldRebound, contactFixture.doRebound);
             }
         };
-        testConditions.add(new TestConditions() {
+        testConditions.add(new TestCondition() {
             @Override
             public String name() {
                 return "Contact !";

@@ -1,6 +1,7 @@
 package com.nzt.box.test.api.contact.intersectors.retry;
 
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.CollisionData;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
@@ -40,11 +41,11 @@ public class RetryBallsContactTest extends BaseNztBoxTest {
     @Test
     public void retryContactTest() {
         for (int i = 0; i < NB_TEST; i++) {
-            init();
+            initNztBox();
             collision = false;
             world.contactListener = contactListener;
-            ball1 = createBall(0);
-            ball2 = createBall(1);
+            ball1 = createBall(BodyType.Dynamic);
+            ball2 = createBall(BodyType.Dynamic);
             world.addBody(ball1);
             world.addBody(ball2);
 

@@ -1,5 +1,6 @@
 package com.nzt.box.world;
 
+
 public class WorldHelper {
 
     private int idBodyCount = 0;
