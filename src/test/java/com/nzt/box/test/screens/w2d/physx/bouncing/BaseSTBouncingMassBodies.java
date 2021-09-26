@@ -10,6 +10,8 @@ import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
+import com.nzt.box.test.screens.utils.BoxDebugUtils;
+import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.input.impl.simple.SimpleClickInputHandler;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
@@ -32,7 +34,8 @@ public abstract class BaseSTBouncingMassBodies extends Box2dTestScreen {
             createBody();
         }
         debugMsg("Balls created", allBody.size);
-
+        BoxDebugUtils.toHud(bodyDef,"Ball", HudDebugPosition.LEFT_MIDDLE);
+        BoxDebugUtils.toHud(bodyDef,"Walls", HudDebugPosition.RIGHT_MIDDLE);
         infoMsg("Click to add 10 balls");
         Gdx.input.setInputProcessor(new SimpleClickInputHandler() {
             @Override

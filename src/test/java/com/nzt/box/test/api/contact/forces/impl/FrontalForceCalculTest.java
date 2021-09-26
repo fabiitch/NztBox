@@ -8,14 +8,43 @@ public class FrontalForceCalculTest extends BaseCalculForceTest {
 
     @Test
     public void test1() {
-        bodyDef1.mass(1).restitution(0).transfert(0).receive(1);
-        bodyDef2.mass(1).restitution(0).transfert(0).receive(1);
+        bodyDef1.mass(1).restitution(0).transfert(0).receive(0);
+        bodyDef2.mass(1).restitution(0).transfert(0).receive(0);
 
-        data1.set(v(-100, 0), v(0, 0));
-        data2.set(v(100, 0), v(0, 0));
+        data1.setForceOn(v(-0, 0)).setVelocityAfter(v(0, 0));
+        data2.setForceOn(v(-0, 0)).setVelocityAfter(v(0, 0));
         testForceCompute();
     }
 
+    @Test
+    public void test2() {
+        bodyDef1.mass(1).restitution(0).transfert(1).receive(1);
+        bodyDef2.mass(1).restitution(0).transfert(1).receive(1);
+
+        data1.setForceOn(v(-200, 0)).setVelocityAfter(v(-200, 0));
+        data2.setForceOn(v(200, 0)).setVelocityAfter(v(200, 0));
+        testForceCompute();
+    }
+
+    @Test
+    public void test3() {
+        bodyDef1.mass(1).restitution(1).transfert(1).receive(1);
+        bodyDef2.mass(1).restitution(1).transfert(1).receive(1);
+
+        data1.setForceOn(v(-0, 0)).setVelocityAfter(v(0, 0));
+        data2.setForceOn(v(-0, 0)).setVelocityAfter(v(0, 0));
+        testForceCompute();
+    }
+
+//    @Test
+//    public void test4() {
+//        bodyDef1.mass(10).restitution(0).transfert(1).receive(1);
+//        bodyDef2.mass(1).restitution(0).transfert(1).receive(1);
+//
+//        data1.setForceOn(v(-0, 0)).setVelocityAfter(v(0, 0));
+//        data2.setForceOn(v(-0, 0)).setVelocityAfter(v(0, 0));
+//        testForceCompute();
+//    }
 
     @Override
     protected Vector2 pos1() {

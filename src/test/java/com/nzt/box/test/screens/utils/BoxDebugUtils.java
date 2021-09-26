@@ -2,6 +2,7 @@ package com.nzt.box.test.screens.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.contact.data.CollisionData;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
@@ -50,7 +51,7 @@ public class BoxDebugUtils {
 
     public static void toHud(Body body, int positionOnStage) {
         HudDebug.add(BODY_SEPARATOR_START + body.id, SEPARATOR, SEPARATOR, positionOnStage);
-        HudDebug.add(BODY_KEY_ID + body.id,"Body", body.userData, positionOnStage);
+        HudDebug.add(BODY_KEY_ID + body.id, "Body", body.userData, positionOnStage);
         HudDebug.add(BODY_KEY_MASS + body.id, "Mass", body.mass, positionOnStage);
         HudDebug.add(BODY_KEY_TRANSFERT + body.id, "Transfert", body.transfert, positionOnStage);
         HudDebug.add(BODY_KEY_RECEIVE + body.id, "Receive", body.receive, positionOnStage);
@@ -66,5 +67,33 @@ public class BoxDebugUtils {
         HudDebug.remove(BODY_KEY_RECEIVE + body.id);
         HudDebug.remove(BODY_KEY_RESTITUTION + body.id);
         HudDebug.remove(BODY_SEPARATOR_END + body.id);
+    }
+
+    private final static String BODY_DEF_SEPARATOR_START = "BodyDefSeparatorStart";
+    private final static String BODY_DEF_KEY_NAME = "BodyDefName";
+    private final static String BODY_DEF_SEPARATOR_END = "BodyDefSeparatorEND";
+    private final static String BODY_DEF_KEY_MASS = "BodyDefMass";
+    private final static String BODY_DEF_KEY_TRANSFERT = "BodyDefTransfert";
+    private final static String BODY_DEF_KEY_RECEIVE = "BodyDefReceive";
+    private final static String BODY_DEF_KEY_RESTITUTION = "BodyDefRestitution";
+
+    public static void toHud(BodyDef bodyDef, String name, int positionOnStage) {
+        HudDebug.add(BODY_DEF_SEPARATOR_START + name, SEPARATOR, SEPARATOR, positionOnStage);
+        HudDebug.add(BODY_DEF_KEY_NAME + name, "BodyDef", name, positionOnStage);
+        HudDebug.add(BODY_DEF_KEY_MASS + name, "Mass", bodyDef.mass, positionOnStage);
+        HudDebug.add(BODY_DEF_KEY_TRANSFERT + name, "Transfert", bodyDef.transfert, positionOnStage);
+        HudDebug.add(BODY_DEF_KEY_RECEIVE + name, "Receive", bodyDef.receive, positionOnStage);
+        HudDebug.add(BODY_DEF_KEY_RESTITUTION + name, "Restitution", bodyDef.restitution, positionOnStage);
+        HudDebug.add(BODY_DEF_SEPARATOR_END + name, SEPARATOR, SEPARATOR, positionOnStage);
+    }
+
+    public static void remove(String name) {
+        HudDebug.remove(BODY_DEF_SEPARATOR_START + name);
+        HudDebug.remove(BODY_DEF_KEY_NAME + name);
+        HudDebug.remove(BODY_DEF_KEY_MASS + name);
+        HudDebug.remove(BODY_DEF_KEY_TRANSFERT + name);
+        HudDebug.remove(BODY_DEF_KEY_RECEIVE + name);
+        HudDebug.remove(BODY_DEF_KEY_RESTITUTION + name);
+        HudDebug.remove(BODY_DEF_SEPARATOR_END + name);
     }
 }

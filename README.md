@@ -53,6 +53,12 @@ Its not realistic.
     - Rebound
     - No Forces
 ---
+## Body Contact Attribute :
+    - Mass      : Used as multiplicator of energy transfert
+    - Transfert : Energy % transfert to other body
+    - Receive   : Energy % receive of transfert
+    - Restitution: Energy % restitute after Receive   
+---
 ## Fixtures
     You can attache one or many fixtures to a body.
     The fixture contains the shape and his height and Zpos (relative to body)

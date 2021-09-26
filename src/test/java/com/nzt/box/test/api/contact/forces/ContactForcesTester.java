@@ -6,10 +6,10 @@ import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.gdx.test.api.math.vectors.VTestUtils;
 
 class ContactForcesTester extends ContactForces {
-    public ForceDataTest data1, data2;
+    public ForceDataResult data1, data2;
     public boolean computeDone;
 
-    public ContactForcesTester(ForceDataTest data1, ForceDataTest data2) {
+    public ContactForcesTester(ForceDataResult data1, ForceDataResult data2) {
         this.data1 = data1;
         this.data2 = data2;
     }

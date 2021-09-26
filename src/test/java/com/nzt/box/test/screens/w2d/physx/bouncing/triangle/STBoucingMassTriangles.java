@@ -8,7 +8,9 @@ import com.nzt.box.shape.TriangleShape;
 import com.nzt.box.test.screens.w2d.physx.bouncing.BaseSTBouncingMassBodies;
 import com.nzt.gdx.math.shapes.Triangle;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
+@TestScreenList(group = "2D.physx.bouncing.triangle")
 public class STBoucingMassTriangles extends BaseSTBouncingMassBodies {
     public STBoucingMassTriangles(FastTesterMain main) {
         super(main);
@@ -16,11 +18,7 @@ public class STBoucingMassTriangles extends BaseSTBouncingMassBodies {
 
     @Override
     protected BodyDef bodyDef() {
-        BodyDef bodyDef = new BodyDef(BodyType.Dynamic);
-        bodyDef.mass = 1;
-        bodyDef.restitution = 1;
-        bodyDef.transfert = 1;
-        return bodyDef;
+        return new BodyDef(BodyType.Dynamic).mass(1).restitution(1).receive(1).transfert(1);
     }
 
     @Override

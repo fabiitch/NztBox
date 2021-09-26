@@ -7,7 +7,9 @@ import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.box.test.screens.w2d.physx.bouncing.BaseSTOneBodyBouncing;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
+@TestScreenList(group = "2D.physx.bouncing.polygon")
 public class STBouncingPolygon extends BaseSTOneBodyBouncing {
     public STBouncingPolygon(FastTesterMain main) {
         super(main);
@@ -15,11 +17,7 @@ public class STBouncingPolygon extends BaseSTOneBodyBouncing {
 
     @Override
     protected BodyDef bodyDef() {
-        BodyDef bodyDef = new BodyDef(BodyType.Dynamic);
-        bodyDef.mass = 1;
-        bodyDef.restitution = 1;
-        bodyDef.transfert = 1;
-        return bodyDef;
+        return new BodyDef(BodyType.Dynamic).mass(1).restitution(1).receive(1).transfert(1);
     }
 
     @Override
