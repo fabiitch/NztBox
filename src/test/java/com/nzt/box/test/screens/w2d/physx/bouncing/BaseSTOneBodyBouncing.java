@@ -1,18 +1,14 @@
 package com.nzt.box.test.screens.w2d.physx.bouncing;
 
-import com.badlogic.gdx.math.Circle;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.shape.CircleShape;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.math.vectors.V2;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
-import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
-@TestScreenList(group = "2D.physx.bouncing")
 public abstract class BaseSTOneBodyBouncing extends Box2dTestScreen {
     protected Body body;
 

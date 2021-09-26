@@ -2,6 +2,7 @@ package com.nzt.box.test.screens.base;
 
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.RectangleShape;
@@ -14,10 +15,18 @@ public class ScreenWalls {
 
     public Body botWall, topWall, rightWall, leftWall;
     public Array<Body> walls;
+    public BodyDef bodyDef;
     private World world;
 
     public ScreenWalls(World world) {
-        this(world, BodyType.Static, 1, 1, 1);
+        this(world, new BodyDef(BodyType.Static).mass(1).transfert(1).receive(1).restitution(1));
+    }
+
+    public ScreenWalls(World world, BodyDef bodyDef) {
+        this.world = world;
+        this.bodyDef = bodyDef;
+        walls = new Array<>();
+        create();
     }
 
     public void removeWalls() {
@@ -27,9 +36,7 @@ public class ScreenWalls {
         world.destroyBody(leftWall);
     }
 
-    public ScreenWalls(World world, BodyType type, float mass, float restitution, float transfert) {
-        this.world = world;
-        walls = new Array<>();
+    public void create() {
         /**
          * D-----C
          * -------
@@ -40,11 +47,8 @@ public class ScreenWalls {
         float cX = SCREEN_WITDH / 2 - 1, cY = SCREEN_HEIGHT / 2 - 1;
         float dX = -SCREEN_WITDH / 2 + 1, dY = SCREEN_HEIGHT / 2 - 1;
 
-        botWall = new Body(type);
+        botWall = new Body(bodyDef);
         botWall.userData = "WallBot";
-        botWall.restitution = restitution;
-        botWall.transfert = transfert;
-        botWall.mass = mass;
         RectangleShape shapeBot = new RectangleShape(SCREEN_WITDH, 10);
         Fixture fixtureBot = new Fixture(shapeBot);
         fixtureBot.userData = "F WallBot";
@@ -52,10 +56,7 @@ public class ScreenWalls {
         world.addBody(botWall);
         botWall.setPosition(0, aY);
 
-        topWall = new Body(type);
-        topWall.restitution = restitution;
-        topWall.transfert = transfert;
-        topWall.mass = mass;
+        topWall = new Body(bodyDef);
         topWall.userData = "WallTop";
         RectangleShape shapeTop = new RectangleShape(SCREEN_WITDH, 10);
         Fixture fixtureTop = new Fixture(shapeTop);
@@ -64,10 +65,7 @@ public class ScreenWalls {
         world.addBody(topWall);
         topWall.setPosition(0, cY);
 
-        rightWall = new Body(type);
-        rightWall.restitution = restitution;
-        rightWall.transfert = transfert;
-        rightWall.mass = mass;
+        rightWall = new Body(bodyDef);
         rightWall.userData = "WallRight";
         RectangleShape shapeRight = new RectangleShape(10, SCREEN_HEIGHT);
         Fixture fixtureRight = new Fixture(shapeRight);
@@ -76,14 +74,11 @@ public class ScreenWalls {
         world.addBody(rightWall);
         rightWall.setPosition(-SCREEN_WITDH / 2, 0);
 
-        leftWall = new Body(type);
-        leftWall.restitution = restitution;
-        leftWall.transfert = transfert;
-        leftWall.mass = mass;
+        leftWall = new Body(bodyDef);
         leftWall.userData = "WallLeft";
         RectangleShape shapeLeft = new RectangleShape(10, SCREEN_HEIGHT);
         Fixture fixtureLeft = new Fixture(shapeLeft);
-        fixtureLeft.userData="F WallLeft";
+        fixtureLeft.userData = "F WallLeft";
         leftWall.addFixture(fixtureLeft);
         world.addBody(leftWall);
         leftWall.setPosition(SCREEN_WITDH / 2, 0);

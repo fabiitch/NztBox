@@ -23,6 +23,30 @@ public class BodyDef {
         return this;
     }
 
+    public BodyDef applyToBody(Body body) {
+        body.bodyType = this.bodyType;
+        body.bullet = this.bullet;
+        body.sensor = this.sensor;
+        body.mass = this.mass;
+        body.restitution = this.restitution;
+        body.receive = this.receive;
+        body.transfert = this.transfert;
+        body.canRotate = this.canRotate;
+        return this;
+    }
+
+    public BodyDef getFromBody(Body body) {
+        this.bodyType = body.bodyType;
+        this.bullet = body.bullet;
+        this.sensor = body.sensor;
+        this.mass = body.mass;
+        this.restitution = body.restitution;
+        this.receive = body.receive;
+        this.transfert = body.transfert;
+        this.canRotate = body.canRotate;
+        return this;
+    }
+
     public BodyDef bullet(boolean bullet) {
         this.bullet = bullet;
         return this;
@@ -47,6 +71,7 @@ public class BodyDef {
         this.transfert = transfert;
         return this;
     }
+
     public BodyDef receive(float receive) {
         this.receive = receive;
         return this;

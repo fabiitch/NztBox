@@ -23,7 +23,7 @@ public abstract class BaseCalculForceTest extends BaseNztBoxTest {
 
     boolean contactDone = false;
 
-    protected ForceDataTest data1 = new ForceDataTest(), data2 = new ForceDataTest();
+    protected ForceDataResult data1 = new ForceDataResult(), data2 = new ForceDataResult();
 
     @BeforeEach
     public void beforeForceCalcul() {

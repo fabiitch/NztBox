@@ -6,16 +6,22 @@ import com.nzt.box.bodies.Body;
 /**
  * Pre remplir pour check after
  */
-public class ForceDataTest {
+public class ForceDataResult {
     public Body body;
     public Vector2 forceOn;
     public Vector2 velocityAfter;
 
-    public ForceDataTest() {
+    public ForceDataResult() {
     }
 
-    public void set(Vector2 forceOn, Vector2 velocityAfter) {
+    public ForceDataResult setForceOn(Vector2 forceOn) {
         this.forceOn = forceOn;
-        this.velocityAfter = velocityAfter;
+        return this;
     }
+
+    public ForceDataResult setVelocityAfter(Vector2 velocityAfter) {
+        this.velocityAfter = velocityAfter;
+        return this;
+    }
+
 }

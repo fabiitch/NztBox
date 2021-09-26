@@ -27,10 +27,10 @@ public class Body implements Pool.Poolable {
     public final Array<Force> forces;
     public final Array<Force> forcesToRemove;
 
-    public float mass = 1f;
-    public float transfert = 1f; //energy transfert
-    public float receive = 1f; //energy get of transfert
-    public float restitution = 0f; //energy return of transfert
+    public float mass = 1f;         //Used as multiplicator of energy transfert
+    public float transfert = 1f;    //Energy % transfert to other body
+    public float receive = 1f;      //Energy % receive of transfert
+    public float restitution = 0f;  // Energy % restitute after Receive
 
     public boolean canRotate = true;
 
@@ -42,13 +42,7 @@ public class Body implements Pool.Poolable {
 
     public Body(BodyDef bodyDef) {
         this(bodyDef.bodyType);
-        this.bullet = bodyDef.bullet;
-        this.sensor = bodyDef.sensor;
-        this.mass = bodyDef.mass;
-        this.restitution = bodyDef.restitution;
-        this.receive = bodyDef.receive;
-        this.transfert = bodyDef.transfert;
-        this.canRotate = bodyDef.canRotate;
+        bodyDef.applyToBody(this);
     }
 
     public Body(BodyType bodyType) {
@@ -57,16 +51,6 @@ public class Body implements Pool.Poolable {
         contacts = new Array<>();
         forces = new Array<>();
         forcesToRemove = new Array<>();
-    }
-
-    public void setDef(BodyDef bodyDef) {
-        this.bodyType = bodyDef.bodyType;
-        this.bullet = bodyDef.bullet;
-        this.sensor = bodyDef.sensor;
-        this.mass = bodyDef.mass;
-        this.restitution = bodyDef.restitution;
-        this.transfert = bodyDef.transfert;
-        this.canRotate = bodyDef.canRotate;
     }
 
     public boolean move(float stepTime) {
