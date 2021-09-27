@@ -89,7 +89,7 @@ public abstract class BaseBodyTypeContactTest extends BaseNztBoxTest {
         world.contactListener = new ContactListenerMock() {
             @Override
             public void beginContact(ContactFixture contactFixture) {
-                Assertions.assertEquals(bodyTypeTestResult.shouldApplyForces, contactFixture.doForces);
+                Assertions.assertEquals(bodyTypeTestResult.shouldApplyForces, contactFixture.doCollision);
 //                Assertions.assertEquals(bodyTypeTestResult.shouldRebound, contactFixture.doRebound);
             }
         };

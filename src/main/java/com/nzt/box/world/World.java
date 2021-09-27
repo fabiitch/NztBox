@@ -95,9 +95,8 @@ public class World {
                     if (retry) {
                         if (hasContact.continueContact && contactListener != null)
                             contactListener.continueContact(hasContact);
-                        if (hasContact.isBlockingContact())
+                        if (hasContact.doCollision)
                             hasContact.fixtureA.replace(hasContact.fixtureB, hasContact);
-
                     } else {
                         if (contactListener != null && hasContact.callNextMethods)
                             contactListener.endContact(hasContact);
@@ -113,16 +112,19 @@ public class World {
                         if (contactListener != null)
                             contactListener.preSolve(newContact);
                         data.addContact(newContact);
-                        if (newContact.isBlockingContact())
+                        if (newContact.doCollision) {
                             fixtureA.replace(fixtureB, newContact);
-                        fixtureA.calculNormal(fixtureB, newContact);
-                        if (newContact.doForces)
+                            fixtureA.calculNormal(fixtureB, newContact);
+                        }
+                        if (newContact.doCollision)
                             contactForces.calculReboundForces(newContact, stepTime);
                         if (contactListener != null && newContact.callNextMethods)
                             contactListener.beginContact(newContact);
-                        contactForces.applyRebound(newContact);
-                        if (newContact.doForces)
+                        if (newContact.doCollision) {
+                            contactForces.applyRebound(newContact);
                             contactForces.applyForces(newContact);
+                        }
+
                     }
                 }
             }

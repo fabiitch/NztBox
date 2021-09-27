@@ -27,7 +27,7 @@ public class CalculPowerImpactTest {
     public void test1() {
         bodyDef1.mass(1).transfert(1).applyToBody(body1);
         bodyDef2.mass(1).transfert(1).applyToBody(body2);
-        energy = contactForces.calculPowerImpact(new Vector2(100, 0), body1, body2);
+        energy = contactForces.calculPowerImpact(v(100, 0), v(0, 0),body1, body2);
         VTestUtils.assertEquals(new Vector2(100, 0), energy);
     }
 
@@ -35,7 +35,7 @@ public class CalculPowerImpactTest {
     public void test2() {
         bodyDef1.mass(10).transfert(1).applyToBody(body1);
         bodyDef2.mass(1).transfert(1).applyToBody(body2);
-        energy = contactForces.calculPowerImpact(new Vector2(100, 0), body1, body2);
+        energy = contactForces.calculPowerImpact(v(100, 0), v(0, 0), body1, body2);
         VTestUtils.assertEquals(new Vector2(1000, 0), energy);
     }
 
@@ -43,7 +43,11 @@ public class CalculPowerImpactTest {
     public void test3() {
         bodyDef1.mass(10).transfert(0).applyToBody(body1);
         bodyDef2.mass(1).transfert(1).applyToBody(body2);
-        energy = contactForces.calculPowerImpact(new Vector2(100, 0), body1, body2);
+        energy = contactForces.calculPowerImpact(v(100, 0), v(0, 0), body1, body2);
         VTestUtils.assertEquals(new Vector2(0, 0), energy);
+    }
+
+    private Vector2 v(float x, float y) {
+        return new Vector2(x, y);
     }
 }
