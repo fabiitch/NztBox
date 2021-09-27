@@ -2,6 +2,7 @@ package com.nzt.box.contact;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pools;
+import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
@@ -28,6 +29,8 @@ public class ContactUtils {
         ContactFixture contactFixture = Pools.obtain(ContactFixture.class);
         contactFixture.fixtureA = fixtureA;
         contactFixture.fixtureB = fixtureB;
+
+        contactFixture.doCollision = BoxUtils.isContactBlock(fixtureA.body, fixtureB.body);
         return contactFixture;
     }
 

@@ -6,6 +6,7 @@ import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.gdx.test.api.math.vectors.VTestUtils;
 
 class ContactForcesTester extends ContactForces {
+    public float tolerance = 0.1f;
     public ForceDataResult data1, data2;
     public boolean computeDone;
 
@@ -17,21 +18,21 @@ class ContactForcesTester extends ContactForces {
     @Override
     public void applyForces(ContactFixture contactFixture) {
         if (contactFixture.imBodyA(data1.body)) {
-            VTestUtils.assertEquals(data1.forceOn, contactFixture.collisionData.forceOnA);
-            VTestUtils.assertEquals(data2.forceOn, contactFixture.collisionData.forceOnB);
+            VTestUtils.assertEquals(data1.forceOn, contactFixture.collisionData.forceOnA, tolerance, "ForceOnA");
+            VTestUtils.assertEquals(data2.forceOn, contactFixture.collisionData.forceOnB, tolerance, "ForceOnB");
         } else {
-            VTestUtils.assertEquals(data2.forceOn, contactFixture.collisionData.forceOnA);
-            VTestUtils.assertEquals(data1.forceOn, contactFixture.collisionData.forceOnB);
+            VTestUtils.assertEquals(data2.forceOn, contactFixture.collisionData.forceOnA, tolerance, "ForceOnA");
+            VTestUtils.assertEquals(data1.forceOn, contactFixture.collisionData.forceOnB, tolerance, "ForceOnB");
         }
 
         super.applyForces(contactFixture);
 
         if (contactFixture.imBodyA(data1.body)) {
-            VTestUtils.assertEquals(data1.velocityAfter, data1.body.getVelocity(new Vector2()));
-            VTestUtils.assertEquals(data2.velocityAfter, data2.body.getVelocity(new Vector2()));
+            VTestUtils.assertEquals(data1.velocityAfter, data1.body.getVelocity(new Vector2()), tolerance, "Vel A after");
+            VTestUtils.assertEquals(data2.velocityAfter, data2.body.getVelocity(new Vector2()), tolerance, "Vel B after");
         } else {
-            VTestUtils.assertEquals(data2.velocityAfter, data2.body.getVelocity(new Vector2()));
-            VTestUtils.assertEquals(data1.velocityAfter, data1.body.getVelocity(new Vector2()));
+            VTestUtils.assertEquals(data2.velocityAfter, data2.body.getVelocity(new Vector2()), tolerance, "Vel A after");
+            VTestUtils.assertEquals(data1.velocityAfter, data1.body.getVelocity(new Vector2()), tolerance, "Vel B after");
         }
         computeDone = true;
     }

@@ -19,6 +19,12 @@ public class ContactForces {
 
     private static Vector3 tmp1V3 = new Vector3();
 
+    /**
+     * http://www.sciencecalculators.org/mechanics/collisions/
+     *
+     * @param contactFixture
+     * @param stepTime
+     */
     public void calculReboundForces(ContactFixture contactFixture, float stepTime) {
         CollisionData data = contactFixture.collisionData;
         //check if bodyB apply forces to bodyA
@@ -55,19 +61,19 @@ public class ContactForces {
             data.reboundB.set(1, 0).setAngleDeg(-angleReflexionB);
         }
 //        //dirForces
-        Vector2 forceA = calculPowerImpact(velocityA.cpy().sub(velocityB), bodyA, bodyB);
+        Vector2 forceA = calculPowerImpact(velocityA.cpy(), velocityB.cpy(), bodyA, bodyB);
         Vector2 receiveB = forceA.cpy().scl(bodyB.receive);
         data.forceOnB.add(receiveB);
         float powerARebound = velocityA.cpy().scl(1 - bodyB.receive).len();
-        float powerARestitution = forceA.cpy().scl(bodyB.restitution).len();
+        float powerARestitution = forceA.cpy().scl(bodyB.restitution * bodyA.receive).len();
         data.reboundA.setLength(powerARebound + powerARestitution);
 
         if (bodyBShouldApplyForces) {
-            Vector2 forceB = calculPowerImpact(velocityB.cpy().sub(velocityA), bodyB, bodyA);
+            Vector2 forceB = calculPowerImpact(velocityB.cpy(), velocityA.cpy(), bodyB, bodyA);
             Vector2 receiveA = forceB.cpy().scl(bodyA.receive);
             data.forceOnA.add(receiveA);
             float powerBRebound = velocityB.cpy().scl(1 - bodyA.receive).len();
-            float powerBRestitution = forceB.cpy().scl(bodyA.restitution).len();
+            float powerBRestitution = forceB.cpy().scl(bodyA.restitution * bodyB.receive).len();
             data.reboundB.setLength(powerBRebound + powerBRestitution);
         }
     }
@@ -103,9 +109,12 @@ public class ContactForces {
         }
     }
 
-    public Vector2 calculPowerImpact(Vector2 velocityBodyACpy, Body bodyA, Body bodyB) {
+    public Vector2 calculPowerImpact(Vector2 velocityACpy, Vector2 velocityBCpy, Body bodyA, Body bodyB) {
         float scalarPower = bodyA.mass / bodyB.mass;
-        return velocityBodyACpy.scl(scalarPower * (bodyA.transfert));
+
+        Vector2 result = new Vector2();
+
+        return velocityACpy.scl(scalarPower * (bodyA.transfert));
     }
 
     public static final short EVENT = 1;
