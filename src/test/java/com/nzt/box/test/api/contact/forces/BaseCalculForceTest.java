@@ -17,6 +17,7 @@ public abstract class BaseCalculForceTest extends BaseNztBoxTest {
 
     protected Body body1, body2;
     protected BodyDef bodyDef1, bodyDef2;
+    protected Vector2 velocity1, velocity2;
 
     protected ContactListenerMock contactListener;
     protected ContactForcesTester forcesTester;
@@ -62,8 +63,8 @@ public abstract class BaseCalculForceTest extends BaseNztBoxTest {
         body1.setPosition(pos1());
         body2.setPosition(pos2());
 
-        body1.setVelocity(vel1());
-        body2.setVelocity(vel2());
+        body1.setVelocity(velocity1);
+        body2.setVelocity(velocity2);
 
         forcesTester = new ContactForcesTester(data1, data2);
         world.contactForces = forcesTester;
@@ -85,10 +86,6 @@ public abstract class BaseCalculForceTest extends BaseNztBoxTest {
     protected abstract Vector2 pos1();
 
     protected abstract Vector2 pos2();
-
-    protected abstract Vector2 vel1();
-
-    protected abstract Vector2 vel2();
 
     protected Vector2 v(float x, float y) {
         return new Vector2(x, y);
