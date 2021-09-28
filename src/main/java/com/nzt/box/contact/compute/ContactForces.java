@@ -8,6 +8,7 @@ import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.CollisionData;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.gdx.math.AngleUtils;
+import com.nzt.gdx.math.NzMath;
 import com.nzt.gdx.math.vectors.V2;
 
 import static com.nzt.box.bodies.BodyType.*;
@@ -113,8 +114,25 @@ public class ContactForces {
         float scalarPower = bodyA.mass / bodyB.mass;
 
         Vector2 result = new Vector2();
-
-        return velocityACpy.scl(scalarPower * (bodyA.transfert));
+        float x;
+        if (NzMath.sameSign(velocityACpy.x, velocityBCpy.x)) {
+            x = velocityACpy.x - velocityBCpy.x;
+        } else {
+            x = velocityACpy.x;
+        }
+        if (NzMath.sameSignWithZero(x, velocityACpy.x)) {
+            result.x = x;
+        }
+        float y;
+        if (NzMath.sameSign(velocityACpy.x, velocityBCpy.x)) {
+            y = velocityACpy.y - velocityBCpy.y;
+        } else {
+            y = velocityACpy.y;
+        }
+        if (NzMath.sameSignWithZero(x, velocityACpy.y)) {
+            result.y = y;
+        }
+        return result.scl(scalarPower * (bodyA.transfert));
     }
 
     public static final short EVENT = 1;

@@ -24,15 +24,15 @@ public class CalculPowerImpactTest {
     }
 
     @Test
-    public void test1() {
+    public void oneMoveT1() {
         bodyDef1.mass(1).transfert(1).applyToBody(body1);
         bodyDef2.mass(1).transfert(1).applyToBody(body2);
-        energy = contactForces.calculPowerImpact(v(100, 0), v(0, 0),body1, body2);
+        energy = contactForces.calculPowerImpact(v(100, 0), v(0, 0), body1, body2);
         VTestUtils.assertEquals(new Vector2(100, 0), energy);
     }
 
     @Test
-    public void test2() {
+    public void oneMoveT2() {
         bodyDef1.mass(10).transfert(1).applyToBody(body1);
         bodyDef2.mass(1).transfert(1).applyToBody(body2);
         energy = contactForces.calculPowerImpact(v(100, 0), v(0, 0), body1, body2);
@@ -40,10 +40,27 @@ public class CalculPowerImpactTest {
     }
 
     @Test
-    public void test3() {
+    public void oneMoveT3() {
         bodyDef1.mass(10).transfert(0).applyToBody(body1);
         bodyDef2.mass(1).transfert(1).applyToBody(body2);
         energy = contactForces.calculPowerImpact(v(100, 0), v(0, 0), body1, body2);
+        VTestUtils.assertEquals(new Vector2(0, 0), energy);
+    }
+
+    @Test
+    public void frontalT1() {
+        bodyDef1.mass(1).transfert(1).applyToBody(body1);
+        bodyDef2.mass(1).transfert(1).applyToBody(body2);
+        energy = contactForces.calculPowerImpact(v(100, 0), v(-100, 0), body1, body2);
+        VTestUtils.assertEquals(new Vector2(100, 0), energy);
+
+        energy = contactForces.calculPowerImpact(v(50, 0), v(-100, 0), body1, body2);
+        VTestUtils.assertEquals(new Vector2(50, 0), energy);
+
+        energy = contactForces.calculPowerImpact(v(150, 0), v(100, 0), body1, body2);
+        VTestUtils.assertEquals(new Vector2(50, 0), energy);
+
+        energy = contactForces.calculPowerImpact(v(-50, 0), v(-100, 0), body1, body2);
         VTestUtils.assertEquals(new Vector2(0, 0), energy);
     }
 

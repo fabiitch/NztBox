@@ -27,6 +27,8 @@ public class Body implements Pool.Poolable {
     public final Array<Force> forces;
     public final Array<Force> forcesToRemove;
 
+    public float friction = 0f; // Speed reducer for bodies above
+
     public float mass = 1f;         //Used as multiplicator of energy transfert
     public float transfert = 1f;    //Energy % transfert to other body
     public float receive = 1f;      //Energy % receive of transfert
