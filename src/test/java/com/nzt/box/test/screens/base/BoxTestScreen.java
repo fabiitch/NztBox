@@ -5,9 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.nzt.box.debug.WorldDebugRender;
+import com.nzt.box.test.screens.utils.BoxSTHelp;
 import com.nzt.box.world.World;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
+import com.nzt.gdx.debug.perf.HudDebugPerformanceFrame;
+import com.nzt.gdx.debug.perf.PerformanceFrame;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.archi.screens.TestScreen;
 
@@ -19,15 +22,21 @@ abstract class BoxTestScreen extends TestScreen {
     public World world;
     public WorldDebugRender debugRenderer;
     public ScreenWalls screenWalls;
+    public BoxSTHelp boxSTHelp;
 
     public boolean simulationRunning = true;
 
+    private final static String KEY_WORLD_RUN = "SimulationRun";
+    private final static String KEY_WORLD_CALCUL_TIME = "SimulationRun";
 
     public BoxTestScreen(FastTesterMain main) {
         super(main);
         world = new World();
-        HudDebug.addTopLeft("SimulationRun", "" +
+        boxSTHelp = new BoxSTHelp(world);
+        HudDebug.addTopLeft(KEY_WORLD_RUN, "" +
                 "Press Space to pause/run simulation", simulationRunning, Color.RED);
+
+        PerformanceFrame.add("Box World calcul time");
     }
 
     public void infoMsg(String msg) {
@@ -59,10 +68,13 @@ abstract class BoxTestScreen extends TestScreen {
         camera.update();
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             simulationRunning = !simulationRunning;
-            HudDebug.update("SimulationRun", simulationRunning);
+            HudDebug.update(KEY_WORLD_RUN, simulationRunning);
         }
-        if (simulationRunning)
+        PerformanceFrame.startAction(KEY_WORLD_CALCUL_TIME);
+        if (simulationRunning) {
             world.step(dt);
+        }
+        PerformanceFrame.endAction(KEY_WORLD_CALCUL_TIME);
         debugRenderer.render(world, camera.combined);
         doRender(dt);
     }

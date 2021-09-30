@@ -4,8 +4,8 @@ import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionDetectionCircleRectangle extends BaseSTCollisionDetection<CircleShape, RectangleShape> {
-    public STCollisionDetectionCircleRectangle(FastTesterMain main) {
+public class ST2BodyCollisionDetectionCircleRectangle extends BaseST2BodyCollisionDetection<CircleShape, RectangleShape> {
+    public ST2BodyCollisionDetectionCircleRectangle(FastTesterMain main) {
         super(main);
     }
 

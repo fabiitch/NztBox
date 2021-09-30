@@ -3,8 +3,8 @@ package com.nzt.box.test.screens.w2d.collisions.rebond;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionReboundPolygons extends BaseSTCollisionRebound<PolygonShape, PolygonShape> {
-    public STCollisionReboundPolygons(FastTesterMain main) {
+public class ST2BodyCollisionReboundPolygons extends BaseST2BodyCollisionRebound<PolygonShape, PolygonShape> {
+    public ST2BodyCollisionReboundPolygons(FastTesterMain main) {
         super(main);
     }
 

@@ -1,22 +1,12 @@
-package com.nzt.box.test.screens.w2d.collisions.rebond;
+package com.nzt.box.test.screens.w2d.collisions.replace;
 
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionReboundPolygonRectangle extends BaseSTCollisionRebound<PolygonShape, RectangleShape> {
-    public STCollisionReboundPolygonRectangle(FastTesterMain main) {
+public class ST2BodyCollisionReplacePolygonRectangle extends BaseST2BodyCollisionReplace<PolygonShape, RectangleShape> {
+    public ST2BodyCollisionReplacePolygonRectangle(FastTesterMain main) {
         super(main);
-    }
-
-    @Override
-    protected void doBeginContact() {
-
-    }
-
-    @Override
-    public void renderContactInfo(float dt) {
-
     }
 
     @Override

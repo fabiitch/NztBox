@@ -1,12 +1,12 @@
-package com.nzt.box.test.screens.w2d.collisions.forces;
+package com.nzt.box.test.screens.w2d.collisions.forces.ball2;
 
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STOneBallCollision extends BaseBallCollision {
-    public STOneBallCollision(FastTesterMain main) {
+public class ST2BallTwoSpeedCollision extends Base2BallCollision {
+    public ST2BallTwoSpeedCollision(FastTesterMain main) {
         super(main);
-        resetPos();
+        afterClick(null);
     }
 
     @Override
@@ -26,12 +26,12 @@ public class STOneBallCollision extends BaseBallCollision {
 
     @Override
     protected float getRestitution2() {
-        return 1;
+        return 0;
     }
 
     @Override
     protected float getTransfert1() {
-        return 0.5f;
+        return 1;
     }
 
     @Override
@@ -40,22 +40,16 @@ public class STOneBallCollision extends BaseBallCollision {
     }
 
     @Override
-    public String getTestExplication() {
-        return "One ball move";
-    }
-
-    public void resetPos() {
-        ball1.setPosition(-200, 0);
-        ball2.setPosition(0, 0);
+    public void afterClick(Vector2 clickPos) {
+        ball1.setPosition(-300, 0);
+        ball2.setPosition(-200, 0);
 
         ball1.setVelocity(200, 0);
-        ball2.setVelocity(0, 0);
+        ball2.setVelocity(100, 0);
     }
 
     @Override
-    public void afterClick(Vector2 clickPos) {
-        resetPos();
+    public String getTestExplication() {
+        return "Test two speed same Dir";
     }
-
-
 }

@@ -3,8 +3,8 @@ package com.nzt.box.test.screens.w2d.collisions.replace;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionReplacePolygons extends BaseSTCollisionReplace<PolygonShape, PolygonShape> {
-    public STCollisionReplacePolygons(FastTesterMain main) {
+public class ST2BodyCollisionReplacePolygons extends BaseST2BodyCollisionReplace<PolygonShape, PolygonShape> {
+    public ST2BodyCollisionReplacePolygons(FastTesterMain main) {
         super(main);
     }
 

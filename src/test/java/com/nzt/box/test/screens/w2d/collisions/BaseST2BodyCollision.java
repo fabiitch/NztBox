@@ -21,7 +21,7 @@ import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape> extends Box2dTestScreen {
+public abstract class BaseST2BodyCollision<S1 extends BodyShape, S2 extends BodyShape> extends Box2dTestScreen {
 
     protected Body body1, body2, bodyMove, bodyStatic;
     protected String shape1, shape2;
@@ -29,7 +29,7 @@ public abstract class BaseSTCollision<S1 extends BodyShape, S2 extends BodyShape
     protected Vector2 posBodyA = new Vector2(-200, 0);
     protected Vector2 posBodyB = new Vector2(200, 0);
 
-    public BaseSTCollision(FastTesterMain main, BodyType bodyTypeA, BodyType bodyTypeB) {
+    public BaseST2BodyCollision(FastTesterMain main, BodyType bodyTypeA, BodyType bodyTypeB) {
         super(main);
         body1 = new Body(bodyTypeA);
         Fixture fixture1 = new Fixture(createBodyShape1());

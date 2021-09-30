@@ -1,11 +1,11 @@
-package com.nzt.box.test.screens.w2d.collisions.replace;
+package com.nzt.box.test.screens.w2d.collisions.detection;
 
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionReplaceCirclePolygon extends BaseSTCollisionReplace<PolygonShape, CircleShape> {
-    public STCollisionReplaceCirclePolygon(FastTesterMain main) {
+public class ST2BodyCollisionDetectionCirclePolygon extends BaseST2BodyCollisionDetection<PolygonShape, CircleShape> {
+    public ST2BodyCollisionDetectionCirclePolygon(FastTesterMain main) {
         super(main);
     }
 

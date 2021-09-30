@@ -6,13 +6,13 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.test.screens.w2d.collisions.BaseSTCollision;
+import com.nzt.box.test.screens.w2d.collisions.BaseST2BodyCollision;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.collision.replace")
-public abstract class BaseSTCollisionReplace<S1 extends BodyShape, S2 extends BodyShape> extends BaseSTCollision<S1, S2> {
-    public BaseSTCollisionReplace(FastTesterMain main) {
+public abstract class BaseST2BodyCollisionReplace<S1 extends BodyShape, S2 extends BodyShape> extends BaseST2BodyCollision<S1, S2> {
+    public BaseST2BodyCollisionReplace(FastTesterMain main) {
         super(main, BodyType.Dynamic, BodyType.Dynamic);
         infoMsg("Press F for change body control");
         infoMsg("Press R for reset position");
