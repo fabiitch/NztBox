@@ -29,6 +29,8 @@ public class BodyDef {
         body.sensor = this.sensor;
         body.mass = this.mass;
         body.restitution = this.restitution;
+        if(bodyType==BodyType.Static)
+            body.restitution =1;
         body.receive = this.receive;
         body.transfert = this.transfert;
         body.canRotate = this.canRotate;

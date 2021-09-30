@@ -4,8 +4,8 @@ import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionReboundCirclePolygon extends BaseSTCollisionRebound<PolygonShape, CircleShape> {
-    public STCollisionReboundCirclePolygon(FastTesterMain main) {
+public class ST2BodyCollisionReboundCirclePolygon extends BaseST2BodyCollisionRebound<PolygonShape, CircleShape> {
+    public ST2BodyCollisionReboundCirclePolygon(FastTesterMain main) {
         super(main);
     }
 

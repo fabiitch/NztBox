@@ -11,19 +11,19 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.test.screens.w2d.collisions.BaseSTCollision;
+import com.nzt.box.test.screens.w2d.collisions.BaseST2BodyCollision;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.math.vectors.V2;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.collision.rebound")
-public abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends BodyShape> extends BaseSTCollision<S1, S2> {
+public abstract class BaseST2BodyCollisionRebound<S1 extends BodyShape, S2 extends BodyShape> extends BaseST2BodyCollision<S1, S2> {
 
     private Vector2 target = new Vector2();
     boolean drawContactInfo = false;
 
-    public BaseSTCollisionRebound(FastTesterMain main) {
+    public BaseST2BodyCollisionRebound(FastTesterMain main) {
         super(main, BodyType.Dynamic, BodyType.Static);
         infoMsg("Press F for change shape moving");
         infoMsg("Right Click for change pos position");

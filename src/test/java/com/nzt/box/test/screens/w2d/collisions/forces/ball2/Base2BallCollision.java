@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.w2d.collisions.forces;
+package com.nzt.box.test.screens.w2d.collisions.forces.ball2;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.ContactFixture;
@@ -20,16 +21,21 @@ import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.collision.forces")
-public abstract class BaseBallCollision extends Box2dTestScreen {
+/**
+ * Set body pos in after click
+ */
+public abstract class Base2BallCollision extends Box2dTestScreen {
 
     protected Body ball1, ball2;
     private Vector2 clickPos = new Vector2(200, 0);
 
+    BodyDef ballBodyDef;
 
-    public BaseBallCollision(FastTesterMain main) {
+
+    public Base2BallCollision(FastTesterMain main) {
         super(main);
         infoMsg("Click for reset");
-        createBodies();
+        create2B();
         Gdx.input.setInputProcessor(addInputListener());
         world.contactListener = addContactListener();
 
@@ -39,6 +45,8 @@ public abstract class BaseBallCollision extends Box2dTestScreen {
 
         BoxDebugUtils.toHud(ball1, HudDebugPosition.LEFT_MIDDLE);
         BoxDebugUtils.toHud(ball2, HudDebugPosition.RIGHT_MIDDLE);
+
+        ballBodyDef = new BodyDef(BodyType.Dynamic).mass(1).transfert(1).receive(1);
     }
 
     protected abstract float getMass1();
@@ -79,11 +87,9 @@ public abstract class BaseBallCollision extends Box2dTestScreen {
         };
     }
 
-    protected void createBodies() {
-        ball1 = createBall(1, getMass1(), getRestitution1(), getTransfert1());
-        ball2 = createBall(2, getMass2(), getRestitution2(), getTransfert2());
-        world.addBody(ball1);
-        world.addBody(ball2);
+    protected void create2B() {
+        ball1 = createBall(1, ballBodyDef);
+        ball2 = createBall(2, ballBodyDef);
     }
 
     @Override
@@ -103,17 +109,14 @@ public abstract class BaseBallCollision extends Box2dTestScreen {
         };
     }
 
-    protected Body createBall(int userData, float mass, float restitution, float transfert) {
-        Body body = new Body(BodyType.Dynamic);
+    protected Body createBall(int userData, BodyDef bodyDef) {
+        Body body = new Body(bodyDef);
         Circle circle = new Circle(0, 0, 10);
         CircleShape shape = new CircleShape(circle);
         Fixture fixture = new Fixture(shape);
         body.addFixture(fixture);
-        body.mass = mass;
-        body.userData = "" + userData;
-        body.restitution = restitution;
-        body.transfert = transfert;
         fixture.userData = "" + userData;
+        world.addBody(body);
         return body;
     }
 

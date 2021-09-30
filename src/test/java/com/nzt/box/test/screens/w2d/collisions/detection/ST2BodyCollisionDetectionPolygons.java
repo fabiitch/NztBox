@@ -3,8 +3,8 @@ package com.nzt.box.test.screens.w2d.collisions.detection;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionDetectionPolygons extends BaseSTCollisionDetection<PolygonShape, PolygonShape> {
-    public STCollisionDetectionPolygons(FastTesterMain main) {
+public class ST2BodyCollisionDetectionPolygons extends BaseST2BodyCollisionDetection<PolygonShape, PolygonShape> {
+    public ST2BodyCollisionDetectionPolygons(FastTesterMain main) {
         super(main);
     }
 

@@ -6,14 +6,14 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.test.screens.w2d.collisions.BaseSTCollision;
+import com.nzt.box.test.screens.w2d.collisions.BaseST2BodyCollision;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.collision.detection")
-public abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodyShape> extends BaseSTCollision<S1, S2> {
+public abstract class BaseST2BodyCollisionDetection<S1 extends BodyShape, S2 extends BodyShape> extends BaseST2BodyCollision<S1, S2> {
 
-    public BaseSTCollisionDetection(FastTesterMain main) {
+    public BaseST2BodyCollisionDetection(FastTesterMain main) {
         super(main, BodyType.Kinematic, BodyType.Kinematic);
         infoMsg("Press F for change body control");
         infoMsg("Press R for reset position");

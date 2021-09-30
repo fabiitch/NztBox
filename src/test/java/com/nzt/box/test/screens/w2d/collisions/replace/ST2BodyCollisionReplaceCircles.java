@@ -3,8 +3,8 @@ package com.nzt.box.test.screens.w2d.collisions.replace;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STCollisionReplaceCircles extends BaseSTCollisionReplace<CircleShape,CircleShape> {
-    public STCollisionReplaceCircles(FastTesterMain main) {
+public class ST2BodyCollisionReplaceCircles extends BaseST2BodyCollisionReplace<CircleShape,CircleShape> {
+    public ST2BodyCollisionReplaceCircles(FastTesterMain main) {
         super(main);
     }
 

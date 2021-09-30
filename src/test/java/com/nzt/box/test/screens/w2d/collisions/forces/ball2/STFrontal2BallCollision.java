@@ -1,13 +1,13 @@
-package com.nzt.box.test.screens.w2d.collisions.forces;
+package com.nzt.box.test.screens.w2d.collisions.forces.ball2;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.gdx.math.vectors.V2;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STFrontalBallCollision extends BaseBallCollision {
+public class STFrontal2BallCollision extends Base2BallCollision {
 
-    public STFrontalBallCollision(FastTesterMain main) {
+    public STFrontal2BallCollision(FastTesterMain main) {
         super(main);
 //		createWallAroundScreen();
         afterClick(new Vector2(-200, 0));

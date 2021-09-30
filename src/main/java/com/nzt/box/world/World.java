@@ -9,6 +9,7 @@ import com.nzt.box.contact.compute.ContactForces;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
+import com.nzt.gdx.debug.perf.PerformanceFrame;
 
 public class World {
 
@@ -32,12 +33,9 @@ public class World {
     }
 
     public void step(float dt) {
-        int aaa = 1;
-        float frameTime = Math.min(dt, stepTime);
         accumulator += dt;
         if (accumulator >= dt) {
             while (accumulator >= dt) {
-//                System.out.println(aaa++);
                 Array<Body> bodies = data.bodies;
                 for (int i = 0, n = bodies.size; i < n; i++) {
                     Body body = bodies.get(i);

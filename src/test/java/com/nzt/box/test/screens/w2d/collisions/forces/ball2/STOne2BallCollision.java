@@ -1,12 +1,12 @@
-package com.nzt.box.test.screens.w2d.collisions.forces;
+package com.nzt.box.test.screens.w2d.collisions.forces.ball2;
 
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
 
-public class STBallsTwoDirCollision extends BaseBallCollision {
-    public STBallsTwoDirCollision(FastTesterMain main) {
+public class STOne2BallCollision extends Base2BallCollision {
+    public STOne2BallCollision(FastTesterMain main) {
         super(main);
-        afterClick(null);
+        resetPos();
     }
 
     @Override
@@ -26,12 +26,12 @@ public class STBallsTwoDirCollision extends BaseBallCollision {
 
     @Override
     protected float getRestitution2() {
-        return 0;
+        return 1;
     }
 
     @Override
     protected float getTransfert1() {
-        return 1;
+        return 0.5f;
     }
 
     @Override
@@ -39,19 +39,23 @@ public class STBallsTwoDirCollision extends BaseBallCollision {
         return 1;
     }
 
+    @Override
+    public String getTestExplication() {
+        return "One ball move";
+    }
 
+    public void resetPos() {
+        ball1.setPosition(-200, 0);
+        ball2.setPosition(0, 0);
+
+        ball1.setVelocity(200, 0);
+        ball2.setVelocity(0, 0);
+    }
 
     @Override
     public void afterClick(Vector2 clickPos) {
-        ball1.setPosition(-200, 0);
-        ball2.setPosition(0, -200);
-
-        ball1.setVelocity(200, 0);
-        ball2.setVelocity(0, 200);
+        resetPos();
     }
 
-    @Override
-    public String getTestExplication() {
-        return "One ball should give force, second body start move at collision";
-    }
+
 }
