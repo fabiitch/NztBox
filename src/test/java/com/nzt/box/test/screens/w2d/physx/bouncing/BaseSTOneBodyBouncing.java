@@ -7,7 +7,7 @@ import com.nzt.box.shape.BodyShape;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.math.vectors.V2;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
 public abstract class BaseSTOneBodyBouncing extends Box2dTestScreen {
     protected Body body;

@@ -9,9 +9,8 @@ import com.nzt.box.test.screens.utils.BoxSTHelp;
 import com.nzt.box.world.World;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
-import com.nzt.gdx.debug.perf.HudDebugPerformanceFrame;
 import com.nzt.gdx.debug.perf.PerformanceFrame;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.archi.screens.TestScreen;
 
 abstract class BoxTestScreen extends TestScreen {
@@ -27,7 +26,7 @@ abstract class BoxTestScreen extends TestScreen {
     public boolean simulationRunning = true;
 
     private final static String KEY_WORLD_RUN = "SimulationRun";
-    private final static String KEY_WORLD_CALCUL_TIME = "SimulationRun";
+    private final static String KEY_WORLD_CALCUL_TIME = "BoxCalculTime";
 
     public BoxTestScreen(FastTesterMain main) {
         super(main);
@@ -36,7 +35,7 @@ abstract class BoxTestScreen extends TestScreen {
         HudDebug.addTopLeft(KEY_WORLD_RUN, "" +
                 "Press Space to pause/run simulation", simulationRunning, Color.RED);
 
-        PerformanceFrame.add("Box World calcul time");
+        PerformanceFrame.add(KEY_WORLD_CALCUL_TIME);
     }
 
     public void infoMsg(String msg) {

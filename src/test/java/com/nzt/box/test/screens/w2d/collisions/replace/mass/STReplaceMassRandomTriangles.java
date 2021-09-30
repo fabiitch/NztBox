@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.TriangleShape;
 import com.nzt.gdx.math.shapes.Triangle;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
 public class STReplaceMassRandomTriangles extends BaseSTReplaceMassBodies {
     public STReplaceMassRandomTriangles(FastTesterMain main) {

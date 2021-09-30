@@ -2,7 +2,7 @@ package com.nzt.box.test.screens.w2d.shapes;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.nzt.box.shape.RectangleShape;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
 public class STRectangleBodyShape extends BaseBodyShapeScreen<RectangleShape> {
     public STRectangleBodyShape(FastTesterMain main) {

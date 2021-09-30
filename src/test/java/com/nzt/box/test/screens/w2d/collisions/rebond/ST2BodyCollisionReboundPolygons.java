@@ -1,7 +1,7 @@
 package com.nzt.box.test.screens.w2d.collisions.rebond;
 
 import com.nzt.box.shape.PolygonShape;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
 public class ST2BodyCollisionReboundPolygons extends BaseST2BodyCollisionRebound<PolygonShape, PolygonShape> {
     public ST2BodyCollisionReboundPolygons(FastTesterMain main) {

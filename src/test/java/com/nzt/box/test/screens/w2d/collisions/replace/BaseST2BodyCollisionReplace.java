@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.test.screens.w2d.collisions.BaseST2BodyCollision;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.collision.replace")
