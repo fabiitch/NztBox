@@ -19,7 +19,7 @@ import com.nzt.box.shape.RectangleShape;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
 public abstract class BaseST2BodyCollision<S1 extends BodyShape, S2 extends BodyShape> extends Box2dTestScreen {
 

@@ -9,7 +9,7 @@ import com.nzt.box.bodies.forces.ForceFactory;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
 import com.nzt.gdx.input.impl.simple.SimpleMvtInputController;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.forces")

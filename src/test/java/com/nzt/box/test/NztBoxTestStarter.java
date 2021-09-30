@@ -1,7 +1,7 @@
 package com.nzt.box.test;
 
 import com.nzt.box.test.screens.w2d.physx.bouncing.circle.STBoucingCircle;
-import com.nzt.gdx.test.trials.tester.single.SingleScreenTestMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.SingleScreenTestMain;
 
 /**
  * Use it for Test one class with screenTestClass

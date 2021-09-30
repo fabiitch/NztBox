@@ -2,7 +2,7 @@ package com.nzt.box.test.screens.w2d.collisions.rebond;
 
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.PolygonShape;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
 public class ST2BodyCollisionReboundCirclePolygon extends BaseST2BodyCollisionRebound<PolygonShape, CircleShape> {
     public ST2BodyCollisionReboundCirclePolygon(FastTesterMain main) {

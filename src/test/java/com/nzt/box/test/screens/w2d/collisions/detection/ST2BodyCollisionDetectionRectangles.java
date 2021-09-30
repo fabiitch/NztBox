@@ -1,7 +1,7 @@
 package com.nzt.box.test.screens.w2d.collisions.detection;
 
 import com.nzt.box.shape.RectangleShape;
-import com.nzt.gdx.test.trials.tester.archi.main.FastTesterMain;
+import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
 public class ST2BodyCollisionDetectionRectangles extends BaseST2BodyCollisionDetection<RectangleShape, RectangleShape> {
     public ST2BodyCollisionDetectionRectangles(FastTesterMain main) {
