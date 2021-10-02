@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
-import com.nzt.box.debug.WorldDebugRender;
+import com.nzt.box.debug.render.BoxDebugRender;
 import com.nzt.box.test.screens.utils.BoxSTHelp;
 import com.nzt.box.world.World;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
@@ -19,7 +19,7 @@ abstract class BoxTestScreen extends TestScreen {
 
     protected Camera camera;
     public World world;
-    public WorldDebugRender debugRenderer;
+    public BoxDebugRender debugRenderer;
     public ScreenWalls screenWalls;
     public BoxSTHelp boxSTHelp;
 
@@ -27,6 +27,7 @@ abstract class BoxTestScreen extends TestScreen {
 
     private final static String KEY_WORLD_RUN = "SimulationRun";
     private final static String KEY_WORLD_CALCUL_TIME = "BoxCalculTime";
+    private final static String KEY_RENDER_CALCUL_TIME = "BoxRenderTime";
 
     public BoxTestScreen(FastTesterMain main) {
         super(main);
@@ -36,7 +37,28 @@ abstract class BoxTestScreen extends TestScreen {
                 "Press Space to pause/run simulation", simulationRunning, Color.RED);
 
         PerformanceFrame.add(KEY_WORLD_CALCUL_TIME);
+        PerformanceFrame.add(KEY_RENDER_CALCUL_TIME);
     }
+
+    @Override
+    public final void renderTestScreen(float dt) {
+        camera.update();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            simulationRunning = !simulationRunning;
+            HudDebug.update(KEY_WORLD_RUN, simulationRunning);
+        }
+        PerformanceFrame.startAction(KEY_WORLD_CALCUL_TIME);
+        if (simulationRunning) {
+            world.step(dt);
+        }
+        PerformanceFrame.endAction(KEY_RENDER_CALCUL_TIME);
+
+        PerformanceFrame.startAction(KEY_RENDER_CALCUL_TIME);
+        debugRenderer.render(world, camera.combined);
+        PerformanceFrame.endAction(KEY_RENDER_CALCUL_TIME);
+        doRender(dt);
+    }
+
 
     public void infoMsg(String msg) {
         HudDebug.addTopLeft("", msg);
@@ -62,21 +84,6 @@ abstract class BoxTestScreen extends TestScreen {
 
     public abstract void doRender(float dt);
 
-    @Override
-    public final void renderTestScreen(float dt) {
-        camera.update();
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            simulationRunning = !simulationRunning;
-            HudDebug.update(KEY_WORLD_RUN, simulationRunning);
-        }
-        PerformanceFrame.startAction(KEY_WORLD_CALCUL_TIME);
-        if (simulationRunning) {
-            world.step(dt);
-        }
-        PerformanceFrame.endAction(KEY_WORLD_CALCUL_TIME);
-        debugRenderer.render(world, camera.combined);
-        doRender(dt);
-    }
 
     @Override
     public void disposeTestScreen() {
