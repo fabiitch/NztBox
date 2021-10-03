@@ -1,7 +1,6 @@
 package com.nzt.box.contact.data;
 
 import com.badlogic.gdx.utils.Pool;
-import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactUtils;

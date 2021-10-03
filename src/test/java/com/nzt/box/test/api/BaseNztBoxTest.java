@@ -7,10 +7,8 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.world.World;
-import com.nzt.gdx.test.api.fake.BaseGdxTest;
+import com.nzt.gdx.test.api.tester.BaseGdxTest;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.BeforeEachCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
 
 public class BaseNztBoxTest extends BaseGdxTest {
     public World world;

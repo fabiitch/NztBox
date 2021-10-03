@@ -7,7 +7,7 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.test.api.BaseNztBoxTest;
 import com.nzt.box.test.api.mock.ContactListenerMock;
-import com.nzt.gdx.test.api.fake.PredicateSuccess;
+import com.nzt.gdx.test.api.tester.PredicateSuccess;
 import org.junit.jupiter.api.BeforeEach;
 
 /**

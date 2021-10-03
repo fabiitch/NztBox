@@ -23,14 +23,27 @@ public class BodyDef {
         return this;
     }
 
+    public BodyDef cpy() {
+        BodyDef cpy = new BodyDef();
+        cpy.bodyType = this.bodyType;
+        cpy.bullet = this.bullet;
+        cpy.sensor = this.sensor;
+        cpy.mass = this.mass;
+        cpy.restitution = this.restitution;
+        cpy.receive = this.receive;
+        cpy.transfert = this.transfert;
+        cpy.canRotate = this.canRotate;
+        return cpy;
+    }
+
     public BodyDef applyToBody(Body body) {
         body.bodyType = this.bodyType;
         body.bullet = this.bullet;
         body.sensor = this.sensor;
         body.mass = this.mass;
         body.restitution = this.restitution;
-        if(bodyType==BodyType.Static)
-            body.restitution =1;
+        if (bodyType == BodyType.Static)
+            body.restitution = 1;
         body.receive = this.receive;
         body.transfert = this.transfert;
         body.canRotate = this.canRotate;
@@ -78,7 +91,6 @@ public class BodyDef {
         this.receive = receive;
         return this;
     }
-
 
     public BodyDef canRotate(boolean canRotate) {
         this.canRotate = canRotate;

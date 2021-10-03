@@ -8,7 +8,6 @@ import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 import com.nzt.gdx.math.shapes.utils.PolygonUtils;
-import com.nzt.gdx.math.vectors.V2;
 
 /**
  * Only convex polygons

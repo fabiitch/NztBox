@@ -11,6 +11,7 @@ import com.nzt.gdx.math.AngleUtils;
 import com.nzt.gdx.math.NzMath;
 import com.nzt.gdx.math.vectors.V2;
 
+import static com.badlogic.gdx.math.MathUtils.cos;
 import static com.nzt.box.bodies.BodyType.*;
 
 public class ContactForces {
@@ -19,6 +20,30 @@ public class ContactForces {
     private static Vector2 tmp2 = new Vector2();
 
     private static Vector3 tmp1V3 = new Vector3();
+
+
+    public void test2(ContactFixture contactFixture, float stepTime) {
+        CollisionData data = contactFixture.collisionData;
+        Fixture<?> fixtureA = contactFixture.fixtureA;
+        Fixture<?> fixtureB = contactFixture.fixtureB;
+        Body bodyA = contactFixture.fixtureA.body;
+        Body bodyB = contactFixture.fixtureB.body;
+
+        Vector2 v1 = bodyA.getVelocity(tmp1);
+        Vector2 v2 = bodyB.getVelocity(tmp2);
+
+        Vector2 newVelA = V2.v();
+        float mass1 = bodyA.mass;
+        float mass2 = bodyB.mass;
+        float angle1 = v1.angleRad();
+        float angle2 = v2.angleRad();
+        float angleCol = 0;
+
+
+       v1
+
+//        float x = v1.cpy().scl(cos(angle1 - angleCol) * (mass1 - mass2)) + (2 * mass2 * cos(angle2 - angleCol))
+    }
 
     /**
      * http://www.sciencecalculators.org/mechanics/collisions/

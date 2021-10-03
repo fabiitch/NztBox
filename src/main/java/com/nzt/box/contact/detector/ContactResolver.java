@@ -1,9 +1,9 @@
 package com.nzt.box.contact.detector;
 
+import com.nzt.box.contact.detector.impl.ContactCircle;
 import com.nzt.box.contact.detector.impl.ContactPolygon;
 import com.nzt.box.contact.detector.impl.ContactRectangle;
 import com.nzt.box.shape.CircleShape;
-import com.nzt.box.contact.detector.impl.ContactCircle;
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.box.shape.RectangleShape;
 

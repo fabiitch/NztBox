@@ -3,10 +3,10 @@ package com.nzt.box.test.screens.w2d.collisions.b2.detection;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
-public class ST2BodyCollisionDetectionCircles extends BaseST2BodyCollisionDetection<CircleShape, CircleShape> {
+public class STCollisionDetectionCircles extends BaseSTCollisionDetection<CircleShape, CircleShape> {
 
 
-    public ST2BodyCollisionDetectionCircles(FastTesterMain main) {
+    public STCollisionDetectionCircles(FastTesterMain main) {
         super(main);
     }
 

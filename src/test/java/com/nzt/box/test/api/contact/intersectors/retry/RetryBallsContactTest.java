@@ -8,7 +8,7 @@ import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.test.api.BaseNztBoxTest;
 import com.nzt.box.test.api.BoxTestMethods;
 import com.nzt.box.test.api.mock.ContactListenerMock;
-import com.nzt.gdx.test.api.fake.PredicateSuccess;
+import com.nzt.gdx.test.api.tester.PredicateSuccess;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

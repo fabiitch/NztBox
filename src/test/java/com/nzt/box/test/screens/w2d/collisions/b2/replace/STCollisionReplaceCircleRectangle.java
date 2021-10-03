@@ -4,8 +4,8 @@ import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
-public class ST2BodyCollisionReplaceCircleRectangle extends BaseST2BodyCollisionReplace<CircleShape, RectangleShape> {
-    public ST2BodyCollisionReplaceCircleRectangle(FastTesterMain main) {
+public class STCollisionReplaceCircleRectangle extends BaseSTCollisionReplace<CircleShape, RectangleShape> {
+    public STCollisionReplaceCircleRectangle(FastTesterMain main) {
         super(main);
     }
 

@@ -1,10 +1,11 @@
 package com.nzt.box.test.screens.w2d.collisions.b2.replace;
 
 import com.nzt.box.shape.PolygonShape;
+import com.nzt.box.shape.RectangleShape;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
-public class ST2BodyCollisionReplacePolygons extends BaseST2BodyCollisionReplace<PolygonShape, PolygonShape> {
-    public ST2BodyCollisionReplacePolygons(FastTesterMain main) {
+public class STCollisionReplacePolygonRectangle extends BaseSTCollisionReplace<PolygonShape, RectangleShape> {
+    public STCollisionReplacePolygonRectangle(FastTesterMain main) {
         super(main);
     }
 
@@ -14,7 +15,7 @@ public class ST2BodyCollisionReplacePolygons extends BaseST2BodyCollisionReplace
     }
 
     @Override
-    protected PolygonShape createBodyShape2() {
-        return createPolygon1();
+    protected RectangleShape createBodyShape2() {
+        return createRectangle(100,50);
     }
 }

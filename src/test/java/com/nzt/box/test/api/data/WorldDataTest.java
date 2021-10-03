@@ -1,7 +1,6 @@
 package com.nzt.box.test.api.data;
 
 import com.nzt.box.test.api.contact.Base2BodyContactTest;
-import com.nzt.box.test.api.contact.Base3BodyContactTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

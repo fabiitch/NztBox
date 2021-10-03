@@ -10,14 +10,14 @@ import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.test.screens.utils.BoxDebugUtils;
-import com.nzt.box.test.screens.w2d.BaseSTMultiplePositionsBody;
+import com.nzt.box.test.screens.w2d.BaseSTMultipleBody;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.input.impl.simple.SimpleClickInputHandler;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.physx.bouncing")
-public abstract class BaseSTBouncingMassBodies extends BaseSTMultiplePositionsBody {
+public abstract class BaseSTBouncingMassBodies extends BaseSTMultipleBody {
     private Vector2 tmpPos = new Vector2();
     private Rectangle rectScreen;
     private int userData = 1;

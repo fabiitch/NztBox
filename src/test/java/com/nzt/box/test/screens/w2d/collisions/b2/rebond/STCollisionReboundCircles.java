@@ -9,12 +9,12 @@ import com.nzt.gdx.math.shapes.utils.CircleUtils;
 import com.nzt.gdx.math.vectors.V2;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
-public class ST2BodyCollisionReboundCircles extends BaseST2BodyCollisionRebound<CircleShape, CircleShape> {
+public class STCollisionReboundCircles extends BaseSTCollisionRebound<CircleShape, CircleShape> {
 
 
     Vector2 tangent = new Vector2();
 
-    public ST2BodyCollisionReboundCircles(FastTesterMain main) {
+    public STCollisionReboundCircles(FastTesterMain main) {
         super(main);
     }
 

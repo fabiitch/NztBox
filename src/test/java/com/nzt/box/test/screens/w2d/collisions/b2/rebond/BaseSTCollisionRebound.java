@@ -18,12 +18,12 @@ import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.collision.rebound")
-public abstract class BaseST2BodyCollisionRebound<S1 extends BodyShape, S2 extends BodyShape> extends BaseST2Body<S1, S2> {
+abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends BodyShape> extends BaseST2Body<S1, S2> {
 
     private Vector2 target = new Vector2();
     boolean drawContactInfo = false;
 
-    public BaseST2BodyCollisionRebound(FastTesterMain main) {
+    public BaseSTCollisionRebound(FastTesterMain main) {
         super(main, BodyType.Dynamic, BodyType.Static);
         infoMsg("Press F for change shape moving");
         infoMsg("Right Click for change pos position");
