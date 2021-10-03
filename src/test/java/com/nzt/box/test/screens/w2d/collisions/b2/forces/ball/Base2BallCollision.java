@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyDef;
-import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
@@ -24,17 +23,15 @@ import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 /**
  * Set body pos in after click
  */
-public abstract class Base2BallCollision extends Box2dTestScreen {
+abstract class Base2BallCollision extends Box2dTestScreen {
 
     protected Body ball1, ball2;
 
-    BodyDef ballBodyDef;
-
+    protected BodyDef bodyDefBall1, bodyDefBall2;
 
     public Base2BallCollision(FastTesterMain main) {
         super(main);
         infoMsg("Click for reset");
-        create2B();
         Gdx.input.setInputProcessor(addInputListener());
         world.contactListener = addContactListener();
 
@@ -42,10 +39,15 @@ public abstract class Base2BallCollision extends Box2dTestScreen {
         HudDebug.addTopRight("continueContact", false);
         HudDebug.addTopRight("endContact", false);
 
+        bodyDefBall1 = boxSTHelp.basicDynamicBd.cpy();
+        bodyDefBall1.mass(getMass1()).transfert(getTransfert1()).restitution(getRestitution1());
+
+        bodyDefBall2 = boxSTHelp.basicDynamicBd.cpy();
+        bodyDefBall1.mass(getMass2()).transfert(getTransfert2()).restitution(getRestitution2());
+        create2Ball();
+
         BoxDebugUtils.toHud(ball1, HudDebugPosition.LEFT_MIDDLE);
         BoxDebugUtils.toHud(ball2, HudDebugPosition.RIGHT_MIDDLE);
-
-        ballBodyDef = new BodyDef(BodyType.Dynamic).mass(1).transfert(1).receive(1);
     }
 
     protected abstract float getMass1();
@@ -86,9 +88,9 @@ public abstract class Base2BallCollision extends Box2dTestScreen {
         };
     }
 
-    protected void create2B() {
-        ball1 = createBall(1, ballBodyDef);
-        ball2 = createBall(2, ballBodyDef);
+    protected void create2Ball() {
+        ball1 = createBall(1, boxSTHelp.basicDynamicBd);
+        ball2 = createBall(2, boxSTHelp.basicDynamicBd);
     }
 
     @Override
@@ -100,6 +102,7 @@ public abstract class Base2BallCollision extends Box2dTestScreen {
     private InputProcessor addInputListener() {
         return new SimpleClickInputHandler() {
             private Vector2 clickPos = new Vector2(0, 0);
+
             @Override
             public boolean click(int screenX, int screenY, int pointer, int button) {
                 getClickPos(camera, screenX, screenY, clickPos);

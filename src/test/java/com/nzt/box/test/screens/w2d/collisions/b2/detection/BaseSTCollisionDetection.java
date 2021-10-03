@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.w2d.collisions.b2.replace;
+package com.nzt.box.test.screens.w2d.collisions.b2.detection;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -10,10 +10,11 @@ import com.nzt.box.test.screens.w2d.BaseST2Body;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
-@TestScreenList(group = "2D.collision.replace")
-public abstract class BaseST2BodyCollisionReplace<S1 extends BodyShape, S2 extends BodyShape> extends BaseST2Body<S1, S2> {
-    public BaseST2BodyCollisionReplace(FastTesterMain main) {
-        super(main, BodyType.Dynamic, BodyType.Dynamic);
+@TestScreenList(group = "2D.collision.detection")
+abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodyShape> extends BaseST2Body<S1, S2> {
+
+    public BaseSTCollisionDetection(FastTesterMain main) {
+        super(main, BodyType.Kinematic, BodyType.Kinematic);
         infoMsg("Press F for change body control");
         infoMsg("Press R for reset position");
     }
@@ -22,7 +23,7 @@ public abstract class BaseST2BodyCollisionReplace<S1 extends BodyShape, S2 exten
     public String getTestExplication() {
         if (body1 == null || body2 == null)
             return null;
-        return "Test Shape collision replacement between "
+        return "Test Shape collision Detection between "
                 + body1.fixtures.get(0).bodyShape.shape.getClass().getSimpleName()
                 + " and " +
                 body2.fixtures.get(0).bodyShape.shape.getClass().getSimpleName();
@@ -84,4 +85,5 @@ public abstract class BaseST2BodyCollisionReplace<S1 extends BodyShape, S2 exten
             }
         };
     }
+
 }

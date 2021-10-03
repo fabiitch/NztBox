@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
+import com.nzt.box.bodies.BodyDef;
+import com.nzt.box.bodies.BodyType;
 import com.nzt.box.debug.render.BoxDebugRender;
 import com.nzt.box.test.screens.utils.BoxSTHelp;
 import com.nzt.box.world.World;
@@ -17,17 +19,19 @@ abstract class BoxTestScreen extends TestScreen {
     public static final float SCREEN_WITDH = 1080;
     public static final float SCREEN_HEIGHT = 720;
 
+
     protected Camera camera;
     public World world;
     public BoxDebugRender debugRenderer;
     public ScreenWalls screenWalls;
-    public BoxSTHelp boxSTHelp;
 
+    public BoxSTHelp boxSTHelp;
     public boolean simulationRunning = true;
 
     private final static String KEY_WORLD_RUN = "SimulationRun";
     private final static String KEY_WORLD_CALCUL_TIME = "BoxCalculTime";
     private final static String KEY_RENDER_CALCUL_TIME = "BoxRenderTime";
+
 
     public BoxTestScreen(FastTesterMain main) {
         super(main);

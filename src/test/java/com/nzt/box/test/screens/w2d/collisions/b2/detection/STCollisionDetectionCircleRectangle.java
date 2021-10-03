@@ -1,22 +1,12 @@
-package com.nzt.box.test.screens.w2d.collisions.b2.rebond;
+package com.nzt.box.test.screens.w2d.collisions.b2.detection;
 
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
-public class ST2BodyCollisionReboundCircleRectangle extends BaseST2BodyCollisionRebound<CircleShape, RectangleShape> {
-    public ST2BodyCollisionReboundCircleRectangle(FastTesterMain main) {
+public class STCollisionDetectionCircleRectangle extends BaseSTCollisionDetection<CircleShape, RectangleShape> {
+    public STCollisionDetectionCircleRectangle(FastTesterMain main) {
         super(main);
-    }
-
-    @Override
-    protected void doBeginContact() {
-
-    }
-
-    @Override
-    public void renderContactInfo(float dt) {
-
     }
 
     @Override

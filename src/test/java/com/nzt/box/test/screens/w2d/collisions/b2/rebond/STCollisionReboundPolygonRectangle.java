@@ -1,10 +1,11 @@
 package com.nzt.box.test.screens.w2d.collisions.b2.rebond;
 
 import com.nzt.box.shape.PolygonShape;
+import com.nzt.box.shape.RectangleShape;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
-public class ST2BodyCollisionReboundPolygons extends BaseST2BodyCollisionRebound<PolygonShape, PolygonShape> {
-    public ST2BodyCollisionReboundPolygons(FastTesterMain main) {
+public class STCollisionReboundPolygonRectangle extends BaseSTCollisionRebound<PolygonShape, RectangleShape> {
+    public STCollisionReboundPolygonRectangle(FastTesterMain main) {
         super(main);
     }
 
@@ -24,7 +25,7 @@ public class ST2BodyCollisionReboundPolygons extends BaseST2BodyCollisionRebound
     }
 
     @Override
-    protected PolygonShape createBodyShape2() {
-        return createPolygon1();
+    protected RectangleShape createBodyShape2() {
+        return createRectangle(100,50);
     }
 }

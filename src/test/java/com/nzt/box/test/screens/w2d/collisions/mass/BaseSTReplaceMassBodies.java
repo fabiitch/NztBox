@@ -1,16 +1,16 @@
-package com.nzt.box.test.screens.w2d.collisions.multiple.mass;
+package com.nzt.box.test.screens.w2d.collisions.mass;
 
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.box.test.screens.w2d.BaseSTMultiplePositionsBody;
+import com.nzt.box.test.screens.w2d.BaseSTMultipleBody;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.collision.replace.mass")
-public abstract class BaseSTReplaceMassBodies extends BaseSTMultiplePositionsBody {
+abstract class BaseSTReplaceMassBodies extends BaseSTMultipleBody {
     int userData = 1;
     BodyDef bodyDef;
 

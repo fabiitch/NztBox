@@ -1,7 +1,6 @@
 package com.nzt.box.test.api.contact.listener;
 
 import com.nzt.box.test.api.contact.Base2BodyContactTest;
-import com.nzt.box.test.api.contact.Base3BodyContactTest;
 import com.nzt.box.test.api.mock.ContactListenerMock;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

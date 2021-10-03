@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.w2d.collisions.multiple.mass;
+package com.nzt.box.test.screens.w2d.collisions.mass;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.nzt.box.shape.BodyShape;

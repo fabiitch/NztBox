@@ -41,33 +41,6 @@ public class BoxDebugUtils {
         HudDebug.remove(CONTACT_KEY_SEPARATOR_END + id);
     }
 
-    private final static String BODY_SEPARATOR_START = "BodySeparatorStart";
-    private final static String BODY_KEY_ID = "BodyID";
-    private final static String BODY_SEPARATOR_END = "BodySeparatorEND";
-    private final static String BODY_KEY_MASS = "BodyMass";
-    private final static String BODY_KEY_TRANSFERT = "BodyTransfert";
-    private final static String BODY_KEY_RECEIVE = "BodyReceive";
-    private final static String BODY_KEY_RESTITUTION = "BodyRestitution";
-
-    public static void toHud(Body body, int positionOnStage) {
-        HudDebug.add(BODY_SEPARATOR_START + body.id, SEPARATOR, SEPARATOR, positionOnStage);
-        HudDebug.add(BODY_KEY_ID + body.id, "Body", body.userData, positionOnStage);
-        HudDebug.add(BODY_KEY_MASS + body.id, "Mass", body.mass, positionOnStage);
-        HudDebug.add(BODY_KEY_TRANSFERT + body.id, "Transfert", body.transfert, positionOnStage);
-        HudDebug.add(BODY_KEY_RECEIVE + body.id, "Receive", body.receive, positionOnStage);
-        HudDebug.add(BODY_KEY_RESTITUTION + body.id, "Restitution", body.restitution, positionOnStage);
-        HudDebug.add(BODY_SEPARATOR_END + body.id, SEPARATOR, SEPARATOR, positionOnStage);
-    }
-
-    public static void remove(Body body) {
-        HudDebug.remove(BODY_SEPARATOR_START + body.id);
-        HudDebug.remove(BODY_KEY_ID + body.id);
-        HudDebug.remove(BODY_KEY_MASS + body.id);
-        HudDebug.remove(BODY_KEY_TRANSFERT + body.id);
-        HudDebug.remove(BODY_KEY_RECEIVE + body.id);
-        HudDebug.remove(BODY_KEY_RESTITUTION + body.id);
-        HudDebug.remove(BODY_SEPARATOR_END + body.id);
-    }
 
     private final static String BODY_DEF_SEPARATOR_START = "BodyDefSeparatorStart";
     private final static String BODY_DEF_KEY_NAME = "BodyDefName";
@@ -76,6 +49,10 @@ public class BoxDebugUtils {
     private final static String BODY_DEF_KEY_TRANSFERT = "BodyDefTransfert";
     private final static String BODY_DEF_KEY_RECEIVE = "BodyDefReceive";
     private final static String BODY_DEF_KEY_RESTITUTION = "BodyDefRestitution";
+
+    public static void toHud(Body body, int positionOnStage) {
+        toHud(new BodyDef().getFromBody(body), "Body " + body.userData, positionOnStage);
+    }
 
     public static void toHud(BodyDef bodyDef, String name, int positionOnStage) {
         HudDebug.add(BODY_DEF_SEPARATOR_START + name, SEPARATOR, SEPARATOR, positionOnStage);

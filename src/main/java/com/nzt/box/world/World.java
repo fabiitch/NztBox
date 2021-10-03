@@ -9,7 +9,6 @@ import com.nzt.box.contact.compute.ContactForces;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
-import com.nzt.gdx.debug.perf.PerformanceFrame;
 
 public class World {
 
