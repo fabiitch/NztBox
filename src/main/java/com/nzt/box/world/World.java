@@ -113,13 +113,20 @@ public class World {
                             fixtureA.replace(fixtureB, newContact);
                             fixtureA.calculNormal(fixtureB, newContact);
                         }
-                        if (newContact.doCollision)
-                            contactForces.calculReboundForces(newContact, stepTime);
+                        if (newContact.doCollision) {
+                            contactForces.test2(newContact, stepTime);
+                            Fixture<?> fixtureA1 = newContact.fixtureA;
+                            newContact.fixtureA= newContact.fixtureB;
+                            newContact.fixtureA=fixtureA1;
+                            contactForces.test2(newContact, stepTime);
+
+                        }
+//                            contactForces.calculReboundForces(newContact, stepTime);
                         if (contactListener != null && newContact.callNextMethods)
                             contactListener.beginContact(newContact);
                         if (newContact.doCollision) {
-                            contactForces.applyRebound(newContact);
-                            contactForces.applyForces(newContact);
+//                            contactForces.applyRebound(newContact);
+//                            contactForces.applyForces(newContact);
                         }
 
                     }

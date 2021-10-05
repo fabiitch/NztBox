@@ -1,5 +1,6 @@
 package com.nzt.box.contact.compute;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.Body;
@@ -12,6 +13,7 @@ import com.nzt.gdx.math.NzMath;
 import com.nzt.gdx.math.vectors.V2;
 
 import static com.badlogic.gdx.math.MathUtils.cos;
+import static com.badlogic.gdx.math.MathUtils.sin;
 import static com.nzt.box.bodies.BodyType.*;
 
 public class ContactForces {
@@ -39,10 +41,17 @@ public class ContactForces {
         float angle2 = v2.angleRad();
         float angleCol = 0;
 
+        float x = (v1.len() * (cos(angle1 - angleCol)) * (mass1 - mass2)) + 2 * mass2 * v2.len() * cos(angle2 - angleCol);
+        x /= (mass1 + mass2);
+        x *= cos(angleCol);
+        x += v1.len() * sin(angle1 - angleCol) * cos(angleCol + (MathUtils.PI / 2));
 
-       v1
+        float y = (v1.len() * (cos(angle1 - angleCol)) * (mass1 - mass2)) + 2 * mass2 * v2.len() * cos(angle2 - angleCol);
+        y /= (mass1 + mass2);
+        y *= sin(angleCol);
+        y += v1.len() * sin(angle1 - angleCol) * sin(angleCol + (MathUtils.PI / 2));
 
-//        float x = v1.cpy().scl(cos(angle1 - angleCol) * (mass1 - mass2)) + (2 * mass2 * cos(angle2 - angleCol))
+        bodyA.setVelocity(x, y);
     }
 
     /**
