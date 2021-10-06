@@ -119,6 +119,7 @@ abstract class Base2BallCollision extends Box2dTestScreen {
         Fixture fixture = new Fixture(shape);
         body.addFixture(fixture);
         fixture.userData = "" + userData;
+        body.userData = "" + userData;
         world.addBody(body);
         return body;
     }

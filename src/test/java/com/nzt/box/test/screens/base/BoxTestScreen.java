@@ -53,7 +53,7 @@ abstract class BoxTestScreen extends TestScreen {
         if (simulationRunning) {
             world.step(dt);
         }
-        PerformanceFrame.endAction(KEY_RENDER_PERF);
+        PerformanceFrame.endAction(KEY_CALCUL_PERF);
 
         PerformanceFrame.startAction(KEY_RENDER_PERF);
         debugRenderer.render(world, camera.combined);

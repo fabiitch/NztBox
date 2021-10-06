@@ -22,8 +22,8 @@ public class FrontalForceCalculTest extends BaseCalculForceTest {
         bodyDef2.mass(1).restitution(0).transfert(0).receive(0);
 
         //pas de transfert donc rebound
-        data1.setForceOn(v(-0, 0)).setVelocityAfter(v(-100, 0));
-        data2.setForceOn(v(-0, 0)).setVelocityAfter(v(100, 0));
+        data1.setVelocityAfter(v(-100, 0));
+        data2.setVelocityAfter(v(100, 0));
         testForceCompute();
     }
 
@@ -32,8 +32,8 @@ public class FrontalForceCalculTest extends BaseCalculForceTest {
         bodyDef1.mass(1).restitution(0).transfert(1).receive(1);
         bodyDef2.mass(1).restitution(0).transfert(1).receive(1);
 
-        data1.setForceOn(v(-100, 0)).setVelocityAfter(v(-100, 0));
-        data2.setForceOn(v(100, 0)).setVelocityAfter(v(100, 0));
+        data1.setVelocityAfter(v(-100, 0));
+        data2.setVelocityAfter(v(100, 0));
         testForceCompute();
     }
 
@@ -43,8 +43,8 @@ public class FrontalForceCalculTest extends BaseCalculForceTest {
         bodyDef1.mass(1).restitution(1).transfert(1).receive(1);
         bodyDef2.mass(1).restitution(1).transfert(1).receive(1);
 
-        data1.setForceOn(v(-100, 0)).setVelocityAfter(v(-50, 0));
-        data2.setForceOn(v(50, 0)).setVelocityAfter(v(0, 0));
+        data1.setVelocityAfter(v(-50, 0));
+        data2.setVelocityAfter(v(0, 0));
         testForceCompute();
     }
 
