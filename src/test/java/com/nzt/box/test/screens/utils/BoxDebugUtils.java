@@ -27,8 +27,8 @@ public class BoxDebugUtils {
         HudDebug.add(CONTACT_KEY_SEPARATOR_START + id, SEPARATOR, SEPARATOR, hudDebugPosition, color);
         HudDebug.add(CONTACT_KEY_TITLE + id, "Collision Data", "id=" + id, hudDebugPosition, color);
         HudDebug.add(CONTACT_KEY_NORMAL + id, "Normal", data.normal, hudDebugPosition, color);
-        HudDebug.add(CONTACT_KEY_FORCE + id, "forceOnA=" + data.forceOnA, "forceOnB=" + data.forceOnB, hudDebugPosition, color);
-        HudDebug.add(CONTACT_KEY_REBOUND + id, "reboundA=" + data.reboundA, "reboundB=" + data.reboundB, hudDebugPosition, color);
+        HudDebug.add(CONTACT_KEY_FORCE + id, "newVelA=" + data.newVelA, "forceOnB=" + data.newVelA, hudDebugPosition, color);
+        HudDebug.add(CONTACT_KEY_REBOUND + id, "newVelB=" + data.newVelB, "reboundB=" + data.newVelB, hudDebugPosition, color);
         HudDebug.add(CONTACT_KEY_SEPARATOR_END + id, SEPARATOR, SEPARATOR, hudDebugPosition, color);
     }
 

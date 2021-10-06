@@ -12,10 +12,8 @@ public class BoxTestMethods {
         if (data1 == data2)
             return;
         VTestUtils.assertEquals(data1.normal, data2.normal, "normal not equals");
-        VTestUtils.assertEquals(data1.forceOnA, data2.forceOnA, "forceOnA not equals");
-        VTestUtils.assertEquals(data1.forceOnB, data2.forceOnB, "forceOnB not equals");
-        VTestUtils.assertEquals(data1.reboundA, data2.reboundA, "reboundA not equals");
-        VTestUtils.assertEquals(data1.reboundB, data2.reboundB, "reboundB not equals");
+        VTestUtils.assertEquals(data1.newVelA, data2.newVelA, "newVelA not equals");
+        VTestUtils.assertEquals(data1.newVelB, data2.newVelB, "newVelB not equals");
     }
 
 }

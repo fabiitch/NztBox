@@ -9,12 +9,11 @@ public class ContactFixture implements Pool.Poolable {
     public Fixture<?> fixtureA;
     public Fixture<?> fixtureB;
 
-    public boolean ignore = false; //dont calls next method, no rebound/forces
+    public boolean doCollision = true; //no rebound/forces applied but call method
+    public boolean doRebound = false;
+
     public boolean continueContact = false; //call contactListener.continueContact every step
     public boolean callNextMethods = true; //contact dont call next methods but apply forces/rebound
-
-    public boolean doCollision = true; //no rebound/forces applied
-
 
     public CollisionData collisionData;
 
@@ -58,14 +57,6 @@ public class ContactFixture implements Pool.Poolable {
     public String debug() {
         return "ContactFixture = [BodyA=" + fixtureA.body.userData + ", FixtureA=" + fixtureA.userData + "\n" +
                 "&& BodyB=" + fixtureB.body.userData + " FixtureB=" + fixtureB.userData + "]";
-    }
-
-    public void noForceOn(Body body) {
-        if (imBodyA(body)) {
-            collisionData.forceOnA.setZero();
-        } else {
-            collisionData.forceOnB.setZero();
-        }
     }
 
     @Override

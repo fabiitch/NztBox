@@ -31,6 +31,8 @@ public class ContactUtils {
         contactFixture.fixtureB = fixtureB;
 
         contactFixture.doCollision = BoxUtils.isContactBlock(fixtureA.body, fixtureB.body);
+        contactFixture.doRebound = BoxUtils.isTwoType(fixtureA.body, fixtureB.body, BodyType.Static, BodyType.Dynamic);
+
         return contactFixture;
     }
 

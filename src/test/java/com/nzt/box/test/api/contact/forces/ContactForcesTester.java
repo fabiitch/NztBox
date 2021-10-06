@@ -16,17 +16,8 @@ class ContactForcesTester extends ContactForces {
     }
 
     @Override
-    public void applyForces(ContactFixture contactFixture) {
-        if (contactFixture.imBodyA(data1.body)) {
-            VTestUtils.assertEquals(data1.forceOn, contactFixture.collisionData.forceOnA, tolerance, "ForceOnA");
-            VTestUtils.assertEquals(data2.forceOn, contactFixture.collisionData.forceOnB, tolerance, "ForceOnB");
-        } else {
-            VTestUtils.assertEquals(data2.forceOn, contactFixture.collisionData.forceOnA, tolerance, "ForceOnA");
-            VTestUtils.assertEquals(data1.forceOn, contactFixture.collisionData.forceOnB, tolerance, "ForceOnB");
-        }
-
-        super.applyForces(contactFixture);
-
+    public void computeContact(ContactFixture contactFixture) {
+        super.computeContact(contactFixture);
         if (contactFixture.imBodyA(data1.body)) {
             VTestUtils.assertEquals(data1.velocityAfter, data1.body.getVelocity(new Vector2()), tolerance, "Vel A after");
             VTestUtils.assertEquals(data2.velocityAfter, data2.body.getVelocity(new Vector2()), tolerance, "Vel B after");
@@ -35,6 +26,8 @@ class ContactForcesTester extends ContactForces {
             VTestUtils.assertEquals(data1.velocityAfter, data1.body.getVelocity(new Vector2()), tolerance, "Vel B after");
         }
         computeDone = true;
+
+
     }
 }
 
