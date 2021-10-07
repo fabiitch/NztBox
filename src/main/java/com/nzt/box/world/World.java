@@ -5,7 +5,7 @@ import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactUtils;
-import com.nzt.box.contact.compute.ContactForces;
+import com.nzt.box.contact.compute.ContactCompute;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
@@ -13,7 +13,7 @@ import com.nzt.box.contact.listener.ContactListener;
 public class World {
 
     public ContactListener contactListener;
-    public ContactForces contactForces;
+    public ContactCompute contactCompute;
     public WorldHelper helper;
     public WorldData data;
 
@@ -24,7 +24,7 @@ public class World {
         this.stepTime = stepTime;
         this.helper = new WorldHelper(this);
         this.data = new WorldData(this);
-        this.contactForces = new ContactForces();
+        this.contactCompute = new ContactCompute();
     }
 
     public World() {
@@ -114,14 +114,13 @@ public class World {
                             fixtureA.calculNormal(fixtureB, newContact);
                         }
                         if (newContact.doCollision) {
-                            contactForces.computeContact(newContact);
+                            contactCompute.computeContact(newContact);
                         }
                         if (contactListener != null && newContact.callNextMethods)
                             contactListener.beginContact(newContact);
                         if (newContact.doCollision) {
-                            contactForces.applyResult(newContact);
+                            contactCompute.applyResult(newContact);
                         }
-
                     }
                 }
             }
