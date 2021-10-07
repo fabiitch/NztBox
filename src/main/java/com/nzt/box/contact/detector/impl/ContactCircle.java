@@ -20,12 +20,10 @@ public class ContactCircle implements ShapeContact {
     private Vector2 tmp3 = new Vector2();
 
 
-    //TODO test squarred pour eviter le square root de dts()
-    // https://github.com/gtiwari333/java-collision-detection-source-code/blob/master/src/collision/PhysicsUtils.java
     @Override
     public boolean testContact(Circle circle) {
-        float dst = tmp.set(circle.x, circle.y).dst(myCircle.x, myCircle.y);
-        return dst <= myCircle.radius + circle.radius;
+        float dst2 = tmp.set(circle.x, circle.y).dst2(myCircle.x, myCircle.y);
+        return dst2 <= (myCircle.radius + circle.radius) * (myCircle.radius + circle.radius);
     }
 
     @Override
@@ -37,7 +35,7 @@ public class ContactCircle implements ShapeContact {
 
         CircleUtils.getCenter(circle, tmp2);
         tmp3 = V2.directionTo(tmp2, tmp, tmp3);
-        if(tmp3.isZero())
+        if (tmp3.isZero())
             tmp3.setToRandomDirection();
         tmp3.setLength(dst);
 
