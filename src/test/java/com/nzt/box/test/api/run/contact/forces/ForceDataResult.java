@@ -8,16 +8,16 @@ import com.nzt.box.bodies.Body;
  */
 public class ForceDataResult {
     public Body body;
-    public Vector2 velocityAfter;
+    public Vector2 velExpected;
 
     public ForceDataResult() {
     }
-    public ForceDataResult setVelocityAfter(Vector2 velocityAfter) {
-        this.velocityAfter = velocityAfter;
+    public ForceDataResult setVelExpected(Vector2 velExpected) {
+        this.velExpected = velExpected;
         return this;
     }
     public ForceDataResult setVelocityAfter(float x, float y) {
-        this.velocityAfter = new Vector2(x,y);
+        this.velExpected = new Vector2(x,y);
         return this;
     }
 }

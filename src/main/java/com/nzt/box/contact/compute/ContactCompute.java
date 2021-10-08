@@ -50,8 +50,8 @@ public class ContactCompute {
         float angle1 = v1.angleRad();
         float angle2 = v2.angleRad();
         float angleCol = V2.angleRad(data.normal) - (V2.angleRad(v1) - V2.angleRad(data.normal));
-        float lenV1 = v1.len();
-        float lenV2 = v2.len();
+        float lenV1 = v1.len() * bodyA.transfert * bodyB.receive;
+        float lenV2 = v2.len() * bodyB.transfert * bodyA.receive;
 
         float x = lenV1 * (cos(angle1 - angleCol)) * (mass1 - mass2);
         x += 2 * mass2 * lenV2 * cos(angle2 - angleCol);

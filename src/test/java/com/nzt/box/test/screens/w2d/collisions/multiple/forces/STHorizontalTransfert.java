@@ -11,11 +11,11 @@ import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 public class STHorizontalTransfert extends BaseSTMultipleBody {
     public STHorizontalTransfert(FastTesterMain main) {
         super(main);
-        boxSTHelp.createBall(V2.v(-300, 0), V2.v(100, 0));
-        boxSTHelp.createBall(V2.v(-0, 0), V2.v(0, 0));
-        boxSTHelp.createBall(V2.v(200, 0), V2.v(0, 0));
+        boxSTHelp.createDynamicBall(10, V2.v(-300, 0), V2.v(100, 0));
+        boxSTHelp.createDynamicBall(10, V2.v(-0, 0), V2.v(0, 0));
+        boxSTHelp.createDynamicBall(10, V2.v(200, 0), V2.v(0, 0));
 
-        BoxDebugUtils.toHud(boxSTHelp.basicDynamicBd, "BallDef", HudDebugPosition.BOT_LEFT);
+        BoxDebugUtils.toHud(boxSTHelp.basicDynamicBodyDef, "BallDef", HudDebugPosition.BOT_LEFT);
     }
 
     @Override

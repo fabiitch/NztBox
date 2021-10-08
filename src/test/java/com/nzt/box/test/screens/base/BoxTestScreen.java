@@ -12,6 +12,7 @@ import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.debug.perf.PerformanceFrame;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.archi.screens.TestScreen;
+import com.nzt.gdx.utils.GdxUtils;
 
 abstract class BoxTestScreen extends TestScreen {
     public static final float SCREEN_WITDH = 1080;
@@ -25,6 +26,7 @@ abstract class BoxTestScreen extends TestScreen {
 
     public BoxSTHelp boxSTHelp;
     public boolean simulationRunning = true;
+    public boolean blockAtContact = false;
 
     private final static String KEY_WORLD_RUN = "SimulationRun";
     private final static String KEY_CALCUL_PERF = "BoxCalculTime";
@@ -35,8 +37,9 @@ abstract class BoxTestScreen extends TestScreen {
         super(main);
         world = new World();
         boxSTHelp = new BoxSTHelp(world);
+        HudDebug.addTopLeft("JavaHeap", GdxUtils.getHeapMb() + " MB");
         HudDebug.addTopLeft(KEY_WORLD_RUN, "" +
-                "Press Space to pause/run simulation", simulationRunning, Color.RED);
+                "Press Space to pause/run simulation", simulationRunning, Color.WHITE);
 
         PerformanceFrame.add(KEY_CALCUL_PERF);
         PerformanceFrame.add(KEY_RENDER_PERF);
@@ -44,6 +47,7 @@ abstract class BoxTestScreen extends TestScreen {
 
     @Override
     public final void renderTestScreen(float dt) {
+        HudDebug.update("JavaHeap", GdxUtils.getHeapMb() + " MB");
         camera.update();
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             simulationRunning = !simulationRunning;

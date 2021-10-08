@@ -20,15 +20,23 @@ public class World {
     public float stepTime;
     private float accumulator = 0f;
 
-    public World(float stepTime) {
+    /**
+     * @param stepTime
+     * @param activeData
+     */
+    public World(float stepTime, boolean activeData) {
         this.stepTime = stepTime;
         this.helper = new WorldHelper(this);
         this.data = new WorldData(this);
         this.contactCompute = new ContactCompute();
     }
 
+    public World(boolean activeData) {
+        this(1 / 300f, activeData);
+    }
+
     public World() {
-        this(1 / 300f);
+        this(1 / 300f, true);
     }
 
     public void step(float dt) {
@@ -52,11 +60,12 @@ public class World {
     }
 
     public void addBody(Body body) {
+        helper.addId(body);
         data.addBody(body);
     }
 
     public void destroyBody(Body body) {
-        data.destroyBody(body);
+        data.removeBody(body);
     }
 
     public void checkCollision(Body body, float stepTime) {

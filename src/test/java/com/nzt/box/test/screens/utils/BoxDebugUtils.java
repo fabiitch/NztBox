@@ -44,6 +44,7 @@ public class BoxDebugUtils {
 
     private final static String BODY_DEF_SEPARATOR_START = "BodyDefSeparatorStart";
     private final static String BODY_DEF_KEY_NAME = "BodyDefName";
+    private final static String BODY_DEF_KEY_TYPE = "BodyDefType";
     private final static String BODY_DEF_SEPARATOR_END = "BodyDefSeparatorEND";
     private final static String BODY_DEF_KEY_MASS = "BodyDefMass";
     private final static String BODY_DEF_KEY_TRANSFERT = "BodyDefTransfert";
@@ -57,6 +58,7 @@ public class BoxDebugUtils {
     public static void toHud(BodyDef bodyDef, String name, int positionOnStage) {
         HudDebug.add(BODY_DEF_SEPARATOR_START + name, SEPARATOR, SEPARATOR, positionOnStage);
         HudDebug.add(BODY_DEF_KEY_NAME + name, "BodyDef", name, positionOnStage);
+        HudDebug.add(BODY_DEF_KEY_TYPE + name, "BodyType", bodyDef.bodyType, positionOnStage);
         HudDebug.add(BODY_DEF_KEY_MASS + name, "Mass", bodyDef.mass, positionOnStage);
         HudDebug.add(BODY_DEF_KEY_TRANSFERT + name, "Transfert", bodyDef.transfert, positionOnStage);
         HudDebug.add(BODY_DEF_KEY_RECEIVE + name, "Receive", bodyDef.receive, positionOnStage);
@@ -67,6 +69,7 @@ public class BoxDebugUtils {
     public static void remove(String name) {
         HudDebug.remove(BODY_DEF_SEPARATOR_START + name);
         HudDebug.remove(BODY_DEF_KEY_NAME + name);
+        HudDebug.remove(BODY_DEF_KEY_TYPE + name);
         HudDebug.remove(BODY_DEF_KEY_MASS + name);
         HudDebug.remove(BODY_DEF_KEY_TRANSFERT + name);
         HudDebug.remove(BODY_DEF_KEY_RECEIVE + name);

@@ -1,29 +1,30 @@
 package com.nzt.box.test.api.run.contact.forces;
 
-import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.contact.compute.ContactCompute;
+import com.nzt.box.contact.data.CollisionData;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.gdx.test.api.math.vectors.VTestUtils;
 
 class ContactComputeTester extends ContactCompute {
     public float tolerance = 0.1f;
-    public ForceDataResult data1, data2;
+    public ForceDataResult dataBodyA, dataBodyB;
     public boolean computeDone;
 
-    public ContactComputeTester(ForceDataResult data1, ForceDataResult data2) {
-        this.data1 = data1;
-        this.data2 = data2;
+    public ContactComputeTester(ForceDataResult dataBodyA, ForceDataResult dataBodyB) {
+        this.dataBodyA = dataBodyA;
+        this.dataBodyB = dataBodyB;
     }
 
     @Override
     public void computeContact(ContactFixture contactFixture) {
         super.computeContact(contactFixture);
-        if (contactFixture.imBodyA(data1.body)) {
-            VTestUtils.assertEquals(data1.velocityAfter, data1.body.getVelocity(new Vector2()), tolerance, "Vel A after");
-            VTestUtils.assertEquals(data2.velocityAfter, data2.body.getVelocity(new Vector2()), tolerance, "Vel B after");
+        CollisionData collisionData = contactFixture.collisionData;
+        if (contactFixture.imBodyA(dataBodyA.body)) {
+            VTestUtils.assertEquals(dataBodyA.velExpected, collisionData.newVelA, tolerance, "Velocity Body A after");
+            VTestUtils.assertEquals(dataBodyB.velExpected, collisionData.newVelB, tolerance, "Velocity Body B after");
         } else {
-            VTestUtils.assertEquals(data2.velocityAfter, data2.body.getVelocity(new Vector2()), tolerance, "Vel A after");
-            VTestUtils.assertEquals(data1.velocityAfter, data1.body.getVelocity(new Vector2()), tolerance, "Vel B after");
+            VTestUtils.assertEquals(dataBodyB.velExpected, collisionData.newVelA, tolerance, "Velocity Body B after");
+            VTestUtils.assertEquals(dataBodyA.velExpected, collisionData.newVelB, tolerance, "Velocity Body A after");
         }
         computeDone = true;
     }
