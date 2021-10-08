@@ -7,17 +7,20 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.test.api.run.BaseNztBoxTest;
 import com.nzt.box.test.api.mock.ContactListenerMock;
+import com.nzt.gdx.test.api.tester.NzTestException;
 import com.nzt.gdx.test.api.tester.PredicateSuccess;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * use startTest in your method
+ * Use startComputeContactTest() for start simulation
  */
 public abstract class BaseComputeContactTest extends BaseNztBoxTest {
 
     protected Body body1, body2;
     protected BodyDef bodyDef1, bodyDef2;
-    protected Vector2 velocity1, velocity2;
+    protected Vector2 velocity1, velocity2;//vel start
+    protected Vector2 position1, position2;//pos start
 
     protected ContactListenerMock contactListener;
     protected ContactComputeTester forcesTester;
@@ -40,6 +43,7 @@ public abstract class BaseComputeContactTest extends BaseNztBoxTest {
         };
         world.contactListener = contactListener;
 
+
         successesConditions.add(new PredicateSuccess() {
             @Override
             public String name() {
@@ -51,17 +55,38 @@ public abstract class BaseComputeContactTest extends BaseNztBoxTest {
                 return contactDone;
             }
         });
+
     }
 
+    private void checkPrecondition() {
+        if (position1 == null) {
+            Assertions.fail("position1 not defined");
+        }
+        if (position2 == null) {
+            Assertions.fail("position2 not defined");
+        }
+
+        if (velocity1 == null) {
+            Assertions.fail("velocity1 not defined");
+        }
+        if (velocity2 == null) {
+            Assertions.fail("velocity2 not defined");
+        }
+    }
+
+    /**
+     * use this for start simulation
+     */
     protected void startComputeContactTest() {
+        checkPrecondition();
         body1 = createBall(bodyDef1);
         body2 = createBall(bodyDef2);
 
         data1.body = body1;
         data2.body = body2;
 
-        body1.setPosition(pos1());
-        body2.setPosition(pos2());
+        body1.setPosition(position1);
+        body2.setPosition(position2);
 
         body1.setVelocity(velocity1);
         body2.setVelocity(velocity2);
@@ -82,10 +107,6 @@ public abstract class BaseComputeContactTest extends BaseNztBoxTest {
 
         renderLoop60FPS();
     }
-
-    protected abstract Vector2 pos1();
-
-    protected abstract Vector2 pos2();
 
     protected Vector2 v(float x, float y) {
         return new Vector2(x, y);

@@ -31,8 +31,9 @@ public class BaseNztBoxTest extends BaseGdxTest {
         Circle circle = new Circle(0, 0, 10);
         CircleShape shape = new CircleShape(circle);
         Fixture fixture = new Fixture(shape);
+        fixture.userData = "F" + userDataCount++;
         body.addFixture(fixture);
-        body.userData = "" + userDataCount++;
+        body.userData = "B" + userDataCount++;
         world.addBody(body);
         return body;
     }

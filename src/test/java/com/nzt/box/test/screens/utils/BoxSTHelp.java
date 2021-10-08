@@ -7,21 +7,23 @@ import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.CircleShape;
+import com.nzt.box.shape.RectangleShape;
 import com.nzt.box.world.World;
 
 public class BoxSTHelp {
     private World world;
 
     private int userDataCount = 1;
-    public BodyDef basicDynamicBd = new BodyDef(BodyType.Dynamic).mass(1).transfert(1).receive(1);
+    public final BodyDef basicDynamicBodyDef = new BodyDef(BodyType.Dynamic).mass(1).transfert(1).receive(1);
+    public final BodyDef basicStaticBodyDef = new BodyDef(BodyType.Static).mass(1).transfert(1).receive(1).restitution(1);
 
     public BoxSTHelp(World world) {
         this.world = world;
     }
 
-    public Body createBall(BodyDef bodyDef, Vector2 pos, Vector2 velocity, String userData) {
+    public Body createBall(float radius, BodyDef bodyDef, Vector2 pos, Vector2 velocity, String userData) {
         Body body = new Body(bodyDef);
-        Circle circle = new Circle(0, 0, 10);
+        Circle circle = new Circle(0, 0, radius);
         CircleShape shape = new CircleShape(circle);
         Fixture fixture = new Fixture(shape);
         body.addFixture(fixture);
@@ -33,8 +35,19 @@ public class BoxSTHelp {
         return body;
     }
 
-    public Body createBall(Vector2 pos, Vector2 velocity) {
-        return createBall(basicDynamicBd, pos, velocity, "" + userDataCount++);
+    public Body createDynamicBall(float radius, Vector2 pos, Vector2 velocity) {
+        return createBall(radius, basicDynamicBodyDef, pos, velocity, "" + userDataCount++);
     }
 
+    public Body createRect(float witdh, float height, BodyDef bodyDef, Vector2 pos, Vector2 velocity, String userData) {
+        Body body = new Body(bodyDef);
+        RectangleShape shape = new RectangleShape(witdh, height);
+        Fixture fixture = new Fixture(shape);
+        body.addFixture(fixture);
+        fixture.userData = userData;
+        body.setPosition(pos);
+        body.setVelocity(velocity);
+        world.addBody(body);
+        return body;
+    }
 }

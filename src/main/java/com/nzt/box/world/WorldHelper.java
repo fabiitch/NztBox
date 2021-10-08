@@ -1,9 +1,11 @@
 package com.nzt.box.world;
 
 
+import com.nzt.box.bodies.Body;
+
 public class WorldHelper {
 
-    private int idBodyCount = 0;
+    public int bodiesIdGenerator = 1;
 
     private World world;
     private WorldData data;
@@ -15,7 +17,12 @@ public class WorldHelper {
     }
 
 
-
+    public void addId(Body body) {
+        if (bodiesIdGenerator == Integer.MAX_VALUE) {
+            bodiesIdGenerator = 1;
+        }
+        body.id = bodiesIdGenerator++;
+    }
 
 
 }

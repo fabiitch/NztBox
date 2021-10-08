@@ -32,12 +32,7 @@ public class WorldData {
         body.updatePosition();
     }
 
-    public boolean isActiveBody(Body body) {
-        return body.active &&
-                (body.bodyType == BodyType.Dynamic || body.bodyType == BodyType.Kinematic);
-    }
-
-    public void destroyBody(Body body) {
+    public void removeBody(Body body) {
         for (int i = 0, n = body.fixtures.size; i < n; i++) {
             Fixture<?> fixture = body.fixtures.get(i);
             Array<ContactFixture> contacts = fixture.contacts;
