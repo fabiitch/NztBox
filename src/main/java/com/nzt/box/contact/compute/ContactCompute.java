@@ -37,6 +37,7 @@ public class ContactCompute {
         //TODO kinematic
     }
 
+    //TODO https://perso.liris.cnrs.fr/nicolas.pronost/UUCourses/GamePhysics/lectures/lecture%207%20Collision%20Resolution.pdf
     /**
      * http://www.sciencecalculators.org/mechanics/collisions/
      */

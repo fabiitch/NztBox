@@ -5,14 +5,14 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.CollisionData;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
-import com.nzt.box.test.api.run.BaseNztBoxTest;
+import com.nzt.box.test.api.run.BaseBoxTest;
 import com.nzt.box.test.api.BoxTestMethods;
 import com.nzt.box.test.api.mock.ContactListenerMock;
 import com.nzt.gdx.test.api.tester.PredicateSuccess;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class RetryBallsContactTest extends BaseNztBoxTest {
+public class RetryBallsContactTest extends BaseBoxTest {
 
     protected Body ball1, ball2;
     private static final int NB_TEST = 50;

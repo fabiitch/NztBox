@@ -44,6 +44,11 @@ public class CircleShape extends BodyShape<Circle> {
     }
 
     @Override
+    public void setRotation(float rotation) {
+
+    }
+
+    @Override
     public void scale(float scale) {
         if (scale < 0)
             shape.radius /= scale;

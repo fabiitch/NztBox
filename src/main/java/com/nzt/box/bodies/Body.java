@@ -21,6 +21,8 @@ public class Body implements Pool.Poolable {
 
     public final Vector3 position = new Vector3();
     public final Vector3 velocity = new Vector3();
+    public float angularVelocity;
+    public float rotation = 0; //Degrees
 
     public final Array<Fixture<?>> fixtures;
     public final Array<ContactBody> contacts;
@@ -66,6 +68,7 @@ public class Body implements Pool.Poolable {
         if (velocity.isZero())
             return false;
         position.add(tmp.set(velocity).scl(stepTime));
+        rotation += angularVelocity * stepTime;
         updatePosition();
         return true;
     }
@@ -113,6 +116,7 @@ public class Body implements Pool.Poolable {
         for (int i = 0, n = fixtures.size; i < n; i++) {
             Fixture fixture = fixtures.get(i);
             fixture.changeBodyPosition(position.x, position.y);
+            fixture.setRotation(rotation);
         }
         dirty = true;
     }

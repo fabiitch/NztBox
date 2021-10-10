@@ -17,8 +17,4 @@ public abstract class Box2dTestScreen extends BoxTestScreen {
     public void afterClick(Vector2 clickPos) {
         //redefine
     }
-
-    protected Vector2 v(float x, float y) {
-        return new Vector2(x, y);
-    }
 }

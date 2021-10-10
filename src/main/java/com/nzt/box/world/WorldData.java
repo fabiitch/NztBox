@@ -17,6 +17,7 @@ public class WorldData {
     private IdentityMap<Fixture<?>, IdentityMap<Fixture<?>, ContactFixture>> mapFixtureContacts;
     private IdentityMap<Body, IdentityMap<Body, ContactBody>> mapBodyContacts;
 
+
     public WorldData(World world) {
         super();
         this.world = world;
