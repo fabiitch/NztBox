@@ -5,9 +5,8 @@ import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.ContactFixture;
-import com.nzt.box.test.api.run.BaseNztBoxTest;
+import com.nzt.box.test.api.run.BaseBoxTest;
 import com.nzt.box.test.api.mock.ContactListenerMock;
-import com.nzt.gdx.test.api.tester.NzTestException;
 import com.nzt.gdx.test.api.tester.PredicateSuccess;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * Use startComputeContactTest() for start simulation
  */
-public abstract class BaseComputeContactTest extends BaseNztBoxTest {
+public abstract class BaseComputeContactTest extends BaseBoxTest {
 
     protected Body body1, body2;
     protected BodyDef bodyDef1, bodyDef2;
@@ -108,8 +107,5 @@ public abstract class BaseComputeContactTest extends BaseNztBoxTest {
         renderLoop60FPS();
     }
 
-    protected Vector2 v(float x, float y) {
-        return new Vector2(x, y);
-    }
 
 }

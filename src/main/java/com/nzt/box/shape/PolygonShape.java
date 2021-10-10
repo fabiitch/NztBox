@@ -42,6 +42,11 @@ public class PolygonShape extends BodyShape<Polygon> {
     }
 
     @Override
+    public void setRotation(float rotation) {
+        shape.setRotation(rotation);
+    }
+
+    @Override
     public void rotate(float amount) {
         shape.rotate(amount);
     }

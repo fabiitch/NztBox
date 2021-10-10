@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.contact.data.ContactFixture;
-import com.nzt.box.test.api.run.BaseNztBoxTest;
+import com.nzt.box.test.api.run.BaseBoxTest;
 import com.nzt.box.test.api.mock.ContactListenerMock;
 import com.nzt.gdx.test.api.tester.TestCondition;
 import com.nzt.gdx.test.api.math.vectors.VTestUtils;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
  * Test Collision of BodyType with other //TODO
  */
 @Disabled
-public abstract class BaseBodyTypeContactTest extends BaseNztBoxTest {
+public abstract class BaseBodyTypeContactTest extends BaseBoxTest {
     Body myBody;
     Body bodyTarget;
 

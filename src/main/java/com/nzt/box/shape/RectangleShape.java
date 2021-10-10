@@ -31,7 +31,6 @@ public class RectangleShape extends BodyShape<Rectangle> {
         super(new Rectangle(0, 0, witdh, height));
     }
 
-
     @Override
     public Vector2 getPosition(Vector2 pos) {
         return pos.set(shape.x, shape.y);
@@ -48,8 +47,13 @@ public class RectangleShape extends BodyShape<Rectangle> {
     }
 
     @Override
-    public void rotate(float amount) {
+    public void setRotation(float rotation) {
+        //cant rotate
+    }
 
+    @Override
+    public void rotate(float amount) {
+        //cant rotate
     }
 
     @Override

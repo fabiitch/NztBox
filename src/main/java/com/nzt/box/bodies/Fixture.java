@@ -21,6 +21,10 @@ public class Fixture<S extends BodyShape> {
         bodyShape.changeBodyPosition(x, y);
     }
 
+    public void setRotation(float rotation) {
+        bodyShape.setRotation(rotation);
+    }
+
     public void changeBodyPosition(Vector2 position) {
         bodyShape.changeBodyPosition(position);
     }
@@ -50,4 +54,5 @@ public class Fixture<S extends BodyShape> {
         ShapeContact contactVisitor = bodyShape.getContactVisitor();
         fixtureB.bodyShape.calculNormal(contactVisitor, contactFixture);
     }
+
 }
