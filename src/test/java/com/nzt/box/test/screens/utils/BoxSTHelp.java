@@ -1,14 +1,17 @@
 package com.nzt.box.test.screens.utils;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.CircleShape;
+import com.nzt.box.shape.PolygonShape;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.box.world.World;
+import com.nzt.gdx.math.shapes.builders.PolygonBuilder;
 
 public class BoxSTHelp {
     private World world;
@@ -43,6 +46,18 @@ public class BoxSTHelp {
         Body body = new Body(bodyDef);
         RectangleShape shape = new RectangleShape(witdh, height);
         Fixture fixture = new Fixture(shape);
+        body.addFixture(fixture);
+        fixture.userData = userData;
+        body.setPosition(pos);
+        body.setVelocity(velocity);
+        world.addBody(body);
+        return body;
+    }
+
+    public Body createPoly(Vector2[] vertices, BodyDef bodyDef, Vector2 pos, Vector2 velocity, String userData) {
+        Body body = new Body(bodyDef);
+        Polygon polygon = PolygonBuilder.polygon(vertices);
+        Fixture fixture = new Fixture(new PolygonShape(polygon));
         body.addFixture(fixture);
         fixture.userData = userData;
         body.setPosition(pos);

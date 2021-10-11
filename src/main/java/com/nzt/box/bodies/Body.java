@@ -46,7 +46,7 @@ public class Body implements Pool.Poolable {
 
     public Body(BodyDef bodyDef) {
         this(bodyDef.bodyType);
-        bodyDef.applyToBody(this);
+        setBodyDef(bodyDef);
     }
 
     public Body(BodyType bodyType) {
@@ -57,6 +57,10 @@ public class Body implements Pool.Poolable {
         forcesToRemove = new Array<>();
     }
 
+    public void setBodyDef(BodyDef bodyDef) {
+        bodyDef.applyToBody(this);
+    }
+
     public boolean move(float stepTime) {
         for (Force force : forces) {
             boolean toRemove = force.applyToBody(stepTime, this);
@@ -65,7 +69,7 @@ public class Body implements Pool.Poolable {
         }
         forces.removeAll(forcesToRemove, true);
 
-        if (velocity.isZero())
+        if (velocity.isZero() && angularVelocity == 0)
             return false;
         position.add(tmp.set(velocity).scl(stepTime));
         rotation += angularVelocity * stepTime;
