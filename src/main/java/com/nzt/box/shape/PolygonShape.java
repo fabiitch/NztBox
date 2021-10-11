@@ -7,6 +7,7 @@ import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
+import com.nzt.gdx.math.shapes.builders.PolygonBuilder;
 import com.nzt.gdx.math.shapes.utils.PolygonUtils;
 
 /**
@@ -17,8 +18,16 @@ public class PolygonShape extends BodyShape<Polygon> {
     public PolygonShape(Polygon shape) {
         super(shape);
         boolean convex = PolygonUtils.isConvex(shape);
-        if(!convex)
+        if (!convex)
             throw new GdxRuntimeException("NztBox, PolygonShape allow only convex polygons");
+    }
+
+    public PolygonShape(float[] vertices) {
+        super(new Polygon(vertices));
+    }
+
+    public PolygonShape(Vector2[] vertices) {
+        super(PolygonBuilder.polygon(vertices));
     }
 
     @Override

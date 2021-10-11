@@ -16,7 +16,7 @@ import com.nzt.gdx.math.vectors.V2;
 import static com.badlogic.gdx.math.MathUtils.cos;
 import static com.badlogic.gdx.math.MathUtils.sin;
 import static com.nzt.box.bodies.BodyType.*;
-
+//https://www.myphysicslab.com/engine2D/contact-en.html
 public class ContactCompute {
 
     private static Vector2 tmp1 = new Vector2();
