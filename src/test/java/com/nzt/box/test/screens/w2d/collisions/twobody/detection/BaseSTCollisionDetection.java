@@ -17,6 +17,9 @@ abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodySha
         super(main, BodyType.Kinematic, BodyType.Kinematic);
         infoMsg("Press F for change body control");
         infoMsg("Press R for reset position");
+
+        infoMsg("B => rotate body1");
+        infoMsg("N => rotate body2");
     }
 
     @Override
@@ -44,6 +47,14 @@ abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodySha
 
             @Override
             public boolean keyDown(int keycode) {
+                if (keycode == Input.Keys.B) {
+                    body1.angularVelocity = body1.angularVelocity == 50 ? 0 : 50;
+                }
+                if (keycode == Input.Keys.N) {
+                    body2.angularVelocity = body2.angularVelocity == 50 ? 0 : 50;
+                }
+
+
                 if (keycode == Input.Keys.Z || keycode == Input.Keys.W || keycode == Input.Keys.UP) {
                     y += velocity;
                 } else if (keycode == Input.Keys.A || keycode == Input.Keys.Q || keycode == Input.Keys.LEFT) {

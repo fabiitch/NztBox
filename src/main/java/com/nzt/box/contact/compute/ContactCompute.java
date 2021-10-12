@@ -17,6 +17,8 @@ import static com.badlogic.gdx.math.MathUtils.cos;
 import static com.badlogic.gdx.math.MathUtils.sin;
 import static com.nzt.box.bodies.BodyType.*;
 //https://www.myphysicslab.com/engine2D/contact-en.html
+
+//https://gamedev.stackexchange.com/questions/19634/calculating-the-rotational-force-of-a-2d-sprite
 public class ContactCompute {
 
     private static Vector2 tmp1 = new Vector2();
