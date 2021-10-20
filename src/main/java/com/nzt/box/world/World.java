@@ -20,6 +20,8 @@ public class World {
     public float stepTime;
     private float accumulator = 0f;
 
+    public boolean simulationRunning = true;
+
     /**
      * @param stepTime
      * @param activeData
@@ -40,9 +42,11 @@ public class World {
     }
 
     public void step(float dt) {
+        if (!simulationRunning)
+            return;
         accumulator += dt;
         if (accumulator >= dt) {
-            while (accumulator >= dt) {
+            while (accumulator >= dt && simulationRunning) {
                 Array<Body> bodies = data.bodies;
                 for (int i = 0, n = bodies.size; i < n; i++) {
                     Body body = bodies.get(i);
@@ -118,18 +122,18 @@ public class World {
                         if (contactListener != null)
                             contactListener.preSolve(newContact);
                         data.addContact(newContact);
-                        if (newContact.doCollision) {
+
+                        if (newContact.doCollision)
                             fixtureA.replace(fixtureB, newContact);
-                            fixtureA.calculNormal(fixtureB, newContact);
-                        }
-                        if (newContact.doCollision) {
+                        if (newContact.calculCollisionData)
+                            fixtureA.calculCollisionData(fixtureB, newContact);
+                        if (newContact.doCollision)
                             contactCompute.computeContact(newContact);
-                        }
                         if (contactListener != null && newContact.callNextMethods)
                             contactListener.beginContact(newContact);
-                        if (newContact.doCollision) {
+                        if (newContact.doCollision)
                             contactCompute.applyResult(newContact);
-                        }
+
                     }
                 }
             }

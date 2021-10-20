@@ -3,10 +3,14 @@ package com.nzt.box.test.screens.w2d.collisions.twobody.detection;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.bodies.BodyType;
+import com.nzt.box.contact.data.ContactFixture;
+import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.test.screens.w2d.BaseST2Body;
+import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
@@ -20,6 +24,28 @@ abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodySha
 
         infoMsg("B => rotate body1");
         infoMsg("N => rotate body2");
+        world.contactListener = new ContactListener() {
+            @Override
+            public void beginContact(ContactFixture contactBody) {
+                HudDebug.update("Collision", true, Color.RED);
+
+            }
+
+            @Override
+            public void endContact(ContactFixture contactBody) {
+                HudDebug.update("Collision", false, Color.BLUE);
+            }
+
+            @Override
+            public void continueContact(ContactFixture contactBody) {
+
+            }
+
+            @Override
+            public void preSolve(ContactFixture contactBody) {
+                contactBody.calculCollisionData = true;
+            }
+        };
     }
 
     @Override

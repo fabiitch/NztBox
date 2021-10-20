@@ -15,10 +15,10 @@ public class ContactCircle implements ShapeContact {
 
     public Circle myCircle;
 
-    private Vector2 tmp = new Vector2();
-    private Vector2 tmp2 = new Vector2();
-    private Vector2 tmp3 = new Vector2();
-
+    private final Vector2 tmp = new Vector2();
+    private final Vector2 tmp2 = new Vector2();
+    private final Vector2 tmp3 = new Vector2();
+    private final Segment tmpSegment = new Segment();
 
     @Override
     public boolean testContact(Circle circle) {
@@ -29,25 +29,34 @@ public class ContactCircle implements ShapeContact {
     @Override
     public void replace(Circle circle, ContactFixture contactFixture) {
         Body bodyA = contactFixture.fixtureA.body;
-        CircleUtils.getCenter(myCircle, tmp);
-
+        Vector2 circleACenter = CircleUtils.getCenter(myCircle, tmp);
         float dst = myCircle.radius + circle.radius - tmp.dst(circle.x, circle.y);
 
-        CircleUtils.getCenter(circle, tmp2);
-        tmp3 = V2.directionTo(tmp2, tmp, tmp3);
-        if (tmp3.isZero())
-            tmp3.setToRandomDirection();
-        tmp3.setLength(dst);
+        Vector2 circleBCenter = CircleUtils.getCenter(circle, tmp2);
+        Vector2 dirToA = V2.directionTo(circleBCenter, circleACenter, tmp3);
+        if (dirToA.isZero())
+            dirToA.setToRandomDirection();
+        dirToA.setLength(dst);
 
-        Vector2 add = tmp.add(tmp3);
+        Vector2 add = circleACenter.add(dirToA);
         bodyA.setPosition(add);
     }
 
     @Override
-    public void calculNormal(Circle circle, ContactFixture contactFixture) {
-        Vector2 half = V2.middle(circle.x, circle.y, myCircle.x, myCircle.y, new Vector2());
-        Vector2 tangent = CircleUtils.getTangent(circle, half, new Vector2());
-        V2.getNormal(tangent, contactFixture.collisionData.normal);
+    public void calculCollisionData(Circle circle, ContactFixture contactFixture) {
+        Vector2 half = V2.middle(circle.x, circle.y, myCircle.x, myCircle.y, tmp);
+        Vector2 tangent = CircleUtils.getTangent(circle, half, tmp2);
+        Vector2 normal = V2.getNormal(tangent, contactFixture.collisionData.normal);
+
+        CircleUtils.getCenter(myCircle, tmp);
+        CircleUtils.getCenter(circle, tmp2);
+        Vector2 dirToB = V2.directionTo(tmp, tmp2, tmp3);
+        if (dirToB.isZero()) {
+            contactFixture.collisionData.collisionPoint.set(half);
+        } else {
+            Vector2 contactPoint = CircleUtils.posWithAngleRad(myCircle, dirToB.angleRad(), tmp);
+            contactFixture.collisionData.collisionPoint.set(contactPoint);
+        }
     }
 
     @Override
@@ -67,11 +76,13 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void calculNormal(Rectangle rectangle, ContactFixture contactFixture) {
+    public void calculCollisionData(Rectangle rectangle, ContactFixture contactFixture) {
         Vector2 circleCenter = CircleUtils.getCenter(myCircle, tmp);
-        Segment segment = new Segment();
-        RectangleUtils.getNearestSegment(rectangle, circleCenter, segment);
-        segment.getNormal(circleCenter, contactFixture.collisionData.normal);
+        Segment segmentRect = RectangleUtils.closestSegment(rectangle, circleCenter, tmpSegment);
+        Vector2 normal = segmentRect.getNormal(circleCenter, contactFixture.collisionData.normal);
+
+        Vector2 contactPoint = circleCenter.sub(tmp2.set(normal).setLength(myCircle.radius));
+        contactFixture.collisionData.collisionPoint.set(contactPoint);
     }
 
     @Override
@@ -92,12 +103,14 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void calculNormal(Polygon polygon, ContactFixture contactFixture) {
-        Vector2 circleCenter = CircleUtils.getCenter(myCircle, new Vector2());
+    public void calculCollisionData(Polygon polygon, ContactFixture contactFixture) {
+        Vector2 circleCenter = CircleUtils.getCenter(myCircle, tmp);
 
-        Segment segment = new Segment();
-        PolygonUtils.getNearestSegment(polygon, circleCenter, segment);
-        segment.getNormal(circleCenter, contactFixture.collisionData.normal);
+        Segment segmentPoly = PolygonUtils.getClosestSegment(polygon, circleCenter, tmpSegment);
+        Vector2 normal = segmentPoly.getNormal(circleCenter, contactFixture.collisionData.normal);
+
+        Vector2 contactPoint = circleCenter.sub(tmp2.set(normal).setLength(myCircle.radius));
+        contactFixture.collisionData.collisionPoint.set(contactPoint);
     }
 
 }

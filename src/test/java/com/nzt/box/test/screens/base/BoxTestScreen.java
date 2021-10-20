@@ -25,7 +25,6 @@ abstract class BoxTestScreen extends TestScreen {
     public ScreenWalls screenWalls;
 
     public BoxSTHelp boxSTHelp;
-    public boolean simulationRunning = true;
     public boolean blockAtContact = false;
 
     private final static String KEY_WORLD_RUN = "SimulationRun";
@@ -39,7 +38,7 @@ abstract class BoxTestScreen extends TestScreen {
         boxSTHelp = new BoxSTHelp(world);
         HudDebug.addTopLeft("JavaHeap", GdxUtils.getHeapMb() + " MB");
         HudDebug.addTopLeft(KEY_WORLD_RUN, "" +
-                "Press Space to pause/run simulation", simulationRunning, Color.WHITE);
+                "Press Space to pause/run simulation", world.simulationRunning, Color.WHITE);
 
         PerformanceFrame.add(KEY_CALCUL_PERF);
         PerformanceFrame.add(KEY_RENDER_PERF);
@@ -50,13 +49,11 @@ abstract class BoxTestScreen extends TestScreen {
         HudDebug.update("JavaHeap", GdxUtils.getHeapMb() + " MB");
         camera.update();
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            simulationRunning = !simulationRunning;
-            HudDebug.update(KEY_WORLD_RUN, simulationRunning);
+            world.simulationRunning = !world.simulationRunning;
+            HudDebug.update(KEY_WORLD_RUN, world.simulationRunning);
         }
         PerformanceFrame.startAction(KEY_CALCUL_PERF);
-        if (simulationRunning) {
-            world.step(dt);
-        }
+        world.step(dt);
         PerformanceFrame.endAction(KEY_CALCUL_PERF);
 
         PerformanceFrame.startAction(KEY_RENDER_PERF);

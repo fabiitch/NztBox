@@ -16,7 +16,7 @@ public class STContinousCollisionDetection extends Box2dTestScreen {
 
         BoxDebugUtils.toHud(ball, HudDebugPosition.BOT_LEFT);
         BoxDebugUtils.toHud(wall, HudDebugPosition.BOT_LEFT);
-        simulationRunning = false;
+        world.simulationRunning = false;
     }
 
     @Override

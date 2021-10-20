@@ -65,7 +65,6 @@ public class ST2BallAsyncCollision extends Base2BallCollision {
         debugMsg("Rect velocity", bodyRect.getVelocity(velRect));
     }
 
-    @Override
     public void afterClick(Vector2 clickPos) {
         ball1.setPosition(-500, 0);
         ball1.setVelocity(200, 0);
