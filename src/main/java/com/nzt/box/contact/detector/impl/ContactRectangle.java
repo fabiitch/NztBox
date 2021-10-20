@@ -16,8 +16,9 @@ import com.nzt.gdx.math.vectors.V2;
 public class ContactRectangle implements ShapeContact {
     public Rectangle myRectangle;
 
-    private Vector2 tmp = new Vector2();
+    private Vector2 tmp1 = new Vector2();
     private Vector2 tmp2 = new Vector2();
+    private Vector2 tmp3 = new Vector2();
 
     @Override
     public boolean testContact(Circle circle) {
@@ -27,21 +28,23 @@ public class ContactRectangle implements ShapeContact {
     @Override
     public void replace(Circle circle, ContactFixture contactFixture) {
         Body bodyA = contactFixture.fixtureA.body;
-        IntersectorCircle.replaceFromRectangle(circle, myRectangle, tmp);
-        V2.inv(tmp);
+        IntersectorCircle.replaceFromRectangle(circle, myRectangle, tmp1);
+        V2.inv(tmp1);
         RectangleUtils.getCenter(myRectangle, tmp2);
-        tmp2.add(tmp);
+        tmp2.add(tmp1);
         bodyA.setPosition(tmp2);
     }
 
     @Override
-    public void calculNormal(Circle circle, ContactFixture contactFixture) {
-        Vector2 circleCenter = CircleUtils.getCenter(circle, tmp);
-        Segment nearestSegment = RectangleUtils.getNearestSegment(myRectangle, circleCenter, new Segment());
+    public void calculCollisionData(Circle circle, ContactFixture contactFixture) {
+        Vector2 circleCenter = CircleUtils.getCenter(circle, tmp1);
+        Segment nearestSegment = RectangleUtils.closestSegment(myRectangle, circleCenter, new Segment());
 
-        Vector2 contactPoint = nearestSegment.nearestPoint(circleCenter, tmp2);
+        Vector2 contactPoint = nearestSegment.closestPoint(circleCenter, tmp2);
         Vector2 tangent = CircleUtils.getTangent(circle, contactPoint, new Vector2());
         V2.getNormal(tangent, contactFixture.collisionData.normal);
+
+        contactFixture.collisionData.collisionPoint.set(contactPoint);
     }
 
     @Override
@@ -57,17 +60,25 @@ public class ContactRectangle implements ShapeContact {
         Intersector.MinimumTranslationVector translationVector = IntersectorPolygon.tmpTranslationVector;
         boolean overlaps = IntersectorRectangle.rectangles(myRectangle, rectangle, translationVector);
         if (overlaps) {
-            RectangleUtils.getCenter(myRectangle, tmp);
+            RectangleUtils.getCenter(myRectangle, tmp1);
             tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
-            bodyA.setPosition(tmp.add(tmp2));
+            bodyA.setPosition(tmp1.add(tmp2));
         }
     }
 
     @Override
-    public void calculNormal(Rectangle rectangle, ContactFixture contactFixture) {
+    public void calculCollisionData(Rectangle rectangle, ContactFixture contactFixture) {
         boolean overlaps = IntersectorRectangle.rectangles(myRectangle, rectangle, IntersectorPolygon.tmpTranslationVector);
         if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
+
+        RectangleUtils.getCenter(myRectangle, tmp1);
+        RectangleUtils.getCenter(rectangle, tmp2);
+        V2.directionTo(tmp1, tmp2, tmp3);
+
+        RectangleUtils.posOnEdgeAngle(myRectangle, tmp3.angleRad(), tmp1);
+        System.out.println(tmp1);
+        contactFixture.collisionData.collisionPoint.set(tmp1);
     }
 
     @Override
@@ -82,14 +93,14 @@ public class ContactRectangle implements ShapeContact {
         Intersector.MinimumTranslationVector translationVector = IntersectorPolygon.tmpTranslationVector;
         boolean overlaps = IntersectorRectangle.polygon(myRectangle, polygon, translationVector);
         if (overlaps) {
-            tmp.set(RectangleUtils.getCenter(myRectangle, tmp));
+            tmp1.set(RectangleUtils.getCenter(myRectangle, tmp1));
             tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
-            bodyA.setPosition(tmp.add(tmp2));
+            bodyA.setPosition(tmp1.add(tmp2));
         }
     }
 
     @Override
-    public void calculNormal(Polygon polygon, ContactFixture contactFixture) {
+    public void calculCollisionData(Polygon polygon, ContactFixture contactFixture) {
         boolean overlaps = IntersectorRectangle.polygon(myRectangle, polygon, IntersectorPolygon.tmpTranslationVector);
         if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);

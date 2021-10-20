@@ -9,7 +9,7 @@ import com.nzt.gdx.test.trials.tester.selector.screen.ScreenSelectorTestMain;
 /**
  * Open Test chooser
  */
-public class NztBoxTestListStarter {
+public class BoxTestListStarter {
 
     private static final int witdh = 800;
     private static final int height = 500;

@@ -76,7 +76,7 @@ public class CircleShape extends BodyShape<Circle> {
     }
 
     @Override
-    public void calculNormal(ShapeContact visitor, ContactFixture contactFixture) {
-        visitor.calculNormal(shape, contactFixture);
+    public void calculCollisionData(ShapeContact visitor, ContactFixture contactFixture) {
+        visitor.calculCollisionData(shape, contactFixture);
     }
 }

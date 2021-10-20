@@ -41,15 +41,14 @@ abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends BodyShape
             @Override
             public void beginContact(ContactFixture contactBody) {
                 drawContactInfo = true;
-                debugMsg("Collision", true, HudDebugPosition.BOT_RIGHT);
-                System.out.println("beginContact");
+                debugMsg("Collision", true, HudDebugPosition.BOT_RIGHT, Color.RED);
                 doBeginContact();
+                world.simulationRunning = false;
             }
 
             @Override
             public void endContact(ContactFixture contactBody) {
-                debugMsg("Collision", false, HudDebugPosition.BOT_RIGHT);
-                System.out.println("endContact");
+                debugMsg("Collision", false, HudDebugPosition.BOT_RIGHT, Color.BLUE);
             }
 
             @Override

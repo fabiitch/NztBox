@@ -43,7 +43,7 @@ public abstract class BodyShape<S extends Shape2D> {
 
     public abstract void replace(ShapeContact visitor, ContactFixture contactFixture);
 
-    public abstract void calculNormal(ShapeContact visitor, ContactFixture contactFixture);
+    public abstract void calculCollisionData(ShapeContact visitor, ContactFixture contactFixture);
 
 
 }

@@ -48,7 +48,7 @@ public abstract class BaseST2Body<S1 extends BodyShape, S2 extends BodyShape> ex
         body2.userData = "B2";
         world.addBody(body2);
         body2.setPosition(posBodyB);
-        debugMsg("Collision", false, HudDebugPosition.BOT_RIGHT);
+        debugMsg("Collision", false, HudDebugPosition.BOT_RIGHT, Color.BLUE);
 
         ContactListener contactListener = new ContactListener() {
             @Override

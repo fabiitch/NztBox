@@ -32,11 +32,11 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void calculNormal(Circle circle, ContactFixture contactFixture) {
+    public void calculCollisionData(Circle circle, ContactFixture contactFixture) {
         Vector2 circleCenter = CircleUtils.getCenter(circle, tmp);
-        Segment nearestSegment = PolygonUtils.getNearestSegment(myPolygon, circleCenter, new Segment());
+        Segment nearestSegment = PolygonUtils.getClosestSegment(myPolygon, circleCenter, new Segment());
 
-        Vector2 contactPoint = nearestSegment.nearestPoint(circleCenter, tmp2);
+        Vector2 contactPoint = nearestSegment.closestPoint(circleCenter, tmp2);
         Vector2 tangent = CircleUtils.getTangent(circle, contactPoint, new Vector2());
         V2.getNormal(tangent, contactFixture.collisionData.normal);
     }
@@ -58,7 +58,7 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void calculNormal(Rectangle rectangle, ContactFixture contactFixture) {
+    public void calculCollisionData(Rectangle rectangle, ContactFixture contactFixture) {
         boolean overlaps = IntersectorPolygon.rectangle(myPolygon, rectangle, IntersectorPolygon.tmpTranslationVector);//TODO group avec replace
         if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
@@ -82,7 +82,7 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void calculNormal(Polygon polygon, ContactFixture contactFixture) {
+    public void calculCollisionData(Polygon polygon, ContactFixture contactFixture) {
         boolean overlaps = IntersectorPolygon.polygons(myPolygon, polygon, IntersectorPolygon.tmpTranslationVector);
         if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);

@@ -86,7 +86,7 @@ public class PolygonShape extends BodyShape<Polygon> {
     }
 
     @Override
-    public void calculNormal(ShapeContact visitor, ContactFixture contactFixture) {
-        visitor.calculNormal(shape, contactFixture);
+    public void calculCollisionData(ShapeContact visitor, ContactFixture contactFixture) {
+        visitor.calculCollisionData(shape, contactFixture);
     }
 }

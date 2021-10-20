@@ -83,7 +83,7 @@ public class RectangleShape extends BodyShape<Rectangle> {
     }
 
     @Override
-    public void calculNormal(ShapeContact visitor, ContactFixture contactFixture) {
-        visitor.calculNormal(shape, contactFixture);
+    public void calculCollisionData(ShapeContact visitor, ContactFixture contactFixture) {
+        visitor.calculCollisionData(shape, contactFixture);
     }
 }
