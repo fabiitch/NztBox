@@ -76,8 +76,10 @@ public class ContactRectangle implements ShapeContact {
         RectangleUtils.getCenter(rectangle, tmp2);
         V2.directionTo(tmp1, tmp2, tmp3);
 
-        RectangleUtils.posOnEdgeAngle(myRectangle, tmp3.angleRad(), tmp1);
-        System.out.println(tmp1);
+        Rectangle result = new Rectangle();
+        Intersector.intersectRectangles(myRectangle, rectangle, result);
+        System.out.println("r="+result);
+
         contactFixture.collisionData.collisionPoint.set(tmp1);
     }
 
