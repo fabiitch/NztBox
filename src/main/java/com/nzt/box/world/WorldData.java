@@ -3,6 +3,7 @@ package com.nzt.box.world;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IdentityMap;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.QuadTreeFloat;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;

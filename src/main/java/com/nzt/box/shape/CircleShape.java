@@ -6,12 +6,19 @@ import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
+import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 
 public class CircleShape extends BodyShape<Circle> {
 
     public CircleShape(Circle shape) {
         super(shape);
     }
+
+//    @Override
+//    public void computeBoundingRect() {
+//
+//        RectangleUtils.createFromCenter()
+//    }
 
 
     public CircleShape(float radius) {

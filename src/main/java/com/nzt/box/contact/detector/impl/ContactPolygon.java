@@ -1,12 +1,14 @@
 package com.nzt.box.contact.detector.impl;
 
 import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.intersectors.IntersectorPolygon;
 import com.nzt.gdx.math.shapes.Segment;
+import com.nzt.gdx.math.shapes.builders.PolygonBuilder;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
 import com.nzt.gdx.math.shapes.utils.PolygonUtils;
 import com.nzt.gdx.math.vectors.V2;
@@ -34,11 +36,14 @@ public class ContactPolygon implements ShapeContact {
     @Override
     public void calculCollisionData(Circle circle, ContactFixture contactFixture) {
         Vector2 circleCenter = CircleUtils.getCenter(circle, tmp);
-        Segment nearestSegment = PolygonUtils.getClosestSegment(myPolygon, circleCenter, new Segment());
+        Segment closestEdge = PolygonUtils.getClosestEdge(myPolygon, circleCenter, new Segment());
 
-        Vector2 contactPoint = nearestSegment.closestPoint(circleCenter, tmp2);
+        Vector2 contactPoint = closestEdge.closestPoint(circleCenter, tmp2);
         Vector2 tangent = CircleUtils.getTangent(circle, contactPoint, new Vector2());
         V2.getNormal(tangent, contactFixture.collisionData.normal);
+
+        contactFixture.collisionData.collisionPoint.set(contactPoint);
+
     }
 
     @Override
@@ -86,5 +91,12 @@ public class ContactPolygon implements ShapeContact {
         boolean overlaps = IntersectorPolygon.polygons(myPolygon, polygon, IntersectorPolygon.tmpTranslationVector);
         if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
+
+        Polygon polygonOverlaps = new Polygon();
+        boolean overlaps2 = Intersector.intersectPolygons(myPolygon, polygon, polygonOverlaps);
+        PolygonUtils.getCenter(polygonOverlaps, contactFixture.collisionData.collisionPoint);
+        if (overlaps != overlaps2 != true) {
+            throw new GdxRuntimeException("Intersector.intersectPolygons=" + overlaps + " ||| IntersectorRectangle.polygon=" + overlaps2);
+        }
     }
 }
