@@ -46,7 +46,7 @@ public class ContactCircle implements ShapeContact {
     public void calculCollisionData(Circle circle, ContactFixture contactFixture) {
         Vector2 half = V2.middle(circle.x, circle.y, myCircle.x, myCircle.y, tmp);
         Vector2 tangent = CircleUtils.getTangent(circle, half, tmp2);
-        Vector2 normal = V2.getNormal(tangent, contactFixture.collisionData.normal);
+        V2.getNormal(tangent, contactFixture.collisionData.normal);
 
         CircleUtils.getCenter(myCircle, tmp);
         CircleUtils.getCenter(circle, tmp2);
@@ -78,7 +78,7 @@ public class ContactCircle implements ShapeContact {
     @Override
     public void calculCollisionData(Rectangle rectangle, ContactFixture contactFixture) {
         Vector2 circleCenter = CircleUtils.getCenter(myCircle, tmp);
-        Segment segmentRect = RectangleUtils.closestSegment(rectangle, circleCenter, tmpSegment);
+        Segment segmentRect = RectangleUtils.closestEdge(rectangle, circleCenter, tmpSegment);
         Vector2 normal = segmentRect.getNormal(circleCenter, contactFixture.collisionData.normal);
 
         Vector2 contactPoint = circleCenter.sub(tmp2.set(normal).setLength(myCircle.radius));
@@ -106,8 +106,8 @@ public class ContactCircle implements ShapeContact {
     public void calculCollisionData(Polygon polygon, ContactFixture contactFixture) {
         Vector2 circleCenter = CircleUtils.getCenter(myCircle, tmp);
 
-        Segment segmentPoly = PolygonUtils.getClosestSegment(polygon, circleCenter, tmpSegment);
-        Vector2 normal = segmentPoly.getNormal(circleCenter, contactFixture.collisionData.normal);
+        Segment closestEdge = PolygonUtils.getClosestEdge(polygon, circleCenter, tmpSegment);
+        Vector2 normal = closestEdge.getNormal(circleCenter, contactFixture.collisionData.normal);
 
         Vector2 contactPoint = circleCenter.sub(tmp2.set(normal).setLength(myCircle.radius));
         contactFixture.collisionData.collisionPoint.set(contactPoint);

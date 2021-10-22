@@ -16,7 +16,7 @@ public class ContactFixture implements Pool.Poolable {
     public boolean continueContact = false; //call contactListener.continueContact every step
     public boolean callNextMethods = true; //contact dont call next methods but apply forces/rebound
 
-    public CollisionData collisionData;
+    public final CollisionData collisionData;
 
     public ContactFixture() {
         collisionData = new CollisionData();

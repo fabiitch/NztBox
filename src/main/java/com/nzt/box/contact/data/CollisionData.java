@@ -5,11 +5,11 @@ import com.badlogic.gdx.utils.Pool;
 
 public class CollisionData implements Pool.Poolable {
 
-    public Vector2 collisionPoint = new Vector2();
-    public Vector2 normal = new Vector2();
+    public final Vector2 collisionPoint = new Vector2();
+    public final Vector2 normal = new Vector2();
 
-    public Vector2 newVelA = new Vector2();
-    public Vector2 newVelB = new Vector2();
+    public final Vector2 newVelA = new Vector2();
+    public final Vector2 newVelB = new Vector2();
 
 
 

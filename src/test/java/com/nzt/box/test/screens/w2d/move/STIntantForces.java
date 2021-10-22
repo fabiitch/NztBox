@@ -30,22 +30,22 @@ public class STIntantForces extends Box2dTestScreen {
     public InputProcessor addInput() {
         return new SimpleMvtInputController() {
             @Override
-            public void up() {
+            public void up(boolean pressed) {
                 body.addForce(ForceFactory.getInstant(0, 100, 0));
             }
 
             @Override
-            public void down() {
+            public void down(boolean pressed) {
                 body.addForce(ForceFactory.getInstant(0, -100, 0));
             }
 
             @Override
-            public void left() {
+            public void left(boolean pressed) {
                 body.addForce(ForceFactory.getInstant(-100, 0, 0));
             }
 
             @Override
-            public void right() {
+            public void right(boolean pressed) {
                 body.addForce(ForceFactory.getInstant(100, 0, 0));
             }
         };

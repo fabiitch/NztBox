@@ -1,6 +1,7 @@
 package com.nzt.box.contact.detector.impl;
 
 import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
@@ -8,7 +9,9 @@ import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.intersectors.IntersectorPolygon;
 import com.nzt.gdx.math.intersectors.IntersectorRectangle;
 import com.nzt.gdx.math.shapes.Segment;
+import com.nzt.gdx.math.shapes.builders.PolygonBuilder;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
+import com.nzt.gdx.math.shapes.utils.PolygonUtils;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import com.nzt.gdx.math.vectors.V2;
 
@@ -38,7 +41,7 @@ public class ContactRectangle implements ShapeContact {
     @Override
     public void calculCollisionData(Circle circle, ContactFixture contactFixture) {
         Vector2 circleCenter = CircleUtils.getCenter(circle, tmp1);
-        Segment nearestSegment = RectangleUtils.closestSegment(myRectangle, circleCenter, new Segment());
+        Segment nearestSegment = RectangleUtils.closestEdge(myRectangle, circleCenter, new Segment());
 
         Vector2 contactPoint = nearestSegment.closestPoint(circleCenter, tmp2);
         Vector2 tangent = CircleUtils.getTangent(circle, contactPoint, new Vector2());
@@ -77,10 +80,14 @@ public class ContactRectangle implements ShapeContact {
         V2.directionTo(tmp1, tmp2, tmp3);
 
         Rectangle result = new Rectangle();
-        Intersector.intersectRectangles(myRectangle, rectangle, result);
-        System.out.println("r="+result);
+        IntersectorRectangle.rectangles(myRectangle, rectangle, result);
 
-        contactFixture.collisionData.collisionPoint.set(tmp1);
+        Vector2 collisionPoint = contactFixture.collisionData.collisionPoint;
+        if (result.width > result.height) {
+            collisionPoint.set(result.x + result.width / 2, result.y);
+        } else {
+            collisionPoint.set(result.x, result.y + result.height / 2);
+        }
     }
 
     @Override
@@ -89,7 +96,7 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void replace(Polygon polygon, ContactFixture contactFixture) {
+    public void replace(Polygon polygon, ContactFixture contactFixture) { //TODO add normal here
         Body bodyA = contactFixture.fixtureA.body;
 
         Intersector.MinimumTranslationVector translationVector = IntersectorPolygon.tmpTranslationVector;
@@ -103,8 +110,23 @@ public class ContactRectangle implements ShapeContact {
 
     @Override
     public void calculCollisionData(Polygon polygon, ContactFixture contactFixture) {
-        boolean overlaps = IntersectorRectangle.polygon(myRectangle, polygon, IntersectorPolygon.tmpTranslationVector);
-        if (overlaps)
+
+        //TODO la méthode :  Intersector.intersectPolygons ne marche pas avec les rect
+        Polygon polygonOverlaps = new Polygon();
+        boolean overlaps = Intersector.intersectPolygons(PolygonBuilder.rectangle(myRectangle, false), polygon, polygonOverlaps);
+
+        boolean overlaps2 = IntersectorRectangle.polygon(myRectangle, polygon, IntersectorPolygon.tmpTranslationVector);
+        if (overlaps2)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
+
+        if (overlaps) {
+            PolygonUtils.getCenter(polygonOverlaps, contactFixture.collisionData.collisionPoint);
+        } else {
+
+        }
+        if(overlaps != overlaps2 != true){
+            throw new GdxRuntimeException("Intersector.intersectPolygons="+overlaps+" ||| IntersectorRectangle.polygon="+overlaps2);
+        }
+
     }
 }
