@@ -17,12 +17,12 @@ public class ContactDataTest extends Base3BodyContactTest {
         Assertions.assertEquals(2, fixtureB.contacts.size);
         Assertions.assertEquals(2, fixtureC.contacts.size);
 
-        world.destroyBody(bodyA);
+        world.removeBody(bodyA);
         Assertions.assertEquals(0, fixtureA.contacts.size);
         Assertions.assertEquals(1, fixtureB.contacts.size);
         Assertions.assertEquals(1, fixtureC.contacts.size);
 
-        world.destroyBody(bodyB);
+        world.removeBody(bodyB);
         Assertions.assertEquals(0, fixtureA.contacts.size);
         Assertions.assertEquals(0, fixtureB.contacts.size);
         Assertions.assertEquals(0, fixtureC.contacts.size);
@@ -39,12 +39,12 @@ public class ContactDataTest extends Base3BodyContactTest {
         Assertions.assertEquals(2, bodyB.contacts.size);
         Assertions.assertEquals(2, bodyC.contacts.size);
 
-        world.destroyBody(bodyA);
+        world.removeBody(bodyA);
         Assertions.assertEquals(0, bodyA.contacts.size);
         Assertions.assertEquals(1, bodyB.contacts.size);
         Assertions.assertEquals(1, bodyC.contacts.size);
 
-        world.destroyBody(bodyB);
+        world.removeBody(bodyB);
         Assertions.assertEquals(0, bodyA.contacts.size);
         Assertions.assertEquals(0, bodyB.contacts.size);
         Assertions.assertEquals(0, bodyC.contacts.size);
@@ -71,7 +71,7 @@ public class ContactDataTest extends Base3BodyContactTest {
         Assertions.assertNotNull(world.data.getContact(fixtureC, fixtureA));
         Assertions.assertNotNull(world.data.getContact(fixtureC, fixtureB));
 
-        world.destroyBody(bodyA);
+        world.removeBody(bodyA);
         Assertions.assertNull(world.data.getContact(fixtureA, fixtureB));
         Assertions.assertNull(world.data.getContact(fixtureA, fixtureC));
 
@@ -81,7 +81,7 @@ public class ContactDataTest extends Base3BodyContactTest {
         Assertions.assertNull(world.data.getContact(fixtureC, fixtureA));
         Assertions.assertNotNull(world.data.getContact(fixtureC, fixtureB));
 
-        world.destroyBody(bodyB);
+        world.removeBody(bodyB);
         Assertions.assertNull(world.data.getContact(fixtureA, fixtureB));
         Assertions.assertNull(world.data.getContact(fixtureA, fixtureC));
 
@@ -113,7 +113,7 @@ public class ContactDataTest extends Base3BodyContactTest {
         Assertions.assertNotNull(world.data.getContact(bodyC, bodyA));
         Assertions.assertNotNull(world.data.getContact(bodyC, bodyB));
 
-        world.destroyBody(bodyA);
+        world.removeBody(bodyA);
         Assertions.assertNull(world.data.getContact(bodyA, bodyB));
         Assertions.assertNull(world.data.getContact(bodyA, bodyC));
 
@@ -123,7 +123,7 @@ public class ContactDataTest extends Base3BodyContactTest {
         Assertions.assertNull(world.data.getContact(bodyC, bodyA));
         Assertions.assertNotNull(world.data.getContact(bodyC, bodyB));
 
-        world.destroyBody(bodyB);
+        world.removeBody(bodyB);
         Assertions.assertNull(world.data.getContact(bodyA, bodyB));
         Assertions.assertNull(world.data.getContact(bodyA, bodyC));
 

@@ -121,6 +121,7 @@ public class Body implements Pool.Poolable {
             Fixture fixture = fixtures.get(i);
             fixture.changeBodyPosition(position.x, position.y);
             fixture.setRotation(rotation);
+            fixture.getBoundingRectangle();
         }
         dirty = true;
     }

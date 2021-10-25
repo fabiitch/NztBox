@@ -1,6 +1,7 @@
 package com.nzt.box.shape;
 
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.nzt.box.contact.data.ContactFixture;
@@ -18,8 +19,14 @@ public class PolygonShape extends BodyShape<Polygon> {
     public PolygonShape(Polygon shape) {
         super(shape);
         boolean convex = PolygonUtils.isConvex(shape);
+        this.boundingRect = shape.getBoundingRectangle();
         if (!convex)
             throw new GdxRuntimeException("NztBox, PolygonShape allow only convex polygons");
+    }
+
+    @Override
+    public Rectangle computeBoundingRect() {
+        return this.shape.getBoundingRectangle();
     }
 
     public PolygonShape(float[] vertices) {
