@@ -11,15 +11,14 @@ public abstract class BodyShape<S extends Shape2D> {
     public S shape;
     public float maxDst;
     public float minDst;
-    public Rectangle bounds;
+    public Rectangle boundingRect;
 
     public BodyShape(S shape) {
         this.shape = shape;
         maxDst = calculMaxDst();
         minDst = calculMinDst();
-        bounds = new Rectangle();
     }
-//    public abstract void computeBoundingRect();
+    public abstract Rectangle computeBoundingRect();
 
     public abstract float calculMinDst();
 

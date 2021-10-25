@@ -16,7 +16,7 @@ public class WorldDataTest extends Base2BodyContactTest {
         Assertions.assertEquals(1, fixtureA.contacts.size);
         Assertions.assertEquals(1, fixtureB.contacts.size);
 
-        world.destroyBody(bodyA);
+        world.removeBody(bodyA);
         Assertions.assertEquals(1, world.data.bodies.size);
         Assertions.assertNull(world.data.getContact(fixtureA, fixtureB));
         Assertions.assertEquals(0, fixtureA.contacts.size);

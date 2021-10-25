@@ -13,7 +13,7 @@ public class ST2BallAsyncCollision extends Base2BallCollision {
 
     public ST2BallAsyncCollision(FastTesterMain main) {
         super(main);
-        world.destroyBody(ball2);
+        world.removeBody(ball2);
         bodyRect = new Body(BodyType.Dynamic);
         bodyRect.mass = getMass2();
         bodyRect.userData = "2";

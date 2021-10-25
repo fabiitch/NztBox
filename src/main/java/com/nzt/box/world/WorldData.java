@@ -1,14 +1,15 @@
 package com.nzt.box.world;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IdentityMap;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.badlogic.gdx.utils.QuadTreeFloat;
 import com.nzt.box.bodies.Body;
-import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
+import com.nzt.box.math.quadtree.QuadTreeHelper;
+import com.nzt.box.math.quadtree.QuadTree;
 
 public class WorldData {
 
@@ -18,6 +19,8 @@ public class WorldData {
     private IdentityMap<Fixture<?>, IdentityMap<Fixture<?>, ContactFixture>> mapFixtureContacts;
     private IdentityMap<Body, IdentityMap<Body, ContactBody>> mapBodyContacts;
 
+    public QuadTree quadTree;
+
 
     public WorldData(World world) {
         super();
@@ -26,20 +29,28 @@ public class WorldData {
         this.activeBodies = new Array<>();
         this.mapFixtureContacts = new IdentityMap<>();
         this.mapBodyContacts = new IdentityMap<>();
+        this.quadTree = new QuadTree();
+    }
+
+    public void initQuadTree(Rectangle rect, int maxDepth, int maxValues) {
+        quadTree.init(new QuadTreeHelper(quadTree), rect, maxValues, maxDepth);
     }
 
     public void addBody(Body body) {
         body.dirty = true;
         bodies.add(body);
         body.updatePosition();
+        quadTree.addBody(body);
     }
 
     public void removeBody(Body body) {
-        for (int i = 0, n = body.fixtures.size; i < n; i++) {
-            Fixture<?> fixture = body.fixtures.get(i);
+        quadTree.removeBody(body);
+
+        for (int i1 = 0, n1 = body.fixtures.size; i1 < n1; i1++) {
+            Fixture<?> fixture = body.fixtures.get(i1);
             Array<ContactFixture> contacts = fixture.contacts;
-            for (int j = 0, m = contacts.size; j < m; j++) {
-                ContactFixture contactFixture = contacts.get(j);
+            for (int i2 = 0, n2 = contacts.size; i2 < n2; i2++) {
+                ContactFixture contactFixture = contacts.get(i2);
                 if (world.contactListener != null)
                     world.contactListener.endContact(contactFixture);
                 if (contactFixture.imFixtureA(fixture)) {
@@ -97,7 +108,7 @@ public class WorldData {
         if (alreadyMapA != null) {
             contactBody = alreadyMapA.get(bodyB);
         }
-        if(contactBody == null){
+        if (contactBody == null) {
             contactBody = ContactBody.get(bodyA, bodyB);
         }
         contactBody.contacts.add(contactFixture);

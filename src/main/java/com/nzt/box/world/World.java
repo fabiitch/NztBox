@@ -68,7 +68,7 @@ public class World {
         data.addBody(body);
     }
 
-    public void destroyBody(Body body) {
+    public void removeBody(Body body) {
         data.removeBody(body);
     }
 

@@ -30,10 +30,10 @@ public class ScreenWalls {
     }
 
     public void removeWalls() {
-        world.destroyBody(botWall);
-        world.destroyBody(topWall);
-        world.destroyBody(rightWall);
-        world.destroyBody(leftWall);
+        world.removeBody(botWall);
+        world.removeBody(topWall);
+        world.removeBody(rightWall);
+        world.removeBody(leftWall);
     }
 
     public void create() {

@@ -47,10 +47,10 @@ public class ContactUtils {
         Body bodyB = fixtureB.body;
         bodyA.getPosition(tmp1);
         bodyB.getPosition(tmp2);
-        float dstBodies = tmp1.dst(tmp2);
-        if (dstBodies <= fixtureA.bodyShape.minDst + fixtureB.bodyShape.minDst)
+        float dstBodies = tmp1.dst2(tmp2);
+        if (dstBodies <= (fixtureA.bodyShape.minDst + fixtureB.bodyShape.minDst) * (fixtureA.bodyShape.minDst + fixtureB.bodyShape.minDst))
             return 1;
-        if (dstBodies <= fixtureA.bodyShape.maxDst + fixtureB.bodyShape.maxDst)
+        if (dstBodies <= (fixtureA.bodyShape.maxDst + fixtureB.bodyShape.maxDst) * (fixtureA.bodyShape.maxDst + fixtureB.bodyShape.maxDst))
             return 0;
         return -1;
     }
@@ -58,10 +58,10 @@ public class ContactUtils {
     public static int fastCheck(Body bodyA, Body bodyB) {
         bodyA.getPosition(tmp1);
         bodyB.getPosition(tmp2);
-        float dstBodies = tmp1.dst(tmp2);
-        if (dstBodies <= bodyA.minDstFixture + bodyB.minDstFixture)
+        float dstBodies = tmp1.dst2(tmp2);
+        if (dstBodies <= (bodyA.minDstFixture + bodyB.minDstFixture) * (bodyA.minDstFixture + bodyB.minDstFixture))
             return 1;
-        if (dstBodies <= bodyA.maxDstFixture + bodyB.maxDstFixture)
+        if (dstBodies <= (bodyA.maxDstFixture + bodyB.maxDstFixture) * (bodyA.maxDstFixture + bodyB.maxDstFixture))
             return 0;
         return -1;
     }
@@ -74,10 +74,10 @@ public class ContactUtils {
         bodyA.getPosition(tmp1);
         Body bodyB = fixtureB.body;
         bodyB.getPosition(tmp2);
-        float dstBodies = tmp1.dst(tmp2);
-        if (dstBodies <= bodyA.minDstFixture + fixtureB.bodyShape.minDst)
+        float dstBodies = tmp1.dst2(tmp2);
+        if (dstBodies <= (bodyA.minDstFixture + fixtureB.bodyShape.minDst) * (bodyA.minDstFixture + fixtureB.bodyShape.minDst))
             return 1;
-        if (dstBodies <= bodyA.maxDstFixture + fixtureB.bodyShape.maxDst)
+        if (dstBodies <= (bodyA.maxDstFixture + fixtureB.bodyShape.maxDst) * (bodyA.maxDstFixture + fixtureB.bodyShape.maxDst))
             return 0;
         return -1;
     }

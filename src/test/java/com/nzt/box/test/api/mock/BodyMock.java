@@ -10,16 +10,19 @@ public class BodyMock extends Body {
 
     public BodyMock() {
         super(BodyType.Dynamic);
+        addFixture(new FixtureMock("Fmock"));
     }
 
     public BodyMock(String userData) {
         super(BodyType.Dynamic);
         this.userData = userData;
+        addFixture(new FixtureMock(userData));
     }
 
-    public BodyMock(String userData, boolean addFixtureMock) {
+    public BodyMock(float posX, float posY) {
         super(BodyType.Dynamic);
         this.userData = userData;
-        addFixture(new FixtureMock(userData));
+        addFixture(new FixtureMock());
+        setPosition(posX, posY);
     }
 }

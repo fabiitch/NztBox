@@ -15,6 +15,17 @@ public class RectangleShape extends BodyShape<Rectangle> {
 
     public RectangleShape(Rectangle shape) {
         super(shape);
+        this.boundingRect = this.shape;
+    }
+
+    public RectangleShape(float witdh, float height) {
+        this(new Rectangle(0, 0, witdh, height));
+    }
+
+
+    @Override
+    public Rectangle computeBoundingRect() {
+        return this.shape;
     }
 
     @Override
@@ -27,9 +38,6 @@ public class RectangleShape extends BodyShape<Rectangle> {
         return RectangleUtils.dstVertexCenter(shape);
     }
 
-    public RectangleShape(float witdh, float height) {
-        super(new Rectangle(0, 0, witdh, height));
-    }
 
     @Override
     public Vector2 getPosition(Vector2 pos) {

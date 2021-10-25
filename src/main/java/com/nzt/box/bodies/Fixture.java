@@ -1,5 +1,6 @@
 package com.nzt.box.bodies;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.contact.data.ContactFixture;
@@ -15,6 +16,10 @@ public class Fixture<S extends BodyShape> {
 
     public Fixture(S bodyShape) {
         this.bodyShape = bodyShape;
+    }
+
+    public Rectangle getBoundingRectangle() {
+        return this.bodyShape.computeBoundingRect();
     }
 
     public void changeBodyPosition(float x, float y) {
