@@ -30,24 +30,24 @@ public class ContactDataTest extends Base3BodyContactTest {
 
     @Test
     public void testBodiesContacts() {
-        Assertions.assertEquals(0, bodyA.contacts.size);
-        Assertions.assertEquals(0, bodyB.contacts.size);
-        Assertions.assertEquals(0, bodyC.contacts.size);
+        Assertions.assertEquals(0, bodyA.contactsBody.size);
+        Assertions.assertEquals(0, bodyB.contactsBody.size);
+        Assertions.assertEquals(0, bodyC.contactsBody.size);
 
         world.step(0.1f);
-        Assertions.assertEquals(2, bodyA.contacts.size);
-        Assertions.assertEquals(2, bodyB.contacts.size);
-        Assertions.assertEquals(2, bodyC.contacts.size);
+        Assertions.assertEquals(2, bodyA.contactsBody.size);
+        Assertions.assertEquals(2, bodyB.contactsBody.size);
+        Assertions.assertEquals(2, bodyC.contactsBody.size);
 
         world.removeBody(bodyA);
-        Assertions.assertEquals(0, bodyA.contacts.size);
-        Assertions.assertEquals(1, bodyB.contacts.size);
-        Assertions.assertEquals(1, bodyC.contacts.size);
+        Assertions.assertEquals(0, bodyA.contactsBody.size);
+        Assertions.assertEquals(1, bodyB.contactsBody.size);
+        Assertions.assertEquals(1, bodyC.contactsBody.size);
 
         world.removeBody(bodyB);
-        Assertions.assertEquals(0, bodyA.contacts.size);
-        Assertions.assertEquals(0, bodyB.contacts.size);
-        Assertions.assertEquals(0, bodyC.contacts.size);
+        Assertions.assertEquals(0, bodyA.contactsBody.size);
+        Assertions.assertEquals(0, bodyB.contactsBody.size);
+        Assertions.assertEquals(0, bodyC.contactsBody.size);
     }
 
     @Test

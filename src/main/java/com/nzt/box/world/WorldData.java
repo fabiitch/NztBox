@@ -2,8 +2,6 @@ package com.nzt.box.world;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IdentityMap;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.ContactBody;
@@ -16,8 +14,6 @@ public class WorldData {
     private World world;
     public Array<Body> bodies;
     public Array<Body> activeBodies;
-    private IdentityMap<Fixture<?>, IdentityMap<Fixture<?>, ContactFixture>> mapFixtureContacts;
-    private IdentityMap<Body, IdentityMap<Body, ContactBody>> mapBodyContacts;
 
     public QuadTree quadTree;
 
@@ -27,8 +23,6 @@ public class WorldData {
         this.world = world;
         this.bodies = new Array<>();
         this.activeBodies = new Array<>();
-        this.mapFixtureContacts = new IdentityMap<>();
-        this.mapBodyContacts = new IdentityMap<>();
         this.quadTree = new QuadTree();
     }
 
@@ -43,120 +37,53 @@ public class WorldData {
         quadTree.addBody(body);
     }
 
+    public void moveBody(Body body) {
+        quadTree.moveBody(body);
+    }
+
     public void removeBody(Body body) {
         quadTree.removeBody(body);
-
-        for (int i1 = 0, n1 = body.fixtures.size; i1 < n1; i1++) {
-            Fixture<?> fixture = body.fixtures.get(i1);
-            Array<ContactFixture> contacts = fixture.contacts;
-            for (int i2 = 0, n2 = contacts.size; i2 < n2; i2++) {
-                ContactFixture contactFixture = contacts.get(i2);
-                if (world.contactListener != null)
-                    world.contactListener.endContact(contactFixture);
-                if (contactFixture.imFixtureA(fixture)) {
-                    mapFixtureContacts.get(contactFixture.fixtureB).remove(fixture);
-                    contactFixture.fixtureB.contacts.removeValue(contactFixture, true);
-                } else {
-                    mapFixtureContacts.get(contactFixture.fixtureA).remove(fixture);
-                    contactFixture.fixtureB.contacts.removeValue(contactFixture, true);
-                }
-            }
-            fixture.contacts.clear();
-            mapFixtureContacts.remove(fixture);
-        }
-
-        for (int i = 0, n = body.contacts.size; i < n; i++) {
-            ContactBody contactBody = body.contacts.get(i);
-            if (contactBody.imBodyA(body)) {
-                contactBody.bodyB.contacts.removeValue(contactBody, true);
-                mapBodyContacts.get(contactBody.bodyB).remove(contactBody.bodyA);
-            } else {
-                contactBody.bodyA.contacts.removeValue(contactBody, true);
-                mapBodyContacts.get(contactBody.bodyA).remove(contactBody.bodyB);
-            }
-        }
-        mapBodyContacts.remove(body);
-        body.contacts.clear();
+        body.contactsBody.clear();
         bodies.removeValue(body, true); //remove body
     }
 
     public void addContact(ContactFixture contactFixture) {
         Fixture<?> fixtureA = contactFixture.fixtureA;
         Fixture<?> fixtureB = contactFixture.fixtureB;
-        IdentityMap<Fixture<?>, ContactFixture> mapFixtureA = mapFixtureContacts.get(fixtureA);
-        IdentityMap<Fixture<?>, ContactFixture> mapFixtureB = mapFixtureContacts.get(fixtureB);
-        if (mapFixtureA == null) {
-            mapFixtureA = new IdentityMap<>();
-            mapFixtureContacts.put(fixtureA, mapFixtureA);
-        }
-        if (mapFixtureB == null) {
-            mapFixtureB = new IdentityMap<>();
-            mapFixtureContacts.put(fixtureB, mapFixtureB);
-        }
-        mapFixtureA.put(fixtureB, contactFixture);
-        mapFixtureB.put(fixtureA, contactFixture);
 
-        contactFixture.fixtureA.contacts.add(contactFixture);
-        contactFixture.fixtureB.contacts.add(contactFixture);
+        fixtureA.contacts.add(contactFixture);
+        fixtureB.contacts.add(contactFixture);
 
-        //==================
-        // bodies
-        ContactBody contactBody = null;
         Body bodyA = fixtureA.body;
         Body bodyB = fixtureB.body;
-        IdentityMap<Body, ContactBody> alreadyMapA = mapBodyContacts.get(bodyA);
-        if (alreadyMapA != null) {
-            contactBody = alreadyMapA.get(bodyB);
-        }
-        if (contactBody == null) {
-            contactBody = ContactBody.get(bodyA, bodyB);
-        }
-        contactBody.contacts.add(contactFixture);
+        ContactBody contactBody = bodyA.hasContact(bodyB);
+        if (contactBody == null)
+            contactBody = ContactBody.get(fixtureA.body, fixtureB.body);
+        contactBody.contactsFixture.add(contactFixture);
 
-        IdentityMap<Body, ContactBody> mapBodyA = mapBodyContacts.get(bodyA);
-        IdentityMap<Body, ContactBody> mapBodyB = mapBodyContacts.get(bodyB);
-
-        if (mapBodyA == null) {
-            mapBodyA = new IdentityMap<>();
-            mapBodyContacts.put(bodyA, mapBodyA);
-        }
-        if (mapBodyB == null) {
-            mapBodyB = new IdentityMap<>();
-            mapBodyContacts.put(bodyB, mapBodyB);
-        }
-        mapBodyA.put(bodyB, contactBody);
-        mapBodyB.put(bodyA, contactBody);
-
-        bodyA.contacts.add(contactBody);
-        bodyB.contacts.add(contactBody);
+        fixtureA.body.contactsBody.add(contactBody);
+        fixtureB.body.contactsBody.add(contactBody);
     }
 
-    public ContactBody getContact(Body bodyA, Body bodyB) {
-        ObjectMap<Body, ContactBody> mapContactBody = mapBodyContacts.get(bodyA);
-        if (mapContactBody == null) {
-            return null;
-        }
-        return mapContactBody.get(bodyB);
-    }
-
-    public ContactFixture getContact(Fixture<?> fixtureA, Fixture<?> fixtureB) {
-        ObjectMap<Fixture<?>, ContactFixture> mapContactFixture = mapFixtureContacts.get(fixtureA);
-        if (mapContactFixture == null) {
-            return null;
-        }
-        return mapFixtureContacts.get(fixtureA).get(fixtureB);
-    }
 
     public void endContact(ContactFixture contactFixture) {
         Fixture<?> fixtureA = contactFixture.fixtureA;
         Fixture<?> fixtureB = contactFixture.fixtureB;
+        Body bodyA = fixtureA.body;
+        Body bodyB = fixtureB.body;
+        fixtureA.contacts.removeValue(contactFixture, true);
+        fixtureB.contacts.removeValue(contactFixture, true);
 
-        mapFixtureContacts.get(fixtureA).remove(fixtureB);
-        mapFixtureContacts.get(fixtureB).remove(fixtureA);
-
-        contactFixture.fixtureA.contacts.removeValue(contactFixture, true);
-        contactFixture.fixtureB.contacts.removeValue(contactFixture, true);
+        bodyA.endContact(bodyB, contactFixture);
+        bodyB.endContact(bodyA, contactFixture);
     }
 
 
+    public ContactBody getContact(Body bodyA, Body bodyB) {
+        return bodyA.hasContact(bodyB);
+    }
+
+    public ContactFixture getContact(Fixture<?> fixtureA, Fixture<?> fixtureB) {
+        return fixtureA.hasContact(fixtureB);
+    }
 }

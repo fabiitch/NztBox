@@ -1,5 +1,6 @@
 package com.nzt.box.test.screens.base;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyDef;
@@ -7,6 +8,7 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.box.world.World;
+import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 
 public class ScreenWalls {
 
@@ -36,6 +38,11 @@ public class ScreenWalls {
         world.removeBody(leftWall);
     }
 
+
+    public static Rectangle getRectangle() {
+        return new Rectangle(-SCREEN_WITDH/2, -SCREEN_HEIGHT/2, SCREEN_WITDH, SCREEN_HEIGHT);
+    }
+
     public void create() {
         /**
          * D-----C
@@ -46,7 +53,6 @@ public class ScreenWalls {
         float bX = SCREEN_WITDH / 2 - 1, bY = -SCREEN_HEIGHT / 2 + 1;
         float cX = SCREEN_WITDH / 2 - 1, cY = SCREEN_HEIGHT / 2 - 1;
         float dX = -SCREEN_WITDH / 2 + 1, dY = SCREEN_HEIGHT / 2 - 1;
-
         botWall = new Body(bodyDef);
         botWall.userData = "WallBot";
         RectangleShape shapeBot = new RectangleShape(SCREEN_WITDH, 10);

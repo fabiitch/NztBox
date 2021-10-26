@@ -77,32 +77,42 @@ public class QuadTreeTest {
 
     @Test
     public void countSubValues() {
-         int countuserData = 1;
+        final int[] countuserData = {1};
         BiConsumer<QuadTree, Integer> funcAdd = new BiConsumer<QuadTree, Integer>() {
             @Override
             public void accept(QuadTree quadTree, Integer count) {
-                for (int i = 0; i < count; i++)
-                    quadTree.addBody(new BodyMock(countuserData+""));
+                for (int i = 0; i < count; i++) {
+                    quadTree.addBody(new BodyMock(countuserData[0] + ""));
+                    countuserData[0]++;
+                }
             }
         };
 
         QuadTree quadTreeRoot = new QuadTree();
-        quadTreeRoot.init(new QuadTreeHelper(quadTreeRoot), new Rectangle(0, 0, 1000, 500), 10, 10);
+        quadTreeRoot.init(new QuadTreeHelper(quadTreeRoot), new Rectangle(0, 0, 1000, 500), 50, 50);
         Assertions.assertEquals(0, quadTreeRoot.countSubValues());
-
         funcAdd.accept(quadTreeRoot, 4);
         Assertions.assertEquals(4, quadTreeRoot.countSubValues());
 
+        quadTreeRoot = new QuadTree();
+        quadTreeRoot.init(new QuadTreeHelper(quadTreeRoot), new Rectangle(0, 0, 1000, 500), 50, 50);
+        Assertions.assertEquals(0, quadTreeRoot.countSubValues());
         quadTreeRoot.split();
         funcAdd.accept(quadTreeRoot.ne, 4);
         funcAdd.accept(quadTreeRoot.sw, 4);
-        Assertions.assertEquals(12, quadTreeRoot.countSubValues());
+        Assertions.assertEquals(8, quadTreeRoot.countSubValues());
         Assertions.assertEquals(4, quadTreeRoot.ne.countSubValues());
         Assertions.assertEquals(4, quadTreeRoot.sw.countSubValues());
+//
 
+        quadTreeRoot = new QuadTree();
+        quadTreeRoot.init(new QuadTreeHelper(quadTreeRoot), new Rectangle(0, 0, 1000, 500), 50, 50);
+        quadTreeRoot.split();
+        funcAdd.accept(quadTreeRoot.nw, 4);
         quadTreeRoot.ne.split();
         funcAdd.accept(quadTreeRoot.ne.ne, 4);
-        Assertions.assertEquals(16, quadTreeRoot.countSubValues());
+        funcAdd.accept(quadTreeRoot.ne.nw, 4);
+        Assertions.assertEquals(12, quadTreeRoot.countSubValues());
         Assertions.assertEquals(4, quadTreeRoot.ne.ne.countSubValues());
     }
 

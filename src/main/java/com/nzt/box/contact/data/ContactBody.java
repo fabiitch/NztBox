@@ -8,10 +8,10 @@ import com.nzt.box.bodies.Body;
 public class ContactBody implements Pool.Poolable {
     public Body bodyA;
     public Body bodyB;
-    public Array<ContactFixture> contacts;
+    public Array<ContactFixture> contactsFixture;
 
     public ContactBody() {
-        contacts = new Array<>();
+        contactsFixture = new Array<>();
     }
 
     public boolean imBodyA(Body body) {
@@ -19,14 +19,18 @@ public class ContactBody implements Pool.Poolable {
     }
 
     public String debug() {
-        return "ContactBody=[BodyA=" + bodyA.userData + "&& BodyB=" + bodyB.userData + " ==> " + contacts.size + " contacts]";
+        return "ContactBody=[BodyA=" + bodyA.userData + "&& BodyB=" + bodyB.userData + " ==> " + contactsFixture.size + " contacts]";
     }
 
     @Override
     public void reset() {
         bodyA = null;
         bodyB = null;
-        contacts.clear();
+        contactsFixture.clear();
+    }
+
+    public boolean hasBody(Body body){
+        return bodyA == body || bodyB == body;
     }
 
     public static ContactBody get(Body bodyA, Body bodyB) {

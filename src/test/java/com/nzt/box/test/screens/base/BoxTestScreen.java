@@ -94,6 +94,6 @@ abstract class BoxTestScreen extends TestScreen {
     }
 
     public void createWallAroundScreen() {
-        screenWalls = new ScreenWalls(world);
+        this.screenWalls = new ScreenWalls(world);
     }
 }

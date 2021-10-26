@@ -41,10 +41,25 @@ public class QuadTree implements Pool.Poolable {
         } else {
             Array<QuadTree> childArray = helper.getChildArray(this);
             for (QuadTree sub : childArray)
-                count += sub.isSplitted ? 0 : sub.countSubValues();
-
+                count += sub.countSubValues();
+            helper.freeChildArray(childArray);
         }
         return count;
+    }
+
+    public Array<Fixture<?>> getSubValues(Array<Fixture<?>> fixtureArray) {
+        if (!isSplitted) {
+            for (int i = 0; i < valuesCount; i++) {
+                fixtureArray.add(values[i]);
+            }
+            return fixtureArray;
+        } else {
+            Array<QuadTree> childArray = helper.getChildArray(this);
+            for (QuadTree sub : childArray) {
+                sub.getSubValues(fixtureArray);
+            }
+            return fixtureArray;
+        }
     }
 
     public int countSubQuad() {
@@ -63,13 +78,13 @@ public class QuadTree implements Pool.Poolable {
     @Override
     public void reset() {
         if (ne != null)
-            helper.pool.free(ne);
+            helper.quadPool.free(ne);
         if (nw != null)
-            helper.pool.free(nw);
+            helper.quadPool.free(nw);
         if (se != null)
-            helper.pool.free(se);
+            helper.quadPool.free(se);
         if (sw != null)
-            helper.pool.free(sw);
+            helper.quadPool.free(sw);
         valuesCount = 0;
         isSplitted = false;
         if (values.length > maxValues) values = new Fixture[maxValues];
@@ -79,7 +94,8 @@ public class QuadTree implements Pool.Poolable {
         return this.init(helper, null, rect, 0, maxValues, maxDepth);
     }
 
-    private QuadTree init(QuadTreeHelper helper, QuadTree parent, Rectangle rect, int depth, int maxValues, int maxDepth) {
+    private QuadTree init(QuadTreeHelper helper, QuadTree parent, Rectangle rect, int depth, int maxValues,
+                          int maxDepth) {
         this.helper = helper;
         this.parent = parent;
         this.boundingRect.set(rect);
@@ -99,7 +115,7 @@ public class QuadTree implements Pool.Poolable {
             if (value != null)
                 addValue(value);
         }
-        helper.pool.free(ne);
+        helper.quadPool.free(ne);
         this.ne = null;
 
         nw.regroup();
@@ -107,7 +123,7 @@ public class QuadTree implements Pool.Poolable {
             if (value != null)
                 addValue(value);
         }
-        helper.pool.free(nw);
+        helper.quadPool.free(nw);
         this.nw = null;
 
         sw.regroup();
@@ -115,7 +131,7 @@ public class QuadTree implements Pool.Poolable {
             if (value != null)
                 addValue(value);
         }
-        helper.pool.free(sw);
+        helper.quadPool.free(sw);
         this.sw = null;
 
         se.regroup();
@@ -123,7 +139,7 @@ public class QuadTree implements Pool.Poolable {
             if (value != null)
                 addValue(value);
         }
-        helper.pool.free(se);
+        helper.quadPool.free(se);
         this.se = null;
 
         this.isSplitted = false;
@@ -139,16 +155,16 @@ public class QuadTree implements Pool.Poolable {
         Rectangle rectNW = new Rectangle(boundingRect.x, boundingRect.y + halfHeight, halfWitdh, halfHeight);
         Rectangle rectNE = new Rectangle(boundingRect.x + halfWitdh, boundingRect.y + halfHeight, halfWitdh, halfHeight);
 
-        final QuadTree SW = helper.pool.obtain();
+        final QuadTree SW = helper.quadPool.obtain();
         this.sw = SW.init(this.helper, this, rectSW, this.depth + 1, this.maxValues, this.maxDepth);
 
-        final QuadTree SE = helper.pool.obtain();
+        final QuadTree SE = helper.quadPool.obtain();
         this.se = SE.init(this.helper, this, rectSE, this.depth + 1, this.maxValues, this.maxDepth);
 
-        final QuadTree NW = helper.pool.obtain();
+        final QuadTree NW = helper.quadPool.obtain();
         this.nw = NW.init(this.helper, this, rectNW, this.depth + 1, this.maxValues, this.maxDepth);
 
-        final QuadTree NE = helper.pool.obtain();
+        final QuadTree NE = helper.quadPool.obtain();
         this.ne = NE.init(this.helper, this, rectNE, this.depth + 1, this.maxValues, this.maxDepth);
 
         isSplitted = true;
@@ -184,6 +200,12 @@ public class QuadTree implements Pool.Poolable {
         return null;
     }
 
+    public void moveBody(Body body) {
+//        Array<Fixture<?>> fixtures = body.fixtures;
+//        removeBody(body);
+//        for (Fixture fixture : fixtures)
+//            addFixture(fixture);
+    }
 
     public void addBody(Body body) {
         Array<Fixture<?>> fixtures = body.fixtures;
@@ -247,7 +269,7 @@ public class QuadTree implements Pool.Poolable {
                 tmpQuadArray.add(quadTreeToAdd);
 
         if (tmpQuadArray.size == 0) {
-             this.addValue(fixture);
+            this.addValue(fixture);
         } else {
             for (QuadTree quadTree : tmpQuadArray) {
                 quadTree.addValue(fixture);
@@ -257,10 +279,20 @@ public class QuadTree implements Pool.Poolable {
     }
 
     public void checkIfShouldRegroup() {
-        if (countSubQuad() == 4) {
+        if (countSubQuad() == 4)
+            if (countSubValues() <= maxValues / 2)
+                regroup();
+    }
 
+    public void clearValues() {
+        if (values.length > maxValues) {
+            values = new Fixture[maxValues];
+        } else {
+            for (int i = 0, n = valuesCount; i < n; i++) {
+                values[i] = null;
+            }
         }
-
+        valuesCount = 0;
     }
 
     private void removeValue(Fixture fixture) {
@@ -275,6 +307,7 @@ public class QuadTree implements Pool.Poolable {
             ArrayUtils.removeAndDecal(values, index);
             valuesCount--;
         }
+        if (depth > 0) parent.checkIfShouldRegroup();
     }
 
     private void addValue(Fixture fixture) {
@@ -286,5 +319,6 @@ public class QuadTree implements Pool.Poolable {
             values[valuesCount++] = fixture;
         }
     }
+
 
 }

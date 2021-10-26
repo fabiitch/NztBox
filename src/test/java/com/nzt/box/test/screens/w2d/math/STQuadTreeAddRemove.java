@@ -30,7 +30,7 @@ public class STQuadTreeAddRemove extends Box2dTestScreen {
         infoMsg("Left/Right click for add and destroy");
 
         Rectangle rectScreen = GdxUtils.screenAsRectangle(new Rectangle(),true);
-        world.data.initQuadTree(rectScreen,3,10);
+        world.data.initQuadTree(rectScreen,3,5);
     }
 
     public InputProcessor inputProcessor() {
