@@ -100,15 +100,15 @@ public class Box2DDebugRenderer extends BoxDebugRender {
         }
     }
 
-    public void drawQuadTreeData(QuadTree quadTree){
+    public void drawQuadTreeData(QuadTree quadTree) {
         if (quadTree.isSplitted) {
             drawQuadTreeData(quadTree.ne);
             drawQuadTreeData(quadTree.nw);
             drawQuadTreeData(quadTree.se);
             drawQuadTreeData(quadTree.sw);
-        }else{
+        } else {
             Rectangle rect = quadTree.boundingRect;
-            bitmapFont.draw(spriteBatch, quadTree.valuesCount+"", rect.x,rect.y);
+            bitmapFont.draw(spriteBatch, quadTree.valuesCount + "", rect.x + rect.width/2, rect.y +rect.height/2);
         }
     }
 

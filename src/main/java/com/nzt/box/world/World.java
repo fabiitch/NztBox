@@ -54,6 +54,7 @@ public class World {
                         continue;
                     boolean move = body.move(stepTime);
                     if (move || body.dirty) {
+                        data.moveBody(body);
                         checkCollision(body, stepTime);
                     }
                     body.dirty = false;

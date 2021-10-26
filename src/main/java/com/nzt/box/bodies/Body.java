@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.nzt.box.bodies.forces.Force;
 import com.nzt.box.contact.data.ContactBody;
+import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.gdx.math.vectors.V3;
 
 //TODO POOLABLE
@@ -25,7 +26,7 @@ public class Body implements Pool.Poolable {
     public float rotation = 0; //Degrees
 
     public final Array<Fixture<?>> fixtures;
-    public final Array<ContactBody> contacts;
+    public final Array<ContactBody> contactsBody;
     public final Array<Force> forces;
     public final Array<Force> forcesToRemove;
 
@@ -52,7 +53,7 @@ public class Body implements Pool.Poolable {
     public Body(BodyType bodyType) {
         this.bodyType = bodyType;
         fixtures = new Array<>();
-        contacts = new Array<>();
+        contactsBody = new Array<>();
         forces = new Array<>();
         forcesToRemove = new Array<>();
     }
@@ -143,6 +144,23 @@ public class Body implements Pool.Poolable {
             velocity.x = x;
             velocity.y = y;
         }
+    }
+
+    public void endContact(Body bodyB, ContactFixture contactFixture) {
+        ContactBody contactBody = hasContact(bodyB);
+        contactBody.contactsFixture.removeValue(contactFixture, true);
+        if (contactBody.contactsFixture.size == 0) {
+            contactsBody.removeValue(contactBody, true);
+        }
+    }
+
+    public ContactBody hasContact(Body bodyB) {
+        for (int i = 0, n = contactsBody.size; i < n; i++) {
+            ContactBody contactBody = contactsBody.get(i);
+            if (contactBody.hasBody(bodyB))
+                return contactBody;
+        }
+        return null;
     }
 
     @Override
