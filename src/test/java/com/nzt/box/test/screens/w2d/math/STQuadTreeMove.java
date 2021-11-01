@@ -17,7 +17,7 @@ public class STQuadTreeMove extends BaseSTMultipleBody {
         super(main);
 
         Rectangle rectangle = ScreenWalls.getRectangle();
-        world.data.initQuadTree(rectangle, 3, 10);
+        world.data.quadTreeContainer.init(rectangle, 3, 10);
         createWallAroundScreen();
         BoxDebugSettings debugSettings = debugRenderer.debugSettings;
         debugSettings.drawQuadTreeData = true;

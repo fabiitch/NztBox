@@ -2,21 +2,19 @@ package com.nzt.box.math.quadtree.pools;
 
 import com.badlogic.gdx.utils.Pool;
 import com.nzt.box.math.quadtree.QuadTree;
+import com.nzt.box.math.quadtree.QuadTreeContainer;
 
 public class QuadTreePool extends Pool<QuadTree> {
-    public QuadTreePool() {
-    }
 
-    public QuadTreePool(int initialCapacity) {
-        super(initialCapacity);
-    }
+    private QuadTreeContainer container;
 
-    public QuadTreePool(int initialCapacity, int max) {
-        super(initialCapacity, max);
+    public QuadTreePool(QuadTreeContainer container) {
+        super(50);
+        this.container = container;
     }
 
     @Override
     protected QuadTree newObject() {
-        return new QuadTree();
+        return new QuadTree(container);
     }
 }

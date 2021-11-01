@@ -57,7 +57,7 @@ public class STReplaceAllShapes extends Box2dTestScreen {
 
     @Override
     public void doRender(float dt) {
-        world.data.bodies.forEach(b -> b.dirty = true);
+        world.data.bodies.forEach(b -> b.dirtyPos = true);
     }
 
     @Override

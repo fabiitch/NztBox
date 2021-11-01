@@ -6,8 +6,7 @@ import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
-import com.nzt.box.math.quadtree.QuadTreeHelper;
-import com.nzt.box.math.quadtree.QuadTree;
+import com.nzt.box.math.quadtree.QuadTreeContainer;
 
 public class WorldData {
 
@@ -15,34 +14,30 @@ public class WorldData {
     public Array<Body> bodies;
     public Array<Body> activeBodies;
 
-    public QuadTree quadTree;
-
+    public QuadTreeContainer quadTreeContainer;
 
     public WorldData(World world) {
         super();
         this.world = world;
         this.bodies = new Array<>();
         this.activeBodies = new Array<>();
-        this.quadTree = new QuadTree();
-    }
-
-    public void initQuadTree(Rectangle rect, int maxDepth, int maxValues) {
-        quadTree.init(new QuadTreeHelper(quadTree), rect, maxValues, maxDepth);
+        this.quadTreeContainer = new QuadTreeContainer();
     }
 
     public void addBody(Body body) {
-        body.dirty = true;
+        body.dirtyPos = true;
         bodies.add(body);
         body.updatePosition();
-        quadTree.addBody(body);
+        quadTreeContainer.addBody(body);
     }
 
     public void moveBody(Body body) {
-        quadTree.moveBody(body);
+        quadTreeContainer.moveBody(body);
+//        quadTree.moveBody(body);
     }
 
     public void removeBody(Body body) {
-        quadTree.removeBody(body);
+        quadTreeContainer.removeBody(body);
         body.contactsBody.clear();
         bodies.removeValue(body, true); //remove body
     }

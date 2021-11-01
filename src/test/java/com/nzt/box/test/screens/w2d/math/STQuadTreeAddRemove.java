@@ -29,9 +29,11 @@ public class STQuadTreeAddRemove extends Box2dTestScreen {
 
         infoMsg("Left/Right click for add and destroy");
 
-        Rectangle rectScreen = GdxUtils.screenAsRectangle(new Rectangle(),true);
-        world.data.initQuadTree(rectScreen,3,5);
+        Rectangle rectScreen = GdxUtils.screenAsRectangle(new Rectangle(), true);
+        world.data.quadTreeContainer.init(rectScreen, 3, 5);
     }
+
+    int userDataCount = 1;
 
     public InputProcessor inputProcessor() {
         return new SimpleClickInputHandler() {
@@ -39,7 +41,8 @@ public class STQuadTreeAddRemove extends Box2dTestScreen {
             public boolean click(int screenX, int screenY, int pointer, int button) {
                 Vector2 clickPos = getClickPos(camera, screenX, screenY);
                 if (button == LEFT_CLICK) {
-                    boxSTHelp.createBall(10, boxSTHelp.basicDynamicBodyDef, clickPos, v(0, 0), null);
+                    boxSTHelp.createBall(10, boxSTHelp.basicDynamicBodyDef, clickPos,
+                            v(0, 0), userDataCount++ + "");
                 } else {
                     findAndRemoveBody(clickPos);
                 }

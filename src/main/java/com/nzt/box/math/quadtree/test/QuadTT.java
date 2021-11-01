@@ -36,7 +36,7 @@ public class QuadTT {    // ----------------------------------------------------
     static final int node_idx_num = 1;
 
     // Stores all the nodes in the quadtree. The first node in this
-    // sequence is always the root.
+    // sequence is always the container.
     private IntList nodes = new IntList(2);
 
     // ----------------------------------------------------------------------------------------
@@ -77,12 +77,12 @@ public class QuadTT {    // ----------------------------------------------------
         max_elements = start_max_elements;
         max_depth = start_max_depth;
 
-        // Insert the root node to the qt.
+        // Insert the container node to the qt.
         nodes.insert();
         nodes.set(0, node_idx_fc, -1);
         nodes.set(0, node_idx_num, 0);
 
-        // Set the extents of the root node.
+        // Set the extents of the container node.
         root_mx = width / 2;
         root_my = height / 2;
         root_sx = root_mx;
@@ -149,9 +149,9 @@ public class QuadTT {    // ----------------------------------------------------
     public void cleanup() {
         IntList to_process = new IntList(1);
 
-        // Only process the root if it's not a leaf.
+        // Only process the container if it's not a leaf.
         if (nodes.get(0, node_idx_num) == -1) {
-            // Push the root index to the stack.
+            // Push the container index to the stack.
             to_process.set(to_process.pushBack(), 0, 0);
         }
 
