@@ -41,7 +41,7 @@ public class Body implements Pool.Poolable {
 
     public float maxDstFixture; //dst la plus eloigné du body
     public float minDstFixture;//dst mini ou on est forcément en contact
-    public boolean dirty = true;
+    public boolean dirtyPos = true; //move or changeposition
 
     private final Vector3 tmp = new Vector3();
 
@@ -122,9 +122,9 @@ public class Body implements Pool.Poolable {
             Fixture fixture = fixtures.get(i);
             fixture.changeBodyPosition(position.x, position.y);
             fixture.setRotation(rotation);
-            fixture.getBoundingRectangle();
+            fixture.computeBoundingRect();
         }
-        dirty = true;
+        dirtyPos = true;
     }
 
     public void setVelocity(Vector3 velocity) {

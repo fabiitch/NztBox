@@ -9,4 +9,10 @@ public class FixtureArrayPool extends Pool<Array<Fixture<?>>> {
     protected Array<Fixture<?>> newObject() {
         return new Array<Fixture<?>>();
     }
+
+    @Override
+    public void free(Array<Fixture<?>> object) {
+        super.free(object);
+        object.clear();
+    }
 }

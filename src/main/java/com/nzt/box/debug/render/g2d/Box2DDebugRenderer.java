@@ -45,11 +45,14 @@ public class Box2DDebugRenderer extends BoxDebugRender {
             Array<Fixture<?>> fixtures = body.fixtures;
             for (int i2 = 0, n2 = fixtures.size; i2 < n2; i2++) {
                 Fixture fixture = fixtures.get(i2);
+
+                if (debugSettings.drawBounds) {
+                    shapeRenderer.setColor(debugSettings.colorBoundingRect);
+                    shapeRenderer.rect(fixture.bodyShape.boundingRect);
+                }
+
                 shapeRenderer.setColor(debugSettings.getColorBody(body));
                 fixture.bodyShape.draw(shapeRenderer);
-
-                shapeRenderer.setColor(debugSettings.colorBoundingRect);
-                shapeRenderer.rect(fixture.bodyShape.boundingRect);
 
                 if (debugSettings.drawContactPoint) {
                     Array<ContactFixture> contacts = fixture.contacts;
@@ -74,7 +77,7 @@ public class Box2DDebugRenderer extends BoxDebugRender {
 
         }
         if (debugSettings.drawQuadTree) {
-            drawQuadTree(world.data.quadTree);
+            drawQuadTree(world.data.quadTreeContainer.root);
         }
 
         shapeRenderer.end();
@@ -95,13 +98,13 @@ public class Box2DDebugRenderer extends BoxDebugRender {
         if (debugSettings.drawQuadTreeData) {
             spriteBatch.begin();
             spriteBatch.setProjectionMatrix(projMatrix);
-            drawQuadTreeData(world.data.quadTree);
+            drawQuadTreeData(world.data.quadTreeContainer.root);
             spriteBatch.end();
         }
     }
 
     public void drawQuadTreeData(QuadTree quadTree) {
-        if (quadTree.isSplitted) {
+        if (quadTree.isSplitted()) {
             drawQuadTreeData(quadTree.ne);
             drawQuadTreeData(quadTree.nw);
             drawQuadTreeData(quadTree.se);
@@ -116,7 +119,7 @@ public class Box2DDebugRenderer extends BoxDebugRender {
         shapeRenderer.setColor(debugSettings.colorQuadTree);
         Rectangle boundingRect = quadTree.boundingRect;
         shapeRenderer.rect(boundingRect);
-        if (quadTree.isSplitted) {
+        if (quadTree.isSplitted()) {
             drawQuadTree(quadTree.ne);
             drawQuadTree(quadTree.nw);
             drawQuadTree(quadTree.se);

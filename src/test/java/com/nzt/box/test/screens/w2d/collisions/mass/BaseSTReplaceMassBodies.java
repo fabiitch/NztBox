@@ -41,7 +41,7 @@ abstract class BaseSTReplaceMassBodies extends BaseSTMultipleBody {
 
     @Override
     public void doRenderM(float dt) {
-        world.data.bodies.forEach(b -> b.dirty = true);
+        world.data.bodies.forEach(b -> b.dirtyPos = true);
     }
 
     @Override

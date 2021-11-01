@@ -52,7 +52,7 @@ public class ContactRectangle implements ShapeContact {
 
     @Override
     public boolean testContact(Rectangle rectangle) {
-        return rectangle.overlaps(myRectangle);
+        return RectangleUtils.overlapsStick(myRectangle, rectangle);
     }
 
 

@@ -19,6 +19,10 @@ public class Fixture<S extends BodyShape> {
     }
 
     public Rectangle getBoundingRectangle() {
+        return this.bodyShape.boundingRect;
+    }
+
+    public Rectangle computeBoundingRect() {
         return this.bodyShape.computeBoundingRect();
     }
 

@@ -50,14 +50,14 @@ public class World {
                 Array<Body> bodies = data.bodies;
                 for (int i = 0, n = bodies.size; i < n; i++) {
                     Body body = bodies.get(i);
-                    if (!body.active || body.bodyType == BodyType.Static)
-                        continue;
+                    if (!body.dirtyPos && (!body.active || body.bodyType == BodyType.Static))
+                    continue;
                     boolean move = body.move(stepTime);
-                    if (move || body.dirty) {
+                    if (move || body.dirtyPos) {
                         data.moveBody(body);
-                        checkCollision(body, stepTime);
+                        checkCollision(body);
                     }
-                    body.dirty = false;
+                    body.dirtyPos = false;
                 }
                 accumulator -= stepTime;
             }
@@ -73,17 +73,17 @@ public class World {
         data.removeBody(body);
     }
 
-    public void checkCollision(Body body, float stepTime) {
+    public void checkCollision(Body body) {
         Array<Body> bodies = data.bodies;
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body bodyTest = bodies.get(i);
             if (body != bodyTest && body.active) {
-                testContact(body, bodyTest, stepTime);
+                testContact(body, bodyTest);
             }
         }
     }
 
-    public void testContact(Body bodyA, Body bodyB, float stepTime) {
+    public void testContact(Body bodyA, Body bodyB) {
         ContactBody contactBody = data.getContact(bodyA, bodyB);
         if (contactBody == null) {
             if (!ContactUtils.canContact(bodyA, bodyB)) {
@@ -134,7 +134,6 @@ public class World {
                             contactListener.beginContact(newContact);
                         if (newContact.doCollision)
                             contactCompute.applyResult(newContact);
-
                     }
                 }
             }
