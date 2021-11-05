@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.math.quadtree.QuadTreeContainer;
-import com.nzt.box.test.api.mock.FixtureMock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -70,46 +69,5 @@ public class QuadTreeTest {
         Assertions.assertEquals(10, quadTreeRoot.nw.countSubQuad());
         Assertions.assertEquals(7, quadTreeRoot.nw.nw.countSubQuad());
         Assertions.assertEquals(4, quadTreeRoot.nw.nw.nw.countSubQuad());
-    }
-
-    private void addFixtureInQuad(QuadTree quadTree, int nbAdd) {
-        for (int i = 0; i < nbAdd; i++) {
-            quadTree.addValue(new FixtureMock());
-        }
-    }
-
-    @Test
-    public void countSubValuesTest1() {
-        QuadTreeContainer container = new QuadTreeContainer(new Rectangle(0, 0, 1000, 500), 50, 50);
-        QuadTree quadTreeRoot = container.root;
-        Assertions.assertEquals(0, quadTreeRoot.countSubValues(false));
-        addFixtureInQuad(quadTreeRoot, 4);
-        Assertions.assertEquals(4, quadTreeRoot.countSubValues(false));
-    }
-
-    @Test
-    public void countSubValuesTest2() {
-        QuadTreeContainer container = new QuadTreeContainer(new Rectangle(0, 0, 1000, 500), 50, 50);
-        QuadTree quadTreeRoot = container.root;
-        Assertions.assertEquals(0, quadTreeRoot.countSubValues(false));
-        quadTreeRoot.split();
-        addFixtureInQuad(quadTreeRoot.ne, 4);
-        addFixtureInQuad(quadTreeRoot.sw, 4);
-        Assertions.assertEquals(8, quadTreeRoot.countSubValues(false));
-        Assertions.assertEquals(4, quadTreeRoot.ne.countSubValues(false));
-        Assertions.assertEquals(4, quadTreeRoot.sw.countSubValues(false));
-    }
-
-    @Test
-    public void countSubValuesTest3() {
-        QuadTreeContainer container = new QuadTreeContainer(new Rectangle(0, 0, 1000, 500), 50, 50);
-        QuadTree quadTreeRoot = container.root;
-        quadTreeRoot.split();
-        addFixtureInQuad(quadTreeRoot.nw, 4);
-        quadTreeRoot.ne.split();
-        addFixtureInQuad(quadTreeRoot.ne.ne, 4);
-        addFixtureInQuad(quadTreeRoot.ne.nw, 4);
-        Assertions.assertEquals(12, quadTreeRoot.countSubValues(false));
-        Assertions.assertEquals(4, quadTreeRoot.ne.ne.countSubValues(false));
     }
 }

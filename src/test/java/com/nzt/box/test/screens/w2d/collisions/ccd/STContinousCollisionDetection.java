@@ -11,7 +11,7 @@ import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 public class STContinousCollisionDetection extends Box2dTestScreen {
     public STContinousCollisionDetection(FastTesterMain main) {
         super(main);
-        Body ball = boxSTHelp.createDynamicBall(10, v(0, 0), v(5000000, 0));
+        Body ball = boxSTHelp.createDynamicCircle(10, v(0, 0), v(5000000, 0));
         Body wall = boxSTHelp.createRect(50, 500, boxSTHelp.basicStaticBodyDef.cpy().restitution(0), v(50, 0), v(0, 0), "Wall");
 
         BoxDebugUtils.toHud(ball, HudDebugPosition.BOT_LEFT);

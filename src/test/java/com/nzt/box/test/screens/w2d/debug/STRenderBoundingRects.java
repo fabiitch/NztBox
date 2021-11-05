@@ -26,7 +26,7 @@ public class STRenderBoundingRects extends BaseSTMultipleBody {
             position.x = MathUtils.random(-SCREEN_WITDH / 2 + 3, SCREEN_WITDH / 2 - 1);
             position.y = MathUtils.random(-SCREEN_HEIGHT / 2 + 3, SCREEN_HEIGHT / 2 - 1);
             Vector2 velocity = new Vector2(1, 0).setToRandomDirection().setLength(150);
-            boxSTHelp.createBall(10, boxSTHelp.basicDynamicBodyDef, position, velocity, i + "");
+            boxSTHelp.createCircle(10, boxSTHelp.basicDynamicBodyDef, position, velocity, i + "");
         }
     }
 

@@ -39,7 +39,7 @@ public class STQuadTreeMove extends BaseSTMultipleBody {
         Vector2 pos = new Vector2();
         pos.x = MathUtils.random(-SCREEN_WITDH / 2 + 3, SCREEN_WITDH / 2 - 1);
         pos.y = MathUtils.random(-SCREEN_HEIGHT / 2 + 3, SCREEN_HEIGHT / 2 - 1);
-        boxSTHelp.createBall(10, boxSTHelp.basicDynamicBodyDef, pos, velocity, userData++ + "");
+        boxSTHelp.createCircle(10, boxSTHelp.basicDynamicBodyDef, pos, velocity, userData++ + "");
     }
 
     @Override
