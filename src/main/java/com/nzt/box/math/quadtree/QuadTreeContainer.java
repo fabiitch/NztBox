@@ -8,7 +8,6 @@ import com.nzt.box.bodies.Fixture;
 import com.nzt.box.math.quadtree.pools.FixtureArrayPool;
 import com.nzt.box.math.quadtree.pools.QuadTreeArrayPool;
 import com.nzt.box.math.quadtree.pools.QuadTreePool;
-import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 
 public class QuadTreeContainer {
     public QuadTree root;
@@ -67,32 +66,19 @@ public class QuadTreeContainer {
     }
 
     public void rebuild(Rectangle rectangleStart, int newMaxDepth) {
-        Array<Fixture<?>> allValues = root.getSubValues(fixtureArrayPool.obtain(), false);
+        Array<Fixture<?>> allValues = root.getValuesAndSub(fixtureArrayPool.obtain());
         init(rectangleStart, maxValues, newMaxDepth);
         for (Fixture<?> fixture : allValues)
             root.addFixture(fixture);
+        fixtureArrayPool.free(allValues);
     }
 
 
     public void growQuadTree(Fixture fixture) {
         Rectangle rectangleFixture = fixture.getBoundingRectangle();
         Rectangle rectRoot = root.boundingRect;
-        int relativePosA = RectangleUtils.getRegionOutside(rectRoot, RectangleUtils.getA(rectangleFixture, tmp1));
-        if (relativePosA > 0) {
-            RectangleUtils.growRect(rectRoot, tmp1);
-        }
-        int relativePosB = RectangleUtils.getRegionOutside(rectRoot, RectangleUtils.getB(rectangleFixture, tmp1));
-        if (relativePosB > 0) {
-            RectangleUtils.growRect(rectRoot, tmp1);
-        }
-        int relativePosC = RectangleUtils.getRegionOutside(rectRoot, RectangleUtils.getC(rectangleFixture, tmp1));
-        if (relativePosC > 0) {
-            RectangleUtils.growRect(rectRoot, tmp1);
-        }
-        int relativePosD = RectangleUtils.getRegionOutside(rectRoot, RectangleUtils.getD(rectangleFixture, tmp1));
-        if (relativePosD > 0) {
-            RectangleUtils.growRect(rectRoot, tmp1);
-        }
+        rectRoot.merge(rectangleFixture);
+
         rebuild(rectRoot, this.maxDepth++);
         root.addFixture(fixture);
     }

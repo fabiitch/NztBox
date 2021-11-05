@@ -111,7 +111,7 @@ public class Box2DDebugRenderer extends BoxDebugRender {
             drawQuadTreeData(quadTree.sw);
         } else {
             Rectangle rect = quadTree.boundingRect;
-            bitmapFont.draw(spriteBatch, quadTree.valuesCount + "", rect.x + rect.width/2, rect.y +rect.height/2);
+            bitmapFont.draw(spriteBatch, quadTree.countValuesAndParents() + "", rect.x + rect.width/2, rect.y +rect.height/2);
         }
     }
 
