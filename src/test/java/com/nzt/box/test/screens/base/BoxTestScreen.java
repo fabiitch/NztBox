@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
 import com.nzt.box.debug.render.BoxDebugRender;
 import com.nzt.box.test.screens.utils.BoxSTHelp;
 import com.nzt.box.world.World;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.debug.perf.PerformanceFrame;
+import com.nzt.gdx.test.api.tester.GdxTestUtils;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.archi.screens.TestScreen;
 import com.nzt.gdx.utils.GdxUtils;
@@ -22,7 +24,7 @@ abstract class BoxTestScreen extends TestScreen {
     protected Camera camera;
     public World world;
     public BoxDebugRender debugRenderer;
-    public ScreenWalls screenWalls;
+    public RectangleWalls rectangleWalls;
 
     public BoxSTHelp boxSTHelp;
     public boolean blockAtContact = false;
@@ -94,6 +96,7 @@ abstract class BoxTestScreen extends TestScreen {
     }
 
     public void createWallAroundScreen() {
-        this.screenWalls = new ScreenWalls(world);
+        this.rectangleWalls = new RectangleWalls(GdxTestUtils.screenAsRectangle(camera,true),
+                10, world);
     }
 }

@@ -1,4 +1,4 @@
-package com.nzt.box.test.api.unit.math;
+package com.nzt.box.test.api.unit.math.quadtree;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;

@@ -28,8 +28,8 @@ public class World {
      */
     public World(float stepTime, boolean activeData) {
         this.stepTime = stepTime;
-        this.helper = new WorldHelper(this);
         this.data = new WorldData(this);
+        this.helper = new WorldHelper(this);
         this.contactCompute = new ContactCompute();
     }
 
@@ -51,7 +51,7 @@ public class World {
                 for (int i = 0, n = bodies.size; i < n; i++) {
                     Body body = bodies.get(i);
                     if (!body.dirtyPos && (!body.active || body.bodyType == BodyType.Static))
-                    continue;
+                        continue;
                     boolean move = body.move(stepTime);
                     if (move || body.dirtyPos) {
                         data.moveBody(body);

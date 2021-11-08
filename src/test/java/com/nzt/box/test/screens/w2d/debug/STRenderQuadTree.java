@@ -10,6 +10,7 @@ import com.nzt.box.debug.render.g2d.Box2DDebugRenderer;
 import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.math.quadtree.QuadTreeContainer;
 import com.nzt.gdx.input.impl.simple.SimpleClickInputHandler;
+import com.nzt.gdx.test.api.tester.GdxTestUtils;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.archi.screens.TestScreen;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
@@ -26,7 +27,7 @@ public class STRenderQuadTree extends TestScreen {
         box2DDebugRenderer = new Box2DDebugRenderer();
         box2DDebugRenderer.debugSettings.drawQuadTree = true;
         box2DDebugRenderer.debugSettings.drawQuadTreeData = true;
-        container = new QuadTreeContainer(GdxUtils.screenAsRectangle(new Rectangle(), false), 10, 10);
+        container = new QuadTreeContainer(GdxTestUtils.screenAsRectangle(false), 10, 10);
         Gdx.input.setInputProcessor(inputProcessor());
 
         infoMsg("Left/Right click for split/group");

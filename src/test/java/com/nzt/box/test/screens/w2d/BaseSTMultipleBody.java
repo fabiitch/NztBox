@@ -11,7 +11,7 @@ import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 
 public abstract class BaseSTMultipleBody extends Box2dTestScreen {
 
-    private final static String KeyNbBodies = "BodyNumber";
+    private final static String KeyNbBodies = "Bodies number";
     private final Array<Body> bodies;
     private final Array<Body> posTest = new Array<>();
 
@@ -37,6 +37,7 @@ public abstract class BaseSTMultipleBody extends Box2dTestScreen {
     @Override
     public void doRender(float dt) {
         HudDebug.update(KeyNbBodies, world.data.bodies.size);
+        doRenderM(dt);
     }
 
 }

@@ -7,7 +7,7 @@ import com.nzt.box.bodies.Fixture;
 public class FixtureArrayPool extends Pool<Array<Fixture<?>>> {
     @Override
     protected Array<Fixture<?>> newObject() {
-        return new Array<Fixture<?>>();
+        return new Array<>();
     }
 
     @Override

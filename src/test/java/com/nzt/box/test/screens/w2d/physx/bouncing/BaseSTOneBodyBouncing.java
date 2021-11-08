@@ -20,7 +20,7 @@ public abstract class BaseSTOneBodyBouncing extends Box2dTestScreen {
         world.addBody(body);
 
         createWallAroundScreen();
-        HudDebug.addTopRight("Wall restitution :", screenWalls.leftWall.restitution);
+        HudDebug.addTopRight("Wall restitution :", rectangleWalls.leftWall.restitution);
 
         infoMsg("ballBody.mass = " + body.mass);
         infoMsg("ballBody.restitution = " + body.restitution);

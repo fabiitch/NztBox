@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
+import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.shape.BodyShape;
 
 public class Fixture<S extends BodyShape> {
@@ -13,6 +14,7 @@ public class Fixture<S extends BodyShape> {
     public S bodyShape;
     public Object userData;
     public Array<ContactFixture> contacts = new Array();
+    public QuadTree quadTree;
 
     public Fixture(S bodyShape) {
         this.bodyShape = bodyShape;

@@ -22,10 +22,10 @@ public class QuadTreePool extends Pool<QuadTree> {
     }
 
     public void initSubs(QuadTree quadTree) {
-        quadTree.ne = container.quadPool.obtain();
-        quadTree.nw = container.quadPool.obtain();
-        quadTree.se = container.quadPool.obtain();
-        quadTree.sw = container.quadPool.obtain();
+        quadTree.ne = container.poolQuads.obtain();
+        quadTree.nw = container.poolQuads.obtain();
+        quadTree.se = container.poolQuads.obtain();
+        quadTree.sw = container.poolQuads.obtain();
     }
 
     @Override
