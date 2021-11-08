@@ -2,6 +2,7 @@ package com.nzt.box.test.screens.base;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
@@ -99,4 +100,5 @@ abstract class BoxTestScreen extends TestScreen {
         this.rectangleWalls = new RectangleWalls(GdxTestUtils.screenAsRectangle(camera,true),
                 10, world);
     }
+
 }

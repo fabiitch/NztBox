@@ -21,16 +21,13 @@ public abstract class Base3BodyContactTest {
         world = new World();
 
         bodyA = new BodyMock("A");
-        fixtureA = new FixtureMock("A");
-        bodyA.addFixture(fixtureA);
+        fixtureA = bodyA.fixtures.get(0);
 
         bodyB = new BodyMock("B");
-        fixtureB = new FixtureMock("B");
-        bodyB.addFixture(fixtureB);
+        fixtureB = bodyB.fixtures.get(0);
 
         bodyC = new BodyMock("C");
-        fixtureC = new FixtureMock("C");
-        bodyC.addFixture(fixtureC);
+        fixtureC = bodyC.fixtures.get(0);
 
         world.addBody(bodyA);
         world.addBody(bodyB);

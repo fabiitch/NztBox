@@ -14,7 +14,7 @@ public class STRenderBoundingRects extends BaseSTMultipleBody {
         createWallAroundScreen();
         BoxDebugSettings debugSettings = debugRenderer.debugSettings;
 
-        debugSettings.drawBounds = true;
+        debugSettings.drawBoudingBoxs = true;
         debugSettings.drawCenter = true;
         debugSettings.drawContactPoint = false;
         debugSettings.drawBodyUserData = false;

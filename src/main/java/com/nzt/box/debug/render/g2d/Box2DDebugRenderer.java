@@ -46,7 +46,7 @@ public class Box2DDebugRenderer extends BoxDebugRender {
             for (int i2 = 0, n2 = fixtures.size; i2 < n2; i2++) {
                 Fixture fixture = fixtures.get(i2);
 
-                if (debugSettings.drawBounds) {
+                if (debugSettings.drawBoudingBoxs) {
                     shapeRenderer.setColor(debugSettings.colorBoundingRect);
                     shapeRenderer.rect(fixture.bodyShape.boundingRect);
                 }

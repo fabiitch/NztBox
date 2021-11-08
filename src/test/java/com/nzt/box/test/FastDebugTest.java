@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 public class FastDebugTest {
     @Test
     public void ff() {
@@ -16,5 +18,12 @@ public class FastDebugTest {
         }
     }
 
+    @Test
+    public void tt() {
 
+        double tt = 0b100101;
+        double ddd = 0.2d + 0.1d;
+        System.out.println("ddd= " + ddd);
+        System.out.println(Double.parseDouble("0.3"));
+    }
 }

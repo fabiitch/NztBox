@@ -97,17 +97,7 @@ public class QuadTreeContainer {
     public void growQuadTree(Fixture fixture) {
         Rectangle rectFixture = fixture.getBoundingRectangle();
         Rectangle rectRoot = root.boundingRect;
-        Rectangle tmpRoot = new Rectangle(rectRoot);
         RectangleUtils.mergeFloorCeil(rectRoot, rectFixture);
-        if (!RectangleUtils.containsStick(rectRoot, rectFixture)) {
-            System.out.println("=========Pb ");
-            System.out.println("rootBefore=" + tmpRoot);
-            System.out.println("rectRoot=" + rectRoot);
-            System.out.println("rectFixture=" + rectFixture);
-            System.out.println("=========Pb ");
-            System.exit(0);
-        }
-
         rebuild(rectRoot, this.maxDepth++);
         root.addFixture(fixture);
     }

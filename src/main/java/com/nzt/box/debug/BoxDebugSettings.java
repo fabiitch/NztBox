@@ -11,7 +11,7 @@ public class BoxDebugSettings {
     public boolean drawBodyUserData = true;
     public boolean drawContactPoint = true;
     public boolean drawCenter = true;//TODO
-    public boolean drawBounds = false;
+    public boolean drawBoudingBoxs = false;
     public boolean drawQuadTree = false;
     public boolean drawQuadTreeData = false;
 

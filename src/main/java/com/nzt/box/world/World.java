@@ -106,8 +106,11 @@ public class World {
                     if (retry) {
                         if (hasContact.continueContact && contactListener != null)
                             contactListener.continueContact(hasContact);
-                        if (hasContact.doCollision)
-                            hasContact.fixtureA.replace(hasContact.fixtureB, hasContact);
+                        if (hasContact.doCollision) {
+                            fixtureA.replace(fixtureB,hasContact);
+                            data.moveBody(hasContact.fixtureB.body);
+                        }
+
                     } else {
                         if (contactListener != null && hasContact.callNextMethods)
                             contactListener.endContact(hasContact);
@@ -124,8 +127,11 @@ public class World {
                             contactListener.preSolve(newContact);
                         data.addContact(newContact);
 
-                        if (newContact.doCollision)
+                        if (newContact.doCollision) {
                             fixtureA.replace(fixtureB, newContact);
+                            data.moveBody(newContact.fixtureB.body);
+                        }
+
                         if (newContact.calculCollisionData)
                             fixtureA.calculCollisionData(fixtureB, newContact);
                         if (newContact.doCollision)
