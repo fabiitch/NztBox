@@ -29,20 +29,20 @@ public class QuadTree implements Pool.Poolable {
     @Override
     public void reset() {
         if (ne != null) {
-            container.quadPool.free(ne);
+            container.poolQuads.free(ne);
             this.ne = null;
         }
         if (nw != null) {
-            container.quadPool.free(nw);
+            container.poolQuads.free(nw);
             this.nw = null;
         }
         if (se != null) {
-            container.quadPool.free(se);
+            container.poolQuads.free(se);
             this.se = null;
         }
 
         if (sw != null) {
-            container.quadPool.free(sw);
+            container.poolQuads.free(sw);
             this.sw = null;
         }
         valuesCount = 0;
@@ -114,10 +114,10 @@ public class QuadTree implements Pool.Poolable {
     public void regroup() {
         if (!isSplitted())
             return;
-        Array<Fixture<?>> fixtureArrayValues = container.fixtureArrayPool.obtain();
+        Array<Fixture<?>> fixtureArrayValues = container.poolFixtureArray.obtain();
         getValuesAndSub(fixtureArrayValues);
 
-        container.quadPool.freeSub(this);
+        container.poolQuads.freeSub(this);
         for (Fixture f : fixtureArrayValues) {
             addValue(f);
         }
@@ -126,18 +126,22 @@ public class QuadTree implements Pool.Poolable {
     public void split() {
         if (isSplitted())
             return;
-        container.quadPool.initSubs(this);
+        container.poolQuads.initSubs(this);
         int newDepth = this.depth + 1;
-        this.nw.init(this, QuadTreeUtils.getNW(boundingRect, sw.boundingRect), newDepth);
+        this.nw.init(this, QuadTreeUtils.getNW(boundingRect, nw.boundingRect), newDepth);
         this.sw.init(this, QuadTreeUtils.getSW(boundingRect, sw.boundingRect), newDepth);
-        this.ne.init(this, QuadTreeUtils.getNE(boundingRect, sw.boundingRect), newDepth);
-        this.se.init(this, QuadTreeUtils.getSE(boundingRect, sw.boundingRect), newDepth);
-        valuesCount = 0;
-        for (int i = 0, n = valuesCount; i < n; i++) { //TODO
-            Fixture fixture = values[i];
-            addFixture(fixture);
-        }
+        this.ne.init(this, QuadTreeUtils.getNE(boundingRect, ne.boundingRect), newDepth);
+        this.se.init(this, QuadTreeUtils.getSE(boundingRect, se.boundingRect), newDepth);
 
+        Array<Fixture<?>> arrayTmp = container.poolFixtureArray.obtain();
+        arrayTmp.addAll(values,0,this.valuesCount);
+
+        this.valuesCount = 0;
+        ArrayUtils.clearValues(values);
+
+        for (int i = 0, n = arrayTmp.size; i < n; i++) { //TODO
+            addFixture(arrayTmp.get(i));
+        }
     }
 
     public QuadTree getQuadTree(Vector2 pos) {
@@ -164,7 +168,7 @@ public class QuadTree implements Pool.Poolable {
         return null;
     }
 
-    private QuadTree getQuadTree(Rectangle rectangle) {
+    public QuadTree getQuadTree(Rectangle rectangle) {
         if (RectangleUtils.containsStick(this.boundingRect, rectangle)) {
             if (!isSplitted())
                 return this;
@@ -180,7 +184,7 @@ public class QuadTree implements Pool.Poolable {
             child = se.getQuadTree(rectangle);
             if (child != null)
                 return child;
-            return null;
+            return this;
         } else {
             return null;
         }
@@ -195,27 +199,14 @@ public class QuadTree implements Pool.Poolable {
         return isSplitted() && countValuesAndSubs() <= container.maxValues / 2;
     }
 
-    private int countValuesCantSplitted() {
-        int count = 0;
-        for (int i = 0, n = valuesCount; i < n; i++) {
-            Fixture fixture = values[i];
-            Rectangle boundingRectangle = fixture.getBoundingRectangle();
-        }
-        return count;
-    }
 
     public boolean shouldSplit() {
-        if (isSplitted()) {
+        if (isSplitted()
+                || this.depth == container.maxDepth
+                || valuesCount <= container.maxValues) {
             return false;
         }
-        int countCantBeSplit = 0;
-        for (int i = 0, n = valuesCount; i < n; i++) { //TODO
-            Fixture fixture = values[i];
-            if (QuadTreeUtils.canRectCanBeSplitted(this.boundingRect, fixture.getBoundingRectangle())) {
-                countCantBeSplit++;
-            }
-        }
-        valuesCount + 1 > container.maxValues && this.depth < container.maxDepth;//TODO a finir
+        return valuesCount - QuadTreeUtils.countValuesCantSplitted(this) >= container.maxValues;
     }
 
     public void clearValues() {
@@ -245,13 +236,14 @@ public class QuadTree implements Pool.Poolable {
     }
 
     public void addValue(Fixture fixture) {
-        if (valuesCount + 1 > container.maxValues && this.depth < container.maxDepth) {
+        if (shouldSplit()) {
             split();
             addFixture(fixture);
         } else {
             if (valuesCount >= container.maxValues)
                 values = Arrays.copyOf(values, valuesCount + container.maxValues);
             values[valuesCount++] = fixture;
+            fixture.quadTree = this;
         }
     }
 

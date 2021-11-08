@@ -79,6 +79,12 @@ public class Box2DDebugRenderer extends BoxDebugRender {
         if (debugSettings.drawQuadTree) {
             drawQuadTree(world.data.quadTreeContainer.root);
         }
+        if (debugSettings.drawQuadTreeData) {
+            spriteBatch.begin();
+            spriteBatch.setProjectionMatrix(projMatrix);
+            drawQuadTreeData(world.data.quadTreeContainer.root);
+            spriteBatch.end();
+        }
 
         shapeRenderer.end();
         contactDraw.clear();
@@ -95,23 +101,21 @@ public class Box2DDebugRenderer extends BoxDebugRender {
             spriteBatch.end();
         }
 
-        if (debugSettings.drawQuadTreeData) {
-            spriteBatch.begin();
-            spriteBatch.setProjectionMatrix(projMatrix);
-            drawQuadTreeData(world.data.quadTreeContainer.root);
-            spriteBatch.end();
-        }
+
     }
 
     public void drawQuadTreeData(QuadTree quadTree) {
         if (quadTree.isSplitted()) {
-            drawQuadTreeData(quadTree.ne);
-            drawQuadTreeData(quadTree.nw);
             drawQuadTreeData(quadTree.se);
             drawQuadTreeData(quadTree.sw);
+            drawQuadTreeData(quadTree.ne);
+            drawQuadTreeData(quadTree.nw);
+//
         } else {
             Rectangle rect = quadTree.boundingRect;
-            bitmapFont.draw(spriteBatch, quadTree.countValuesAndParents() + "", rect.x + rect.width/2, rect.y +rect.height/2);
+            bitmapFont.draw(spriteBatch, "deph " + quadTree.depth, rect.x + rect.width / 2, 40 + rect.y + rect.height / 2);
+            bitmapFont.draw(spriteBatch, "total " + quadTree.countValuesAndParents(), rect.x + rect.width / 2, 20 + rect.y + rect.height / 2);
+            bitmapFont.draw(spriteBatch, "this " + quadTree.valuesCount, rect.x + rect.width / 2, rect.y + rect.height / 2);
         }
     }
 

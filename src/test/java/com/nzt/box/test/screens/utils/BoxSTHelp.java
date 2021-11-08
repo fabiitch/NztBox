@@ -34,8 +34,8 @@ public class BoxSTHelp {
         Fixture fixture = new Fixture(bodyShape);
         body.addFixture(fixture);
         if (userData == null) {
-            body.userData = "B-" + userDataBodyCount;
-            fixture.userData = "F-" + userDataFixtureCount;
+            body.userData = "B-" + userDataBodyCount++;
+            fixture.userData = "F-" + userDataFixtureCount++;
         } else {
             body.userData = "B-" + userData;
             fixture.userData = "F-" + userData;

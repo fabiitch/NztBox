@@ -1,6 +1,5 @@
 package com.nzt.box.world;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
