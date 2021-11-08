@@ -203,10 +203,10 @@ public class QuadTree implements Pool.Poolable {
     public boolean shouldSplit() {
         if (isSplitted()
                 || this.depth == container.maxDepth
-                || valuesCount <= container.maxValues) {
+                || valuesCount + 1 <= container.maxValues) {
             return false;
         }
-        return valuesCount - QuadTreeUtils.countValuesCantSplitted(this) >= container.maxValues;
+        return valuesCount + 1 - QuadTreeUtils.countValuesCantBeSplitted(this) >= container.maxValues;
     }
 
     public void clearValues() {

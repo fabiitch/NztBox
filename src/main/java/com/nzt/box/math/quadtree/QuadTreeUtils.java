@@ -56,11 +56,15 @@ public class QuadTreeUtils {
                 || RectangleUtils.containsStick(getSE(container, rectTmp), rectInside);
     }
 
-    public static int countValuesCantSplitted(QuadTree quadTree) {
+    public static int countValuesCanBeSplitted(QuadTree quadTree) {
+        return quadTree.valuesCount - countValuesCantBeSplitted(quadTree);
+    }
+
+    public static int countValuesCantBeSplitted(QuadTree quadTree) {
         int count = 0;
         for (int i = 0, n = quadTree.valuesCount; i < n; i++) {
             Fixture fixture = quadTree.values[i];
-            if (QuadTreeUtils.splitContainsRect(quadTree.boundingRect, fixture.getBoundingRectangle()))
+            if (!QuadTreeUtils.splitContainsRect(quadTree.boundingRect, fixture.getBoundingRectangle()))
                 count++;
 
         }

@@ -49,6 +49,9 @@ public class IntersectRectangleTest implements IntersectTest {
         Assertions.assertTrue(contactRectangle.testContact(rect));
 
         rect.setPosition(0, -100);
+        Assertions.assertTrue(contactRectangle.testContact(rect));
+
+        rect.setPosition(0, -100.0001f);
         Assertions.assertFalse(contactRectangle.testContact(rect));
     }
 
