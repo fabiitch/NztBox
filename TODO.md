@@ -12,5 +12,3 @@
 * https://github.com/UQdeco2800/2021-ext-studio-1 sonarcube ds build.gradle
 
 * polygon rect intersect (bug github)
-
-* boite englobante en broadphase

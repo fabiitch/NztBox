@@ -1,6 +1,6 @@
 package com.nzt.box.test.api.unit.intersectors;
 
-public interface IntersectTest {
+public interface ContactShapeTest {
 
 
     void init();

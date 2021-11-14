@@ -24,7 +24,7 @@ public class STIntantForces extends Box2dTestScreen {
         world.addBody(body);
 
         infoMsg("Use ZQSD for move body");
-        Gdx.input.setInputProcessor(addInput());
+        addInputProcessor(addInput());
     }
 
     public InputProcessor addInput() {

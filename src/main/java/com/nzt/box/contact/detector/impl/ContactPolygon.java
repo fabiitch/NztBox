@@ -8,7 +8,6 @@ import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.math.intersectors.IntersectorCircle;
 import com.nzt.gdx.math.intersectors.IntersectorPolygon;
 import com.nzt.gdx.math.shapes.Segment;
-import com.nzt.gdx.math.shapes.builders.PolygonBuilder;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
 import com.nzt.gdx.math.shapes.utils.PolygonUtils;
 import com.nzt.gdx.math.vectors.V2;
@@ -43,7 +42,6 @@ public class ContactPolygon implements ShapeContact {
         V2.getNormal(tangent, contactFixture.collisionData.normal);
 
         contactFixture.collisionData.collisionPoint.set(contactPoint);
-
     }
 
     @Override
@@ -67,11 +65,14 @@ public class ContactPolygon implements ShapeContact {
         boolean overlaps = IntersectorPolygon.rectangle(myPolygon, rectangle, IntersectorPolygon.tmpTranslationVector);//TODO group avec replace
         if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
+        else {
+            throw new GdxRuntimeException("Contact poly/rect, dont find intersection");
+        }
     }
 
     @Override
     public boolean testContact(Polygon polygon) {
-        return Intersector.intersectPolygons(polygon, myPolygon, null);
+        return IntersectorPolygon.polygons(polygon, myPolygon, null);
     }
 
     @Override
@@ -94,7 +95,13 @@ public class ContactPolygon implements ShapeContact {
 
         Polygon polygonOverlaps = new Polygon();
         boolean overlaps2 = Intersector.intersectPolygons(myPolygon, polygon, polygonOverlaps);
-        PolygonUtils.getCenter(polygonOverlaps, contactFixture.collisionData.collisionPoint);
+        if (polygonOverlaps.getTransformedVertices().length == 0) {//TODO
+            System.out.println("no poly");
+        }
+        if(overlaps2){
+            PolygonUtils.getCenter(polygonOverlaps, contactFixture.collisionData.collisionPoint);
+        }
+
         if (overlaps != overlaps2 != true) {
             throw new GdxRuntimeException("Intersector.intersectPolygons=" + overlaps + " ||| IntersectorRectangle.polygon=" + overlaps2);
         }

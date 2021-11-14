@@ -26,8 +26,8 @@ public class WorldData {
     public void addBody(Body body) {
         body.dirtyPos = true;
         bodies.add(body);
-        body.updatePosition();
         quadTreeContainer.addBody(body);
+        body.updatePosition();
     }
 
     public void moveBody(Body body) {
@@ -37,6 +37,18 @@ public class WorldData {
 
     public void removeBody(Body body) {
         quadTreeContainer.removeBody(body);
+
+        for (ContactBody contactBody : body.contactsBody) {
+            for (ContactFixture contactFixture : contactBody.contactsFixture) {
+                contactFixture.fixtureA.contacts.removeValue(contactFixture, true);
+                contactFixture.fixtureB.contacts.removeValue(contactFixture, true);
+            }
+            if (contactBody.imBodyA(body)) {
+                contactBody.bodyB.contactsBody.removeValue(contactBody, true);
+            }else{
+                contactBody.bodyA.contactsBody.removeValue(contactBody, true);
+            }
+        }
         body.contactsBody.clear();
         bodies.removeValue(body, true); //remove body
     }

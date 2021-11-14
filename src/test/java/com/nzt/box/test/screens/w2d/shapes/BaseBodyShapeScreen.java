@@ -93,7 +93,7 @@ public abstract class BaseBodyShapeScreen<B extends BodyShape> extends Box2dTest
                 return false;
             }
         };
-        Gdx.input.setInputProcessor(inputAdapter);
+        addInputProcessor(inputAdapter);
     }
 
     boolean doScale = false;

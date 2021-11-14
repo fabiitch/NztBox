@@ -1,6 +1,5 @@
 package com.nzt.box.test.screens.w2d;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
@@ -28,6 +27,7 @@ public abstract class BaseST2Body<S1 extends BodyShape, S2 extends BodyShape> ex
 
     protected Vector2 posBodyA = new Vector2(-200, 0);
     protected Vector2 posBodyB = new Vector2(200, 0);
+    protected boolean contact = false;
 
     public BaseST2Body(FastTesterMain main, BodyType bodyTypeA, BodyType bodyTypeB) {
         super(main);
@@ -53,11 +53,13 @@ public abstract class BaseST2Body<S1 extends BodyShape, S2 extends BodyShape> ex
         ContactListener contactListener = new ContactListener() {
             @Override
             public void beginContact(ContactFixture contactBody) {
+                contact = true;
                 HudDebug.update("Collision", true, Color.RED);
             }
 
             @Override
             public void endContact(ContactFixture contactBody) {
+                contact = false;
                 HudDebug.update("Collision", false, Color.BLUE);
             }
 
@@ -83,7 +85,7 @@ public abstract class BaseST2Body<S1 extends BodyShape, S2 extends BodyShape> ex
             shape2 += "B";
         }
         addInfoTestMsg();
-        Gdx.input.setInputProcessor(addInputListener());
+        addInputProcessor(addInputListener());
     }
 
     protected abstract InputProcessor addInputListener();

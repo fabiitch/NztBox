@@ -1,6 +1,7 @@
 package com.nzt.box.test.api.run;
 
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.test.api.mock.BodyMock;
@@ -20,13 +21,13 @@ public abstract class Base3BodyContactTest {
     public void init() {
         world = new World();
 
-        bodyA = new BodyMock("A");
+        bodyA = new BodyMock(BodyType.Kinematic,"A");
         fixtureA = bodyA.fixtures.get(0);
 
-        bodyB = new BodyMock("B");
+        bodyB = new BodyMock(BodyType.Kinematic,"B");
         fixtureB = bodyB.fixtures.get(0);
 
-        bodyC = new BodyMock("C");
+        bodyC = new BodyMock(BodyType.Kinematic,"C");
         fixtureC = bodyC.fixtures.get(0);
 
         world.addBody(bodyA);

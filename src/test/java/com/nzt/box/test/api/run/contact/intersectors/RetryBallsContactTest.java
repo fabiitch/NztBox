@@ -9,9 +9,13 @@ import com.nzt.box.test.api.run.BaseBoxTest;
 import com.nzt.box.test.api.BoxTestMethods;
 import com.nzt.box.test.api.mock.ContactListenerMock;
 import com.nzt.gdx.test.api.tester.PredicateSuccess;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Vérif que la collision arrive bien a chaque fois
+ */
 public class RetryBallsContactTest extends BaseBoxTest {
 
     protected Body ball1, ball2;
@@ -24,6 +28,7 @@ public class RetryBallsContactTest extends BaseBoxTest {
     int nbCollision = 0;
 
     public RetryBallsContactTest() {
+        this.maxTimeTestDuration = 5;
         contactListener = new ContactListenerMock() {
             @Override
             public void beginContact(ContactFixture contactFixture) {
@@ -41,13 +46,12 @@ public class RetryBallsContactTest extends BaseBoxTest {
     @Test
     public void retryContactTest() {
         for (int i = 0; i < NB_TEST; i++) {
+            this.timeElapsed = 0;
             initNztBox();
             collision = false;
             world.contactListener = contactListener;
             ball1 = createBall(BodyType.Dynamic);
             ball2 = createBall(BodyType.Dynamic);
-            world.addBody(ball1);
-            world.addBody(ball2);
 
             ball1.setPosition(-200, 0);
             ball2.setPosition(0, -200);

@@ -1,7 +1,6 @@
 package com.nzt.box.bodies;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
@@ -10,6 +9,9 @@ import com.nzt.box.shape.BodyShape;
 
 public class Fixture<S extends BodyShape> {
 
+    public static int countTestContact = 0;
+
+    public boolean active = true;
     public Body body;
     public S bodyShape;
     public Object userData;
@@ -28,16 +30,19 @@ public class Fixture<S extends BodyShape> {
         return this.bodyShape.computeBoundingRect();
     }
 
-    public void changeBodyPosition(float x, float y) {
-        bodyShape.changeBodyPosition(x, y);
+    public void setPosition(float x, float y, float rotation) {
+        bodyShape.setPosition(x, y);
+        bodyShape.setRotation(rotation);
+        computeBoundingRect();
+        if (this.quadTree != null)
+            this.quadTree.container.moveFixture(this);
     }
 
     public void setRotation(float rotation) {
         bodyShape.setRotation(rotation);
-    }
-
-    public void changeBodyPosition(Vector2 position) {
-        bodyShape.changeBodyPosition(position);
+        computeBoundingRect();
+        if (this.quadTree != null)
+            this.quadTree.container.moveFixture(this);
     }
 
     public ContactFixture hasContact(Fixture fixtureB) {
@@ -51,6 +56,7 @@ public class Fixture<S extends BodyShape> {
     }
 
     public boolean testContact(Fixture fixtureB) {
+        countTestContact++;
         ShapeContact contactVisitor = bodyShape.getContactVisitor();
         boolean b = fixtureB.bodyShape.testContact(contactVisitor);
         return b;
@@ -65,5 +71,4 @@ public class Fixture<S extends BodyShape> {
         ShapeContact contactVisitor = bodyShape.getContactVisitor();
         fixtureB.bodyShape.calculCollisionData(contactVisitor, contactFixture);
     }
-
 }

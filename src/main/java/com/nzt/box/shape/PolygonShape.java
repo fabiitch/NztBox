@@ -18,9 +18,9 @@ public class PolygonShape extends BodyShape<Polygon> {
 
     public PolygonShape(Polygon shape) {
         super(shape);
-        boolean convex = PolygonUtils.isConvex(shape);
+        PolygonUtils.ensureClockWise(this.shape);
         this.boundingRect = shape.getBoundingRectangle();
-        if (!convex)
+        if (!PolygonUtils.isConvex(shape))
             throw new GdxRuntimeException("NztBox, PolygonShape allow only convex polygons");
     }
 
@@ -73,7 +73,7 @@ public class PolygonShape extends BodyShape<Polygon> {
     }
 
     @Override
-    public void changeBodyPosition(float x, float y) {
+    public void setPosition(float x, float y) {
         shape.setPosition(x, y);
     }
 

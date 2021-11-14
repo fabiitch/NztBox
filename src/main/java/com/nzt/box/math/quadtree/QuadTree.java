@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Pool;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
-import com.nzt.gdx.utils.ArrayUtils;
+import com.nzt.gdx.utils.arrays.ArrayUtils;
 
 import java.util.Arrays;
 
@@ -84,6 +84,16 @@ public class QuadTree implements Pool.Poolable {
         return valuesCount + countSubValues();
     }
 
+    public Array<Fixture<?>> getValuesAndParents(Array<Fixture<?>> fixtureArray) {
+        for (int i = 0; i < valuesCount; i++) {
+            fixtureArray.add(values[i]);
+        }
+        if (parent != null) {
+            parent.getValuesAndParents(fixtureArray);
+        }
+        return fixtureArray;
+    }
+
     public Array<Fixture<?>> getValuesAndSub(Array<Fixture<?>> fixtureArray) {
         for (int i = 0; i < valuesCount; i++) {
             fixtureArray.add(values[i]);
@@ -134,7 +144,7 @@ public class QuadTree implements Pool.Poolable {
         this.se.init(this, QuadTreeUtils.getSE(boundingRect, se.boundingRect), newDepth);
 
         Array<Fixture<?>> arrayTmp = container.poolFixtureArray.obtain();
-        arrayTmp.addAll(values,0,this.valuesCount);
+        arrayTmp.addAll(values, 0, this.valuesCount);
 
         this.valuesCount = 0;
         ArrayUtils.clearValues(values);

@@ -46,6 +46,7 @@ abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodySha
                 contactBody.calculCollisionData = true;
             }
         };
+        debugRenderer.debugSettings.drawContactNormal = true;
     }
 
     @Override

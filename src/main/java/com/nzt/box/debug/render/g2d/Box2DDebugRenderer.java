@@ -30,8 +30,8 @@ public class Box2DDebugRenderer extends BoxDebugRender {
     }
 
 
-    private Vector2 tmp1 = new Vector2();
-    private Vector2 tmp2 = new Vector2();
+    private Vector2 tmp1 = new Vector2(), tmp2 = new Vector2(), tmp3 = new Vector2();
+
     private Array<ContactFixture> contactDraw = new Array<>();
 
     public void render(World world, Matrix4 projMatrix) {
@@ -54,16 +54,25 @@ public class Box2DDebugRenderer extends BoxDebugRender {
                 shapeRenderer.setColor(debugSettings.getColorBody(body));
                 fixture.bodyShape.draw(shapeRenderer);
 
-                if (debugSettings.drawContactPoint) {
+                if (debugSettings.drawContactPoint || debugSettings.drawContactNormal) {
                     Array<ContactFixture> contacts = fixture.contacts;
-                    shapeRenderer.setColor(debugSettings.colorContactPoint);
                     for (int i3 = 0, n3 = fixture.contacts.size; i3 < n3; i3++) {
                         ContactFixture contactFixture = contacts.get(i3);
                         if (!contactDraw.contains(contactFixture, true)) {
                             Vector2 collisionPoint = contactFixture.collisionData.collisionPoint;
+                            if (debugSettings.drawContactPoint) {
+                                shapeRenderer.setColor(debugSettings.colorContactPoint);
+                                shapeRenderer.line(tmp1.set(collisionPoint).add(5, 0), tmp2.set(collisionPoint).add(-5, 0));
+                                shapeRenderer.line(tmp1.set(collisionPoint).add(0, 5), tmp2.set(collisionPoint).add(0, -5));
+                            }
+                            if (debugSettings.drawContactNormal) {
+                                shapeRenderer.setColor(debugSettings.colorContactNormal);
+                                Vector2 contactNormal = contactFixture.collisionData.normal;
+                                tmp3.set(contactNormal);
+                                shapeRenderer.line(tmp1.set(collisionPoint).add(tmp3.set(contactNormal).scl(100)),
+                                        tmp2.set(collisionPoint).sub(tmp3.set(contactNormal).scl(100)));
+                            }
                             contactDraw.add(contactFixture);
-                            shapeRenderer.line(tmp1.set(collisionPoint).add(5, 0), tmp2.set(collisionPoint).add(-5, 0));
-                            shapeRenderer.line(tmp1.set(collisionPoint).add(0, 5), tmp2.set(collisionPoint).add(0, -5));
                         }
                     }
                 }

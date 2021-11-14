@@ -19,7 +19,7 @@ public class STQuadTreeReplaceBody extends Box2dTestScreen {
         debugSettings.drawBoudingBoxs = true;
         boxSTHelp.createCircle(100, boxSTHelp.basicDynamicBodyDef, new Vector2(), new Vector2(), null);
         boxSTHelp.createCircle(100, boxSTHelp.basicDynamicBodyDef, new Vector2(), new Vector2(), null);
-        Gdx.input.setInputProcessor(input());
+        addInputProcessor(input());
     }
 
     private InputProcessor input() {

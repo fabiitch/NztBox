@@ -15,9 +15,6 @@ import com.nzt.gdx.math.vectors.V2;
 
 public class RectangleWalls {
 
-    private final static float SCREEN_WITDH = BoxTestScreen.SCREEN_WITDH;
-    private final static float SCREEN_HEIGHT = BoxTestScreen.SCREEN_HEIGHT;
-
     public Body botWall, topWall, rightWall, leftWall;
     public Array<Body> walls;
     public BodyDef bodyDef = new BodyDef(BodyType.Static).mass(1).transfert(1).receive(1).restitution(1);
@@ -43,22 +40,24 @@ public class RectangleWalls {
     }
 
     public void create(Rectangle rect, float size) {
+        final int decal = 5;
+
         Segment ab = RectangleUtils.getAB(rect, new Segment());
-        Rectangle rectAB = new Rectangle(ab.a.x, ab.a.y + size / 2, rect.width, size);
+        Rectangle rectAB = new Rectangle(ab.a.x, ab.a.y - size + decal, rect.width, size);
         botWall = createWall(rectAB, "Wall Bot");
 
         Segment bc = RectangleUtils.getBC(rect, new Segment());
-        Rectangle rectBC = new Rectangle(bc.a.x - size, bc.a.y, size, rect.height);
+        Rectangle rectBC = new Rectangle(bc.a.x - decal, bc.a.y, size, rect.height);
         rightWall = createWall(rectBC, "Wall Right");
-
+//
         Segment cd = new Segment(RectangleUtils.getD(rect, new Vector2()), RectangleUtils.getC(rect, new Vector2()));
-        Rectangle rectCD = new Rectangle(cd.a.x, cd.a.y - size / 2, cd.dst(), size);
+        Rectangle rectCD = new Rectangle(cd.a.x, cd.a.y - decal, cd.dst(), size);
         topWall = createWall(rectCD, "Wall Top");
 
         Segment ad = RectangleUtils.getAD(rect, new Segment());
-        Rectangle rectAD = new Rectangle(ad.a.x + size / 2, ad.a.y, size, ad.dst());
+        Rectangle rectAD = new Rectangle(ad.a.x - size + decal, ad.a.y, size, ad.dst());
         leftWall = createWall(rectAD, "Wall Left");
-
+//
         walls.add(topWall, botWall, rightWall, leftWall);
     }
 
