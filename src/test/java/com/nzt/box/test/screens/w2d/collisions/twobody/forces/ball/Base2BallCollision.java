@@ -32,7 +32,7 @@ abstract class Base2BallCollision extends Box2dTestScreen {
     public Base2BallCollision(FastTesterMain main) {
         super(main);
         infoMsg("Click for reset");
-        Gdx.input.setInputProcessor(addInputListener());
+        addInputProcessor(addInputListener());
         world.contactListener = addContactListener();
 
         HudDebug.addTopRight("beginContact", false);

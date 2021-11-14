@@ -85,7 +85,8 @@ public class Body implements Pool.Poolable {
     public void addFixture(Fixture fixture) {
         fixtures.add(fixture);
         fixture.body = this;
-        updatePosition();
+        fixture.bodyShape.setPosition(this.position.x, this.position.y);
+        fixture.bodyShape.setRotation(rotation);
         this.maxDstFixture = Math.max(this.maxDstFixture, fixture.bodyShape.maxDst);
         this.minDstFixture = Math.max(this.minDstFixture, fixture.bodyShape.minDst);
     }
@@ -120,9 +121,9 @@ public class Body implements Pool.Poolable {
     public void updatePosition() {
         for (int i = 0, n = fixtures.size; i < n; i++) {
             Fixture fixture = fixtures.get(i);
-            fixture.changeBodyPosition(position.x, position.y);
-            fixture.setRotation(rotation);
-            fixture.computeBoundingRect();
+            if (fixture.active) {
+                fixture.setPosition(position.x, position.y, rotation);
+            }
         }
         dirtyPos = true;
     }

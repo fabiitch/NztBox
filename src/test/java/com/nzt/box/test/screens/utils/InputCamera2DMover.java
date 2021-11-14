@@ -6,13 +6,20 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.gdx.math.vectors.V3;
 
-public class Camera2DInputMover extends InputAdapter {
+public class InputCamera2DMover extends InputAdapter {
     private Vector2 cameraVelocity = new Vector2();
     private OrthographicCamera camera;
 
     public float baseVelocity = 10;
-    public Camera2DInputMover(OrthographicCamera camera) {
+
+    public InputCamera2DMover(OrthographicCamera camera) {
         this.camera = camera;
+    }
+
+    private final Vector2 tmpVel = new Vector2();
+
+    public void updateCamera() {
+        V3.add(camera.position, tmpVel.set(cameraVelocity).scl(camera.zoom));
     }
 
     @Override
@@ -26,7 +33,6 @@ public class Camera2DInputMover extends InputAdapter {
         } else if (keycode == Input.Keys.LEFT) {
             cameraVelocity.add(-baseVelocity, 0);
         }
-        V3.add(camera.position, cameraVelocity.cpy().scl(camera.zoom));
         return false;
     }
 
@@ -41,13 +47,22 @@ public class Camera2DInputMover extends InputAdapter {
         } else if (keycode == Input.Keys.LEFT) {
             cameraVelocity.add(baseVelocity, 0);
         }
-        V3.add(camera.position, cameraVelocity.cpy().scl(camera.zoom));
         return false;
     }
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        camera.zoom += amountY * 2;
+        if (amountY > 0) {
+            if (camera.zoom < 1)
+                camera.zoom = 1;
+            else
+                camera.zoom += 1;
+        } else {
+            if (camera.zoom > 1)
+                camera.zoom -= 1;
+            else
+                camera.zoom /= 2;
+        }
         return false;
     }
 }

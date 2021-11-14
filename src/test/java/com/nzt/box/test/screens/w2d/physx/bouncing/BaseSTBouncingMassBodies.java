@@ -1,6 +1,5 @@
 package com.nzt.box.test.screens.w2d.physx.bouncing;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -35,7 +34,7 @@ public abstract class BaseSTBouncingMassBodies extends BaseSTMultipleBody {
         BoxDebugUtils.toHud(bodyDef,"Ball", HudDebugPosition.LEFT_MIDDLE);
         BoxDebugUtils.toHud(bodyDef,"Walls", HudDebugPosition.RIGHT_MIDDLE);
         infoMsg("Click to add 10 balls");
-        Gdx.input.setInputProcessor(new SimpleClickInputHandler() {
+        addInputProcessor(new SimpleClickInputHandler() {
             @Override
             public boolean click(int screenX, int screenY, int pointer, int button) {
                 for (int i = 0; i < 10; i++) {

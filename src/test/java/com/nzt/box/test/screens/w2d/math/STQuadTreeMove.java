@@ -1,16 +1,17 @@
 package com.nzt.box.test.screens.w2d.math;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.Fixture;
 import com.nzt.box.debug.BoxDebugSettings;
-import com.nzt.box.test.screens.utils.Camera2DInputMover;
+import com.nzt.box.test.screens.utils.InputCamera2DMover;
 import com.nzt.box.test.screens.w2d.BaseSTMultipleBody;
+import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import com.nzt.gdx.test.api.tester.GdxTestUtils;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
@@ -37,18 +38,20 @@ public class STQuadTreeMove extends BaseSTMultipleBody {
         debugSettings.drawBodyUserData = true;
         debugSettings.drawBoudingBoxs = false;
 
-        createBody();
+        create10Bodies();
         world.simulationRunning = true;
-        rectangleScreen = GdxTestUtils.screenAsRectangle(false);
-        Gdx.input.setInputProcessor(input());
+        rectangleScreen = GdxTestUtils.screenAsRectangle(camera, true);
+
+        HudDebug.addBotRight("ccouunt", Fixture.countTestContact);
+        addInputProcessor(input());
     }
 
-    public InputProcessor input() {
-        return new Camera2DInputMover((OrthographicCamera) this.camera) {
+    public InputAdapter input() {
+        return new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.T)
-                    createBody();
+                    create10Bodies();
                 return super.keyDown(keycode);
             }
 
@@ -57,17 +60,17 @@ public class STQuadTreeMove extends BaseSTMultipleBody {
                 rectangleWalls.removeWalls();
                 Rectangle rect = RectangleUtils.createFromCenter(0, 0,
                         camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
-                rectangleWalls.create(rect, 10);
+                rectangleWalls.create(rect, 200);
                 return super.touchUp(screenX, screenY, pointer, button);
             }
         };
     }
 
-    private void createBody() {
+    private void create10Bodies() {
         for (int i = 0; i < 10; i++) {
             Vector2 velocity = new Vector2(1, 0).setToRandomDirection().setLength(150);
             Vector2 pos = new Vector2();
-            pos.x = MathUtils.random(-camera.viewportWidth * camera.zoom / 2 + 3, camera.viewportWidth * camera.zoom / 2  / 2 - 3);
+            pos.x = MathUtils.random(-camera.viewportWidth * camera.zoom / 2 + 3, camera.viewportWidth * camera.zoom / 2 / 2 - 3);
             pos.y = MathUtils.random(-camera.viewportHeight * camera.zoom / 2 + 3, camera.viewportHeight * camera.zoom / 2 - 3);
             boxSTHelp.createCircle(10, boxSTHelp.basicDynamicBodyDef, pos, velocity, null);
         }
@@ -85,9 +88,11 @@ public class STQuadTreeMove extends BaseSTMultipleBody {
     public void doRenderM(float dt) {
         countBodyIn = 0;
         for (Body body : world.data.bodies) {
-            if (rectangleScreen.contains(body.getPosition(tmp)))
+            Vector2 position = body.getPosition(tmp);
+            if (rectangleScreen.contains(position))
                 countBodyIn++;
         }
+        HudDebug.update("ccouunt", Fixture.countTestContact);
         debugMsg("Body in rect", countBodyIn);
     }
 }

@@ -45,7 +45,7 @@ public class RectangleShape extends BodyShape<Rectangle> {
     }
 
     @Override
-    public void changeBodyPosition(float x, float y) {
+    public void setPosition(float x, float y) {
         shape.setPosition(x - shape.width / 2, y - shape.height / 2);
     }
 

@@ -9,7 +9,12 @@ public class BoxDebugSettings {
     public boolean drawInactive = false;
     public boolean drawVelocity = true;
     public boolean drawBodyUserData = true;
+
     public boolean drawContactPoint = true;
+    public Color colorContactPoint = Color.RED;
+    public boolean drawContactNormal = false;
+    public Color colorContactNormal = Color.BLUE;
+
     public boolean drawCenter = true;//TODO
     public boolean drawBoudingBoxs = false;
     public boolean drawQuadTree = false;
@@ -17,13 +22,11 @@ public class BoxDebugSettings {
 
     public Color colorDynamicBody = Color.CYAN;
     public Color colorKinematicBody = Color.CYAN;
-    public Color colorStaticBody = Color.CYAN;
+    public Color colorStaticBody = Color.GRAY;
     public Color colorInactiveBody = Color.GRAY;
 
     public Color colorBoundingRect = Color.YELLOW;
     public Color colorVelocity = Color.GREEN;
-    public Color colorContactPoint = Color.RED;
-
     public Color colorQuadTree = Color.PURPLE;
 
     public BoxDebugSettings() {

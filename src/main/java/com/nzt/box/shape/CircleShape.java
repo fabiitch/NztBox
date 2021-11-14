@@ -64,7 +64,7 @@ public class CircleShape extends BodyShape<Circle> {
     }
 
     @Override
-    public void changeBodyPosition(float x, float y) {
+    public void setPosition(float x, float y) {
         shape.setPosition(x, y);
     }
 

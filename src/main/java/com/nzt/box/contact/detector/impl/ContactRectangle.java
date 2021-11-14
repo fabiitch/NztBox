@@ -25,7 +25,7 @@ public class ContactRectangle implements ShapeContact {
 
     @Override
     public boolean testContact(Circle circle) {
-        return Intersector.overlaps(circle, myRectangle);
+        return IntersectorCircle.overlapStickRectangle(circle, myRectangle);
     }
 
     @Override

@@ -68,11 +68,10 @@ public class QuadTreeContainer {
             root.removeFixture(fixture);
     }
 
-    public void moveBody(Body body) {
-        Array<Fixture<?>> fixtures = body.fixtures;
-        for (Fixture fixture : fixtures) {
-            QuadTree quadTreeBefore = fixture.quadTree;
-            Rectangle boundingRectangle = fixture.getBoundingRectangle();
+    public void moveFixture(Fixture<?> fixture) {
+        QuadTree quadTreeBefore = fixture.quadTree;
+        Rectangle boundingRectangle = fixture.getBoundingRectangle();
+        if (!RectangleUtils.containsStick(quadTreeBefore.boundingRect, boundingRectangle)) {
             QuadTree newQuadTree = root.getQuadTree(boundingRectangle);
             if (newQuadTree == null) {
                 growQuadTree(fixture);
@@ -82,6 +81,13 @@ public class QuadTreeContainer {
                 quadTreeBefore.removeValue(fixture);
                 newQuadTree.addFixture(fixture);
             }
+        }
+    }
+
+    public void moveBody(Body body) {
+        Array<Fixture<?>> fixtures = body.fixtures;
+        for (Fixture fixture : fixtures) {
+            moveFixture(fixture);
         }
     }
 

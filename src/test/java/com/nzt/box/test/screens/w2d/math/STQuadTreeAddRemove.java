@@ -12,7 +12,7 @@ import com.nzt.box.bodies.Fixture;
 import com.nzt.box.debug.BoxDebugSettings;
 import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
-import com.nzt.box.test.screens.utils.Camera2DInputMover;
+import com.nzt.box.test.screens.utils.InputCamera2DMover;
 import com.nzt.gdx.input.utils.InputUtils;
 import com.nzt.gdx.test.api.tester.GdxTestUtils;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
@@ -39,7 +39,7 @@ public class STQuadTreeAddRemove extends Box2dTestScreen {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                Gdx.input.setInputProcessor(inputProcessor());
+                addInputProcessor(inputProcessor());
             }
         }, 0.1f);
         debugMsg("maxValues :", world.data.quadTreeContainer.maxValues);
@@ -52,7 +52,7 @@ public class STQuadTreeAddRemove extends Box2dTestScreen {
 
 
     public InputProcessor inputProcessor() {
-        return new Camera2DInputMover((OrthographicCamera) this.camera) {
+        return new InputCamera2DMover((OrthographicCamera) this.camera) {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector2 clickPos = InputUtils.getClickPos(camera, screenX, screenY);

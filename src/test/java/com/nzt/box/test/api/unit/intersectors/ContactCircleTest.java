@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class IntersectCircleTest implements IntersectTest {
+public class ContactCircleTest implements ContactShapeTest {
 
     private static ContactCircle contactCircle = new ContactCircle();
 
@@ -25,10 +25,13 @@ public class IntersectCircleTest implements IntersectTest {
         Circle c2 = new Circle(0, 0, 50);
         Assertions.assertTrue(contactCircle.testContact(c2));
 
-        c2.setPosition(200, 0);
+        c2.setPosition(199.99999f, 0);//stick before
         Assertions.assertTrue(contactCircle.testContact(c2));
 
-        c2.setPosition(200.01f, 0);
+        c2.setPosition(200, 0);//stick
+        Assertions.assertTrue(contactCircle.testContact(c2));
+
+        c2.setPosition(200.01f, 0);//stick after
         Assertions.assertFalse(contactCircle.testContact(c2));
 
         c2.setRadius(51);
@@ -48,6 +51,15 @@ public class IntersectCircleTest implements IntersectTest {
 
         rect.setPosition(151, 0);
         Assertions.assertFalse(contactCircle.testContact(rect));
+
+        rect.setPosition(149.99999f, 0);//stick before
+        Assertions.assertTrue(contactCircle.testContact(rect));
+
+        rect.setPosition(150, 0);//stick
+        Assertions.assertTrue(contactCircle.testContact(rect));
+
+        rect.setPosition(150.001f, 0);//stick after
+        Assertions.assertFalse(contactCircle.testContact(rect));
     }
 
 
@@ -60,6 +72,15 @@ public class IntersectCircleTest implements IntersectTest {
         Assertions.assertTrue(contactCircle.testContact(polygon));
 
         polygon.setPosition(151, 0);
+        Assertions.assertFalse(contactCircle.testContact(polygon));
+
+        polygon.setPosition(149.9999f, 0);//stick before
+        Assertions.assertTrue(contactCircle.testContact(polygon));
+
+        polygon.setPosition(150, 0);//stick
+        Assertions.assertTrue(contactCircle.testContact(polygon));
+
+        polygon.setPosition(150.0001f, 0);//stick after
         Assertions.assertFalse(contactCircle.testContact(polygon));
     }
 }
