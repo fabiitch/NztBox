@@ -26,6 +26,8 @@ public abstract class BaseSTBouncingMassBodies extends BaseSTMultipleBody {
         super(main);
         this.bodyDef = bodyDef();
         debugRenderer.debugSettings.drawVelocity = false;
+        debugRenderer.debugSettings.drawQuadTree = true;
+        debugRenderer.debugSettings.drawQuadTreeData = true;
         createWallAroundScreen();
         rectScreen = new Rectangle(-SCREEN_WITDH / 2, -SCREEN_HEIGHT / 2, SCREEN_WITDH, SCREEN_HEIGHT);
         for (int i = 0; i < 10; i++) {

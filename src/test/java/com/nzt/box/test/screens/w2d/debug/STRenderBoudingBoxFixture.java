@@ -8,13 +8,12 @@ import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 @TestScreenList(group = "2D.debug")
-public class STRenderBoundingRects extends BaseSTMultipleBody {
-    public STRenderBoundingRects(FastTesterMain main) {
+public class STRenderBoudingBoxFixture extends BaseSTMultipleBody {
+    public STRenderBoudingBoxFixture(FastTesterMain main) {
         super(main);
         createWallAroundScreen();
         BoxDebugSettings debugSettings = debugRenderer.debugSettings;
-
-        debugSettings.drawBoudingBoxs = true;
+        debugSettings.drawBoudingsBoxFixtures = true;
         debugSettings.drawCenter = true;
         debugSettings.drawContactPoint = false;
         debugSettings.drawBodyUserData = false;
@@ -37,6 +36,6 @@ public class STRenderBoundingRects extends BaseSTMultipleBody {
 
     @Override
     public String getTestExplication() {
-        return "Test draw boundingRect";
+        return "Test draw boudingbox fixture";
     }
 }

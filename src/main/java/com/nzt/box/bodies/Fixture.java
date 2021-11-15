@@ -8,9 +8,6 @@ import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.shape.BodyShape;
 
 public class Fixture<S extends BodyShape> {
-
-    public static int countTestContact = 0;
-
     public boolean active = true;
     public Body body;
     public S bodyShape;
@@ -56,7 +53,6 @@ public class Fixture<S extends BodyShape> {
     }
 
     public boolean testContact(Fixture fixtureB) {
-        countTestContact++;
         ShapeContact contactVisitor = bodyShape.getContactVisitor();
         boolean b = fixtureB.bodyShape.testContact(contactVisitor);
         return b;

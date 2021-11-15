@@ -28,7 +28,7 @@ public class STQuadTreeAddRemove extends Box2dTestScreen {
         debugSettings.drawCenter = false;
         debugSettings.drawVelocity = false;
         debugSettings.drawBodyUserData = true;
-        debugSettings.drawBoudingBoxs = true;
+        debugSettings.drawBoudingsBoxFixtures = true;
 
         infoMsg("arrow for move, mouse for zoom");
         infoMsg("Left for create rect");

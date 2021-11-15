@@ -16,7 +16,7 @@ public class STQuadTreeReplaceBody extends Box2dTestScreen {
         BoxDebugSettings debugSettings = debugRenderer.debugSettings;
         debugSettings.drawQuadTreeData = true;
         debugSettings.drawQuadTree = true;
-        debugSettings.drawBoudingBoxs = true;
+        debugSettings.drawBoudingsBoxFixtures = true;
         boxSTHelp.createCircle(100, boxSTHelp.basicDynamicBodyDef, new Vector2(), new Vector2(), null);
         boxSTHelp.createCircle(100, boxSTHelp.basicDynamicBodyDef, new Vector2(), new Vector2(), null);
         addInputProcessor(input());

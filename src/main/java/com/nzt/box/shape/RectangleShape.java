@@ -29,17 +29,6 @@ public class RectangleShape extends BodyShape<Rectangle> {
     }
 
     @Override
-    public float calculMinDst() {
-        return RectangleUtils.radiusCircleInside(shape);
-    }
-
-    @Override
-    public float calculMaxDst() {
-        return RectangleUtils.dstVertexCenter(shape);
-    }
-
-
-    @Override
     public Vector2 getPosition(Vector2 pos) {
         return pos.set(shape.x, shape.y);
     }

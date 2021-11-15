@@ -38,16 +38,6 @@ public class PolygonShape extends BodyShape<Polygon> {
     }
 
     @Override
-    public float calculMinDst() {
-        return 0;
-    }
-
-    @Override
-    public float calculMaxDst() {
-        return PolygonUtils.getMaxDstVertex(shape);
-    }
-
-    @Override
     public Vector2 getPosition(Vector2 pos) {
         return pos.set(shape.getX(), shape.getY());
     }

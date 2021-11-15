@@ -16,25 +16,15 @@ public class CircleShape extends BodyShape<Circle> {
         this.boundingRect = new Rectangle();
     }
 
-    @Override
-    public Rectangle computeBoundingRect() {
-        return CircleUtils.getRectBounds(this.shape, this.boundingRect);
-    }
-
-
     public CircleShape(float radius) {
         this(new Circle(0, 0, radius));
     }
 
     @Override
-    public float calculMinDst() {
-        return shape.radius;
+    public Rectangle computeBoundingRect() {
+        return CircleUtils.getRectBounds(this.shape, this.boundingRect);
     }
 
-    @Override
-    public float calculMaxDst() {
-        return shape.radius;
-    }
 
     @Override
     public Vector2 getPosition(Vector2 pos) {
@@ -70,7 +60,7 @@ public class CircleShape extends BodyShape<Circle> {
 
     @Override
     public ShapeContact getContactVisitor() {
-        return ContactResolver.get(this);
+        return ContactResolver.get(this); //TODO de la mierda
     }
 
     @Override

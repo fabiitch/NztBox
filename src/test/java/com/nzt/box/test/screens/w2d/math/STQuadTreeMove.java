@@ -35,13 +35,12 @@ public class STQuadTreeMove extends BaseSTMultipleBody {
         debugSettings.drawCenter = false;
         debugSettings.drawVelocity = false;
         debugSettings.drawBodyUserData = true;
-        debugSettings.drawBoudingBoxs = false;
+        debugSettings.drawBoudingsBoxFixtures = false;
 
         create10Bodies();
         world.simulationRunning = true;
         rectangleScreen = GdxTestUtils.screenAsRectangle(camera, true);
 
-        HudDebug.addBotRight("ccouunt", Fixture.countTestContact);
         addInputProcessor(input());
     }
 
@@ -91,7 +90,6 @@ public class STQuadTreeMove extends BaseSTMultipleBody {
             if (rectangleScreen.contains(position))
                 countBodyIn++;
         }
-        HudDebug.update("ccouunt", Fixture.countTestContact);
         debugMsg("Body in rect", countBodyIn);
     }
 }

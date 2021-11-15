@@ -32,7 +32,6 @@ public class WorldData {
 
     public void moveBody(Body body) {
         quadTreeContainer.moveBody(body);
-//        quadTree.moveBody(body);
     }
 
     public void removeBody(Body body) {
