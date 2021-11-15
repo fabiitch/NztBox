@@ -1,5 +1,6 @@
 package com.nzt.box.bodies;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -39,8 +40,7 @@ public class Body implements Pool.Poolable {
 
     public boolean canRotate = true;
 
-    public float maxDstFixture; //dst la plus eloigné du body
-    public float minDstFixture;//dst mini ou on est forcément en contact
+    public Rectangle boundingBox = new Rectangle();
     public boolean dirtyPos = true; //move or changeposition
 
     private final Vector3 tmp = new Vector3();
@@ -85,10 +85,8 @@ public class Body implements Pool.Poolable {
     public void addFixture(Fixture fixture) {
         fixtures.add(fixture);
         fixture.body = this;
-        fixture.bodyShape.setPosition(this.position.x, this.position.y);
-        fixture.bodyShape.setRotation(rotation);
-        this.maxDstFixture = Math.max(this.maxDstFixture, fixture.bodyShape.maxDst);
-        this.minDstFixture = Math.max(this.minDstFixture, fixture.bodyShape.minDst);
+        fixture.setPosition(this.position.x, this.position.y, this.rotation);
+        computeBoudingBox();
     }
 
     public Vector2 getPosition(Vector2 position2D) {
@@ -118,6 +116,14 @@ public class Body implements Pool.Poolable {
         updatePosition();
     }
 
+    public void computeBoudingBox() {
+        this.boundingBox.set(0, 0, 0, 0);
+        for (int i = 0, n = fixtures.size; i < n; i++) {
+            Fixture fixture = fixtures.get(i);
+            boundingBox.merge(fixture.getBoundingRectangle());
+        }
+    }
+
     public void updatePosition() {
         for (int i = 0, n = fixtures.size; i < n; i++) {
             Fixture fixture = fixtures.get(i);
@@ -125,6 +131,7 @@ public class Body implements Pool.Poolable {
                 fixture.setPosition(position.x, position.y, rotation);
             }
         }
+        computeBoudingBox();
         dirtyPos = true;
     }
 

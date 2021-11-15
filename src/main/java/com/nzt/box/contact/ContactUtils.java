@@ -7,6 +7,7 @@ import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.ContactFixture;
+import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 
 public class ContactUtils {
 
@@ -37,56 +38,15 @@ public class ContactUtils {
         return contactFixture;
     }
 
-    /**
-     * -1 cant, 0 can, 1 sure
-     *
-     * @return
-     */
-    public static int fastCheck(Fixture fixtureA, Fixture fixtureB) {
-        Body bodyA = fixtureA.body;
-        Body bodyB = fixtureB.body;
-        bodyA.getPosition(tmp1);
-        bodyB.getPosition(tmp2);
-        float dstBodies = tmp1.dst2(tmp2);
-        if (dstBodies <= (fixtureA.bodyShape.minDst + fixtureB.bodyShape.minDst) * (fixtureA.bodyShape.minDst + fixtureB.bodyShape.minDst))
-            return 1;
-        if (dstBodies <= (fixtureA.bodyShape.maxDst + fixtureB.bodyShape.maxDst) * (fixtureA.bodyShape.maxDst + fixtureB.bodyShape.maxDst))
-            return 0;
-        return -1;
+    public static boolean fastCheck(Fixture fixtureA, Fixture fixtureB) {
+        return RectangleUtils.overlapsStick(fixtureA.getBoundingRectangle(), fixtureB.getBoundingRectangle());
     }
 
-    public static int fastCheck(Body bodyA, Body bodyB) {
-        bodyA.getPosition(tmp1);
-        bodyB.getPosition(tmp2);
-        float dstBodies = tmp1.dst2(tmp2);
-        if (dstBodies <= (bodyA.minDstFixture + bodyB.minDstFixture) * (bodyA.minDstFixture + bodyB.minDstFixture))
-            return 1;
-        if (dstBodies <= (bodyA.maxDstFixture + bodyB.maxDstFixture) * (bodyA.maxDstFixture + bodyB.maxDstFixture))
-            return 0;
-        return -1;
+    public static boolean fastCheck(Body bodyA, Body bodyB) {
+        return RectangleUtils.overlapsStick(bodyA.boundingBox, bodyB.boundingBox);
     }
 
-    public static boolean canContact(Fixture fixtureA, Fixture fixtureB) {
-        return fastCheck(fixtureA, fixtureB) >= 0;
-    }
-
-    public static int fastCheck(Body bodyA, Fixture fixtureB) {
-        bodyA.getPosition(tmp1);
-        Body bodyB = fixtureB.body;
-        bodyB.getPosition(tmp2);
-        float dstBodies = tmp1.dst2(tmp2);
-        if (dstBodies <= (bodyA.minDstFixture + fixtureB.bodyShape.minDst) * (bodyA.minDstFixture + fixtureB.bodyShape.minDst))
-            return 1;
-        if (dstBodies <= (bodyA.maxDstFixture + fixtureB.bodyShape.maxDst) * (bodyA.maxDstFixture + fixtureB.bodyShape.maxDst))
-            return 0;
-        return -1;
-    }
-
-    public static boolean canContact(Body bodyA, Fixture fixtureB) {
-        return fastCheck(bodyA, fixtureB) >= 0;
-    }
-
-    public static boolean canContact(Body bodyA, Body bodyB) {
-        return fastCheck(bodyA, bodyB) >= 0;
+    public static boolean fastCheck(Body bodyA, Fixture fixtureB) {
+        return RectangleUtils.overlapsStick(bodyA.boundingBox, fixtureB.getBoundingRectangle());
     }
 }

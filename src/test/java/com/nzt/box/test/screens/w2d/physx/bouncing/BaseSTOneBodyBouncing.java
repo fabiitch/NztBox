@@ -16,6 +16,8 @@ public abstract class BaseSTOneBodyBouncing extends Box2dTestScreen {
         super(main);
         body = new Body(bodyDef());
         Fixture fixture = new Fixture(bodyShape());
+        fixture.userData= "F balle";
+        body.userData = "B ball";
         body.addFixture(fixture);
         world.addBody(body);
 

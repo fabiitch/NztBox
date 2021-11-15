@@ -23,10 +23,8 @@ public class ContactFixture implements Pool.Poolable {
     }
 
     public boolean retry() {
-        int fastCheck = ContactUtils.fastCheck(fixtureA, fixtureB);
-        if (fastCheck == 1)
-            return true;
-        if (fastCheck == -1)
+        boolean fastCheck = ContactUtils.fastCheck(fixtureA, fixtureB);
+        if (!fastCheck)
             return false;
         return fixtureA.testContact(fixtureB);
     }

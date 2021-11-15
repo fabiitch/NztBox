@@ -16,8 +16,16 @@ public class BoxDebugSettings {
     public Color colorContactNormal = Color.BLUE;
 
     public boolean drawCenter = true;//TODO
-    public boolean drawBoudingBoxs = false;
+
+    public boolean drawBoudingsBoxFixtures = false;
+    public Color colorBoudingBoxFixture = Color.YELLOW;
+
+    public boolean drawBoudingsBoxBodies = false;
+    public Color colorBoudingBoxBodies = Color.BROWN;
+
     public boolean drawQuadTree = false;
+    public Color colorQuadTree = Color.PURPLE;
+
     public boolean drawQuadTreeData = false;
 
     public Color colorDynamicBody = Color.CYAN;
@@ -25,9 +33,9 @@ public class BoxDebugSettings {
     public Color colorStaticBody = Color.GRAY;
     public Color colorInactiveBody = Color.GRAY;
 
-    public Color colorBoundingRect = Color.YELLOW;
+
     public Color colorVelocity = Color.GREEN;
-    public Color colorQuadTree = Color.PURPLE;
+
 
     public BoxDebugSettings() {
     }

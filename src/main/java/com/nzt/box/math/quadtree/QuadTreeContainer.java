@@ -74,6 +74,8 @@ public class QuadTreeContainer {
         if (!RectangleUtils.containsStick(quadTreeBefore.boundingRect, boundingRectangle)) {
             QuadTree newQuadTree = root.getQuadTree(boundingRectangle);
             if (newQuadTree == null) {
+                if(fixture.quadTree != null)
+                    fixture.quadTree.removeValue(fixture);
                 growQuadTree(fixture);
                 newQuadTree = root.getQuadTree(boundingRectangle);
             }
