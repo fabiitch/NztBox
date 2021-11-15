@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.debug.BoxDebugSettings;
-import com.nzt.box.test.screens.utils.InputCamera2DMover;
 import com.nzt.box.test.screens.w2d.BaseSTMultipleBody;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;

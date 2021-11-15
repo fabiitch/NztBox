@@ -1,7 +1,6 @@
 package com.nzt.box.contact.detector.impl;
 
 import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ShapeContact;
@@ -108,25 +107,19 @@ public class ContactRectangle implements ShapeContact {
         }
     }
 
+    private Polygon polygonOverlaps = new Polygon();
+
     @Override
     public void calculCollisionData(Polygon polygon, ContactFixture contactFixture) {
-
-        //TODO la méthode :  Intersector.intersectPolygons ne marche pas avec les rect
-        Polygon polygonOverlaps = new Polygon();
-        boolean overlaps = Intersector.intersectPolygons(PolygonBuilder.rectangle(myRectangle, false), polygon, polygonOverlaps);
-
-        boolean overlaps2 = IntersectorRectangle.polygon(myRectangle, polygon, IntersectorPolygon.tmpTranslationVector);
-        if (overlaps2)
+        boolean overlaps = IntersectorRectangle.polygon(myRectangle, polygon, IntersectorPolygon.tmpTranslationVector);
+        if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
 
-        if (overlaps) {
+        boolean overlaps2 = Intersector.intersectPolygons(PolygonBuilder.rectangle(myRectangle, false), polygon, polygonOverlaps);
+        if (overlaps2 && polygonOverlaps.getTransformedVertices().length > 0) {
             PolygonUtils.getCenter(polygonOverlaps, contactFixture.collisionData.collisionPoint);
         } else {
-
+            System.out.println("toot");
         }
-        if(overlaps != overlaps2 != true){
-            throw new GdxRuntimeException("Intersector.intersectPolygons="+overlaps+" ||| IntersectorRectangle.polygon="+overlaps2);
-        }
-
     }
 }
