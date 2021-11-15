@@ -1,6 +1,5 @@
 package com.nzt.box.test.screens.w2d.math;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,7 +11,7 @@ import com.nzt.box.bodies.Fixture;
 import com.nzt.box.debug.BoxDebugSettings;
 import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
-import com.nzt.box.test.screens.utils.InputCamera2DMover;
+import com.nzt.box.test.screens.utils.Camera2DController;
 import com.nzt.gdx.input.utils.InputUtils;
 import com.nzt.gdx.test.api.tester.GdxTestUtils;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
@@ -52,7 +51,7 @@ public class STQuadTreeAddRemove extends Box2dTestScreen {
 
 
     public InputProcessor inputProcessor() {
-        return new InputCamera2DMover((OrthographicCamera) this.camera) {
+        return new Camera2DController((OrthographicCamera) this.camera) {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector2 clickPos = InputUtils.getClickPos(camera, screenX, screenY);

@@ -87,23 +87,22 @@ public class ContactPolygon implements ShapeContact {
         }
     }
 
+    private Polygon polygonOverlaps = new Polygon();
+
     @Override
     public void calculCollisionData(Polygon polygon, ContactFixture contactFixture) {
         boolean overlaps = IntersectorPolygon.polygons(myPolygon, polygon, IntersectorPolygon.tmpTranslationVector);
         if (overlaps)
             contactFixture.collisionData.normal.set(IntersectorPolygon.tmpTranslationVector.normal);
 
-        Polygon polygonOverlaps = new Polygon();
         boolean overlaps2 = Intersector.intersectPolygons(myPolygon, polygon, polygonOverlaps);
         if (polygonOverlaps.getTransformedVertices().length == 0) {//TODO
             System.out.println("no poly");
         }
-        if(overlaps2){
+        if (overlaps2 && polygonOverlaps.getTransformedVertices().length > 0) {
             PolygonUtils.getCenter(polygonOverlaps, contactFixture.collisionData.collisionPoint);
-        }
-
-        if (overlaps != overlaps2 != true) {
-            throw new GdxRuntimeException("Intersector.intersectPolygons=" + overlaps + " ||| IntersectorRectangle.polygon=" + overlaps2);
+        } else {
+            System.out.println("toot");
         }
     }
 }
