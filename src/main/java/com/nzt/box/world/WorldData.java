@@ -19,7 +19,6 @@ public class WorldData {
         super();
         this.world = world;
         this.bodies = new Array<>();
-        this.activeBodies = new Array<>();
         this.quadTreeContainer = new QuadTreeContainer();
     }
 
@@ -30,13 +29,8 @@ public class WorldData {
         body.updatePosition();
     }
 
-    public void moveBody(Body body) {
-        quadTreeContainer.moveBody(body);
-    }
-
     public void removeBody(Body body) {
         quadTreeContainer.removeBody(body);
-
         for (ContactBody contactBody : body.contactsBody) {
             for (ContactFixture contactFixture : contactBody.contactsFixture) {
                 contactFixture.fixtureA.contacts.removeValue(contactFixture, true);

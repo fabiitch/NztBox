@@ -24,21 +24,16 @@ public class World {
 
     /**
      * @param stepTime
-     * @param activeData
      */
-    public World(float stepTime, boolean activeData) {
+    public World(float stepTime) {
         this.stepTime = stepTime;
         this.data = new WorldData(this);
         this.helper = new WorldHelper(this);
         this.contactCompute = new ContactCompute();
     }
 
-    public World(boolean activeData) {
-        this(1 / 300f, activeData);
-    }
-
     public World() {
-        this(1f / 60f / 8f, true);
+        this(1f / 60f / 8f);
     }
 
     public void addBody(Body body) {
@@ -68,66 +63,65 @@ public class World {
                 continue;
             boolean move = body.move(stepTime);
             if (move || body.dirtyPos) {
-                checkCollisions(body);
+                checkBodyCollisions(body);
             }
             body.dirtyPos = false;
         }
     }
 
-//    void toot(Fixture fixtureA, Array<Fixture<?>> fixturesClose) {
-//        for (int j = 0, m = fixturesClose.size; j < m; j++) {
-//            Fixture<?> fixtureB = fixturesClose.get(j);
-//            Body bodyB = fixtureB.body;
-//            if (!ContactUtils.canContact(bodyA, bodyB)) {
-//                continue;
-//            }
-//            ContactFixture hasContact = data.getContact(fixtureA, fixtureB);
-//            if (hasContact != null) {
-//                boolean retry = hasContact.retry();
-//                if (retry) {
-//                    if (hasContact.continueContact && contactListener != null)
-//                        contactListener.continueContact(hasContact);
-//                    if (hasContact.doCollision)
-//                        fixtureA.replace(fixtureB, hasContact);
-//                } else {
-//                    if (contactListener != null && hasContact.callNextMethods)
-//                        contactListener.endContact(hasContact);
-//                    data.endContact(hasContact);
-//                }
-//            } else {
-//                boolean fastCheck = ContactUtils.canContact(fixtureA, fixtureB);
-//                if (!fastCheck)
-//                    continue;
-//                boolean newC = fixtureA.testContact(fixtureB);
-//                if (newC) {
-//                    ContactFixture newContact = ContactUtils.getNewContact(fixtureA, fixtureB);
-//                    if (contactListener != null)
-//                        contactListener.preSolve(newContact);
-//                    data.addContact(newContact);
-//
-//                    if (newContact.doCollision)
-//                        fixtureA.replace(fixtureB, newContact);
-//
-//                    if (newContact.calculCollisionData)
-//                        fixtureA.calculCollisionData(fixtureB, newContact);
-//                    if (newContact.doCollision)
-//                        contactCompute.computeContact(newContact);
-//                    if (contactListener != null && newContact.callNextMethods)
-//                        contactListener.beginContact(newContact);
-//                    if (newContact.doCollision)
-//                        contactCompute.applyResult(newContact);
-//                }
-//            }
-//        }
-//    }
-
-    protected void checkCollisions(Body bodyA) {
+    protected void checkBodyCollisions(Body bodyA) {
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
             Fixture<?> fixtureA = bodyA.fixtures.get(i);
             if (!fixtureA.active)
                 continue;
             Array<Fixture<?>> fixturesClose = fixtureA.quadTree.getValuesAndParents(new Array<>());
+            for (int i2 = 0, n2 = fixturesClose.size; i2 < n2; i2++) {
+                checkFixtureCollision(bodyA, fixtureA, fixturesClose.get(i2));
+            }
+        }
+    }
 
+    protected void checkFixtureCollision(Body bodyA, Fixture fixtureA, Fixture fixtureB) {
+        Body bodyB = fixtureB.body;
+        if (!ContactUtils.shouldTestContact(bodyA, bodyB)) {
+            return;
+        }
+        ContactFixture hasContact = data.getContact(fixtureA, fixtureB);
+        if (hasContact != null) {
+            boolean retry = hasContact.retry();
+            if (retry) {
+                if (hasContact.continueContact && contactListener != null)
+                    contactListener.continueContact(hasContact);
+                if (hasContact.doCollision)
+                    fixtureA.replace(fixtureB, hasContact);
+            } else {
+                if (contactListener != null && hasContact.callNextMethods)
+                    contactListener.endContact(hasContact);
+                data.endContact(hasContact);
+            }
+        } else {
+            boolean fastCheck = ContactUtils.fastCheck(fixtureA, fixtureB);
+            if (!fastCheck)
+                return;
+            boolean newC = fixtureA.testContact(fixtureB);
+            if (newC) {
+                ContactFixture newContact = ContactUtils.getNewContact(fixtureA, fixtureB);
+                if (contactListener != null)
+                    contactListener.preSolve(newContact);
+                data.addContact(newContact);
+
+                if (newContact.doCollision)
+                    fixtureA.replace(fixtureB, newContact);
+
+                if (newContact.calculCollisionData)
+                    fixtureA.calculCollisionData(fixtureB, newContact);
+                if (newContact.doCollision)
+                    contactCompute.computeContact(newContact);
+                if (contactListener != null && newContact.callNextMethods)
+                    contactListener.beginContact(newContact);
+                if (newContact.doCollision)
+                    contactCompute.applyResult(newContact);
+            }
         }
     }
 }

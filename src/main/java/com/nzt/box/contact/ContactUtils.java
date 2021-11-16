@@ -1,6 +1,5 @@
 package com.nzt.box.contact;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pools;
 import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
@@ -11,17 +10,18 @@ import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 
 public class ContactUtils {
 
-    private static final Vector2 tmp1 = new Vector2(); //TODO
-    private static final Vector2 tmp2 = new Vector2(); //TODO
-
     public static boolean shouldTestContact(Body bodyA, Body bodyB) {
+        if (bodyA == bodyB)
+            return false;
+        if (!bodyA.active || !bodyB.active)
+            return false;
+
         BodyType typeA = bodyA.bodyType;
         BodyType typeB = bodyB.bodyType;
-
         if (typeA == BodyType.Dynamic || typeB == BodyType.Dynamic)
             return true;
 
-        if (typeA == BodyType.Kinematic || typeB == BodyType.Kinematic)
+        if (typeA == BodyType.Kinematic && typeB == BodyType.Kinematic)
             return true;
         return false;
     }
