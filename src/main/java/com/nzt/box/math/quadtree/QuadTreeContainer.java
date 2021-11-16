@@ -86,13 +86,6 @@ public class QuadTreeContainer {
         }
     }
 
-    public void moveBody(Body body) {
-        Array<Fixture<?>> fixtures = body.fixtures;
-        for (Fixture fixture : fixtures) {
-            moveFixture(fixture);
-        }
-    }
-
     public void rebuild(Rectangle rectangleStart, int newMaxDepth) {
         Array<Fixture<?>> allValues = root.getValuesAndSub(poolFixtureArray.obtain());
         init(rectangleStart, maxValues, newMaxDepth);

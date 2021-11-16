@@ -6,7 +6,6 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactUtils;
 import com.nzt.box.contact.compute.ContactCompute;
-import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.listener.ContactListener;
 
@@ -15,6 +14,7 @@ public class World {
     public ContactListener contactListener;
     public ContactCompute contactCompute;
     public WorldHelper helper;
+    public WorldProfiler profiler;
     public WorldData data;
 
     public float stepTime;
@@ -29,6 +29,7 @@ public class World {
         this.stepTime = stepTime;
         this.data = new WorldData(this);
         this.helper = new WorldHelper(this);
+        this.profiler = new WorldProfiler(this);
         this.contactCompute = new ContactCompute();
     }
 
@@ -48,6 +49,7 @@ public class World {
     public void step(float dt) {
         if (!simulationRunning)
             return;
+        profiler.newStep();
         accumulator += dt;
         while (accumulator >= stepTime && simulationRunning) {
             iteration();
@@ -56,6 +58,7 @@ public class World {
     }
 
     protected void iteration() {
+        profiler.newStepIteration();
         Array<Body> bodies = data.bodies;
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body body = bodies.get(i);
@@ -70,6 +73,7 @@ public class World {
     }
 
     protected void checkBodyCollisions(Body bodyA) {
+        profiler.checkCollisionBody++;
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
             Fixture<?> fixtureA = bodyA.fixtures.get(i);
             if (!fixtureA.active)
