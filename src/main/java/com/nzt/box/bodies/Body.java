@@ -20,6 +20,7 @@ public class Body implements Pool.Poolable {
     public boolean bullet = false; //check continus deplacement for collision
     public boolean sensor = false;
     public int categorie = 0;
+    public boolean canRotate = true;
 
     public final Vector3 position = new Vector3();
     public final Vector3 velocity = new Vector3();
@@ -31,14 +32,14 @@ public class Body implements Pool.Poolable {
     public final Array<Force> forces;
     public final Array<Force> forcesToRemove;
 
-    public float friction = 0f; // Speed reducer for bodies above
+    public float frictionGiver = 0f; // Speed reducer for my body
+    public float frictionReceiver = 0f; // Speed reducer for bodies above
 
     public float mass = 1f;         //Used as multiplicator of energy transfert
     public float transfert = 1f;    //Energy % transfert to other body
     public float receive = 1f;      //Energy % receive of transfert
-    public float restitution = 0f;  // Energy % restitute after Receive FOR STATIC
+    public float restitution = 0f;  // Energy % restitute after Receive for Static Body only
 
-    public boolean canRotate = true;
 
     public Rectangle boundingBox = new Rectangle();
     public boolean dirtyPos = true; //move or changeposition
@@ -89,6 +90,11 @@ public class Body implements Pool.Poolable {
         computeBoudingBox();
     }
 
+    public void removeFixture(Fixture fixture) {
+        fixtures.removeValue(fixture, true);
+    }
+
+
     public Vector2 getPosition(Vector2 position2D) {
         position2D.x = position.x;
         position2D.y = position.y;
@@ -117,10 +123,15 @@ public class Body implements Pool.Poolable {
     }
 
     public void computeBoudingBox() {
-        this.boundingBox.set(0, 0, 0, 0);
-        for (int i = 0, n = fixtures.size; i < n; i++) {
-            Fixture fixture = fixtures.get(i);
-            boundingBox.merge(fixture.getBoundingRectangle());
+        int n = fixtures.size;
+        if (n > 0) {
+            this.boundingBox.set(fixtures.get(0).getBoundingRectangle());
+            for (int i = 1; i < n; i++) {
+                Fixture fixture = fixtures.get(i);
+                boundingBox.merge(fixture.getBoundingRectangle());
+            }
+        } else {
+            this.boundingBox.set(0, 0, 0, 0);
         }
     }
 

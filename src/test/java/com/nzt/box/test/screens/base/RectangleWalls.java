@@ -13,6 +13,9 @@ import com.nzt.gdx.math.shapes.Segment;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import com.nzt.gdx.math.vectors.V2;
 
+/**
+ * Create 4 wall around a rect
+ */
 public class RectangleWalls {
 
     public Body botWall, topWall, rightWall, leftWall;

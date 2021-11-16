@@ -13,3 +13,4 @@
 
 
 *setBodyType check des contact encore possible
+*remove fixture contacts
