@@ -3,6 +3,7 @@ package com.nzt.box.bodies;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.contact.data.ContactFixture;
+import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.shape.BodyShape;
@@ -52,19 +53,19 @@ public class Fixture<S extends BodyShape> {
         return null;
     }
 
-    public boolean testContact(Fixture fixtureB) {
-        ShapeContact contactVisitor = bodyShape.getContactVisitor();
+    public boolean testContact(Fixture fixtureB, ContactResolver contactResolver) {
+        ShapeContact contactVisitor = bodyShape.getContactVisitor(contactResolver);
         boolean b = fixtureB.bodyShape.testContact(contactVisitor);
         return b;
     }
 
-    public void replace(Fixture fixtureB, ContactFixture contactFixture) {
-        ShapeContact contactVisitor = bodyShape.getContactVisitor();
+    public void replace(Fixture fixtureB, ContactFixture contactFixture, ContactResolver contactResolver) {
+        ShapeContact contactVisitor = bodyShape.getContactVisitor(contactResolver);
         fixtureB.bodyShape.replace(contactVisitor, contactFixture);
     }
 
-    public void calculCollisionData(Fixture fixtureB, ContactFixture contactFixture) {
-        ShapeContact contactVisitor = bodyShape.getContactVisitor();
+    public void calculCollisionData(Fixture fixtureB, ContactFixture contactFixture, ContactResolver contactResolver) {
+        ShapeContact contactVisitor = bodyShape.getContactVisitor(contactResolver);
         fixtureB.bodyShape.calculCollisionData(contactVisitor, contactFixture);
     }
 }

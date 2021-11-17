@@ -22,7 +22,14 @@ public class WorldData {
         this.quadTreeContainer = new QuadTreeContainer();
     }
 
+    public int bodiesIdGenerator = 1;
+
     public void addBody(Body body) {
+        if (bodiesIdGenerator == Integer.MAX_VALUE) {
+            bodiesIdGenerator = 1;
+        }
+        body.id = bodiesIdGenerator++;
+
         body.dirtyPos = true;
         bodies.add(body);
         quadTreeContainer.addBody(body);

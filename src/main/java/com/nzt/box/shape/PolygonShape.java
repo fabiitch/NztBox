@@ -68,8 +68,8 @@ public class PolygonShape extends BodyShape<Polygon> {
     }
 
     @Override
-    public ShapeContact getContactVisitor() {
-        return ContactResolver.get(this);
+    public ShapeContact getContactVisitor(ContactResolver resolver) {
+        return resolver.get(this);
     }
 
     @Override

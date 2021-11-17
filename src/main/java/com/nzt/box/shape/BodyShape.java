@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.contact.data.ContactFixture;
+import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.gdx.graphics.renderers.NzShapeRenderer;
 
@@ -34,7 +35,7 @@ public abstract class BodyShape<S extends Shape2D> {
     public abstract void scale(float scale);
 
 
-    public abstract ShapeContact getContactVisitor();
+    public abstract ShapeContact getContactVisitor(ContactResolver resolver);
 
     public abstract boolean testContact(ShapeContact visitor);
 

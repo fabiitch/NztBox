@@ -29,12 +29,18 @@ abstract class BoxTestScreen extends TestScreen {
     public BoxSTHelp boxSTHelp;
     public boolean blockAtContact = false;
 
-    private final static String KEY_WORLD_RUN = "SimulationRun";
-    private final static String KEY_CALCUL_PERF = "BoxCalcul%";
-    private final static String KEY_CALCUL_TIME = "BoxCalcul";
-    private final static String KEY_RENDER_PERF = "BoxRender%";
-
     public InputMultiplexer inputMultiplexer;
+
+    private final static String Key_WorldRunning = "SimulationRunnig";
+    private final static String Key_CalculPerf = "BoxCalcul%";
+    private final static String Key_CalculPercent = "BoxCalcul";
+    private final static String Key_RenderPercent = "BoxRender%";
+
+
+    public final static String Key_TimeStep = "BoxTimeStep";
+    public final static String Key_TimeIteration = "BoxTimeIteration";
+    public final static String Key_NbIteration = "BoxNbIteration";
+    public final static String Key_FixtureContactCheck = "BoxFixtureContactCheck";
 
 
     public BoxTestScreen(FastTesterMain main) {
@@ -42,11 +48,16 @@ abstract class BoxTestScreen extends TestScreen {
         world = new World();
         boxSTHelp = new BoxSTHelp(world);
         HudDebug.addTopLeft("JavaHeap", GdxUtils.getHeapMb() + " MB");
-        HudDebug.addTopLeft(KEY_WORLD_RUN, "Press Space to pause/run simulation", world.simulationRunning, Color.WHITE);
+        HudDebug.addTopLeft(Key_WorldRunning, "Press Space to pause/run simulation", world.simulationRunning, Color.WHITE);
 
-        HudDebug.addBotLeft(KEY_CALCUL_TIME, 1000 + " ms");
-        PerformanceFrame.add(KEY_CALCUL_PERF);
-        PerformanceFrame.add(KEY_RENDER_PERF);
+        HudDebug.addBotLeft(Key_CalculPercent, 1000 + " ms");
+        PerformanceFrame.add(Key_CalculPerf);
+        PerformanceFrame.add(Key_RenderPercent);
+
+        HudDebug.addTopRight(Key_TimeStep, world.profiler.timerStep.average);
+        HudDebug.addTopRight(Key_TimeIteration, world.profiler.timerIteration.average);
+        HudDebug.addTopRight(Key_NbIteration, world.profiler.iterationPerStep);
+        HudDebug.addTopRight(Key_FixtureContactCheck, world.profiler.fixtureContactCheck.iteration);
 
         inputMultiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -64,18 +75,20 @@ abstract class BoxTestScreen extends TestScreen {
         HudDebug.update("JavaHeap", GdxUtils.getHeapMb() + " MB");
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             world.simulationRunning = !world.simulationRunning;
-            HudDebug.update(KEY_WORLD_RUN, world.simulationRunning);
+            HudDebug.update(Key_WorldRunning, world.simulationRunning);
         }
-        PerformanceFrame.startAction(KEY_CALCUL_PERF);
-        long start = System.currentTimeMillis();
+        PerformanceFrame.startAction(Key_CalculPerf);
         world.step(dt);
-        long end = System.currentTimeMillis() - start;
-        HudDebug.update(KEY_CALCUL_TIME, end + " ms");
-        PerformanceFrame.endAction(KEY_CALCUL_PERF);
+        PerformanceFrame.endAction(Key_CalculPerf);
 
-        PerformanceFrame.startAction(KEY_RENDER_PERF);
+        PerformanceFrame.startAction(Key_RenderPercent);
         debugRenderer.render(world, camera.combined);
-        PerformanceFrame.endAction(KEY_RENDER_PERF);
+        PerformanceFrame.endAction(Key_RenderPercent);
+
+        HudDebug.update(Key_TimeStep, world.profiler.timerStep.average);
+        HudDebug.update(Key_TimeIteration, world.profiler.timerIteration.average);
+        HudDebug.update(Key_NbIteration, world.profiler.iterationPerStep);
+        HudDebug.update(Key_FixtureContactCheck, world.profiler.fixtureContactCheck.iteration);
         doRender(dt);
     }
 

@@ -63,11 +63,11 @@ public class RectangleShape extends BodyShape<Rectangle> {
         shape.height *= scale;
     }
 
-
     @Override
-    public ShapeContact getContactVisitor() {
-        return ContactResolver.get(this);
+    public ShapeContact getContactVisitor(ContactResolver resolver) {
+        return resolver.get(this);
     }
+
 
     @Override
     public boolean testContact(ShapeContact visitor) {

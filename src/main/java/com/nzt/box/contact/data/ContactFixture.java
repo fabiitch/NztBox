@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactUtils;
+import com.nzt.box.contact.detector.ContactResolver;
 
 public class ContactFixture implements Pool.Poolable {
     public Fixture<?> fixtureA;
@@ -22,11 +23,8 @@ public class ContactFixture implements Pool.Poolable {
         collisionData = new CollisionData();
     }
 
-    public boolean retry() {
-        boolean fastCheck = ContactUtils.fastCheck(fixtureA, fixtureB);
-        if (!fastCheck)
-            return false;
-        return fixtureA.testContact(fixtureB);
+    public boolean retry(ContactResolver contactResolver) {
+        return fixtureA.testContact(fixtureB, contactResolver);
     }
 
     public boolean imFixtureA(Fixture<?> fixture) {
