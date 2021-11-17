@@ -5,15 +5,15 @@ import com.nzt.box.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class WorldHelperTest {
+public class WordlDataTest {
 
     @Test
     public void bodyIdGeneratorResetTest() {
         World world = new World();
-        world.helper.bodiesIdGenerator = Integer.MAX_VALUE - 9;
+        world.data.bodiesIdGenerator = Integer.MAX_VALUE - 9;
         for (int i = 0; i < 10; i++) {
             world.addBody(new BodyMock());
         }
-        Assertions.assertEquals(2, world.helper.bodiesIdGenerator);
+        Assertions.assertEquals(2, world.data.bodiesIdGenerator);
     }
 }

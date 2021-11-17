@@ -7,38 +7,44 @@ import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.ContactUtils;
 import com.nzt.box.contact.compute.ContactCompute;
 import com.nzt.box.contact.data.ContactFixture;
+import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.listener.ContactListener;
+import com.nzt.box.profiler.WorldProfiler;
 
 public class World {
+    public WorldProfiler profiler;
+    public WorldData data;
+    public final boolean activeProfiler;
 
     public ContactListener contactListener;
     public ContactCompute contactCompute;
-    public WorldHelper helper;
-    public WorldProfiler profiler;
-    public WorldData data;
+    public ContactResolver contactResolver;
 
     public float stepTime;
     private float accumulator = 0f;
-
     public boolean simulationRunning = true;
 
     /**
      * @param stepTime
      */
-    public World(float stepTime) {
+    public World(float stepTime, boolean activeProfiler) {
         this.stepTime = stepTime;
         this.data = new WorldData(this);
-        this.helper = new WorldHelper(this);
-        this.profiler = new WorldProfiler(this);
+        this.profiler = new WorldProfiler();
         this.contactCompute = new ContactCompute();
+        this.contactResolver= new ContactResolver();
+        this.activeProfiler = activeProfiler;
+    }
+
+    public World(boolean activeProfiler) {
+        this(1f / 60f / 8f, activeProfiler);
     }
 
     public World() {
-        this(1f / 60f / 8f);
+        this(1f / 60f / 8f, true);
     }
 
     public void addBody(Body body) {
-        helper.addId(body);
         data.addBody(body);
     }
 
@@ -49,22 +55,25 @@ public class World {
     public void step(float dt) {
         if (!simulationRunning)
             return;
-        profiler.newStep();
+        if (activeProfiler) profiler.startStep();
         accumulator += dt;
         while (accumulator >= stepTime && simulationRunning) {
             iteration();
             accumulator -= stepTime;
+            if (activeProfiler) profiler.endIteration();
         }
+        if (activeProfiler) profiler.endStep();
     }
 
     protected void iteration() {
-        profiler.newStepIteration();
+        if (activeProfiler) profiler.startIteration();
         Array<Body> bodies = data.bodies;
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body body = bodies.get(i);
             if (!body.dirtyPos && (!body.active || body.bodyType == BodyType.Static))
                 continue;
             boolean move = body.move(stepTime);
+            if (activeProfiler) profiler.bodyMove.inc();
             if (move || body.dirtyPos) {
                 checkBodyCollisions(body);
             }
@@ -73,13 +82,14 @@ public class World {
     }
 
     protected void checkBodyCollisions(Body bodyA) {
-        profiler.checkCollisionBody++;
+        if (activeProfiler) profiler.bodyContactCheck.inc();
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
             Fixture<?> fixtureA = bodyA.fixtures.get(i);
             if (!fixtureA.active)
                 continue;
             Array<Fixture<?>> fixturesClose = fixtureA.quadTree.getValuesAndParents(new Array<>());
             for (int i2 = 0, n2 = fixturesClose.size; i2 < n2; i2++) {
+                if (activeProfiler) profiler.fixtureContactCheck.inc();
                 checkFixtureCollision(bodyA, fixtureA, fixturesClose.get(i2));
             }
         }
@@ -92,35 +102,48 @@ public class World {
         }
         ContactFixture hasContact = data.getContact(fixtureA, fixtureB);
         if (hasContact != null) {
-            boolean retry = hasContact.retry();
-            if (retry) {
-                if (hasContact.continueContact && contactListener != null)
-                    contactListener.continueContact(hasContact);
-                if (hasContact.doCollision)
-                    fixtureA.replace(fixtureB, hasContact);
-            } else {
-                if (contactListener != null && hasContact.callNextMethods)
-                    contactListener.endContact(hasContact);
-                data.endContact(hasContact);
+            boolean fastCheck = ContactUtils.fastCheck(fixtureA, fixtureB);
+            if (fastCheck) {
+                boolean retry = hasContact.retry(contactResolver);
+                if (activeProfiler) profiler.testContact.inc();
+                if (retry) {
+                    if (hasContact.continueContact && contactListener != null)
+                        contactListener.continueContact(hasContact);
+                    if (hasContact.doCollision) {
+                        fixtureA.replace(fixtureB, hasContact, contactResolver);
+                        if (activeProfiler) profiler.replaceContact.inc();
+                    }
+                } else {
+                    if (contactListener != null && hasContact.callNextMethods)
+                        contactListener.endContact(hasContact);
+                    data.endContact(hasContact);
+                    if (activeProfiler) profiler.endContact.inc();
+                }
             }
         } else {
             boolean fastCheck = ContactUtils.fastCheck(fixtureA, fixtureB);
             if (!fastCheck)
                 return;
-            boolean newC = fixtureA.testContact(fixtureB);
+            boolean newC = fixtureA.testContact(fixtureB, contactResolver);
+            if (activeProfiler) profiler.testContact.inc();
             if (newC) {
+                if (activeProfiler) profiler.beginContact.inc();
                 ContactFixture newContact = ContactUtils.getNewContact(fixtureA, fixtureB);
                 if (contactListener != null)
                     contactListener.preSolve(newContact);
                 data.addContact(newContact);
-
-                if (newContact.doCollision)
-                    fixtureA.replace(fixtureB, newContact);
-
-                if (newContact.calculCollisionData)
-                    fixtureA.calculCollisionData(fixtureB, newContact);
-                if (newContact.doCollision)
+                if (newContact.doCollision) {
+                    fixtureA.replace(fixtureB, newContact, contactResolver);
+                    if (activeProfiler) profiler.replaceContact.inc();
+                }
+                if (newContact.calculCollisionData) {
+                    fixtureA.calculCollisionData(fixtureB, newContact, contactResolver);
+                    if (activeProfiler) profiler.collisionData.inc();
+                }
+                if (newContact.doCollision) {
                     contactCompute.computeContact(newContact);
+                    if (activeProfiler) profiler.computeContact.inc();
+                }
                 if (contactListener != null && newContact.callNextMethods)
                     contactListener.beginContact(newContact);
                 if (newContact.doCollision)

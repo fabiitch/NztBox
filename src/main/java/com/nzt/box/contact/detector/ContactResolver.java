@@ -8,22 +8,22 @@ import com.nzt.box.shape.PolygonShape;
 import com.nzt.box.shape.RectangleShape;
 
 public class ContactResolver {
-    public static ContactCircle contactCircle = new ContactCircle();
-    public static ContactRectangle contactRectangle = new ContactRectangle();
-    public static ContactPolygon contactPolygon = new ContactPolygon();
+    public ContactCircle contactCircle = new ContactCircle();
+    public ContactRectangle contactRectangle = new ContactRectangle();
+    public ContactPolygon contactPolygon = new ContactPolygon();
 
 
-    public static ShapeContact get(CircleShape circleShape) {
+    public ShapeContact get(CircleShape circleShape) {
         contactCircle.myCircle = circleShape.shape;
         return contactCircle;
     }
 
-    public static ShapeContact get(RectangleShape rectangleShape) {
+    public ShapeContact get(RectangleShape rectangleShape) {
         contactRectangle.myRectangle = rectangleShape.shape;
         return contactRectangle;
     }
 
-    public static ShapeContact get(PolygonShape polygonShape) {
+    public ShapeContact get(PolygonShape polygonShape) {
         contactPolygon.myPolygon = polygonShape.shape;
         return contactPolygon;
     }

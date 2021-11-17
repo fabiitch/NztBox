@@ -59,8 +59,8 @@ public class CircleShape extends BodyShape<Circle> {
     }
 
     @Override
-    public ShapeContact getContactVisitor() {
-        return ContactResolver.get(this); //TODO de la mierda
+    public ShapeContact getContactVisitor(ContactResolver resolver) {
+        return resolver.get(this); //TODO de la mierda
     }
 
     @Override
