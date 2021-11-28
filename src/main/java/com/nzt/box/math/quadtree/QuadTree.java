@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class QuadTree implements Pool.Poolable {
     public QuadTree parent, nw, ne, sw, se;
     public Rectangle boundingRect;
-    public Fixture<?>[] values;
+    public Fixture[] values;
     public int valuesCount;
     public int depth;
 
@@ -84,7 +84,7 @@ public class QuadTree implements Pool.Poolable {
         return valuesCount + countSubValues();
     }
 
-    public Array<Fixture<?>> getValuesAndParents(Array<Fixture<?>> fixtureArray) {
+    public Array<Fixture> getValuesAndParents(Array<Fixture> fixtureArray) {
         for (int i = 0; i < valuesCount; i++) {
             fixtureArray.add(values[i]);
         }
@@ -94,7 +94,7 @@ public class QuadTree implements Pool.Poolable {
         return fixtureArray;
     }
 
-    public Array<Fixture<?>> getValuesAndSub(Array<Fixture<?>> fixtureArray) {
+    public Array<Fixture> getValuesAndSub(Array<Fixture> fixtureArray) {
         for (int i = 0; i < valuesCount; i++) {
             fixtureArray.add(values[i]);
         }
@@ -124,7 +124,7 @@ public class QuadTree implements Pool.Poolable {
     public void regroup() {
         if (!isSplitted())
             return;
-        Array<Fixture<?>> fixtureArrayValues = container.poolFixtureArray.obtain();
+        Array<Fixture> fixtureArrayValues = container.poolFixtureArray.obtain();
         getValuesAndSub(fixtureArrayValues);
 
         container.poolQuads.freeSub(this);
@@ -143,7 +143,7 @@ public class QuadTree implements Pool.Poolable {
         this.ne.init(this, QuadTreeUtils.getNE(boundingRect, ne.boundingRect), newDepth);
         this.se.init(this, QuadTreeUtils.getSE(boundingRect, se.boundingRect), newDepth);
 
-        Array<Fixture<?>> arrayTmp = container.poolFixtureArray.obtain();
+        Array<Fixture> arrayTmp = container.poolFixtureArray.obtain();
         arrayTmp.addAll(values, 0, this.valuesCount);
 
         this.valuesCount = 0;

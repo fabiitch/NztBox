@@ -1,4 +1,4 @@
-package com.nzt.box.test.screens.w2d.debug;
+package com.nzt.box.test.screens.w2d.boudingbox;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -7,19 +7,9 @@ import com.nzt.box.test.screens.w2d.BaseSTMultipleBody;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
-@TestScreenList(group = "2D.debug")
-public class STRenderBoudingBoxFixture extends BaseSTMultipleBody {
-    public STRenderBoudingBoxFixture(FastTesterMain main) {
+public class STBoudingBoxFixture extends BaseSTBoudingBox {
+    public STBoudingBoxFixture(FastTesterMain main) {
         super(main);
-        createWallAroundScreen();
-        BoxDebugSettings debugSettings = debugRenderer.debugSettings;
-        debugSettings.drawBoudingsBoxFixtures = true;
-        debugSettings.drawCenter = true;
-        debugSettings.drawContactPoint = false;
-        debugSettings.drawBodyUserData = false;
-        debugSettings.drawInactive = false;
-        debugSettings.drawVelocity = false;
-
         for (int i = 0; i < 15; i++) {
             Vector2 position = new Vector2();
             position.x = MathUtils.random(-SCREEN_WITDH / 2 + 3, SCREEN_WITDH / 2 - 1);
@@ -29,10 +19,6 @@ public class STRenderBoudingBoxFixture extends BaseSTMultipleBody {
         }
     }
 
-    @Override
-    public void doRenderM(float dt) {
-
-    }
 
     @Override
     public String getTestExplication() {

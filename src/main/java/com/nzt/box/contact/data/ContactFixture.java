@@ -3,16 +3,15 @@ package com.nzt.box.contact.data;
 import com.badlogic.gdx.utils.Pool;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.Fixture;
-import com.nzt.box.contact.ContactUtils;
 import com.nzt.box.contact.detector.ContactResolver;
 
 public class ContactFixture implements Pool.Poolable {
-    public Fixture<?> fixtureA;
-    public Fixture<?> fixtureB;
+    public Fixture fixtureA;
+    public Fixture fixtureB;
 
     public boolean doCollision = true; //no rebound/forces applied but call method
     public boolean doRebound = false;
-    public boolean calculCollisionData = false;
+    public boolean doCalculData = false;
 
     public boolean continueContact = false; //call contactListener.continueContact every step
     public boolean callNextMethods = true; //contact dont call next methods but apply forces/rebound
@@ -27,8 +26,16 @@ public class ContactFixture implements Pool.Poolable {
         return fixtureA.testContact(fixtureB, contactResolver);
     }
 
-    public boolean imFixtureA(Fixture<?> fixture) {
+    public Fixture getOther(Fixture fixture) {
+        return imFixtureA(fixture) ? fixtureB : fixtureA;
+    }
+
+    public boolean imFixtureA(Fixture fixture) {
         return fixture == fixtureA;
+    }
+
+    public Body getOther(Body body) {
+        return imBodyA(body) ? fixtureB.body : fixtureA.body;
     }
 
     public boolean imBodyA(Body body) {

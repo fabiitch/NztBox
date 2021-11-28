@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.*;
-import com.nzt.box.test.screens.utils.Camera2DController;
+import com.nzt.box.test.screens.utils.CamBox2DController;
 import com.nzt.gdx.math.shapes.Segment;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.archi.screens.TestScreen;
@@ -16,12 +16,12 @@ public class ShapeDebugger extends TestScreen {
     private Shape2D shape1;
     private Shape2D shape2;
     private OrthographicCamera camera;
-    private Camera2DController camera2DMover;
+    private CamBox2DController camera2DMover;
 
     public ShapeDebugger(FastTesterMain main) {
         super(main);
         this.camera = new OrthographicCamera(1080, 720);
-        camera2DMover = new Camera2DController(camera);
+        camera2DMover = new CamBox2DController(camera);
         Gdx.input.setInputProcessor(camera2DMover);
 
         infoMsg("Red", "shape1");

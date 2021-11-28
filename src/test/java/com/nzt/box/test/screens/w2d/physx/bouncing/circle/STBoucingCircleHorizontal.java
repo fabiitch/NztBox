@@ -9,7 +9,7 @@ import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 public class STBoucingCircleHorizontal extends STBoucingCircle {
     public STBoucingCircleHorizontal(FastTesterMain main) {
         super(main);
-        body.setVelocity(100, 0);
+        body.setVelocity(500, 0);
     }
 
     @Override
