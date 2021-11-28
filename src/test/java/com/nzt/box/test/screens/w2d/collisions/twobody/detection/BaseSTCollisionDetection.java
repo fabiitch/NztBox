@@ -43,7 +43,7 @@ abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodySha
 
             @Override
             public void preSolve(ContactFixture contactBody) {
-                contactBody.calculCollisionData = true;
+                contactBody.doCalculData = true;
             }
         };
         debugRenderer.debugSettings.drawContactNormal = true;

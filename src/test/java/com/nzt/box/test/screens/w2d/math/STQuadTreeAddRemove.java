@@ -11,7 +11,7 @@ import com.nzt.box.bodies.Fixture;
 import com.nzt.box.debug.BoxDebugSettings;
 import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
-import com.nzt.box.test.screens.utils.Camera2DController;
+import com.nzt.box.test.screens.utils.CamBox2DController;
 import com.nzt.gdx.input.utils.InputUtils;
 import com.nzt.gdx.test.api.tester.GdxTestUtils;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
@@ -51,7 +51,7 @@ public class STQuadTreeAddRemove extends Box2dTestScreen {
 
 
     public InputProcessor inputProcessor() {
-        return new Camera2DController((OrthographicCamera) this.camera) {
+        return new CamBox2DController((OrthographicCamera) this.camera) {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector2 clickPos = InputUtils.getClickPos(camera, screenX, screenY);
@@ -98,7 +98,7 @@ public class STQuadTreeAddRemove extends Box2dTestScreen {
         QuadTree quadTree = world.data.quadTreeContainer.root.getQuadTree(rectangle);
         if (quadTree == null)
             return;
-        Array<Fixture<?>> valuesAndSub = quadTree.getValuesAndSub(quadTree.container.poolFixtureArray.obtain());
+        Array<Fixture> valuesAndSub = quadTree.getValuesAndSub(quadTree.container.poolFixtureArray.obtain());
         for (int i = 0; i < valuesAndSub.size; i++) {
             Fixture fixture = valuesAndSub.get(i);
             if (rectangle.contains(fixture.body.getPosition(new Vector2()))) {

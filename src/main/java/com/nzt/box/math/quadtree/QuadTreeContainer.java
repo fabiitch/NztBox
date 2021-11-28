@@ -57,13 +57,13 @@ public class QuadTreeContainer {
     }
 
     public void addBody(Body body) {
-        Array<Fixture<?>> fixtures = body.fixtures;
+        Array<Fixture> fixtures = body.fixtures;
         for (Fixture fixture : fixtures)
             root.addFixture(fixture);
     }
 
     public void removeBody(Body body) {
-        Array<Fixture<?>> fixtures = body.fixtures;
+        Array<Fixture> fixtures = body.fixtures;
         for (Fixture fixture : fixtures)
             root.removeFixture(fixture);
     }
@@ -87,7 +87,7 @@ public class QuadTreeContainer {
     }
 
     public void rebuild(Rectangle rectangleStart, int newMaxDepth) {
-        Array<Fixture<?>> allValues = root.getValuesAndSub(poolFixtureArray.obtain());
+        Array<Fixture> allValues = root.getValuesAndSub(poolFixtureArray.obtain());
         init(rectangleStart, maxValues, newMaxDepth);
         for (Fixture<?> fixture : allValues)
             root.addFixture(fixture);
@@ -107,15 +107,15 @@ public class QuadTreeContainer {
     private ContactRectangle contactRectangle = new ContactRectangle();
     private ContactCircle contactCircle = new ContactCircle();
 
-    public Array<Fixture<?>> getFixtures(Rectangle rect) {
+    public Array<Fixture> getFixtures(Rectangle rect) {
         QuadTree quadTree = root.getQuadTree(rect);
         if (quadTree == null) {
             quadTree = root;
         }
-        Array<Fixture<?>> valuesAndSub = quadTree.getValuesAndSub(poolFixtureArray.obtain());
+        Array<Fixture> valuesAndSub = quadTree.getValuesAndSub(poolFixtureArray.obtain());
         contactRectangle.myRectangle.set(rect);
 
-        Array<Fixture<?>> result = poolFixtureArray.obtain();
+        Array<Fixture> result = poolFixtureArray.obtain();
         for (Fixture fixture : valuesAndSub) {
             if (fixture.bodyShape.testContact(contactRectangle)) {
                 result.add(fixture);

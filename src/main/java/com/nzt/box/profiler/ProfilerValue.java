@@ -7,7 +7,6 @@ public class ProfilerValue {
     public IntCounter step;
     public IntCounter iteration;
 
-
     public ProfilerValue() {
         this.step = new IntCounter();
         this.iteration = new IntCounter();
@@ -17,13 +16,21 @@ public class ProfilerValue {
         iteration.current++;
     }
 
-    public void endIteration() {
-        this.step.current += iteration.current;
-        this.iteration.addCurrent();
+    public void startStep() {
+        this.step.current = 0;
     }
 
     public void endStep() {
         this.step.addCurrent();
+    }
+
+    public void startIteration() {
+        this.iteration.current = 0;
+    }
+
+    public void endIteration() {
+        this.step.current += iteration.current;
+        this.iteration.addCurrent();
     }
 
     public String toString(String fieldName) {
@@ -32,6 +39,7 @@ public class ProfilerValue {
                 ", iteration=" + iteration.toString() +
                 '}';
     }
+
     @Override
     public String toString() {
         return "ProfilerValue{" +

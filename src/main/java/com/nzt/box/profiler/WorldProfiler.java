@@ -1,6 +1,7 @@
 package com.nzt.box.profiler;
 
 import com.badlogic.gdx.math.FloatCounter;
+import com.badlogic.gdx.utils.Array;
 import com.nzt.gdx.counter.IntCounter;
 
 public class WorldProfiler {
@@ -15,6 +16,7 @@ public class WorldProfiler {
 
     public ProfilerValue testContact, replaceContact, collisionData, computeContact;
 
+    private Array<ProfilerValue> profilerValues;
 
     public WorldProfiler() {
         timerStep = new FloatCounter(0);
@@ -22,37 +24,37 @@ public class WorldProfiler {
 
         iterationPerStep = new IntCounter();
 
+        profilerValues = new Array<>(false, 9);
+
         bodyMove = new ProfilerValue();
         bodyContactCheck = new ProfilerValue();
         fixtureContactCheck = new ProfilerValue();
+        profilerValues.add(bodyMove, bodyContactCheck, fixtureContactCheck);
 
         beginContact = new ProfilerValue();
         endContact = new ProfilerValue();
+        profilerValues.add(beginContact, endContact);
 
         testContact = new ProfilerValue();
         replaceContact = new ProfilerValue();
         collisionData = new ProfilerValue();
         computeContact = new ProfilerValue();
+        profilerValues.add(testContact, replaceContact, collisionData, computeContact);
     }
 
     public void startStep() {
+        iterationPerStep.current = 0;
         timeStartStep = System.currentTimeMillis();
+
+        for (int i = 0, n = profilerValues.size; i < n; i++)
+            profilerValues.get(i).startStep();
     }
 
     public void endStep() {
         iterationPerStep.addCurrent();
 
-        bodyMove.endStep();
-        bodyContactCheck.endStep();
-        fixtureContactCheck.endStep();
-
-        beginContact.endStep();
-        endContact.endStep();
-
-        testContact.endStep();
-        replaceContact.endStep();
-        collisionData.endStep();
-        computeContact.endStep();
+        for (int i = 0, n = profilerValues.size; i < n; i++)
+            profilerValues.get(i).endStep();
 
         long endTime = System.currentTimeMillis();
         timerStep.put(endTime - timeStartStep);
@@ -60,22 +62,15 @@ public class WorldProfiler {
 
     public void startIteration() {
         timeStartIteration = System.currentTimeMillis();
+        iterationPerStep.current++;
+
+        for (int i = 0, n = profilerValues.size; i < n; i++)
+            profilerValues.get(i).startIteration();
     }
 
     public void endIteration() {
-        iterationPerStep.current++;
-
-        bodyMove.endIteration();
-        bodyContactCheck.endIteration();
-        fixtureContactCheck.endIteration();
-
-        beginContact.endIteration();
-        endContact.endIteration();
-
-        testContact.endIteration();
-        replaceContact.endIteration();
-        collisionData.endIteration();
-        computeContact.endIteration();
+        for (int i = 0, n = profilerValues.size; i < n; i++)
+            profilerValues.get(i).endIteration();
         long endTime = System.currentTimeMillis();
         timerIteration.put(endTime - timeStartIteration);
     }

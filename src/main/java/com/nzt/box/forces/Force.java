@@ -1,4 +1,4 @@
-package com.nzt.box.bodies.forces;
+package com.nzt.box.forces;
 
 import com.badlogic.gdx.utils.Pool;
 import com.nzt.box.bodies.Body;

@@ -39,6 +39,6 @@ public class BodyBoundingBoxTest {
         Assertions.assertEquals(AbstractMathTest.r(-50, -20, 100, 40), body.boundingBox);
 
         body.setPosition(100, 100);
-        Assertions.assertEquals(AbstractMathTest.r(0, 0, 100, 40), body.boundingBox);
+        Assertions.assertEquals(AbstractMathTest.r(50, 80, 100, 40), body.boundingBox);
     }
 }

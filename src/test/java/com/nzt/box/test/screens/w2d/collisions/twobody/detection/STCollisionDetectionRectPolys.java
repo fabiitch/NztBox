@@ -12,11 +12,11 @@ public class STCollisionDetectionRectPolys extends BaseSTCollisionDetection<Poly
 
     @Override
     protected PolygonShape createBodyShape1() {
-        return new PolygonShape(PolygonBuilder.rectangle(10, 300, true));
+        return new PolygonShape(PolygonBuilder.rectangle(50, 300, true));
     }
 
     @Override
     protected PolygonShape createBodyShape2() {
-        return new PolygonShape(PolygonBuilder.rectangle(10, 300, true));
+        return new PolygonShape(PolygonBuilder.rectangle(100, 300, true));
     }
 }

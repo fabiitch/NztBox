@@ -1,11 +1,10 @@
 package com.nzt.box.test.screens.w2d.move;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
-import com.nzt.box.bodies.forces.ForceFactory;
+import com.nzt.box.forces.ForceFactory;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
 import com.nzt.gdx.input.impl.simple.SimpleMvtInputController;

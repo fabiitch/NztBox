@@ -32,9 +32,8 @@ abstract class BoxTestScreen extends TestScreen {
     public InputMultiplexer inputMultiplexer;
 
     private final static String Key_WorldRunning = "SimulationRunnig";
-    private final static String Key_CalculPerf = "BoxCalcul%";
     private final static String Key_CalculPercent = "BoxCalcul";
-    private final static String Key_RenderPercent = "BoxRender%";
+    private final static String Key_RenderPercent = "BoxRender";
 
 
     public final static String Key_TimeStep = "BoxTimeStep";
@@ -50,8 +49,7 @@ abstract class BoxTestScreen extends TestScreen {
         HudDebug.addTopLeft("JavaHeap", GdxUtils.getHeapMb() + " MB");
         HudDebug.addTopLeft(Key_WorldRunning, "Press Space to pause/run simulation", world.simulationRunning, Color.WHITE);
 
-        HudDebug.addBotLeft(Key_CalculPercent, 1000 + " ms");
-        PerformanceFrame.add(Key_CalculPerf);
+        PerformanceFrame.add(Key_CalculPercent);
         PerformanceFrame.add(Key_RenderPercent);
 
         HudDebug.addTopRight(Key_TimeStep, world.profiler.timerStep.average);
@@ -77,9 +75,9 @@ abstract class BoxTestScreen extends TestScreen {
             world.simulationRunning = !world.simulationRunning;
             HudDebug.update(Key_WorldRunning, world.simulationRunning);
         }
-        PerformanceFrame.startAction(Key_CalculPerf);
+        PerformanceFrame.startAction(Key_CalculPercent);
         world.step(dt);
-        PerformanceFrame.endAction(Key_CalculPerf);
+        PerformanceFrame.endAction(Key_CalculPercent);
 
         PerformanceFrame.startAction(Key_RenderPercent);
         debugRenderer.render(world, camera.combined);

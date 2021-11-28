@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
-import com.nzt.box.bodies.forces.Force;
+import com.nzt.box.forces.Force;
 import com.nzt.box.contact.data.ContactBody;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.gdx.math.vectors.V3;
@@ -27,7 +27,7 @@ public class Body implements Pool.Poolable {
     public float angularVelocity;
     public float rotation = 0; //Degrees
 
-    public final Array<Fixture<?>> fixtures;
+    public final Array<Fixture> fixtures;
     public final Array<ContactBody> contactsBody;
     public final Array<Force> forces;
     public final Array<Force> forcesToRemove;
