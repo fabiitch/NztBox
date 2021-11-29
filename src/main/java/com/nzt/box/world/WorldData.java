@@ -9,20 +9,17 @@ import com.nzt.box.math.quadtree.QuadTreeContainer;
 
 public class WorldData {
 
-    private World world;
     public Array<Body> bodies;
-    public Array<Body> activeBodies;
 
     public QuadTreeContainer quadTreeContainer;
 
-    public WorldData(World world) {
+    public int bodiesIdGenerator = 1;
+
+    public WorldData() {
         super();
-        this.world = world;
         this.bodies = new Array<>();
         this.quadTreeContainer = new QuadTreeContainer();
     }
-
-    public int bodiesIdGenerator = 1;
 
     public void addBody(Body body) {
         if (bodiesIdGenerator == Integer.MAX_VALUE) {
@@ -36,6 +33,24 @@ public class WorldData {
         body.updatePosition();
     }
 
+    public Body getBody(int id) {
+        for (int i = 0, n = bodies.size; i < n; i++) {
+            Body body = bodies.get(i);
+            if (body.id == id)
+                return body;
+        }
+        return null;
+    }
+
+    public Body getBody(Object userData) {
+        for (int i = 0, n = bodies.size; i < n; i++) {
+            Body body = bodies.get(i);
+            if (body.userData == userData)
+                return body;
+        }
+        return null;
+    }
+
     public void removeBody(Body body) {
         quadTreeContainer.removeBody(body);
         for (ContactBody contactBody : body.contactsBody) {
@@ -45,7 +60,7 @@ public class WorldData {
             }
             if (contactBody.imBodyA(body)) {
                 contactBody.bodyB.contactsBody.removeValue(contactBody, true);
-            }else{
+            } else {
                 contactBody.bodyA.contactsBody.removeValue(contactBody, true);
             }
         }

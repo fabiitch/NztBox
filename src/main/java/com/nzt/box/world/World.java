@@ -26,7 +26,7 @@ public class World {
 
     public World(float stepTime, boolean activeProfiler) {
         this.stepTime = stepTime;
-        this.data = new WorldData(this);
+        this.data = new WorldData();
         this.profiler = new WorldProfiler();
         this.contactCompute = new ContactCompute();
         this.contactResolver = new ContactResolver();
@@ -70,39 +70,50 @@ public class World {
             Body body = bodies.get(i);
             if (!body.dirtyPos && (!body.active || body.bodyType == BodyType.Static))
                 continue;
-            boolean move = body.move(stepTime);
-            if (activeProfiler) profiler.bodyMove.inc();
-            if (move || body.dirtyPos) {
-                checkBodyCollisions(body);
-            }
+            moveBody(body);
+        }
+    }
+
+    protected void moveBody(Body body) {
+        if (activeProfiler) profiler.moveBody.inc();
+        boolean move = body.move(stepTime);
+        if (move || body.dirtyPos) {
+            checkBodyCollisions(body);
             body.dirtyPos = false;
         }
     }
 
     protected void checkBodyCollisions(Body bodyA) {
-        if (activeProfiler) profiler.bodyContactCheck.inc();
+        if (activeProfiler) profiler.checkBodyCollision.inc();
         for (int i = 0, n = bodyA.fixtures.size; i < n; i++) {
             Fixture fixtureA = bodyA.fixtures.get(i);
             if (!fixtureA.active)
                 continue;
-            Array<Fixture> fixturesClose = fixtureA.quadTree.getValuesAndParents(new Array<>());
-            fixtureA.getFixturesContact(fixturesClose, true);
-            for (int i2 = 0, n2 = fixturesClose.size; i2 < n2; i2++) {
-                Fixture fixtureB = fixturesClose.get(i2);
-                if (fixtureA == fixtureB || !ContactUtils.shouldTestContact(bodyA, fixtureB.body)) {
-                    continue;
-                }
-                if (activeProfiler) profiler.fixtureContactCheck.inc();
-                checkFixtureCollision(fixtureA, fixtureB);
-            }
+            checkFixtureCollision(bodyA, fixtureA);
         }
     }
 
-    protected void checkFixtureCollision(Fixture fixtureA, Fixture fixtureB) {
+    protected void checkFixtureCollision(Body bodyA, Fixture fixtureA) {
+        if (activeProfiler) profiler.checkFixtureCollision.inc();
+        Array<Fixture> fixturesClose = fixtureA.quadTree.getValuesAndParents(new Array<>());
+        fixtureA.getFixturesContact(fixturesClose, true);
+        for (int i2 = 0, n2 = fixturesClose.size; i2 < n2; i2++) {
+            Fixture fixtureB = fixturesClose.get(i2);
+            if (fixtureA == fixtureB || !ContactUtils.shouldTestContact(bodyA, fixtureB.body)) {
+                continue;
+            }
+            fixtureTestCollision(fixtureA, fixtureB);
+        }
+    }
+
+
+    protected void fixtureTestCollision(Fixture fixtureA, Fixture fixtureB) {
+        if (activeProfiler) profiler.fixtureTestCollision.inc();
+
         ContactFixture hasContact = data.getContact(fixtureA, fixtureB);
         if (hasContact != null) {
             boolean retryTestContact = ContactUtils.fastCheck(fixtureA, fixtureB);
-            if (!retryTestContact) {
+            if (retryTestContact) {
                 if (activeProfiler) profiler.testContact.inc();
                 retryTestContact = hasContact.retry(contactResolver);
             }
