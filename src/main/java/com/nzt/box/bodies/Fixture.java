@@ -11,6 +11,7 @@ import com.nzt.gdx.utils.arrays.GdxArrayUtils;
 
 public class Fixture<S extends BodyShape> {
     public boolean active = true;
+
     public Body body;
     public S bodyShape;
     public Object userData;

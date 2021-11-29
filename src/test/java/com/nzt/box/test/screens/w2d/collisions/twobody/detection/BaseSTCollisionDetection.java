@@ -24,6 +24,7 @@ abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodySha
 
         infoMsg("B => rotate body1");
         infoMsg("N => rotate body2");
+        debugRenderer.debugSettings.drawBoudingsBoxFixtures = true;
         world.contactListener = new ContactListener() {
             @Override
             public void beginContact(ContactFixture contactBody) {
