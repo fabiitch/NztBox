@@ -201,7 +201,7 @@ public class QuadTree implements Pool.Poolable {
     }
 
     public boolean isSplitted() {
-        return ne != null || nw != null || ne != null || nw != null;
+        return ne != null || nw != null || sw != null || se != null;
     }
 
 

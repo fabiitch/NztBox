@@ -9,7 +9,6 @@ import com.nzt.box.test.api.run.BaseBoxTest;
 import com.nzt.box.test.api.BoxTestMethods;
 import com.nzt.box.test.api.mock.ContactListenerMock;
 import com.nzt.gdx.test.api.tester.PredicateSuccess;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

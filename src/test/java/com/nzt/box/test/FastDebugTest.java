@@ -4,8 +4,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
 public class FastDebugTest {
     @Test
     public void ff() {

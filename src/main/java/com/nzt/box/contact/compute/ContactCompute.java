@@ -5,12 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.nzt.box.BoxUtils;
 import com.nzt.box.bodies.Body;
-import com.nzt.box.bodies.BodyType;
-import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.data.CollisionData;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.gdx.math.AngleUtils;
-import com.nzt.gdx.math.NzMath;
 import com.nzt.gdx.math.vectors.V2;
 
 import static com.badlogic.gdx.math.MathUtils.cos;

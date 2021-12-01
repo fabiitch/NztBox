@@ -3,7 +3,6 @@ package com.nzt.box.test.screens.w2d;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.nzt.box.bodies.Body;
-import com.nzt.box.bodies.BodyDef;
 import com.nzt.box.test.screens.base.Box2dTestScreen;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.input.impl.simple.SimpleClickInputHandler;

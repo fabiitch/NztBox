@@ -24,8 +24,8 @@ ext {
     gdxVersion = '1.10.0'
     roboVMVersion = '2.3.12'
     ashleyVersion = '1.7.4'
-    mockitoVersion = "3.2.0"
-    junitVersion = "5.7.0"
+    mockitoVersion = '4.0.0'
+    junitVersion = '5.8.1'
 }
 dependencies {
     api project(':NztGdx')
