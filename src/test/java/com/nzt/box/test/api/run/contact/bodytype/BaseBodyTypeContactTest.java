@@ -86,13 +86,14 @@ public abstract class BaseBodyTypeContactTest extends BaseBoxTest {
 
     protected void addTestCondition(BodyTypeTestResult bodyTypeTestResult) {
         createBodies();
-        world.contactListener = new ContactListenerMock() {
+        world.setContactListener(new ContactListenerMock() {
             @Override
             public void beginContact(ContactFixture contactFixture) {
                 Assertions.assertEquals(bodyTypeTestResult.shouldApplyForces, contactFixture.doCollision);
 //                Assertions.assertEquals(bodyTypeTestResult.shouldRebound, contactFixture.doRebound);
             }
-        };
+        });
+
         testConditions.add(new TestCondition() {
             @Override
             public String name() {

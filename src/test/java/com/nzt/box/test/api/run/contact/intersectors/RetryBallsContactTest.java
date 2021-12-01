@@ -48,7 +48,7 @@ public class RetryBallsContactTest extends BaseBoxTest {
             this.timeElapsed = 0;
             initNztBox();
             collision = false;
-            world.contactListener = contactListener;
+            world.setContactListener(contactListener);
             ball1 = createBall(BodyType.Dynamic);
             ball2 = createBall(BodyType.Dynamic);
 

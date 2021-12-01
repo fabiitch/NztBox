@@ -40,7 +40,7 @@ abstract class BoxTestScreen extends TestScreen {
     public final static String Key_TimeIteration = "BoxTimeIteration";
     public final static String Key_NbIteration = "BoxNbIteration";
     public final static String Key_FixtureContactCheck = "BoxFixtureContactCheck";
-
+    public final static String Key_TestContact = "BoxTestContact";
 
     public BoxTestScreen(FastTesterMain main) {
         super(main);
@@ -55,7 +55,8 @@ abstract class BoxTestScreen extends TestScreen {
         HudDebug.addTopRight(Key_TimeStep, world.profiler.timerStep.average);
         HudDebug.addTopRight(Key_TimeIteration, world.profiler.timerIteration.average);
         HudDebug.addTopRight(Key_NbIteration, world.profiler.iterationPerStep);
-        HudDebug.addTopRight(Key_FixtureContactCheck, world.profiler.fixtureContactCheck.iteration);
+        HudDebug.addTopRight(Key_FixtureContactCheck, world.profiler.checkFixtureCollision.iteration);
+        HudDebug.addTopRight(Key_TestContact, world.profiler.testContact.iteration);
 
         inputMultiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -86,7 +87,8 @@ abstract class BoxTestScreen extends TestScreen {
         HudDebug.update(Key_TimeStep, world.profiler.timerStep.average);
         HudDebug.update(Key_TimeIteration, world.profiler.timerIteration.average);
         HudDebug.update(Key_NbIteration, world.profiler.iterationPerStep);
-        HudDebug.update(Key_FixtureContactCheck, world.profiler.fixtureContactCheck.iteration);
+        HudDebug.update(Key_FixtureContactCheck, world.profiler.checkFixtureCollision.iteration);
+        HudDebug.update(Key_TestContact, world.profiler.testContact.iteration);
         doRender(dt);
     }
 

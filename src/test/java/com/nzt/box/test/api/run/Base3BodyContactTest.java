@@ -34,6 +34,6 @@ public abstract class Base3BodyContactTest {
         world.addBody(bodyC);
 
         contactListener = new ContactListenerMock();
-        world.contactListener = contactListener;
+        world.setContactListener(contactListener);
     }
 }

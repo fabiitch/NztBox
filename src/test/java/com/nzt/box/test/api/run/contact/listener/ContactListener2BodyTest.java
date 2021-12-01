@@ -14,7 +14,7 @@ public class ContactListener2BodyTest extends Base2BodyContactTest {
     @Test
     public void callMethodsListenerTest() {
         ContactListenerMock mock = Mockito.mock(ContactListenerMock.class);
-        world.contactListener = mock;
+        world.setContactListener(mock);
         world.step(0.01f);
         verify(mock, times(1)).preSolve(any()); 
         verify(mock, times(1)).beginContact(any());

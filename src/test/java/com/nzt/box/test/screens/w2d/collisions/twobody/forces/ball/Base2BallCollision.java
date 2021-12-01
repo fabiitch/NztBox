@@ -32,7 +32,7 @@ abstract class Base2BallCollision extends Box2dTestScreen {
         super(main);
         infoMsg("Click for reset");
         addInputProcessor(addInputListener());
-        world.contactListener = addContactListener();
+        world.setContactListener(addContactListener());
 
         HudDebug.addTopRight("beginContact", false);
         HudDebug.addTopRight("continueContact", false);
