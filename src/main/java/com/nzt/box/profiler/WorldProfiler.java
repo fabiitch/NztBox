@@ -10,7 +10,7 @@ public class WorldProfiler {
     public FloatCounter timerStep, timerIteration;
     public IntCounter iterationPerStep;
 
-    public ProfilerValue bodyMove, bodyContactCheck, fixtureContactCheck;
+    public ProfilerValue moveBody, checkBodyCollision, checkFixtureCollision, fixtureTestCollision;
 
     public ProfilerValue beginContact, endContact;
 
@@ -26,10 +26,11 @@ public class WorldProfiler {
 
         profilerValues = new Array<>(false, 9);
 
-        bodyMove = new ProfilerValue();
-        bodyContactCheck = new ProfilerValue();
-        fixtureContactCheck = new ProfilerValue();
-        profilerValues.add(bodyMove, bodyContactCheck, fixtureContactCheck);
+        moveBody = new ProfilerValue();
+        checkBodyCollision = new ProfilerValue();
+        checkFixtureCollision = new ProfilerValue();
+        fixtureTestCollision = new ProfilerValue();
+        profilerValues.add(moveBody, checkBodyCollision, checkFixtureCollision, fixtureTestCollision);
 
         beginContact = new ProfilerValue();
         endContact = new ProfilerValue();

@@ -36,7 +36,7 @@ abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends BodyShape
     }
 
     private void changeWorldContactListener() {
-        world.contactListener = new ContactListener() {
+        ContactListener contactListener = new ContactListener() {
 
             @Override
             public void beginContact(ContactFixture contactBody) {
@@ -61,6 +61,7 @@ abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends BodyShape
 
             }
         };
+        world.setContactListener(contactListener);
     }
 
     protected abstract void doBeginContact();

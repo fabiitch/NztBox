@@ -99,6 +99,9 @@ public class ContactPolygon implements ShapeContact {
         if (polygonOverlaps.getTransformedVertices().length == 0) {//TODO
             System.out.println("no poly");
         }
+        if(overlaps != overlaps2){
+            System.out.println("OVERSSSS");
+        }
         if (overlaps2 && polygonOverlaps.getTransformedVertices().length > 0) {
             PolygonUtils.getCenter(polygonOverlaps, contactFixture.collisionData.collisionPoint);
         } else {
