@@ -32,7 +32,6 @@ public class BodyMock extends Body {
 
     public BodyMock(float posX, float posY) {
         super(BodyType.Dynamic);
-        this.userData = userData;
         addFixture(new FixtureMock());
         setPosition(posX, posY);
     }

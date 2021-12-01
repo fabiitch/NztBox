@@ -1,6 +1,5 @@
 package com.nzt.box.test.screens.w2d.collisions.twobody.forces.ball;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;

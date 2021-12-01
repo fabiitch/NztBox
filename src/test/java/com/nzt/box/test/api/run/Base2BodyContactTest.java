@@ -5,7 +5,6 @@ import com.nzt.box.bodies.Fixture;
 import com.nzt.box.contact.listener.ContactListener;
 import com.nzt.box.test.api.mock.BodyMock;
 import com.nzt.box.test.api.mock.ContactListenerMock;
-import com.nzt.box.test.api.mock.FixtureMock;
 import com.nzt.box.world.World;
 import org.junit.jupiter.api.BeforeEach;
 

@@ -2,10 +2,7 @@ package com.nzt.box.test.screens.w2d.boudingbox;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.nzt.box.debug.BoxDebugSettings;
-import com.nzt.box.test.screens.w2d.BaseSTMultipleBody;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
-import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
 
 public class STBoudingBoxFixture extends BaseSTBoudingBox {
     public STBoudingBoxFixture(FastTesterMain main) {

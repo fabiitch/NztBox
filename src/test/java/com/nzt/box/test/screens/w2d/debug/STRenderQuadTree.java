@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.debug.render.g2d.Box2DDebugRenderer;
 import com.nzt.box.math.quadtree.QuadTree;
@@ -14,7 +13,6 @@ import com.nzt.gdx.test.api.tester.GdxTestUtils;
 import com.nzt.gdx.test.trials.tester.archi.mains.FastTesterMain;
 import com.nzt.gdx.test.trials.tester.archi.screens.TestScreen;
 import com.nzt.gdx.test.trials.tester.selector.TestScreenList;
-import com.nzt.gdx.utils.GdxUtils;
 
 @TestScreenList(group = "2D.debug")
 public class STRenderQuadTree extends TestScreen {

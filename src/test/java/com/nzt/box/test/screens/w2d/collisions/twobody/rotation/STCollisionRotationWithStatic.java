@@ -2,7 +2,6 @@ package com.nzt.box.test.screens.w2d.collisions.twobody.rotation;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.CircleShape;
