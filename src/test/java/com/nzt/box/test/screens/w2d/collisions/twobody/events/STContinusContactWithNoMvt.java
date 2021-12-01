@@ -25,7 +25,7 @@ public class STContinusContactWithNoMvt extends Box2dTestScreen {
     }
 
     public void addContactListener() {
-        world.contactListener = new ContactListener() {
+        world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(ContactFixture contactBody) {
 //                HudDebug.update("Collision", true, Color.RED);
@@ -45,7 +45,7 @@ public class STContinusContactWithNoMvt extends Box2dTestScreen {
             public void preSolve(ContactFixture contactBody) {
 
             }
-        };
+        });
     }
 
     @Override

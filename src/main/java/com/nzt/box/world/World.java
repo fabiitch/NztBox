@@ -16,12 +16,12 @@ public class World {
     public WorldData data;
     public final boolean activeProfiler;
 
-    public ContactListener contactListener;
-    public ContactCompute contactCompute;
-    public ContactResolver contactResolver;
+    protected ContactListener contactListener;
+    protected ContactCompute contactCompute;
+    protected ContactResolver contactResolver;
 
     public float stepTime;
-    private float accumulator = 0f;
+    protected float accumulator = 0f;
     public boolean simulationRunning = true;
 
     public World(float stepTime, boolean activeProfiler) {
@@ -160,5 +160,30 @@ public class World {
                     contactCompute.applyResult(newContact);
             }
         }
+    }
+
+
+    public ContactListener getContactListener() {
+        return contactListener;
+    }
+
+    public void setContactListener(ContactListener contactListener) {
+        this.contactListener = contactListener;
+    }
+
+    public ContactCompute getContactCompute() {
+        return contactCompute;
+    }
+
+    public void setContactCompute(ContactCompute contactCompute) {
+        this.contactCompute = contactCompute;
+    }
+
+    public ContactResolver getContactResolver() {
+        return contactResolver;
+    }
+
+    public void setContactResolver(ContactResolver contactResolver) {
+        this.contactResolver = contactResolver;
     }
 }
