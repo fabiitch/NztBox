@@ -1,8 +1,9 @@
 package com.nzt.box.test.screens.base.debugger.watchers;
 
-import com.badlogic.gdx.utils.Array;
 import com.nzt.box.bodies.Body;
+import com.nzt.box.bodies.Fixture;
 import com.nzt.box.test.screens.base.debugger.BreakPoint;
+import com.nzt.box.test.screens.base.debugger.BreakPoints;
 
 public class BodyWatcher implements BreakPoint {
 
@@ -10,14 +11,26 @@ public class BodyWatcher implements BreakPoint {
 
     public boolean breakAtMove, breakAtBodyCheckCollision, breakAtFixtureCheckCollision;
 
-    public Array<Body> bodyCheck = new Array<>();
+    public ContactWatcher contactWatcher;
 
-    public BodyWatcher() {
 
+    public BodyWatcher(Body body) {
+        this.body = body;
     }
 
     public boolean stop(Body body) {
         return body == this.body;
+    }
+
+
+    @Override
+    public boolean breakForBody(Body body, BreakPoints action) {
+        return this.body == body;
+    }
+
+    @Override
+    public boolean breakForFixture(Fixture fixture, BreakPoints action) {
+        return this.body.fixtures.contains(fixture, true);
     }
 
     @Override

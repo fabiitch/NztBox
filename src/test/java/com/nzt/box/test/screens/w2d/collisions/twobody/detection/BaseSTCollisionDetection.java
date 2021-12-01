@@ -25,7 +25,7 @@ abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodySha
         infoMsg("B => rotate body1");
         infoMsg("N => rotate body2");
         debugRenderer.debugSettings.drawBoudingsBoxFixtures = true;
-        world.contactListener = new ContactListener() {
+        world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(ContactFixture contactBody) {
                 HudDebug.update("Collision", true, Color.RED);
@@ -46,7 +46,7 @@ abstract class BaseSTCollisionDetection<S1 extends BodyShape, S2 extends BodySha
             public void preSolve(ContactFixture contactBody) {
                 contactBody.doCalculData = true;
             }
-        };
+        });
         debugRenderer.debugSettings.drawContactNormal = true;
     }
 

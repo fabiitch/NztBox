@@ -61,7 +61,7 @@ abstract class BaseSTCollisionRebound<S1 extends BodyShape, S2 extends BodyShape
 
             }
         };
-        world.contactListener = contactListener;
+        world.setContactListener(contactListener);
     }
 
     protected abstract void doBeginContact();

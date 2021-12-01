@@ -182,8 +182,25 @@ public class Body implements Pool.Poolable {
         return null;
     }
 
+    //TODO TEST
+    public Fixture getFixture(int index) {
+        if (index < fixtures.size - 1)
+            return fixtures.get(index);
+        return null;
+    }
+
+    //TODO TEST
+    public Fixture getFixture(Object userData) {
+        for (int i = 0, n = fixtures.size; i < n; i++) {
+            Fixture fixture = fixtures.get(i);
+            if (userData == fixture.userData || userData.equals(fixture.userData))
+                return fixture;
+        }
+        return null;
+    }
+
     @Override
     public void reset() {
-
+//TODO
     }
 }

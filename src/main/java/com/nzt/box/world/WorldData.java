@@ -45,7 +45,7 @@ public class WorldData {
     public Body getBody(Object userData) {
         for (int i = 0, n = bodies.size; i < n; i++) {
             Body body = bodies.get(i);
-            if (body.userData == userData)
+            if (userData == body.userData || userData.equals(body.userData))
                 return body;
         }
         return null;

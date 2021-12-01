@@ -73,7 +73,7 @@ public abstract class BaseST2Body<S1 extends BodyShape, S2 extends BodyShape> ex
 
             }
         };
-        world.contactListener = contactListener;
+        world.setContactListener(contactListener);
 
         bodyMove = body1;
         bodyStatic = body2;

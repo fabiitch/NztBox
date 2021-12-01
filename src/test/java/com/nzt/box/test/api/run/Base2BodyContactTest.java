@@ -29,6 +29,6 @@ public abstract class Base2BodyContactTest {
         world.addBody(bodyB);
 
         contactListener = new ContactListenerMock();
-        world.contactListener = contactListener;
+        world.setContactListener(contactListener);
     }
 }

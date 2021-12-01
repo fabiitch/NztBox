@@ -2,13 +2,13 @@ package com.nzt.box.contact.listener;
 
 import com.nzt.box.contact.data.ContactFixture;
 
-public abstract class ContactListener {
-    public abstract void preSolve(ContactFixture contactFixture);
+public interface ContactListener {
+    void preSolve(ContactFixture contactFixture);
 
-    public abstract void beginContact(ContactFixture contactFixture);
+    void beginContact(ContactFixture contactFixture);
 
-    public abstract void endContact(ContactFixture contactFixture);
+    void endContact(ContactFixture contactFixture);
 
-    public abstract void continueContact(ContactFixture contactFixture);
+    void continueContact(ContactFixture contactFixture);
 
 }

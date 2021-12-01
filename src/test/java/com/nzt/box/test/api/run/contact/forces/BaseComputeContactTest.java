@@ -40,7 +40,7 @@ public abstract class BaseComputeContactTest extends BaseBoxTest {
                 contactDone = true;
             }
         };
-        world.contactListener = contactListener;
+        world.setContactListener(contactListener);
 
 
         successesConditions.add(new PredicateSuccess() {
@@ -91,7 +91,7 @@ public abstract class BaseComputeContactTest extends BaseBoxTest {
         body2.setVelocity(velocity2);
 
         forcesTester = new ContactComputeTester(data1, data2);
-        world.contactCompute = forcesTester;
+        world.setContactCompute(forcesTester);
         successesConditions.add(new PredicateSuccess() {
             @Override
             public String name() {
