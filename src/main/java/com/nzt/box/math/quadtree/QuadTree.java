@@ -204,11 +204,9 @@ public class QuadTree implements Pool.Poolable {
         return ne != null || nw != null || sw != null || se != null;
     }
 
-
     public boolean shouldRegroup() {
         return isSplitted() && countValuesAndSubs() <= container.maxValues / 2;
     }
-
 
     public boolean shouldSplit() {
         if (isSplitted()
