@@ -9,6 +9,7 @@ import com.nzt.box.test.runnable.BaseRunnableBoxTest;
 import com.nzt.box.test.unit.BoxTestMethods;
 import com.nzt.box.test.mock.ContactListenerMock;
 import com.nzt.gdx.test.st.tester.conditions.PredicateSuccess;
+import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,8 @@ public class STRetryBallsContact extends BaseRunnableBoxTest {
     CollisionData collisionData = null;
     int nbCollision = 0;
 
-    public STRetryBallsContact() {
+    public STRetryBallsContact(FastTesterMain main) {
+        super(main);
         this.maxTimeTestDuration = 5;
         contactListener = new ContactListenerMock() {
             @Override
