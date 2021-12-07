@@ -1,11 +1,16 @@
 package com.nzt.box.test.runnable.contact.forces.impl;
 
 import com.nzt.box.test.runnable.contact.forces.BaseComputeContactTest;
+import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ContactComputeFrontalTest extends BaseComputeContactTest {
 
+
+    public ContactComputeFrontalTest(FastTesterMain main) {
+        super(main);
+    }
 
     @BeforeEach
     public void init() {

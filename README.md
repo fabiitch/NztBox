@@ -12,6 +12,20 @@ The volume are only 2D shape (Circle, Polygons) and you give a height.
 But its just a collision engine, after collision a collision forces are computed but its very simplist
 Its not realistic.
 
+## Use : 
+ #### World creation :
+       World world = new World();
+
+#### Debug Renderer
+        box2DDebugRenderer = new Box2DDebugRenderer();
+
+#### Body Creation
+
+        Body body = new Body(BodyType.Dynamic);
+        BodyShape shape = new CircleShape(10);
+        Fixture<?> fixture = new Fixture<>(shape);
+        body.addFixture(fixture);
+        world.addBody(body);
 ---
 ## BodyType :
 
@@ -34,24 +48,6 @@ Its not realistic.
     - Collision event with Dynamic, Kinematic, Ghost, Forces
     - Rebound with Dynamic, Kinematic
     - Forces with Dynamic, Kinematic, Forces
-### 4) Ghost
-    - Can move or rotate
-    - Gravity has no effect
-    - Collision event with Static, Dynamic, Kinematic, Ghost, Forces
-    - No rebound
-    - No forces
-### 5) Force
-    - Can move or rotate
-    - Gravity has no effect
-    - Collision event with Dynamic, Kinematic, Ghost, Forces
-    - No rebound
-    - Forces with Dynamic
-### 6) Laser
-    - Can move or rotate
-    - Gravity has no effect
-    - Collision event with Dynamic, Kinematic, Ghost, Forces
-    - Rebound
-    - No Forces
 ---
 ## Body Contact Attribute :
     - Mass      : Used as multiplicator of energy transfert
