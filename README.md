@@ -1,3 +1,9 @@
+# WIP, this is a project not finish, you are lost on the internet ! 
+see https://github.com/fabiitch/NztBox/issues/1
+
+
+
+
 # NztBox <img src="https://github.com/fabiitch/NztBox/blob/master/src/test/resources/box.png?raw=true" alt="Logo" width="150"/>
     - Simple 3D collision systems using in LibGdx
     - Can be used as 2D
