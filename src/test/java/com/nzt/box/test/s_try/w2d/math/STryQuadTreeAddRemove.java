@@ -11,7 +11,7 @@ import com.nzt.box.bodies.Fixture;
 import com.nzt.box.debug.BoxDebugSettings;
 import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.test.s_try.base.BaseBox2DSTry;
-import com.nzt.box.test.s_try.utils.CamBox2DController;
+import com.nzt.box.test.s_try.utils.BoxCamera2DController;
 import com.nzt.gdx.input.utils.InputUtils;
 import com.nzt.gdx.test.utils.GdxTestUtils;
 import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
@@ -51,7 +51,7 @@ public class STryQuadTreeAddRemove extends BaseBox2DSTry {
 
 
     public InputProcessor inputProcessor() {
-        return new CamBox2DController((OrthographicCamera) this.camera) {
+        return new BoxCamera2DController((OrthographicCamera) this.camera) {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector2 clickPos = InputUtils.getClickPos(camera, screenX, screenY);

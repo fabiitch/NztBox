@@ -61,9 +61,9 @@ public class Fixture<S extends BodyShape> {
         return b;
     }
 
-    public void replace(Fixture fixtureB, ContactFixture contactFixture, ContactResolver contactResolver) {
+    public void replace(Fixture fixtureB, ContactResolver contactResolver) {
         ShapeContact contactVisitor = bodyShape.getContactVisitor(contactResolver);
-        fixtureB.bodyShape.replace(contactVisitor, contactFixture);
+        fixtureB.bodyShape.replace(contactVisitor, this.body);
     }
 
     public void calculCollisionData(Fixture fixtureB, ContactFixture contactFixture, ContactResolver contactResolver) {

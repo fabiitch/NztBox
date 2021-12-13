@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.gdx.math.vectors.V3;
 
-public class CamBox2DController extends InputAdapter {
+public class BoxCamera2DController extends InputAdapter {
     private Vector2 cameraVelocity = new Vector2();
     private OrthographicCamera camera;
 
     public float baseVelocity = 10;
 
-    public CamBox2DController(OrthographicCamera camera) {
+    public BoxCamera2DController(OrthographicCamera camera) {
         this.camera = camera;
     }
 

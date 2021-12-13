@@ -23,10 +23,10 @@ public class RectangleWalls {
     public BodyDef bodyDef = new BodyDef(BodyType.Static).mass(1).transfert(1).receive(1).restitution(1);
     private World world;
 
-    public RectangleWalls(Rectangle rect, float size, World world) {
+    public RectangleWalls(Rectangle rect, float sizeWalls, World world) {
         this.world = world;
         walls = new Array<>();
-        create(rect, size);
+        create(rect, sizeWalls);
     }
 
     private Body createWall(Rectangle rect, String userData) {
@@ -42,25 +42,12 @@ public class RectangleWalls {
         return wall;
     }
 
-    public void create(Rectangle rect, float size) {
-        final int decal = 5;
-
-        Segment ab = RectangleUtils.getAB(rect, new Segment());
-        Rectangle rectAB = new Rectangle(ab.a.x, ab.a.y - size + decal, rect.width, size);
-        botWall = createWall(rectAB, "Wall Bot");
-
-        Segment bc = RectangleUtils.getBC(rect, new Segment());
-        Rectangle rectBC = new Rectangle(bc.a.x - decal, bc.a.y, size, rect.height);
-        rightWall = createWall(rectBC, "Wall Right");
-//
-        Segment cd = new Segment(RectangleUtils.getD(rect, new Vector2()), RectangleUtils.getC(rect, new Vector2()));
-        Rectangle rectCD = new Rectangle(cd.a.x, cd.a.y - decal, cd.dst(), size);
-        topWall = createWall(rectCD, "Wall Top");
-
-        Segment ad = RectangleUtils.getAD(rect, new Segment());
-        Rectangle rectAD = new Rectangle(ad.a.x - size + decal, ad.a.y, size, ad.dst());
-        leftWall = createWall(rectAD, "Wall Left");
-//
+    public void create(Rectangle rect, float sizeWalls) {
+        Rectangle[] rectsAround = RectangleUtils.getRectsAround(rect, sizeWalls);
+        botWall = createWall(rectsAround[0], "Wall Bot");
+        topWall = createWall(rectsAround[1], "Wall Top");
+        leftWall = createWall(rectsAround[2], "Wall Left");
+        rightWall = createWall(rectsAround[3], "Wall Right");
         walls.add(topWall, botWall, rightWall, leftWall);
     }
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
@@ -78,8 +79,8 @@ public class PolygonShape extends BodyShape<Polygon> {
     }
 
     @Override
-    public void replace(ShapeContact visitor, ContactFixture contactFixture) {
-        visitor.replace(shape, contactFixture);
+    public void replace(ShapeContact visitor, Body bodyToReplace) {
+        visitor.replace(bodyToReplace, shape);
     }
 
     @Override

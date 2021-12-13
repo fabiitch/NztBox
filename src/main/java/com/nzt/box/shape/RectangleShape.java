@@ -2,6 +2,7 @@ package com.nzt.box.shape;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
@@ -74,8 +75,8 @@ public class RectangleShape extends BodyShape<Rectangle> {
     }
 
     @Override
-    public void replace(ShapeContact visitor, ContactFixture contactFixture) {
-        visitor.replace(shape, contactFixture);
+    public void replace(ShapeContact visitor, Body bodyToReplace) {
+        visitor.replace(bodyToReplace, shape);
     }
 
     @Override
