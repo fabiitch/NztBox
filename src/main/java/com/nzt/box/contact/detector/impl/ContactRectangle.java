@@ -28,13 +28,12 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void replace(Circle circle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
+    public void replace(Body bodyToReplace, Circle circle) {
         IntersectorCircle.replaceFromRectangle(circle, myRectangle, tmp1);
         V2.inv(tmp1);
         RectangleUtils.getCenter(myRectangle, tmp2);
         tmp2.add(tmp1);
-        bodyA.setPosition(tmp2);
+        bodyToReplace.setPosition(tmp2);
     }
 
     @Override
@@ -54,19 +53,18 @@ public class ContactRectangle implements ShapeContact {
         return RectangleUtils.overlapsStick(myRectangle, rectangle);
     }
 
-
     @Override
-    public void replace(Rectangle rectangle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
+    public void replace(Body bodyToReplace, Rectangle rectangle) {
 
         Intersector.MinimumTranslationVector translationVector = IntersectorPolygon.tmpTranslationVector;
         boolean overlaps = IntersectorRectangle.rectangles(myRectangle, rectangle, translationVector);
         if (overlaps) {
             RectangleUtils.getCenter(myRectangle, tmp1);
             tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
-            bodyA.setPosition(tmp1.add(tmp2));
+            bodyToReplace.setPosition(tmp1.add(tmp2));
         }
     }
+
 
     @Override
     public void calculCollisionData(Rectangle rectangle, ContactFixture contactFixture) {
@@ -95,15 +93,13 @@ public class ContactRectangle implements ShapeContact {
     }
 
     @Override
-    public void replace(Polygon polygon, ContactFixture contactFixture) { //TODO add normal here
-        Body bodyA = contactFixture.fixtureA.body;
-
+    public void replace(Body bodyToReplace, Polygon polygon) {//TODO add normal here
         Intersector.MinimumTranslationVector translationVector = IntersectorPolygon.tmpTranslationVector;
         boolean overlaps = IntersectorRectangle.polygon(myRectangle, polygon, translationVector);
         if (overlaps) {
             tmp1.set(RectangleUtils.getCenter(myRectangle, tmp1));
             tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
-            bodyA.setPosition(tmp1.add(tmp2));
+            bodyToReplace.setPosition(tmp1.add(tmp2));
         }
     }
 

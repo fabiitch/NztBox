@@ -27,8 +27,7 @@ public class ContactCircle implements ShapeContact {
     }
 
     @Override
-    public void replace(Circle circle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
+    public void replace(Body bodyToReplace, Circle circle) {
         Vector2 circleACenter = CircleUtils.getCenter(myCircle, tmp);
         float dst = myCircle.radius + circle.radius - tmp.dst(circle.x, circle.y);
 
@@ -39,7 +38,7 @@ public class ContactCircle implements ShapeContact {
         dirToA.setLength(dst);
 
         Vector2 add = circleACenter.add(dirToA);
-        bodyA.setPosition(add);
+        bodyToReplace.setPosition(add);
     }
 
     @Override
@@ -64,15 +63,13 @@ public class ContactCircle implements ShapeContact {
         return IntersectorCircle.overlapStickRectangle(myCircle, rectangle);
     }
 
-
     @Override
-    public void replace(Rectangle rectangle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
+    public void replace(Body bodyToReplace, Rectangle rectangle) {
         IntersectorCircle.replaceFromRectangle(myCircle, rectangle, tmp);
 
         CircleUtils.getCenter(myCircle, tmp2);
         tmp2.add(tmp);
-        bodyA.setPosition(tmp2);
+        bodyToReplace.setPosition(tmp2);
     }
 
     @Override
@@ -90,16 +87,12 @@ public class ContactCircle implements ShapeContact {
         return IntersectorCircle.polygon(myCircle, polygon);
     }
 
-
     @Override
-    public void replace(Polygon polygon, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
-
+    public void replace(Body bodyToReplace, Polygon polygon) {
         IntersectorCircle.replaceFromPolygon(myCircle, polygon, tmp);
         CircleUtils.getCenter(myCircle, tmp2);
         tmp2.add(tmp);
-        bodyA.setPosition(tmp2);
-
+        bodyToReplace.setPosition(tmp2);
     }
 
     @Override

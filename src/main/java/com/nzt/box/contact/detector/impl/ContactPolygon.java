@@ -24,12 +24,11 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void replace(Circle circle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
+    public void replace(Body bodyToReplace, Circle circle) {
         IntersectorCircle.replaceFromPolygon(circle, myPolygon, tmp);
         Vector2 polygonPos = PolygonUtils.getPos(myPolygon, tmp2);
         V2.inv(tmp);
-        bodyA.setPosition(polygonPos.add(tmp));
+        bodyToReplace.setPosition(polygonPos.add(tmp));
     }
 
     @Override
@@ -50,13 +49,12 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void replace(Rectangle rectangle, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
+    public void replace(Body bodyToReplace, Rectangle rectangle) {
         boolean overlaps = IntersectorPolygon.rectangle(myPolygon, rectangle, IntersectorPolygon.tmpTranslationVector);
         if (overlaps) {
             tmp.set(myPolygon.getX(), myPolygon.getY());
             tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
-            bodyA.setPosition(tmp.add(tmp2));
+            bodyToReplace.setPosition(tmp.add(tmp2));
         }
     }
 
@@ -76,14 +74,12 @@ public class ContactPolygon implements ShapeContact {
     }
 
     @Override
-    public void replace(Polygon polygon, ContactFixture contactFixture) {
-        Body bodyA = contactFixture.fixtureA.body;
-
+    public void replace(Body bodyToReplace, Polygon polygon) {
         boolean overlaps = IntersectorPolygon.polygons(myPolygon, polygon, IntersectorPolygon.tmpTranslationVector);
         if (overlaps) {
             Vector2 posPolygon = PolygonUtils.getPos(myPolygon, tmp);
             tmp2.set(IntersectorPolygon.tmpTranslationVector.normal).setLength(IntersectorPolygon.tmpTranslationVector.depth);
-            bodyA.setPosition(posPolygon.add(tmp2));
+            bodyToReplace.setPosition(posPolygon.add(tmp2));
         }
     }
 

@@ -121,7 +121,7 @@ public class World {
                 if (hasContact.continueContact && contactListener != null)
                     contactListener.continueContact(hasContact);
                 if (hasContact.doCollision) {
-                    fixtureA.replace(fixtureB, hasContact, contactResolver);
+                    fixtureA.replace(fixtureB, contactResolver);
                     if (activeProfiler) profiler.replaceContact.inc();
                 }
             } else {
@@ -143,7 +143,7 @@ public class World {
                     contactListener.preSolve(newContact);
                 data.addContact(newContact);
                 if (newContact.doCollision) {
-                    fixtureA.replace(fixtureB, newContact, contactResolver);
+                    fixtureA.replace(fixtureB, contactResolver);
                     if (activeProfiler) profiler.replaceContact.inc();
                 }
                 if (newContact.doCalculData) {

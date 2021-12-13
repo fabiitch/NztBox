@@ -3,6 +3,7 @@ package com.nzt.box.shape;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.nzt.box.bodies.Body;
 import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
@@ -34,12 +35,11 @@ public abstract class BodyShape<S extends Shape2D> {
 
     public abstract void scale(float scale);
 
-
     public abstract ShapeContact getContactVisitor(ContactResolver resolver);
 
     public abstract boolean testContact(ShapeContact visitor);
 
-    public abstract void replace(ShapeContact visitor, ContactFixture contactFixture);
+    public abstract void replace(ShapeContact visitor, Body bodyToReplace);
 
     public abstract void calculCollisionData(ShapeContact visitor, ContactFixture contactFixture);
 
