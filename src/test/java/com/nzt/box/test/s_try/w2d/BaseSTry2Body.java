@@ -18,7 +18,7 @@ import com.nzt.box.shape.RectangleShape;
 import com.nzt.box.test.s_try.base.BaseBox2DSTry;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.debug.hud.core.HudDebug;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 
 public abstract class BaseSTry2Body<S1 extends BodyShape, S2 extends BodyShape> extends BaseBox2DSTry {
 

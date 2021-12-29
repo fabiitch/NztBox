@@ -2,7 +2,7 @@ package com.nzt.box.test.s_try.w2d.shapes;
 
 import com.badlogic.gdx.math.Circle;
 import com.nzt.box.shape.CircleShape;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 
 public class STryCirleBodyShape extends BaseSTryBodyShape<CircleShape> {
 

@@ -8,7 +8,7 @@ import com.nzt.box.test.mock.ContactListenerMock;
 import com.nzt.box.test.runnable.BaseRunnableBoxTest;
 import com.nzt.gdx.test.st.tester.conditions.TestCondition;
 import com.nzt.gdx.test.unit.math.vectors.VTestUtils;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

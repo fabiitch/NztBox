@@ -7,7 +7,7 @@ import com.nzt.box.shape.BodyShape;
 import com.nzt.box.test.s_try.base.BaseBox2DSTry;
 import com.nzt.gdx.debug.hud.core.HudDebug;
 import com.nzt.gdx.math.vectors.V2;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 
 public abstract class BaseSTryOneBodyBouncing extends BaseBox2DSTry {
     protected Body body;

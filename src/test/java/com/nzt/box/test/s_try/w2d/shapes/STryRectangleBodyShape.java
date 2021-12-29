@@ -2,7 +2,7 @@ package com.nzt.box.test.s_try.w2d.shapes;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.nzt.box.shape.RectangleShape;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 
 public class STryRectangleBodyShape extends BaseSTryBodyShape<RectangleShape> {
     public STryRectangleBodyShape(FastTesterMain main) {

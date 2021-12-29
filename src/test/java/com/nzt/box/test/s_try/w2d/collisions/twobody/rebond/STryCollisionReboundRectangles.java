@@ -1,7 +1,7 @@
 package com.nzt.box.test.s_try.w2d.collisions.twobody.rebond;
 
 import com.nzt.box.shape.RectangleShape;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 
 public class STryCollisionReboundRectangles extends BaseSTryCollisionRebound<RectangleShape, RectangleShape> {
     public STryCollisionReboundRectangles(FastTesterMain main) {

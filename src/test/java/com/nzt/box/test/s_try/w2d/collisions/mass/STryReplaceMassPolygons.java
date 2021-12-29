@@ -3,7 +3,7 @@ package com.nzt.box.test.s_try.w2d.collisions.mass;
 import com.badlogic.gdx.math.Polygon;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.PolygonShape;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 
 public class STryReplaceMassPolygons extends BaseSTryReplaceMassBodies {
     public STryReplaceMassPolygons(FastTesterMain main) {

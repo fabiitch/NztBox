@@ -3,7 +3,7 @@ package com.nzt.box.test;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.nzt.gdx.main.AbstractMain;
-import com.nzt.gdx.test.s_try.NztSTryListStarter;
+import com.nzt.gdx.test.s_try.ScreenTryListStarter;
 import com.nzt.gdx.test.utils.screen_selector.screen.ScreenSelectorTestMain;
 
 /**
@@ -33,7 +33,7 @@ public class BoxTestListStarter {
     }
 
     public static void main(String[] args) {
-        startLwjgl3(new ScreenSelectorTestMain(NztSTryListStarter.class,
+        startLwjgl3(new ScreenSelectorTestMain(ScreenTryListStarter.class,
                         "com.nzt.box.test"),
                 witdh, height);
     }

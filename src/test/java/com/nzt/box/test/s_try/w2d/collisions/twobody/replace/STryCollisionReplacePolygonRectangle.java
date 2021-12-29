@@ -2,7 +2,7 @@ package com.nzt.box.test.s_try.w2d.collisions.twobody.replace;
 
 import com.nzt.box.shape.PolygonShape;
 import com.nzt.box.shape.RectangleShape;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 
 public class STryCollisionReplacePolygonRectangle extends BaseSTryCollisionReplace<PolygonShape, RectangleShape> {
     public STryCollisionReplacePolygonRectangle(FastTesterMain main) {

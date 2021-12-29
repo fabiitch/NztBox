@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.*;
 import com.nzt.box.test.s_try.utils.BoxCamera2DController;
 import com.nzt.gdx.math.shapes.Segment;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 import com.nzt.gdx.test.utils.archi.screens.ScreenTry;
 import com.nzt.gdx.test.utils.screen_selector.TestScreen;
 

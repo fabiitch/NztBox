@@ -4,7 +4,7 @@ import com.nzt.box.test.s_try.utils.BoxDebugUtils;
 import com.nzt.box.test.s_try.w2d.BaseSTryMultipleBody;
 import com.nzt.gdx.debug.hud.HudDebugPosition;
 import com.nzt.gdx.math.vectors.V2;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 import com.nzt.gdx.test.utils.screen_selector.TestScreen;
 
 @TestScreen(group = "2D.collision.forces.multiples")

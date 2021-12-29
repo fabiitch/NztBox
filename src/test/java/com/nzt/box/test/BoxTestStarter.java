@@ -1,7 +1,7 @@
 package com.nzt.box.test;
 
 import com.nzt.box.test.s_try.w2d.math.STryQuadTreeAddRemove;
-import com.nzt.gdx.test.utils.archi.mains.mains.SingleScreenTestMain;
+import com.nzt.gdx.test.utils.archi.mains.one.SingleScreenTestMain;
 
 /**
  * Use it for Test one class with screenTestClass
