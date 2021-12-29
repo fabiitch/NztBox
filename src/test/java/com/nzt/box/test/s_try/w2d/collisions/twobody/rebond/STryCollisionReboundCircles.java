@@ -7,7 +7,7 @@ import com.nzt.box.shape.CircleShape;
 import com.nzt.gdx.math.AngleUtils;
 import com.nzt.gdx.math.shapes.utils.CircleUtils;
 import com.nzt.gdx.math.vectors.V2;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 
 public class STryCollisionReboundCircles extends BaseSTryCollisionRebound<CircleShape, CircleShape> {
 

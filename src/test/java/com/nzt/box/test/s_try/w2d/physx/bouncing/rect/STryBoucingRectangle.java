@@ -5,7 +5,7 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.RectangleShape;
 import com.nzt.box.test.s_try.w2d.physx.bouncing.BaseSTryOneBodyBouncing;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 import com.nzt.gdx.test.utils.screen_selector.TestScreen;
 
 @TestScreen(group = "2D.physx.bouncing.rectangle")

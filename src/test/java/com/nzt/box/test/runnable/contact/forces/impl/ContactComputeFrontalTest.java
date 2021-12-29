@@ -1,7 +1,7 @@
 package com.nzt.box.test.runnable.contact.forces.impl;
 
 import com.nzt.box.test.runnable.contact.forces.BaseComputeContactTest;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

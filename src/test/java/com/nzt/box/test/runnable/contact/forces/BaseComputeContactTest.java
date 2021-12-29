@@ -8,7 +8,7 @@ import com.nzt.box.contact.data.ContactFixture;
 import com.nzt.box.test.runnable.BaseRunnableBoxTest;
 import com.nzt.box.test.mock.ContactListenerMock;
 import com.nzt.gdx.test.st.tester.conditions.PredicateSuccess;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 

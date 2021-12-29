@@ -9,7 +9,7 @@ import com.nzt.box.shape.PolygonShape;
 import com.nzt.box.test.s_try.w2d.BaseSTry2Body;
 import com.nzt.gdx.input.impl.simple.KeysInputHandler;
 import com.nzt.gdx.math.shapes.builders.PolygonBuilder;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 import com.nzt.gdx.test.utils.screen_selector.TestScreen;
 
 @TestScreen(group = "2D.collision.rotation")

@@ -2,7 +2,7 @@ package com.nzt.box.test.runnable.contact.forces.impl;
 
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.test.runnable.contact.forces.BaseComputeContactTest;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 import org.junit.jupiter.api.Test;
 
 public class ContactReboundComputeTest extends BaseComputeContactTest {

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.nzt.box.debug.render.g2d.Box2DDebugRenderer;
 import com.nzt.box.test.s_try.utils.BoxCamera2DController;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 
 public abstract class BaseBox2DSTry extends BaseBoxSTry {
     public BoxCamera2DController inputCamera2DMover;

@@ -11,7 +11,7 @@ import com.nzt.box.shape.CircleShape;
 import com.nzt.box.test.s_try.utils.BoxSTHelp;
 import com.nzt.box.world.World;
 import com.nzt.gdx.test.st.tester.UnitTestScreen;
-import com.nzt.gdx.test.utils.archi.mains.mains.FastTesterMain;
+import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
 import org.junit.jupiter.api.BeforeEach;
 
 public class BaseRunnableBoxTest extends UnitTestScreen {
