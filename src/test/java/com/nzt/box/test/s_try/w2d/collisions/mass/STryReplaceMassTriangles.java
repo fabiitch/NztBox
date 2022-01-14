@@ -3,7 +3,7 @@ package com.nzt.box.test.s_try.w2d.collisions.mass;
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.TriangleShape;
 import com.nzt.gdx.math.shapes.Triangle;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 
 public class STryReplaceMassTriangles extends BaseSTryReplaceMassBodies {
     public STryReplaceMassTriangles(FastTesterMain main) {

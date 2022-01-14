@@ -5,7 +5,7 @@ import com.nzt.box.bodies.Body;
 import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.PolygonShape;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 
 public class STryBoudingBoxRotation extends BaseSTryBoudingBox {
     public STryBoudingBoxRotation(FastTesterMain main) {

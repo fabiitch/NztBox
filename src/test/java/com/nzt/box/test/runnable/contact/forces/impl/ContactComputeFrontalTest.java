@@ -1,7 +1,7 @@
 package com.nzt.box.test.runnable.contact.forces.impl;
 
 import com.nzt.box.test.runnable.contact.forces.BaseComputeContactTest;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ public class ContactComputeFrontalTest extends BaseComputeContactTest {
     }
 
     @BeforeEach
-    public void init() {
+    public void setup() {
         position1 = v(-200, 0);
         velocity1 = v(100, 0);
 

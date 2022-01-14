@@ -1,7 +1,7 @@
 package com.nzt.box.test.runnable.contact.bodytype;
 
 import com.nzt.box.bodies.BodyType;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 
 public class StaticBodyContactTest extends BaseBodyTypeContactTest {
 

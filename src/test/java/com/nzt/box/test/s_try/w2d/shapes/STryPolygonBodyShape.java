@@ -2,7 +2,7 @@ package com.nzt.box.test.s_try.w2d.shapes;
 
 import com.badlogic.gdx.math.Polygon;
 import com.nzt.box.shape.PolygonShape;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 
 public class STryPolygonBodyShape extends BaseSTryBodyShape<PolygonShape> {
     public STryPolygonBodyShape(FastTesterMain main) {
