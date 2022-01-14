@@ -1,7 +1,7 @@
 package com.nzt.box.test.s_try.w2d.collisions.twobody.detection;
 
 import com.nzt.box.shape.CircleShape;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 
 public class STryCollisionDetectionCircles extends BaseSTryCollisionDetection<CircleShape, CircleShape> {
 

@@ -2,7 +2,7 @@ package com.nzt.box.test.s_try.w2d.collisions.mass;
 
 import com.nzt.box.shape.BodyShape;
 import com.nzt.box.shape.RectangleShape;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 
 public class STryReplaceMassRectangles extends BaseSTryReplaceMassBodies {
     public STryReplaceMassRectangles(FastTesterMain main) {

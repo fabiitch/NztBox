@@ -1,7 +1,7 @@
 package com.nzt.box.test.s_try.w2d.collisions.twobody.forces.ball;
 
 import com.badlogic.gdx.math.Vector2;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 
 public class STryBallsTwoDirCollision2 extends BaseSTry2BallCollision {
     public STryBallsTwoDirCollision2(FastTesterMain main) {

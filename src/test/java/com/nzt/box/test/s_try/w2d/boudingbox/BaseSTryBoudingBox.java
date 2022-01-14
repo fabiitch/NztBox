@@ -2,7 +2,7 @@ package com.nzt.box.test.s_try.w2d.boudingbox;
 
 import com.nzt.box.debug.BoxDebugSettings;
 import com.nzt.box.test.s_try.base.BaseBox2DSTry;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 import com.nzt.gdx.test.utils.screen_selector.TestScreen;
 
 @TestScreen(group = "2D.boudingbox")

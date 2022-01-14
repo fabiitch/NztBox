@@ -6,7 +6,7 @@ import com.nzt.box.bodies.BodyType;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.box.shape.CircleShape;
 import com.nzt.box.shape.RectangleShape;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 
 public class STryBoudingBoxBodies extends BaseSTryBoudingBox {
     public STryBoudingBoxBodies(FastTesterMain main) {

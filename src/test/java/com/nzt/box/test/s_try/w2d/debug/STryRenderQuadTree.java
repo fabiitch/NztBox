@@ -10,7 +10,7 @@ import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.math.quadtree.QuadTreeContainer;
 import com.nzt.gdx.input.impl.simple.SimpleClickInputHandler;
 import com.nzt.gdx.test.utils.GdxTestUtils;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 import com.nzt.gdx.test.utils.archi.screens.ScreenTry;
 import com.nzt.gdx.test.utils.screen_selector.TestScreen;
 

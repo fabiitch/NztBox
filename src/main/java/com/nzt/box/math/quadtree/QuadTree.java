@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.nzt.box.bodies.Fixture;
 import com.nzt.gdx.math.shapes.utils.RectangleUtils;
 import com.nzt.gdx.utils.arrays.ArrayUtils;
+import com.nzt.gdx.utils.arrays.TabUtils;
 
 import java.util.Arrays;
 
@@ -147,7 +148,7 @@ public class QuadTree implements Pool.Poolable {
         arrayTmp.addAll(values, 0, this.valuesCount);
 
         this.valuesCount = 0;
-        ArrayUtils.clearValues(values);
+        TabUtils.clearValues(values);
 
         for (int i = 0, n = arrayTmp.size; i < n; i++) { //TODO
             addFixture(arrayTmp.get(i));
@@ -221,7 +222,7 @@ public class QuadTree implements Pool.Poolable {
         if (values.length > container.maxValues) {
             values = new Fixture[container.maxValues];
         } else {
-            ArrayUtils.clearValues(values);
+            TabUtils.clearValues(values);
         }
         valuesCount = 0;
     }
@@ -235,7 +236,7 @@ public class QuadTree implements Pool.Poolable {
             }
         }
         if (index >= 0) {
-            ArrayUtils.removeAndDecal(values, index);
+            TabUtils.removeAndDecal(values, index);
             valuesCount--;
         }
         if (depth > 0 && parent.shouldRegroup()) {

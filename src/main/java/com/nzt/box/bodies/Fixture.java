@@ -7,7 +7,7 @@ import com.nzt.box.contact.detector.ContactResolver;
 import com.nzt.box.contact.detector.ShapeContact;
 import com.nzt.box.math.quadtree.QuadTree;
 import com.nzt.box.shape.BodyShape;
-import com.nzt.gdx.utils.arrays.GdxArrayUtils;
+import com.nzt.gdx.utils.arrays.ArrayUtils;
 
 public class Fixture<S extends BodyShape> {
     public boolean active = true;
@@ -75,7 +75,7 @@ public class Fixture<S extends BodyShape> {
         for (int i = 0, n = contacts.size; i < n; i++) {
             ContactFixture contactFixture = contacts.get(i);
             Fixture other = contactFixture.getOther(this);
-            if (checkAlreadyPresent) GdxArrayUtils.addIfNotPresent(fixtureArray, other);
+            if (checkAlreadyPresent) ArrayUtils.addIfNotPresent(fixtureArray, other);
             else
                 fixtureArray.add(other);
         }

@@ -2,7 +2,7 @@ package com.nzt.box.test.s_try.w2d.boudingbox;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.nzt.gdx.test.utils.archi.mains.dev.FastTesterMain;
+import com.nzt.gdx.mains.FastTesterMain;
 
 public class STryBoudingBoxFixture extends BaseSTryBoudingBox {
     public STryBoudingBoxFixture(FastTesterMain main) {
